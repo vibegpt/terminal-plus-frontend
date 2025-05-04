@@ -1,0 +1,212 @@
+[
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Premium Lounge",
+    "Type": "Long-Stay Lounge",
+    "LocationDescription": "Upper Level, Gate D Concourse",
+    "PriceCategory": "$$$$",
+    "OpeningHours": "24 Hours",
+    "Tags": ["WiFi", "Food", "Shower", "Quiet"]
+  },
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Coffee Shop",
+    "Type": "Cafe (24 Hour)",
+    "LocationDescription": "Near Gate B12",
+    "PriceCategory": "$$",
+    "OpeningHours": "24 Hours",
+    "Tags": ["WiFi", "Coffee", "Snacks"]
+  },
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Food Court",
+    "Type": "Food & Dining",
+    "LocationDescription": "Main Concourse, Level 2",
+    "PriceCategory": "$$",
+    "OpeningHours": "6am - 10pm",
+    "Tags": ["Food", "Variety", "Family Friendly"]
+  },
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Duty-Free Shopping",
+    "Type": "Shopping",
+    "LocationDescription": "Central Area, Near Gates A-C",
+    "PriceCategory": "$$$",
+    "OpeningHours": "7am - 11pm",
+    "Tags": ["Luxury", "Gifts", "Electronics"]
+  },
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Business Center",
+    "Type": "Working Space",
+    "LocationDescription": "Level 3, Near Gate F",
+    "PriceCategory": "$$$",
+    "OpeningHours": "6am - 10pm",
+    "Tags": ["WiFi", "Printing", "Meeting Rooms"]
+  },
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Sleep Pods",
+    "Type": "Sleep Pod",
+    "LocationDescription": "Quiet Zone, Gate E Area",
+    "PriceCategory": "$$$",
+    "OpeningHours": "24 Hours",
+    "Tags": ["Rest", "Privacy", "Hourly Rate"]
+  },
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Shower Facilities",
+    "Type": "Shower",
+    "LocationDescription": "Satellite Terminal, Gate E4",
+    "PriceCategory": "$$",
+    "OpeningHours": "24 Hours",
+    "Tags": ["Refresh", "Toiletries Provided"]
+  },
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Entertainment Zone",
+    "Type": "Entertainment",
+    "LocationDescription": "Terminal 2, Center Area",
+    "PriceCategory": "$",
+    "OpeningHours": "8am - 9pm",
+    "Tags": ["Games", "Movies", "Family Friendly"]
+  },
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Express Dining",
+    "Type": "Fast Food",
+    "LocationDescription": "Near Gate A4",
+    "PriceCategory": "$",
+    "OpeningHours": "5am - 11pm",
+    "Tags": ["Quick Service", "To Go"]
+  },
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Relaxation Area",
+    "Type": "Quiet Zone",
+    "LocationDescription": "Level 2, Near Gate D7",
+    "PriceCategory": "Free",
+    "OpeningHours": "24 Hours",
+    "Tags": ["Comfortable Seating", "Charging Ports"]
+  },
+  {
+    "Airport": "SYD",
+    "Terminal": "T1",
+    "Name": "Luggage Services",
+    "Type": "Luggage Storage",
+    "LocationDescription": "Arrivals Level",
+    "PriceCategory": "$$",
+    "OpeningHours": "6am - 10pm",
+    "Tags": ["Storage", "Wrapping"]
+  },
+  {
+    "Airport": "SIN",
+    "Terminal": "T3",
+    "Name": "Butterfly Garden",
+    "Type": "Entertainment",
+    "LocationDescription": "Transit Area, Level 2",
+    "PriceCategory": "Free",
+    "OpeningHours": "24 Hours",
+    "Tags": ["Nature", "Relaxation", "Family Friendly"]
+  },
+  {
+    "Airport": "SIN",
+    "Terminal": "T3",
+    "Name": "Ambassador Transit Lounge",
+    "Type": "Long-Stay Lounge",
+    "LocationDescription": "Terminal 3, Transit Area, Level 3",
+    "PriceCategory": "$$$",
+    "OpeningHours": "24 Hours",
+    "Tags": ["Shower", "Nap", "Massage", "Food"]
+  },
+  {
+    "Airport": "SIN",
+    "Terminal": "T3",
+    "Name": "Snooze Lounge",
+    "Type": "Sleep Pod",
+    "LocationDescription": "Transit Area, Level 3",
+    "PriceCategory": "Free",
+    "OpeningHours": "24 Hours",
+    "Tags": ["Rest", "Quiet"]
+  },
+  {
+    "Airport": "SIN",
+    "Terminal": "T3",
+    "Name": "Movie Theatre",
+    "Type": "Entertainment",
+    "LocationDescription": "Transit Area, Level 3",
+    "PriceCategory": "Free",
+    "OpeningHours": "24 Hours",
+    "Tags": ["Movies", "Relaxation"]
+  },
+  {
+    "Airport": "SIN",
+    "Terminal": "T3",
+    "Name": "Koi Pond",
+    "Type": "Entertainment",
+    "LocationDescription": "Terminal 3, Departure Hall",
+    "PriceCategory": "Free",
+    "OpeningHours": "24 Hours",
+    "Tags": ["Nature", "Relaxation"]
+  },
+  {
+    "Airport": "LHR",
+    "Terminal": "T5",
+    "Name": "Fortnum & Mason Bar",
+    "Type": "Bar & Lounge",
+    "LocationDescription": "After Security, Level 5",
+    "PriceCategory": "$$$",
+    "OpeningHours": "7am - 11pm",
+    "Tags": ["Drinks", "Snacks", "Upscale"]
+  },
+  {
+    "Airport": "LHR",
+    "Terminal": "T5",
+    "Name": "Gordon Ramsay Plane Food",
+    "Type": "Food & Dining",
+    "LocationDescription": "After Security, Level 5",
+    "PriceCategory": "$$$",
+    "OpeningHours": "5am - 10pm",
+    "Tags": ["Fine Dining", "Pre-Flight Picnic"]
+  },
+  {
+    "Airport": "LHR",
+    "Terminal": "T5",
+    "Name": "No1 Lounge Heathrow",
+    "Type": "Long-Stay Lounge",
+    "LocationDescription": "Terminal 5, After Security",
+    "PriceCategory": "$$$",
+    "OpeningHours": "6am - 10pm",
+    "Tags": ["Food", "Drinks", "Newspapers", "Wifi"]
+  },
+  {
+    "Airport": "LHR",
+    "Terminal": "T5",
+    "Name": "Aspire Lounge",
+    "Type": "Long-Stay Lounge",
+    "LocationDescription": "Terminal 5, Level 3",
+    "PriceCategory": "$$$",
+    "OpeningHours": "5am - 10:30pm",
+    "Tags": ["Food", "Drinks", "Shower"]
+  },
+  {
+    "Airport": "LHR",
+    "Terminal": "T5",
+    "Name": "World Duty Free",
+    "Type": "Shopping",
+    "LocationDescription": "After Security, Main Concourse",
+    "PriceCategory": "$$$",
+    "OpeningHours": "6am - 10pm",
+    "Tags": ["Luxury", "Beauty", "Liquor"]
+  }
+]
