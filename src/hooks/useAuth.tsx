@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState, useEffect } from "react";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/lib/supabase";
+import supabase from "@/lib/supabase";
 import { User as SupabaseUser } from "@supabase/supabase-js";
 
 // Simplified auth context focusing primarily on Supabase auth

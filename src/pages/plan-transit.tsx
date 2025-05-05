@@ -6,7 +6,6 @@ export default function PlanTransit() {
   const [vibe, setVibe] = useState("");
   const [transitAirport, setTransitAirport] = useState<string | null>(null);
 
-  // Get transit airport from localStorage - in a real app, this would likely come from the URL or state
   useEffect(() => {
     const transitData = localStorage.getItem("transitData");
     if (transitData) {
@@ -14,11 +13,9 @@ export default function PlanTransit() {
         const parsedData = JSON.parse(transitData);
         setTransitAirport(parsedData.transitAirport);
       } catch (e) {
-        // Invalid data, redirect to home
         setLocation("/");
       }
     } else {
-      // No transit data, redirect to home
       setLocation("/");
     }
   }, [setLocation]);
@@ -29,15 +26,25 @@ export default function PlanTransit() {
       return;
     }
 
-    // Store the selected vibe with transit data
-    if (transitAirport) {
-      localStorage.setItem("transitData", JSON.stringify({
-        transitAirport,
-        vibe,
-        transitMode: true
-      }));
+    // ✅ GA4 vibe selection tracking
+    if (window.gtag) {
+      window.gtag("event", "select_vibe", {
+        event_category: "Transit",
+        event_label: vibe,
+        value: transitAirport,
+      });
+    }
 
-      // Navigate to explore terminal
+    if (transitAirport) {
+      localStorage.setItem(
+        "transitData",
+        JSON.stringify({
+          transitAirport,
+          vibe,
+          transitMode: true,
+        })
+      );
+
       setLocation("/simplified-explore");
     }
   };
@@ -60,46 +67,22 @@ export default function PlanTransit() {
         </p>
 
         <div className="flex flex-wrap justify-center gap-4 mb-8">
-          <button
-            onClick={() => setVibe("Relax")}
-            className={`px-6 py-3 rounded-lg border-2 transition-colors ${
-              vibe === "Relax" 
-                ? "bg-blue-600 text-white border-blue-600" 
-                : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
-            }`}
-          >
-            🛋️ Relax
-          </button>
-          <button
-            onClick={() => setVibe("Explore")}
-            className={`px-6 py-3 rounded-lg border-2 transition-colors ${
-              vibe === "Explore" 
-                ? "bg-blue-600 text-white border-blue-600" 
-                : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
-            }`}
-          >
-            🛍️ Explore
-          </button>
-          <button
-            onClick={() => setVibe("Work")}
-            className={`px-6 py-3 rounded-lg border-2 transition-colors ${
-              vibe === "Work" 
-                ? "bg-blue-600 text-white border-blue-600" 
-                : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
-            }`}
-          >
-            🧑‍💻 Work
-          </button>
-          <button
-            onClick={() => setVibe("Quick")}
-            className={`px-6 py-3 rounded-lg border-2 transition-colors ${
-              vibe === "Quick" 
-                ? "bg-blue-600 text-white border-blue-600" 
-                : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
-            }`}
-          >
-            ⏩ Quick
-          </button>
+          {["Relax", "Explore", "Work", "Quick"].map((option) => (
+            <button
+              key={option}
+              onClick={() => setVibe(option)}
+              className={`px-6 py-3 rounded-lg border-2 transition-colors ${
+                vibe === option
+                  ? "bg-blue-600 text-white border-blue-600"
+                  : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
+              }`}
+            >
+              {option === "Relax" && "🛋️ Relax"}
+              {option === "Explore" && "🛍️ Explore"}
+              {option === "Work" && "🧑‍💻 Work"}
+              {option === "Quick" && "⏩ Quick"}
+            </button>
+          ))}
         </div>
 
         <button

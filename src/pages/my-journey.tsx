@@ -16,32 +16,39 @@ export default function MyJourney() {
   const [plan, setPlan] = useState<JourneyStop[]>([]);
 
   useEffect(() => {
-    // Get journey plan from session storage
     const journeyPlanData = sessionStorage.getItem("journeyPlan");
     if (!journeyPlanData || journeyPlanData.length === 0) {
-      // If no plan was passed, bounce back to home
       setLocation("/");
     } else {
-      setPlan(JSON.parse(journeyPlanData));
+      const parsed = JSON.parse(journeyPlanData);
+      setPlan(parsed);
+      window.gtag?.("event", "journey_plan_viewed", {
+        num_stops: parsed.length
+      });
     }
   }, [setLocation]);
 
   const handleStartJourney = () => {
-    // Navigate to the start journey page
+    window.gtag?.("event", "start_journey_clicked", {
+      num_stops: plan.length
+    });
     setLocation("/start-journey");
   };
-  
+
   const handleSaveJourney = async () => {
+    window.gtag?.("event", "save_journey_clicked", {
+      num_stops: plan.length
+    });
+
     try {
-      // Get journey data from session storage
       const journeyDataStr = sessionStorage.getItem("tempJourneyData");
       if (!journeyDataStr) {
         alert("No journey data found!");
         return;
       }
-      
+
       const journeyData = JSON.parse(journeyDataStr);
-      
+
       const response = await fetch("/api/saveTerminalJourneyPlan", {
         method: "POST",
         headers: {
@@ -119,7 +126,7 @@ export default function MyJourney() {
           >
             <Play className="h-4 w-4 mr-2" /> Start Journey
           </Button>
-          
+
           <Button
             onClick={handleSaveJourney}
             className="bg-gradient-to-r from-green-600 to-emerald-600 py-3 px-6 text-lg"
@@ -130,15 +137,25 @@ export default function MyJourney() {
 
         <div className="mt-4 flex justify-center space-x-4">
           <Button
-            onClick={() => setLocation("/simplified-journey-input")}
+            onClick={() => {
+              window.gtag?.("event", "plan_new_journey_clicked", {
+                source: "my_journey"
+              });
+              setLocation("/simplified-journey-input");
+            }}
             variant="link"
             className="text-primary-600"
           >
             Plan a New Journey
           </Button>
-          
+
           <Button
-            onClick={() => setLocation("/saved-journeys")}
+            onClick={() => {
+              window.gtag?.("event", "view_saved_journeys_clicked", {
+                source: "my_journey"
+              });
+              setLocation("/saved-journeys");
+            }}
             variant="link"
             className="text-primary-600"
           >

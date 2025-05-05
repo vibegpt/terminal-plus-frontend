@@ -1,0 +1,8 @@
+node_modules
+dist
+.vite
+.env
+supabase/.temp
+supabase/functions/*/deno.json
+*.log
+.DS_Store

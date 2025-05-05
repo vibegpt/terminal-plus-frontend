@@ -1,5 +1,5 @@
 // fetchWithAuth.ts
-import { supabase } from "@/lib/supabase";
+import supabase from "@/lib/supabase";
 
 export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
   try {

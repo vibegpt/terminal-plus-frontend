@@ -8,8 +8,9 @@ import { cn, vibeOptions } from "@/lib/utils";
 import { Plane, ArrowRight, MoreHorizontal } from "lucide-react";
 import SimpleToast from "@/components/ui/SimpleToast";
 import { useSimpleToast } from "@/hooks/useSimpleToast";
-import { supabase } from "@/lib/supabase";
+import supabase from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
+import posthog from "posthog-js";
 
 export default function PlanJourneyPage() {
   const [_, setLocation] = useLocation();
@@ -25,31 +26,39 @@ export default function PlanJourneyPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    posthog.capture("journey_form_submitted", {
+      flightNumber,
+      origin,
+      destination,
+      transit,
+      departureTime,
+      selectedVibe,
+      isLoggedIn: !!user
+    });
+
     if (!user) {
       showToast("Please log in before saving a journey.", "error");
       return;
     }
-    
+
     if (!flightNumber || !origin || !destination || !selectedVibe || !departureTime) {
       showToast("Please fill in all required fields.", "error");
       return;
     }
-    
+
     try {
       setIsSubmitting(true);
       showToast("Saving your journey...", "loading");
-      
+
       const { data: sessionData } = await supabase.auth.getSession();
-      
+
       if (!sessionData?.session) {
-        console.log("No session found, redirecting to login");
         showToast("Please log in before saving a journey.", "error");
         setIsSubmitting(false);
         return;
       }
-      
-      // Log the journey data we're about to save
+
       const journeyData = {
         flight_number: flightNumber,
         origin,
@@ -58,12 +67,9 @@ export default function PlanJourneyPage() {
         selected_vibe: selectedVibe,
         departure_time: departureTime,
       };
-      console.log("Journey data:", journeyData);
-      
-      // Get the access token for API calls
+
       const token = sessionData.session.access_token;
-      
-      // API call with token
+
       const response = await fetch('/api/saveJourney', {
         method: 'POST',
         headers: {
@@ -72,22 +78,16 @@ export default function PlanJourneyPage() {
         },
         body: JSON.stringify(journeyData)
       });
-      
+
       if (!response.ok) {
         let errorText = await response.text();
         throw new Error(`API error (${response.status}): ${errorText}`);
       }
-      
-      const data = await response.json();
-      console.log("Journey save successful:", data);
-      
+
       clearToast();
-      
-      // Navigate to the success page
       setLocation("/journey-success");
-      
+
     } catch (error) {
-      console.error("Error saving journey:", error);
       showToast(`Failed to save journey: ${(error as Error).message || 'Unknown error'}`, "error");
     } finally {
       setIsSubmitting(false);
@@ -172,7 +172,7 @@ export default function PlanJourneyPage() {
             required
           />
         </div>
-        
+
         <div className="space-y-2">
           <Label>Journey Vibe</Label>
           <div className="grid grid-cols-2 gap-3">

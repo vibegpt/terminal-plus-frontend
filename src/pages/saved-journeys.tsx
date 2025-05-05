@@ -17,14 +17,16 @@ export default function SavedJourneys() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    window.gtag?.("event", "saved_journeys_viewed");
+
     async function loadJourneys() {
       try {
         const response = await fetch("/api/loadTerminalJourneys");
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const data = await response.json();
 
         if (data && data.success && data.journeys) {
@@ -42,10 +44,24 @@ export default function SavedJourneys() {
     loadJourneys();
   }, []);
 
-  const handleViewJourney = (journeyPlan: any[]) => {
-    // In wouter we can't pass state, so we'll use session storage
-    sessionStorage.setItem("journeyPlan", JSON.stringify(journeyPlan));
+  const handleViewJourney = (journey: SavedJourney) => {
+    window.gtag?.("event", "saved_journey_view_clicked", {
+      journey_id: journey.id,
+      airport: journey.airport,
+      terminal: journey.terminal,
+      num_stops: journey.plan?.length || 0,
+    });
+
+    sessionStorage.setItem("journeyPlan", JSON.stringify(journey.plan));
     setLocation("/my-journey");
+  };
+
+  const handlePlanNew = () => {
+    window.gtag?.("event", "plan_new_journey_clicked", {
+      source: "saved_journeys"
+    });
+
+    setLocation("/simplified-journey-input");
   };
 
   if (loading) {
@@ -66,7 +82,7 @@ export default function SavedJourneys() {
             No saved journeys found. Plan your next airport adventure!
           </p>
           <Button
-            onClick={() => setLocation("/simplified-journey-input")}
+            onClick={handlePlanNew}
             className="w-full bg-gradient-to-r from-purple-600 to-indigo-600"
           >
             Plan New Journey
@@ -98,7 +114,7 @@ export default function SavedJourneys() {
                 </div>
                 <div className="flex">
                   <Button
-                    onClick={() => handleViewJourney(journey.plan)}
+                    onClick={() => handleViewJourney(journey)}
                     className="bg-gradient-to-r from-green-600 to-emerald-600 text-sm"
                     size="sm"
                   >
@@ -116,7 +132,7 @@ export default function SavedJourneys() {
 
       <div className="text-center">
         <Button
-          onClick={() => setLocation("/simplified-journey-input")}
+          onClick={handlePlanNew}
           variant="outline"
           className="text-primary-600"
         >

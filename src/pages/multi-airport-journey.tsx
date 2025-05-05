@@ -21,7 +21,6 @@ type TripSegment = {
   plan: TripStop[];
 };
 
-// Example data for demonstration
 const sampleTripData: TripSegment[] = [
   {
     airport: "SYD",
@@ -29,21 +28,9 @@ const sampleTripData: TripSegment[] = [
     type: "Departure",
     vibe: "Relax",
     plan: [
-      {
-        Name: "The Coffee Club",
-        Type: "Cafe",
-        LocationDescription: "Near Gate 10"
-      },
-      {
-        Name: "Book & News",
-        Type: "Retail",
-        LocationDescription: "Near Gate 12"
-      },
-      {
-        Name: "Relaxation Lounge",
-        Type: "Lounge",
-        LocationDescription: "2nd Floor"
-      }
+      { Name: "The Coffee Club", Type: "Cafe", LocationDescription: "Near Gate 10" },
+      { Name: "Book & News", Type: "Retail", LocationDescription: "Near Gate 12" },
+      { Name: "Relaxation Lounge", Type: "Lounge", LocationDescription: "2nd Floor" }
     ]
   },
   {
@@ -52,21 +39,9 @@ const sampleTripData: TripSegment[] = [
     type: "Transit",
     vibe: "Explore",
     plan: [
-      {
-        Name: "Butterfly Garden",
-        Type: "Attraction",
-        LocationDescription: "Terminal Center"
-      },
-      {
-        Name: "Long Bar",
-        Type: "Restaurant",
-        LocationDescription: "Near Gate 20"
-      },
-      {
-        Name: "Duty Free Shopping",
-        Type: "Retail",
-        LocationDescription: "Main Concourse"
-      }
+      { Name: "Butterfly Garden", Type: "Attraction", LocationDescription: "Terminal Center" },
+      { Name: "Long Bar", Type: "Restaurant", LocationDescription: "Near Gate 20" },
+      { Name: "Duty Free Shopping", Type: "Retail", LocationDescription: "Main Concourse" }
     ]
   },
   {
@@ -75,27 +50,15 @@ const sampleTripData: TripSegment[] = [
     type: "Arrival/Final",
     vibe: "Quick",
     plan: [
-      {
-        Name: "Pret A Manger",
-        Type: "Cafe",
-        LocationDescription: "Arrivals Hall"
-      },
-      {
-        Name: "Currency Exchange",
-        Type: "Service",
-        LocationDescription: "Near Exit B"
-      }
+      { Name: "Pret A Manger", Type: "Cafe", LocationDescription: "Arrivals Hall" },
+      { Name: "Currency Exchange", Type: "Service", LocationDescription: "Near Exit B" }
     ]
   }
 ];
 
-// Generate a trip title based on the segments
 function generateTripTitle(tripData: TripSegment[]): string {
   const airports = tripData.map(segment => segment.airport);
-  if (airports.length === 0) return "New Trip";
-  
-  const airportString = airports.join(" ➔ ");
-  return `${airportString} (Trip)`;
+  return airports.length ? `${airports.join(" ➔ ")} (Trip)` : "New Trip";
 }
 
 export default function MultiAirportJourneyPage() {
@@ -108,26 +71,22 @@ export default function MultiAirportJourneyPage() {
   const { toast } = useToast();
   const { user } = useAuth();
   const [_, setLocation] = useLocation();
-  
+
   useEffect(() => {
-    // In a real app, this would fetch from an API or localStorage
-    // Simulating an API request with a timeout
     const timer = setTimeout(() => {
       setTripData(sampleTripData);
       setIsLoading(false);
     }, 1000);
-    
     return () => clearTimeout(timer);
   }, []);
-  
-  // Generate share link whenever tripId changes
+
   useEffect(() => {
     if (tripId) {
       const baseURL = window.location.origin;
       setShareLink(`${baseURL}/trip?id=${tripId}`);
     }
   }, [tripId]);
-  
+
   const handleSaveTrip = async () => {
     if (!tripData || tripData.length === 0) {
       toast({
@@ -149,25 +108,26 @@ export default function MultiAirportJourneyPage() {
     }
 
     setIsSaving(true);
-    
+
     try {
       const title = generateTripTitle(tripData);
-      
       const response = await apiRequest("POST", "/api/saveTripBundle", {
         title,
         journeys: tripData,
       });
-      
+
       const result = await response.json();
-      
+
       if (response.ok && result.success) {
-        // Store the trip ID from the response
         setTripId(result.tripId);
-        
-        // Generate share link
-        const baseURL = window.location.origin;
-        setShareLink(`${baseURL}/trip?id=${result.tripId}`);
-        
+
+        if (typeof gtag === "function") {
+          gtag("event", "save_multi_airport_trip", {
+            trip_id: result.tripId,
+            total_stops: tripData.reduce((sum, seg) => sum + seg.plan.length, 0),
+          });
+        }
+
         toast({
           title: "Success!",
           description: "Your multi-airport trip has been saved",
@@ -187,7 +147,16 @@ export default function MultiAirportJourneyPage() {
       setIsSaving(false);
     }
   };
-  
+
+  const handleViewModeChange = (mode: 'grid' | 'timeline') => {
+    setViewMode(mode);
+    if (typeof gtag === "function") {
+      gtag("event", "multi_airport_view_mode", {
+        mode,
+      });
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -196,43 +165,36 @@ export default function MultiAirportJourneyPage() {
       </div>
     );
   }
-  
+
   return (
     <div>
-      {/* View Toggle */}
       <div className="flex justify-center mb-4 gap-2">
         <button
-          onClick={() => setViewMode('grid')}
+          onClick={() => handleViewModeChange('grid')}
           className={`px-3 py-1 rounded-l-md flex items-center gap-1 ${
-            viewMode === 'grid' 
-              ? 'bg-blue-600 text-white' 
-              : 'bg-gray-200 text-gray-700'
+            viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
           }`}
         >
           <LayoutGrid className="w-4 h-4" />
           <span>Grid</span>
         </button>
         <button
-          onClick={() => setViewMode('timeline')}
+          onClick={() => handleViewModeChange('timeline')}
           className={`px-3 py-1 rounded-r-md flex items-center gap-1 ${
-            viewMode === 'timeline' 
-              ? 'bg-blue-600 text-white' 
-              : 'bg-gray-200 text-gray-700'
+            viewMode === 'timeline' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
           }`}
         >
           <ListFilter className="w-4 h-4" />
           <span>Timeline</span>
         </button>
       </div>
-      
-      {/* View Content */}
+
       {viewMode === 'grid' ? (
         <MultiAirportTrip tripData={tripData || []} />
       ) : (
         <MultiAirportTimeline tripData={tripData || []} />
       )}
-      
-      {/* Action Buttons */}
+
       <div className="text-center mt-6 pb-8 space-y-4">
         <button
           onClick={handleSaveTrip}
@@ -251,26 +213,30 @@ export default function MultiAirportJourneyPage() {
             </>
           )}
         </button>
-        
+
         <button
           onClick={() => window.print()}
           className="bg-blue-600 text-white py-2 px-6 rounded hover:bg-blue-700 transition text-sm flex items-center justify-center mx-auto gap-2"
         >
           🖨️ Print / Save as PDF
         </button>
-        
+
         {shareLink && (
           <div className="text-center mt-6 space-y-2">
             <button
               onClick={() => {
                 navigator.clipboard.writeText(shareLink);
+                if (typeof gtag === "function") {
+                  gtag('event', 'copy_trip_share_link', {
+                    method: 'button_click',
+                    trip_id: tripId || 'unknown',
+                  });
+                }
                 toast({
                   title: "Link copied!",
                   description: "The shareable trip link has been copied to your clipboard",
                   variant: "default",
                 });
-                
-                // For easy testing, also push to history
                 window.history.pushState({}, '', shareLink);
               }}
               className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition text-sm flex items-center justify-center mx-auto gap-2"

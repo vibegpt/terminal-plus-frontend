@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import supabase from "@/lib/supabase";
 import { User as SupabaseUser, Session as SupabaseSession } from '@supabase/supabase-js';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';

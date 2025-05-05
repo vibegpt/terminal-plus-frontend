@@ -7,7 +7,7 @@ import { cn, vibeOptions } from "@/lib/utils";
 import { Plane, ArrowRight, MoreHorizontal } from "lucide-react";
 import SimpleToast from "@/components/ui/SimpleToast";
 import { useSimpleToast } from "@/hooks/useSimpleToast";
-import { supabase } from "@/lib/supabase";
+import supabase from "@/lib/supabase";
 
 interface JourneyInputScreenProps {
   onJourneySaved: () => void;

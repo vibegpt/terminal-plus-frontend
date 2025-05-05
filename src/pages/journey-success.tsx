@@ -6,13 +6,21 @@ import { CheckCircle, Plane, History } from "lucide-react";
 export default function JourneySuccessPage() {
   const [_, setLocation] = useLocation();
 
-  // Auto-redirect after 5 seconds
+  // Fire GA4 event and auto-redirect after 5 seconds
   useEffect(() => {
+    // ✅ GA4 event for journey save success
+    if (window.gtag) {
+      window.gtag('event', 'save_journey_success', {
+        event_category: 'Journey',
+        event_label: 'Success',
+      });
+    }
+
     const timer = setTimeout(() => {
       setLocation("/your-journeys");
-    }, 5000); // 5000ms = 5 seconds
+    }, 5000);
 
-    return () => clearTimeout(timer); // Cleanup if component unmounts
+    return () => clearTimeout(timer);
   }, [setLocation]);
 
   const handlePlanAnother = () => {
@@ -29,15 +37,15 @@ export default function JourneySuccessPage() {
         <div className="w-24 h-24 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-2">
           <CheckCircle className="text-white h-14 w-14" />
         </div>
-        
+
         <h1 className="text-3xl font-bold text-slate-800 dark:text-white">
           🎉 Journey Saved Successfully!
         </h1>
-        
+
         <p className="text-lg text-slate-600 dark:text-slate-300">
           You're all set for a smoother airport experience.
         </p>
-        
+
         <p className="text-md text-slate-500 dark:text-slate-400">
           We've saved your flight details and vibe preferences for your upcoming journey.
         </p>
@@ -50,7 +58,7 @@ export default function JourneySuccessPage() {
             <Plane className="h-5 w-5 mr-2" />
             Plan Another Journey
           </Button>
-          
+
           <Button
             onClick={handleViewJourneys}
             variant="outline" 
@@ -60,7 +68,7 @@ export default function JourneySuccessPage() {
             View My Journeys
           </Button>
         </div>
-        
+
         <p className="text-sm text-slate-400 dark:text-slate-500 mt-6">
           Redirecting to your journeys in 5 seconds...
         </p>
