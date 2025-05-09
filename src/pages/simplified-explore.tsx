@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Coffee, Map, Moon, ShoppingBag, Tv, Utensils, Wifi } from "lucide-react";
+import { ArrowRight, Coffee, Map, Moon, ShoppingBag, Tv, Utensils, Wifi, Plane } from "lucide-react";
 import { resolveTerminal } from "@/utils/terminalGuesses";
+import { useAuth } from "@/hooks/useAuth";
+import { useSimpleToast } from "@/hooks/useSimpleToast";
+import SimpleToast from "@/components/ui/SimpleToast";
+import supabase from "@/lib/supabase";
 
 type JourneyData = {
   origin: string;
@@ -24,11 +28,16 @@ type TerminalAmenity = {
 
 export default function SimplifiedExplore() {
   const [_, setLocation] = useLocation();
+  const { user } = useAuth();
+  const { toast, showToast, clearToast } = useSimpleToast();
   const [journeyData, setJourneyData] = useState<JourneyData | null>(null);
   const [amenities, setAmenities] = useState<TerminalAmenity[]>([]);
   const [terminalName, setTerminalName] = useState("T1");
+  const [isSaving, setIsSaving] = useState(false);
   
   useEffect(() => {
+    // Debug log for loaded journey data
+    console.log("Loaded journey data (explore):", sessionStorage.getItem("tempJourneyData"));
     // Retrieve journey data from session storage
     const storedData = sessionStorage.getItem("tempJourneyData");
     if (storedData) {
@@ -99,6 +108,64 @@ export default function SimplifiedExplore() {
     setLocation("/simplified-journey-input");
   };
   
+  const handleSaveJourney = async () => {
+    if (!journeyData) {
+      showToast("No journey data available to save.", "error");
+      return;
+    }
+    try {
+      setIsSaving(true);
+      showToast("Saving your journey...", "loading");
+      const journeyDataToSave = {
+        flight_number: journeyData.flight_number,
+        origin: journeyData.origin,
+        destination: journeyData.destination,
+        transit: journeyData.transit || undefined,
+        selected_vibe: journeyData.selected_vibe,
+        departure_time: new Date().toISOString(),
+        anonymous_id: getAnonymousId(),
+      };
+      const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/saveJourney`;
+      console.log("Saving journey:", journeyDataToSave);
+      const response = await fetch(functionUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(journeyDataToSave)
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Error saving journey:", {
+          status: response.status,
+          statusText: response.statusText,
+          body: errorText
+        });
+        throw new Error(`Failed to save journey: ${errorText}`);
+      }
+      const data = await response.json();
+      console.log("Journey saved successfully:", data);
+      clearToast();
+      showToast("Journey saved successfully!", "success");
+      setLocation("/journey-success");
+    } catch (error) {
+      console.error("Error saving journey:", error);
+      showToast(`Failed to save journey: ${(error as Error).message || 'Unknown error'}`, "error");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+  
+  // Generate or retrieve an anonymous ID for the user
+  function getAnonymousId() {
+    let anonId = localStorage.getItem('anonymous_id');
+    if (!anonId) {
+      anonId = crypto.randomUUID();
+      localStorage.setItem('anonymous_id', anonId);
+    }
+    return anonId;
+  }
+  
   if (!journeyData) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -109,6 +176,7 @@ export default function SimplifiedExplore() {
   
   return (
     <div className="p-4 max-w-4xl mx-auto">
+      {toast && <SimpleToast message={toast.message} type={toast.type} />}
       <Button 
         variant="ghost" 
         className="mb-4" 
@@ -187,7 +255,16 @@ export default function SimplifiedExplore() {
         </div>
         
         <div className="text-center mt-6 space-y-4">
-          <Button onClick={handleViewMap} className="bg-gradient-to-r from-primary-600 to-secondary-600">
+          <Button 
+            onClick={handleSaveJourney}
+            className="w-full py-6 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-semibold text-lg"
+            disabled={isSaving}
+          >
+            <Plane className="h-5 w-5 mr-2" />
+            {isSaving ? "Saving Journey..." : "Save Journey"}
+          </Button>
+
+          <Button onClick={handleViewMap} className="w-full bg-gradient-to-r from-primary-600 to-secondary-600">
             <Map className="h-4 w-4 mr-2" /> View Terminal Map
           </Button>
           

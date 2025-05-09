@@ -53,22 +53,40 @@ export default function ComfortJourney() {
     setLocation("/my-journey");
   };
 
+  // Generate or retrieve an anonymous ID for the user
+  function getAnonymousId() {
+    let anonId = localStorage.getItem('anonymous_id');
+    if (!anonId) {
+      anonId = crypto.randomUUID();
+      localStorage.setItem('anonymous_id', anonId);
+    }
+    return anonId;
+  }
+
   const handleSaveJourney = async () => {
     try {
-      const response = await fetch("/api/saveTerminalJourneyPlan", {
+      const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/saveJourney`;
+      const payload = {
+        flight_number: journeyData?.flight_number || "Comfort",
+        origin: journeyData?.origin || "Unknown",
+        destination: journeyData?.destination || "Unknown",
+        transit: journeyData?.transit || undefined,
+        selected_vibe: journeyData?.selected_vibe || "Comfort",
+        departure_time: new Date().toISOString(),
+        anonymous_id: getAnonymousId(),
+        comfort_stops: comfortStops, // Only if you want to store this and your DB supports it
+      };
+      console.log("Journey data being saved:", payload);
+      const response = await fetch(functionUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          airport: journeyData?.origin || "Unknown",
-          terminal: terminalName,
-          journeyPlan: comfortStops
-        })
+        body: JSON.stringify(payload)
       });
       const result = await response.json();
       if (result.success) {
         alert("Journey saved successfully!");
         trackEvent("journey_saved", {
-          airport: journeyData?.origin,
+          origin: journeyData?.origin,
           terminal: terminalName
         });
       } else {
@@ -86,6 +104,10 @@ export default function ComfortJourney() {
     });
     setLocation("/simplified-journey-input");
   };
+
+  console.log("Loaded journey data:", sessionStorage.getItem("tempJourneyData"));
+
+  sessionStorage.removeItem("tempJourneyData");
 
   if (!journeyData) {
     return (

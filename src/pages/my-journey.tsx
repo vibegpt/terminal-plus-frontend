@@ -17,6 +17,7 @@ export default function MyJourney() {
 
   useEffect(() => {
     const journeyPlanData = sessionStorage.getItem("journeyPlan");
+    console.log("Loaded journey plan (my-journey):", journeyPlanData);
     if (!journeyPlanData || journeyPlanData.length === 0) {
       setLocation("/");
     } else {
@@ -27,6 +28,16 @@ export default function MyJourney() {
       });
     }
   }, [setLocation]);
+
+  // Generate or retrieve an anonymous ID for the user
+  function getAnonymousId() {
+    let anonId = localStorage.getItem('anonymous_id');
+    if (!anonId) {
+      anonId = crypto.randomUUID();
+      localStorage.setItem('anonymous_id', anonId);
+    }
+    return anonId;
+  }
 
   const handleStartJourney = () => {
     window.gtag?.("event", "start_journey_clicked", {
@@ -48,19 +59,23 @@ export default function MyJourney() {
       }
 
       const journeyData = JSON.parse(journeyDataStr);
-
-      const response = await fetch("/api/saveTerminalJourneyPlan", {
+      const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/saveJourney`;
+      const payload = {
+        flight_number: journeyData.flight_number || "Unknown",
+        origin: journeyData.origin || "Unknown",
+        destination: journeyData.destination || "Unknown",
+        transit: journeyData.transit || undefined,
+        selected_vibe: journeyData.selected_vibe || "Unknown",
+        departure_time: new Date().toISOString(),
+        anonymous_id: getAnonymousId(),
+        journey_plan: plan,
+      };
+      console.log("Saving journey (my-journey):", payload);
+      const response = await fetch(functionUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          airport: journeyData.origin || "Unknown",
-          terminal: journeyData.terminal || "T1",
-          journeyPlan: plan,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
       });
-
       const result = await response.json();
       if (result.success) {
         alert("Journey saved successfully!");

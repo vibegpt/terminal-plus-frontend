@@ -8,14 +8,11 @@ export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
     
     console.log("fetchWithAuth - session status:", token ? "Token found" : "No token");
 
-    // If no token is available, still make the request but without auth headers
-    // This allows fallback to session-based auth or endpoints that don't require auth
-    const authHeaders = token 
-      ? {
-          Authorization: `Bearer ${token}`,
-          ...(options.headers || {}),
-        }
-      : (options.headers || {});
+    // Use session token if available, otherwise use anon key
+    const authHeaders = {
+      Authorization: `Bearer ${token || import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+      ...(options.headers || {}),
+    };
 
     return fetch(url, {
       ...options,
@@ -25,9 +22,13 @@ export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
   } catch (error) {
     console.error("fetchWithAuth - Error getting auth token:", error);
     
-    // Still attempt the request without auth headers
+    // Use anon key as fallback
     return fetch(url, {
       ...options,
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        ...(options.headers || {}),
+      },
       credentials: "include", // Include cookies for session auth as fallback
     });
   }

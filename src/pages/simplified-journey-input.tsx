@@ -71,6 +71,10 @@ export default function SimplifiedJourneyInput() {
     setVibe(selectedVibe);
   };
 
+  // Clear previous journey data when starting a new journey
+  sessionStorage.removeItem("tempJourneyData");
+  console.log("Loaded journey data (input):", sessionStorage.getItem("tempJourneyData"));
+
   return (
     <div className="flex flex-col min-h-screen p-6 max-w-3xl mx-auto">
       <h1 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-primary-600 to-secondary-600 text-transparent bg-clip-text">

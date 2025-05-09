@@ -10,7 +10,22 @@ import SimpleToast from "@/components/ui/SimpleToast";
 import { useSimpleToast } from "@/hooks/useSimpleToast";
 import supabase from "@/lib/supabase";
 import { useAuth } from "@/hooks/useAuth";
-import posthog from "posthog-js";
+
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
+// Generate or retrieve an anonymous ID for the user
+function getAnonymousId() {
+  let anonId = localStorage.getItem('anonymous_id');
+  if (!anonId) {
+    anonId = crypto.randomUUID();
+    localStorage.setItem('anonymous_id', anonId);
+  }
+  return anonId;
+}
 
 export default function PlanJourneyPage() {
   const [_, setLocation] = useLocation();
@@ -27,20 +42,10 @@ export default function PlanJourneyPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    posthog.capture("journey_form_submitted", {
-      flightNumber,
-      origin,
-      destination,
-      transit,
-      departureTime,
-      selectedVibe,
-      isLoggedIn: !!user
+    window.gtag?.('event', 'plan_journey_click', {
+      event_category: 'Navigation',
+      event_label: 'Plan Journey Button',
     });
-
-    if (!user) {
-      showToast("Please log in before saving a journey.", "error");
-      return;
-    }
 
     if (!flightNumber || !origin || !destination || !selectedVibe || !departureTime) {
       showToast("Please fill in all required fields.", "error");
@@ -51,14 +56,6 @@ export default function PlanJourneyPage() {
       setIsSubmitting(true);
       showToast("Saving your journey...", "loading");
 
-      const { data: sessionData } = await supabase.auth.getSession();
-
-      if (!sessionData?.session) {
-        showToast("Please log in before saving a journey.", "error");
-        setIsSubmitting(false);
-        return;
-      }
-
       const journeyData = {
         flight_number: flightNumber,
         origin,
@@ -66,28 +63,28 @@ export default function PlanJourneyPage() {
         transit: transit || undefined,
         selected_vibe: selectedVibe,
         departure_time: departureTime,
+        anonymous_id: getAnonymousId(),
       };
+      console.log("Journey data:", journeyData);
 
-      const token = sessionData.session.access_token;
+      const { data, error: insertError } = await supabase.from("journeys").insert([journeyData]);
 
-      const response = await fetch('/api/saveJourney', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(journeyData)
-      });
+      if (insertError) {
+        console.error("Error saving journey:", insertError);
+        showToast(`Failed to save journey: ${(insertError as Error).message || 'Unknown error'}`, "error");
+      } else {
+        console.log("Journey save successful:", data);
+        clearToast();
+        setLocation("/journey-success");
 
-      if (!response.ok) {
-        let errorText = await response.text();
-        throw new Error(`API error (${response.status}): ${errorText}`);
+        window.gtag?.('set', { 'user_id': getAnonymousId() });
+        window.gtag?.('event', 'journey_saved', {
+          anonymous_id: getAnonymousId(),
+        });
       }
 
-      clearToast();
-      setLocation("/journey-success");
-
     } catch (error) {
+      console.error("Error saving journey:", error);
       showToast(`Failed to save journey: ${(error as Error).message || 'Unknown error'}`, "error");
     } finally {
       setIsSubmitting(false);

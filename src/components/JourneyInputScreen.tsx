@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSaveJourneyApi } from "@/hooks/useSaveJourneyApi";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,7 +13,6 @@ interface JourneyInputScreenProps {
 }
 
 export function JourneyInputScreen({ onJourneySaved }: JourneyInputScreenProps) {
-  const { saveJourneyMutation } = useSaveJourneyApi();
   const { toast, showToast, clearToast } = useSimpleToast();
   const [flightNumber, setFlightNumber] = useState('');
   const [origin, setOrigin] = useState('');
@@ -25,72 +23,51 @@ export function JourneyInputScreen({ onJourneySaved }: JourneyInputScreenProps) 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    showToast("Saving your journey...", "loading");
+
     try {
-      showToast("Saving your journey...", "loading");
-      
-      // Make sure we're logged in first
       const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-      console.log("Journey submit - session check:", sessionData?.session ? "Logged in" : "Not logged in");
-      
-      if (sessionError) {
-        console.error("Session check error:", sessionError);
-        showToast("Error checking login status. Please try again.", "error");
-        return;
-      }
-      
-      if (!sessionData?.session) {
-        console.log("No session found, redirecting to login");
+
+      if (sessionError || !sessionData?.session) {
         showToast("Please log in before saving a journey.", "error");
         return;
       }
-      
-      console.log("Journey submit - attempting to save journey");
-      
-      // Log the journey data we're about to save
+
+      const accessToken = sessionData.session.access_token;
+
       const journeyData = {
         flight_number: flightNumber,
         origin,
         destination,
-        transit: transit || undefined,
+        transit: transit || null,
         selected_vibe: selectedVibe,
-        departure_time: departureTime, // Added departure time
+        departure_time: departureTime,
       };
-      console.log("Journey data:", journeyData);
-      
-      // Get the access token for API calls
-      const token = sessionData.session.access_token;
-      
-      // Direct API call with token to troubleshoot
-      try {
-        const response = await fetch('/api/saveJourney', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify(journeyData)
-        });
-        
-        if (!response.ok) {
-          let errorText = await response.text();
-          throw new Error(`API error (${response.status}): ${errorText}`);
-        }
-        
-        const data = await response.json();
-        console.log("Journey submit - direct API call successful:", data);
-        
-        clearToast();
-        showToast("Journey saved successfully!", "success");
-        onJourneySaved();
-      } catch (apiError) {
-        console.error("Direct API call error:", apiError);
-        showToast(`API error: ${(apiError as Error).message}`, "error");
-        return;
+
+      const response = await fetch('/functions/v1/saveJourney', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+        body: JSON.stringify(journeyData)
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Server responded with ${response.status}: ${errorText}`);
       }
-    } catch (error) {
-      console.error("Error saving journey:", error);
-      showToast(`Failed to save journey: ${(error as Error).message || 'Unknown error'}`, "error");
+
+      const result = await response.json();
+      console.log("Journey saved:", result);
+
+      clearToast();
+      showToast("Journey saved successfully!", "success");
+      onJourneySaved();
+    } catch (error: any) {
+      console.error("Save journey error:", error);
+      showToast(`Error: ${error.message || "Unexpected error"}`, "error");
     }
   };
 
@@ -159,7 +136,7 @@ export function JourneyInputScreen({ onJourneySaved }: JourneyInputScreenProps) 
             />
           </div>
         </div>
-        
+
         <div className="flex flex-col space-y-2">
           <label className="text-slate-600 dark:text-slate-300">Departure Date & Time</label>
           <input
@@ -194,10 +171,9 @@ export function JourneyInputScreen({ onJourneySaved }: JourneyInputScreenProps) 
           </div>
         </div>
 
-        <Button 
-          type="submit" 
+        <Button
+          type="submit"
           className="w-full py-6 mt-6 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-semibold"
-          disabled={saveJourneyMutation.isPending}
         >
           <Plane className="h-5 w-5 mr-2" />
           Save Journey
