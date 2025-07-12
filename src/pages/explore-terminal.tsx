@@ -1,145 +1,176 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useRoute } from "wouter";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import amenitiesData from "@/data/amenities.json";
 import { Button } from "@/components/ui/button";
-import { Map, ArrowRight } from "lucide-react";
-import { fetchWithAuth } from "@/lib/fetchWithAuth";
-import amenitiesData from "@/data/airport_terminal_amenities.json";
-import { guessTerminal } from "@/utils/terminalGuesses";
 
-export default function ExploreTerminalPage() {
-  const [_, setLocation] = useLocation();
-  const [match, params] = useRoute("/explore-terminal/:id");
-  const [journey, setJourney] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [categoryFilter, setCategoryFilter] = useState(null);
-  const [activeFilter, setActiveFilter] = useState(null);
+// Build airportMap from amenities data
+const airportMap: Record<string, Set<string>> = {};
+for (const amenity of amenitiesData) {
+  const airport = amenity.airport_code;
+  const terminal = amenity.terminal_code;
+  if (airport && terminal) {
+    if (!airportMap[airport]) airportMap[airport] = new Set();
+    airportMap[airport].add(terminal);
+  }
+}
 
-  useEffect(() => {
-    window.fathom?.trackPageview();
+const VIBES = ["Chill", "Refuel", "Comfort", "Explore", "Quick", "Grind"];
 
-    const loadJourney = async () => {
-      if (!params?.id) {
-        setLoading(false);
-        return;
-      }
+const vibeBgGlow: Record<string, string> = {
+  Chill: 'bg-gradient-to-br from-violet-100 via-white to-violet-200',
+  Refuel: 'bg-gradient-to-br from-yellow-100 via-white to-yellow-200',
+  Comfort: 'bg-gradient-to-br from-blue-100 via-white to-blue-200',
+  Explore: 'bg-gradient-to-br from-green-100 via-white to-green-200',
+  Quick: 'bg-gradient-to-br from-red-100 via-white to-red-200',
+  Grind: 'bg-gradient-to-br from-orange-100 via-white to-orange-200',
+};
+const cardOutline: Record<string, string> = {
+  Chill: 'border-violet-400',
+  Refuel: 'border-yellow-400',
+  Comfort: 'border-blue-400',
+  Explore: 'border-green-400',
+  Quick: 'border-red-400',
+  Grind: 'border-orange-400',
+};
 
-      try {
-        setLoading(true);
-        const response = await fetchWithAuth(`/api/getJourneyById?id=${params.id}`);
-        if (!response.ok) throw new Error("Failed to load journey");
-        const data = await response.json();
-        setJourney(data.journey);
-      } catch (err) {
-        console.error("Failed to load journey:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+export default function ExploreTerminal() {
+  const navigate = useNavigate();
+  const [airportCode, setAirportCode] = useState("");
+  const [selectedTerminal, setSelectedTerminal] = useState("");
+  const [selectedVibe, setSelectedVibe] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [error, setError] = useState("");
 
-    loadJourney();
-  }, [params?.id]);
-
-  const handleBackToJourney = () => {
-    window.fathom?.trackEvent("back_to_journey_clicked");
-    if (journey) setLocation(`/journey/${journey.id}`);
-    else setLocation("/your-journeys");
-  };
-
-  const handleShowTerminalMap = () => {
-    window.fathom?.trackEvent("terminal_map_opened");
-    if (journey) setLocation(`/terminal-map/${journey.id}`);
-  };
-
-  const handleFilterByCategory = (category) => {
-    window.fathom?.trackEvent("filter_category_clicked", { category });
-    if (activeFilter === category) {
-      setActiveFilter(null);
-      setCategoryFilter(null);
-    } else {
-      setActiveFilter(category);
-      setCategoryFilter(category);
+  // Step 1: Enter airport code
+  function handleAirportCodeSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const code = airportCode.trim().toUpperCase();
+    if (!airportMap[code]) {
+      setError("No terminals found for this airport code.");
+      return;
     }
-  };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin h-8 w-8 border-4 border-primary-600 border-t-transparent rounded-full"></div>
-      </div>
-    );
+    setError("");
+    setAirportCode(code);
+    setStep(2);
   }
 
-  if (!journey) {
-    return (
-      <div className="p-6 flex flex-col items-center justify-center min-h-screen">
-        <h2 className="text-xl font-bold text-red-600 dark:text-red-400">
-          Journey not found
-        </h2>
-        <Button onClick={() => setLocation("/your-journeys")} className="mt-4">
-          <ArrowRight className="h-4 w-4 mr-2 rotate-180" />
-          Back to Your Journeys
-        </Button>
-      </div>
-    );
+  // Step 2: Select terminal
+  function handleTerminalSelect(e: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedTerminal(e.target.value);
+  }
+  function handleTerminalSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!selectedTerminal) {
+      setError("Please select a terminal.");
+      return;
+    }
+    setError("");
+    setStep(3);
   }
 
-  const journeyVibe = journey.selected_vibe || "Relax";
-  const guessedTerminal = guessTerminal(journey.origin, journey.flight_number);
-  const vibeRecommendations = [];
+  function handleVibeSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!selectedVibe && !searchQuery.trim()) {
+      setError("Please select a vibe or enter a search query.");
+      return;
+    }
+    setError("");
+
+    const exploreJourney = {
+      airportCode,
+      terminalCode: selectedTerminal,
+      vibe: selectedVibe,
+      search: searchQuery.trim(),
+    };
+    sessionStorage.setItem('explore-journey', JSON.stringify(exploreJourney));
+    navigate(`/guide-view?airport=${airportCode}&terminal=${selectedTerminal}&vibe=${selectedVibe}&search=${searchQuery.trim()}`);
+  }
+
+  const pageBgGlowClass = selectedVibe ? vibeBgGlow[selectedVibe] : 'bg-gradient-to-br from-violet-100 via-white to-violet-200';
+  const cardOutlineClass = selectedVibe ? cardOutline[selectedVibe] : 'border-violet-400';
 
   return (
-    <div className="p-4 max-w-lg mx-auto">
-      <Button variant="ghost" className="mb-4" onClick={handleBackToJourney}>
-        <ArrowRight className="h-4 w-4 mr-2 rotate-180" />
-        Back to journey
-      </Button>
-
-      <h1 className="text-2xl font-bold mb-4 flex items-center">
-        <Map className="h-5 w-5 mr-2 text-primary-600" /> Terminal Guide
-      </h1>
-
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-3">
-          {activeFilter ? `${activeFilter} Recommendations` : `Top Picks for ${journeyVibe} Vibe`}
-        </h2>
-        <p className="text-sm text-slate-600 dark:text-slate-400">(Amenity recommendations would display here)</p>
+    <div className={`min-h-screen flex flex-col items-center justify-center ${pageBgGlowClass} dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 p-4`}>
+      {/* Navigation Buttons */}
+      <div className="flex gap-2 mb-4 w-full max-w-md">
+        <Button variant="ghost" onClick={() => navigate(-1)}>
+          ← Back
+        </Button>
+        <Button variant="ghost" onClick={() => navigate("/")}>🏠 Home</Button>
       </div>
+      <div className={`w-full max-w-md bg-white dark:bg-slate-800 rounded-lg shadow-md p-6 border-2 ${cardOutlineClass}`}>
+        <h1 className="text-2xl font-bold mb-4 text-center">Explore Terminal</h1>
 
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-3">Quick Explore</h2>
-        <div className="flex flex-wrap gap-3 mb-4">
-          {["Food", "Lounges", "Shops", "Relax"].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => handleFilterByCategory(cat)}
-              className={`px-3 py-2 rounded-full ${
-                activeFilter === cat ? "bg-blue-600 text-white" : "bg-blue-100 text-blue-800"
-              }`}
+        {step === 1 && (
+          <form onSubmit={handleAirportCodeSubmit} className="space-y-4">
+            <label className="block text-sm font-medium">Enter Airport Code</label>
+            <input
+              type="text"
+              value={airportCode}
+              onChange={e => setAirportCode(e.target.value.toUpperCase())}
+              className="w-full px-4 py-2 rounded border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              placeholder="e.g. SIN, SYD"
+              maxLength={4}
+              autoFocus
+            />
+            {error && <div className="text-red-500 text-sm">{error}</div>}
+            <button type="submit" className="w-full py-2 rounded bg-blue-600 text-white font-semibold mt-2">Next</button>
+          </form>
+        )}
+
+        {step === 2 && (
+          <form onSubmit={handleTerminalSubmit} className="space-y-4">
+            <label className="block text-sm font-medium mb-1">Select Terminal</label>
+            <select
+              value={selectedTerminal}
+              onChange={handleTerminalSelect}
+              className="w-full px-4 py-2 rounded border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             >
-              {cat}
-            </button>
-          ))}
-          {activeFilter && (
-            <button
-              onClick={() => {
-                setActiveFilter(null);
-                setCategoryFilter(null);
-              }}
-              className="px-3 py-2 rounded-full bg-gray-300 text-gray-800"
-            >
-              ❌ Clear Filter
-            </button>
-          )}
-        </div>
+              <option value="">-- Choose Terminal --</option>
+              {[...(airportMap[airportCode] || [])].map(terminal => (
+                <option key={terminal} value={terminal}>{terminal}</option>
+              ))}
+            </select>
+            {error && <div className="text-red-500 text-sm">{error}</div>}
+            <button type="submit" className="w-full py-2 rounded bg-blue-600 text-white font-semibold mt-2">Next</button>
+          </form>
+        )}
+
+        {step === 3 && (
+          <form onSubmit={handleVibeSubmit} className="space-y-4">
+            <label className="block text-sm font-medium mb-1">Select Vibe</label>
+            <div className="flex flex-wrap gap-2 mb-2">
+              {VIBES.map(vibe => (
+                <button
+                  type="button"
+                  key={vibe}
+                  className={`px-4 py-2 rounded-full border text-sm font-semibold transition-all ${
+                    selectedVibe === vibe
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white border-slate-300'
+                  }`}
+                  onClick={() => setSelectedVibe(vibe)}
+                >
+                  {vibe}
+                </button>
+              ))}
+            </div>
+
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search for a store, lounge or service..."
+              className="w-full px-4 py-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500 text-black"
+            />
+
+            {error && <div className="text-red-500 text-sm">{error}</div>}
+            <button type="submit" className="w-full py-2 rounded bg-blue-600 text-white font-semibold mt-2">See Recommendations</button>
+          </form>
+        )}
       </div>
-
-      <Button
-        onClick={handleShowTerminalMap}
-        className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 text-white"
-      >
-        <Map className="h-4 w-4 mr-2" />
-        View Terminal Map
-      </Button>
     </div>
   );
 }
+

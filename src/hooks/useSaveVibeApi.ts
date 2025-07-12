@@ -6,7 +6,7 @@ export const useSaveVibeApi = () => {
   const { toast } = useToast();
   
   const saveVibeMutation = useMutation({
-    mutationFn: async (selectedVibe: "Relax" | "Explore" | "Work" | "Quick") => {
+    mutationFn: async (selectedVibe: "Chill" | "Explore" | "Work" | "Quick" | "Shop") => {
       const response = await fetchWithAuth("/api/saveVibe", {
         method: "POST",
         headers: {

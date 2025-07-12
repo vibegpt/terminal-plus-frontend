@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "wouter";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Coffee, Map, Moon, ShoppingBag, Tv, Utensils, Wifi, Plane } from "lucide-react";
 import { resolveTerminal } from "@/utils/terminalGuesses";
@@ -7,6 +7,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { useSimpleToast } from "@/hooks/useSimpleToast";
 import SimpleToast from "@/components/ui/SimpleToast";
 import supabase from "@/lib/supabase";
+import amenitiesData from "@/data/amenities.json";
+import { getBoardingStatus } from "@/utils/getBoardingStatus";
+import { VibeRecommendations } from "@/components/VibeRecommendations";
 
 type JourneyData = {
   origin: string;
@@ -16,6 +19,8 @@ type JourneyData = {
   transit?: string;
   transitDetected?: boolean;
   selfTransferDetected?: boolean;
+  terminal?: string;
+  boarding_time?: string;
 };
 
 type TerminalAmenity = {
@@ -27,11 +32,11 @@ type TerminalAmenity = {
 };
 
 export default function SimplifiedExplore() {
-  const [_, setLocation] = useLocation();
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { toast, showToast, clearToast } = useSimpleToast();
   const [journeyData, setJourneyData] = useState<JourneyData | null>(null);
-  const [amenities, setAmenities] = useState<TerminalAmenity[]>([]);
+  const [amenities, setAmenities] = useState<any[]>([]);
   const [terminalName, setTerminalName] = useState("T1");
   const [isSaving, setIsSaving] = useState(false);
   
@@ -51,106 +56,120 @@ export default function SimplifiedExplore() {
       });
       setTerminalName(terminal);
       
-      // Generate amenities list based on vibe
-      generateAmenities(data.selected_vibe);
+      // Filter amenities by airport, terminal, and vibe
+      const filtered = (amenitiesData as any[]).filter(a => {
+        // First check if this is a Sydney Airport amenity
+        if (!a.terminal_code?.startsWith('SYD-')) {
+          return false;
+        }
+        
+        // Then check if it matches the specific terminal
+        const terminalMatches = a.terminal_code === `SYD-${terminal}`;
+        if (!terminalMatches) {
+          return false;
+        }
+        
+        // Finally check if the vibe tags match
+        const vibeMatches = a.vibe_tags?.some((tag: string) => 
+          tag.toLowerCase() === data.selected_vibe.toLowerCase()
+        ) || false;
+
+        return vibeMatches;
+      });
+
+      // Sort amenities by relevance to the selected vibe
+      const sortedAmenities = filtered.sort((a, b) => {
+        const aVibeScore = a.vibe_tags?.filter((tag: string) => 
+          tag.toLowerCase() === data.selected_vibe.toLowerCase()
+        ).length || 0;
+        const bVibeScore = b.vibe_tags?.filter((tag: string) => 
+          tag.toLowerCase() === data.selected_vibe.toLowerCase()
+        ).length || 0;
+        return bVibeScore - aVibeScore;
+      });
+
+      // Log the filtered amenities for debugging
+      console.log('Filtered amenities:', {
+        terminalCode: `SYD-${terminal}`,
+        count: sortedAmenities.length,
+        amenities: sortedAmenities.map(a => ({
+          name: a.name,
+          terminal_code: a.terminal_code,
+          vibe_tags: a.vibe_tags
+        }))
+      });
+
+      setAmenities(sortedAmenities);
     } else {
       // Redirect to input page if no data is available
-      setLocation("/simplified-journey-input");
+      navigate("/simplified-journey-input");
     }
-  }, [setLocation]);
-  
-  const generateAmenities = (vibe: string) => {
-    // Score factors based on vibe
-    const scoreFactors: Record<string, Record<string, number>> = {
-      "Relax": { "Lounge": 10, "Spa": 9, "Food": 7, "Shopping": 4 },
-      "Explore": { "Shopping": 10, "Food": 8, "Entertainment": 7, "Services": 4 },
-      "Work": { "Lounge": 10, "Cafe": 8, "Services": 7, "Food": 5 },
-      "Quick": { "Food": 8, "Services": 7, "Cafe": 6, "Lounge": 3 }
-    };
-    
-    // Base amenities
-    const baseAmenities: TerminalAmenity[] = [
-      { name: "Premium Lounge", location: "Upper Level, Gate D Concourse", type: "Lounge", icon: <Wifi className="h-5 w-5" />, score: 6 },
-      { name: "Coffee Shop", location: "Near Gate B12", type: "Cafe", icon: <Coffee className="h-5 w-5" />, score: 6 },
-      { name: "Food Court", location: "Main Concourse, Level 2", type: "Food", icon: <Utensils className="h-5 w-5" />, score: 6 },
-      { name: "Duty-Free Shopping", location: "Central Area, Near Gates A-C", type: "Shopping", icon: <ShoppingBag className="h-5 w-5" />, score: 6 },
-      { name: "Business Center", location: "Level 3, Near Gate F", type: "Services", icon: <Wifi className="h-5 w-5" />, score: 6 },
-      { name: "Entertainment Zone", location: "Terminal 2, Center Area", type: "Entertainment", icon: <Tv className="h-5 w-5" />, score: 6 },
-      { name: "Express Dining", location: "Near Gate A4", type: "Food", icon: <Utensils className="h-5 w-5" />, score: 6 },
-      { name: "Relaxation Area", location: "Level 2, Near Gate D7", type: "Spa", icon: <Coffee className="h-5 w-5" />, score: 6 }
-    ];
-    
-    // Score and sort amenities based on vibe preference
-    const scoredAmenities = baseAmenities.map(amenity => {
-      const vibeScores = scoreFactors[vibe] || scoreFactors["Explore"];
-      const vibeScore = vibeScores[amenity.type] || 5;
-      return {
-        ...amenity,
-        score: amenity.score * (vibeScore / 5)
-      };
-    });
-    
-    // Sort by score
-    scoredAmenities.sort((a, b) => b.score - a.score);
-    setAmenities(scoredAmenities);
-  };
+  }, [navigate]);
   
   const handleViewMap = () => {
     // In a real app, this would navigate to the map view
     if (journeyData) {
       // Store amenities for the map view
       sessionStorage.setItem("topAmenities", JSON.stringify(amenities.slice(0, 4)));
-      setLocation("/simplified-map");
+      navigate("/simplified-map");
     }
   };
   
   const handleBack = () => {
-    setLocation("/simplified-journey-input");
+    navigate("/simplified-journey-input");
   };
   
   const handleSaveJourney = async () => {
-    if (!journeyData) {
-      showToast("No journey data available to save.", "error");
-      return;
-    }
+    setIsSaving(true);
     try {
-      setIsSaving(true);
-      showToast("Saving your journey...", "loading");
-      const journeyDataToSave = {
-        flight_number: journeyData.flight_number,
-        origin: journeyData.origin,
-        destination: journeyData.destination,
+      // Create a journey plan from the selected amenities
+      const journeyPlan = amenities.slice(0, 4).map((amenity, index) => ({
+        name: amenity.name,
+        location: amenity.location_description,
+        type: amenity.amenity_type,
+        walkingTime: "5-10 min",
+        stayDuration: "15-20 min",
+        tags: amenity.vibe_tags || []
+      }));
+
+      // Save the journey plan to session storage
+      sessionStorage.setItem("journeyPlan", JSON.stringify(journeyPlan));
+
+      // Save the journey data
+      const journeyDataStr = sessionStorage.getItem("tempJourneyData");
+      if (!journeyDataStr) {
+        throw new Error("No journey data found!");
+      }
+
+      const journeyData = JSON.parse(journeyDataStr);
+      const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/saveJourney`;
+      const payload = {
+        flight_number: journeyData.flight_number || "Unknown",
+        origin: journeyData.origin || "Unknown",
+        destination: journeyData.destination || "Unknown",
         transit: journeyData.transit || undefined,
-        selected_vibe: journeyData.selected_vibe,
+        selected_vibe: journeyData.selected_vibe || "Unknown",
         departure_time: new Date().toISOString(),
         anonymous_id: getAnonymousId(),
+        journey_plan: journeyPlan,
       };
-      const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/saveJourney`;
-      console.log("Saving journey:", journeyDataToSave);
+
       const response = await fetch(functionUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(journeyDataToSave)
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
       });
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Error saving journey:", {
-          status: response.status,
-          statusText: response.statusText,
-          body: errorText
-        });
-        throw new Error(`Failed to save journey: ${errorText}`);
+
+      const result = await response.json();
+      if (result.success) {
+        showToast("Journey saved successfully!", "success");
+        navigate("/my-journey");
+      } else {
+        throw new Error(result.error || "Failed to save journey");
       }
-      const data = await response.json();
-      console.log("Journey saved successfully:", data);
-      clearToast();
-      showToast("Journey saved successfully!", "success");
-      setLocation("/journey-success");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error saving journey:", error);
-      showToast(`Failed to save journey: ${(error as Error).message || 'Unknown error'}`, "error");
+      showToast(`Error saving journey: ${error.message || "Unknown error"}`, "error");
     } finally {
       setIsSaving(false);
     }
@@ -166,20 +185,49 @@ export default function SimplifiedExplore() {
     return anonId;
   }
   
+  // After journeyData is loaded
+  const boardingTime = journeyData?.boarding_time ? new Date(journeyData.boarding_time).getTime() : undefined;
+  const boardingStatus = getBoardingStatus(boardingTime);
+
+  // Filter/prioritize amenities based on status
+  let filteredAmenities = amenities;
+  if (boardingStatus === 'imminent') {
+    filteredAmenities = amenities.filter(a => (a.Tags && a.Tags.includes('Gate')) || (a.Tags && a.Tags.includes('Quick')) || (a.Type && a.Type.includes('Grab')));
+  }
+  
+  // Vibe glow mapping
+  const vibeGlow: Record<string, string> = {
+    Relax: 'vibe-glow-relax',
+    Explore: 'vibe-glow-explore',
+    Comfort: 'vibe-glow-comfort',
+    Work: 'vibe-glow-work',
+    Quick: 'vibe-glow-quick'
+  };
+  const pageGlowClass = journeyData?.selected_vibe ? vibeGlow[journeyData.selected_vibe] : '';
+  
+  const vibeBgGlow: Record<string, string> = {
+    Relax: 'bg-[#A8D0E6]',
+    Explore: 'bg-[#F76C6C]',
+    Comfort: 'bg-[#CBAACB]',
+    Work: 'bg-[#D3B88C]',
+    Quick: 'bg-[#FFDD57]'
+  };
+  const pageBgGlowClass = journeyData?.selected_vibe ? vibeBgGlow[journeyData.selected_vibe] : 'bg-slate-100';
+  
   if (!journeyData) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin h-8 w-8 border-4 border-primary-600 border-t-transparent rounded-full"></div>
+      <div className="flex items-center justify-center min-h-screen bg-white dark:bg-slate-900">
+        <div className="animate-spin h-8 w-8 border-4 border-primary-600 dark:border-primary-400 border-t-transparent rounded-full"></div>
       </div>
     );
   }
   
   return (
-    <div className="p-4 max-w-4xl mx-auto">
+    <div className={`min-h-screen flex flex-col items-center justify-center ${pageBgGlowClass} ${pageGlowClass} bg-white dark:bg-slate-900`}>
       {toast && <SimpleToast message={toast.message} type={toast.type} />}
       <Button 
         variant="ghost" 
-        className="mb-4" 
+        className="mb-4 text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800" 
         onClick={handleBack}
       >
         <ArrowRight className="h-4 w-4 mr-2 rotate-180" />
@@ -187,7 +235,7 @@ export default function SimplifiedExplore() {
       </Button>
       
       <div className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-md mb-6">
-        <h1 className="text-2xl font-bold mb-4 flex items-center">
+        <h1 className="text-2xl font-bold mb-4 flex items-center text-slate-900 dark:text-white">
           Terminal Guide: {journeyData.origin} {terminalName}
         </h1>
         
@@ -219,7 +267,7 @@ export default function SimplifiedExplore() {
           )}
           <p className="mb-2 flex items-center">
             🏢 Terminal: <strong className="ml-1">{terminalName}</strong> 
-            <span className="text-xs text-slate-500 ml-2">(guessed based on flight number)</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 ml-2">(guessed based on flight number)</span>
           </p>
           <p className="mb-2">
             ✨ Vibe: <strong>{journeyData.selected_vibe}</strong>
@@ -229,27 +277,56 @@ export default function SimplifiedExplore() {
       
       <div className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-md mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Top Recommendations</h2>
-          <span className="bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Top Amenities</h2>
+          <span className="bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs px-2 py-1 rounded-full">
             {journeyData.selected_vibe} Vibe
           </span>
         </div>
+        
+        {/* Boarding warning banners */}
+        {boardingStatus === 'imminent' && (
+          <div className="bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-400 dark:border-yellow-700 text-yellow-800 dark:text-yellow-200 p-3 rounded mb-4">
+            <strong>Boarding soon!</strong> Only showing quick options near your gate.
+          </div>
+        )}
+        {boardingStatus === 'soon' && (
+          <div className="bg-yellow-50 dark:bg-yellow-950 border-l-4 border-yellow-300 dark:border-yellow-700 text-yellow-700 dark:text-yellow-200 p-3 rounded mb-4">
+            <strong>Heads up:</strong> Boarding in about 35 minutes. Consider staying close to your gate.
+          </div>
+        )}
         
         <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
           Based on your {journeyData.selected_vibe.toLowerCase()} preferences, we recommend these amenities:
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          {amenities.slice(0, 4).map((amenity, index) => (
-            <div key={index} className="border rounded-lg p-4 flex items-start hover:shadow-md transition">
-              <div className="bg-primary-100 dark:bg-primary-900 p-2 rounded-full mr-3">
-                {amenity.icon}
+          {filteredAmenities.slice(0, 4).map((amenity, index) => (
+            <div key={index} className="bg-white dark:bg-slate-800 rounded-lg shadow p-6 flex flex-col gap-2 border border-slate-100 dark:border-slate-700">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-2xl">
+                  {/* Emoji/icon based on amenity_type or category */}
+                  {amenity.amenity_type?.includes("Lounge") ? "🛋️" :
+                   amenity.amenity_type?.includes("Cafe") ? "☕" :
+                   amenity.amenity_type?.includes("Food") ? "🍽️" :
+                   amenity.amenity_type?.includes("Shopping") ? "🛍️" :
+                   amenity.amenity_type?.includes("Entertainment") ? "🎬" :
+                   amenity.amenity_type?.includes("Spa") ? "💆" :
+                   amenity.amenity_type?.includes("Shower") ? "🚿" :
+                   amenity.amenity_type?.includes("Sleep") ? "🛏️" :
+                   "✨"}
+                </span>
+                <div>
+                  <div className="font-semibold text-lg text-slate-900 dark:text-white">{amenity.name}</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400">{amenity.amenity_type}</div>
+                </div>
               </div>
-              <div>
-                <h3 className="font-medium mb-1">{amenity.name}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400">{amenity.type}</p>
-                <p className="text-xs text-slate-500 dark:text-slate-500">{amenity.location}</p>
+              <div className="text-sm text-slate-600 dark:text-slate-300">{amenity.location_description}</div>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {amenity.vibe_tags && amenity.vibe_tags.map((tag: string, i: number) => (
+                  <span key={i} className="bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs px-2 py-1 rounded-full">{tag}</span>
+                ))}
               </div>
+              <div className="text-xs text-slate-400 dark:text-slate-500 mt-2">{Object.entries(amenity.opening_hours).map(([day, hours]) => `${day}: ${hours}`).join(", ")} • {amenity.price_tier}</div>
             </div>
           ))}
         </div>
@@ -257,23 +334,23 @@ export default function SimplifiedExplore() {
         <div className="text-center mt-6 space-y-4">
           <Button 
             onClick={handleSaveJourney}
-            className="w-full py-6 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-semibold text-lg"
+            className="w-full py-6 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white dark:text-white font-semibold text-lg"
             disabled={isSaving}
           >
             <Plane className="h-5 w-5 mr-2" />
             {isSaving ? "Saving Journey..." : "Save Journey"}
           </Button>
 
-          <Button onClick={handleViewMap} className="w-full bg-gradient-to-r from-primary-600 to-secondary-600">
+          <Button onClick={handleViewMap} className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 text-white dark:text-white">
             <Map className="h-4 w-4 mr-2" /> View Terminal Map
           </Button>
           
           <div>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-2">Need to rest and recharge?</p>
             <Button 
-              onClick={() => setLocation("/comfort-journey")} 
+              onClick={() => navigate("/comfort-journey")} 
               variant="outline"
-              className="border-purple-300 text-purple-700 hover:bg-purple-50 dark:border-purple-800 dark:text-purple-300 dark:hover:bg-purple-950"
+              className="border-purple-300 dark:border-purple-800 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-950"
             >
               <Moon className="h-4 w-4 mr-2" /> Try Comfort Journey
             </Button>
@@ -282,7 +359,7 @@ export default function SimplifiedExplore() {
       </div>
       
       <div className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-md">
-        <h2 className="text-xl font-semibold mb-4">{journeyData.selected_vibe} Vibe Tips</h2>
+        <h2 className="text-xl font-semibold mb-4 text-slate-900 dark:text-white">{journeyData.selected_vibe} Vibe Tips</h2>
         {journeyData.selected_vibe === "Relax" && (
           <div className="space-y-3 text-slate-700 dark:text-slate-300">
             <p>🛌 Visit the Premium Lounge for a quiet place to relax</p>
@@ -315,6 +392,16 @@ export default function SimplifiedExplore() {
             <p>📱 Mobile ordering available at most food outlets</p>
           </div>
         )}
+      </div>
+      
+      <div className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-md">
+        <VibeRecommendations
+          amenities={filteredAmenities}
+          currentTerminal={terminalName}
+          currentGate={"A1"}
+          timeAvailableMinutes={60}
+          initialVibe={journeyData?.selected_vibe}
+        />
       </div>
     </div>
   );

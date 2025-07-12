@@ -1,0 +1,665 @@
+[
+  {
+    "id": "syd-t1-001",
+    "name": "Betty's Burgers",
+    "slug": "bettys-burgers",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "vibe_tags": [
+      "Food",
+      "Social",
+      "Quick"
+    ],
+    "status": "active",
+    "location_description": "Before Security, Food Court",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/bettys-burgers.jpg",
+    "localizations": {
+      "en": {
+        "name": "Betty's Burgers",
+        "description": "Casual dining with gourmet burgers."
+      }
+    },
+    "notes": ""
+  },
+  {
+    "id": "syd-t1-002",
+    "name": "Campos Coffee",
+    "slug": "campos-coffee",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "vibe_tags": [
+      "Food",
+      "Quick",
+      "Work",
+      "Relax",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 24",
+    "coordinates": {
+      "lat": -33.9462,
+      "lng": 151.1773
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/campos-coffee.jpg",
+    "localizations": {
+      "en": {
+        "name": "Campos Coffee",
+        "description": "Specialty coffee and light snacks."
+      }
+    },
+    "notes": ""
+  },
+  {
+    "id": "syd-t1-003",
+    "name": "Heineken House",
+    "slug": "heineken-house",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Bar",
+    "vibe_tags": [
+      "Social",
+      "Food",
+      "Entertainment",
+      "Relax",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 10",
+    "coordinates": {
+      "lat": -33.9463,
+      "lng": 151.1774
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/heineken-house.jpg",
+    "localizations": {
+      "en": {
+        "name": "Heineken House",
+        "description": "Bar with food and entertainment."
+      }
+    },
+    "notes": ""
+  },
+  {
+    "id": "syd-t1-004",
+    "name": "Kitchen by Mike",
+    "slug": "kitchen-by-mike",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "vibe_tags": [
+      "Food",
+      "Social",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 30",
+    "coordinates": {
+      "lat": -33.9464,
+      "lng": 151.1775
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/kitchen-by-mike.jpg",
+    "localizations": {
+      "en": {
+        "name": "Kitchen by Mike",
+        "description": "Casual dining with fresh, local ingredients."
+      }
+    },
+    "notes": ""
+  },
+  {
+    "id": "syd-t1-005",
+    "name": "Lilong by Taste of Shanghai",
+    "slug": "lilong",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "vibe_tags": [
+      "Food",
+      "Social",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 56",
+    "coordinates": {
+      "lat": -33.9465,
+      "lng": 151.1776
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/lilong.jpg",
+    "localizations": {
+      "en": {
+        "name": "Lilong by Taste of Shanghai",
+        "description": "Authentic Chinese cuisine."
+      }
+    },
+    "notes": ""
+  },
+  {
+    "id": "syd-t1-006",
+    "name": "McDonald's",
+    "slug": "mcdonalds",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Fast Food",
+    "vibe_tags": [
+      "Quick",
+      "Food",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gates 24 and 50",
+    "coordinates": {
+      "lat": -33.9466,
+      "lng": 151.1777
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/mcdonalds.jpg",
+    "localizations": {
+      "en": {
+        "name": "McDonald's",
+        "description": "Quick service restaurant with familiar menu items."
+      }
+    },
+    "notes": ""
+  },
+  {
+    "id": "syd-t1-007",
+    "name": "Sahara Grill",
+    "slug": "sahara-grill",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Quick Eats",
+    "vibe_tags": [
+      "Quick",
+      "Food",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 10",
+    "coordinates": {
+      "lat": -33.9467,
+      "lng": 151.1778
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/sahara-grill.jpg",
+    "localizations": {
+      "en": {
+        "name": "Sahara Grill",
+        "description": "Quick Middle Eastern cuisine."
+      }
+    },
+    "notes": ""
+  },
+  {
+    "id": "syd-t1-008",
+    "name": "SumoSalad Green on Green",
+    "slug": "sumosalad",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Quick Eats",
+    "vibe_tags": [
+      "Quick",
+      "Food",
+      "Healthy",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 24",
+    "coordinates": {
+      "lat": -33.9468,
+      "lng": 151.1779
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/sumosalad.jpg",
+    "localizations": {
+      "en": {
+        "name": "SumoSalad Green on Green",
+        "description": "Fresh salads and healthy options."
+      }
+    },
+    "notes": ""
+  },
+  {
+    "name": "Aerotel Airport Transit Hotel & Swimming Pool",
+    "terminal_code": "SIN-T1",
+    "category": "Services",
+    "amenity_type": "Hotel",
+    "description": "An airport hotel offering rooms and a swimming pool for transiting passengers.",
+    "location_description": "After Security, Level 3",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Chill", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t1-001",
+    "coordinates": { "lat": 1.3644, "lng": 103.9915 },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Cactus Garden",
+    "terminal_code": "SIN-T1",
+    "category": "Experiences",
+    "amenity_type": "Garden",
+    "description": "Home to more than 100 species of cacti and arid plants from different parts of the world.",
+    "location_description": "Rooftop, Level 3",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Explore", "Chill", "Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t1-002",
+    "coordinates": { "lat": 1.3645, "lng": 103.9916 },
+    "price_tier": "$"
+  },
+  {
+    "name": "Kinetic Rain Sculpture",
+    "terminal_code": "SIN-T1",
+    "category": "Experiences",
+    "amenity_type": "Art Installation",
+    "description": "A large-scale kinetic sculpture that creates various shapes with its 1,216 bronze droplets.",
+    "location_description": "Departure Hall, Public Area",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Explore", "Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t1-003",
+    "coordinates": { "lat": 1.3646, "lng": 103.9917 },
+    "price_tier": "$"
+  },
+  {
+    "name": "The Social Tree",
+    "terminal_code": "SIN-T1",
+    "category": "Experiences",
+    "amenity_type": "Interactive Installation",
+    "description": "An interactive installation where travelers can share their photos and videos on a large screen.",
+    "location_description": "Central Transit Area",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Explore", "Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t1-004",
+    "coordinates": { "lat": 1.3647, "lng": 103.9918 },
+    "price_tier": "$"
+  },
+  {
+    "name": "Starbucks",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Beverage",
+    "amenity_type": "Coffee Shop",
+    "description": "A popular coffeehouse chain.",
+    "location_description": "Departure Transit Lounge West, Level 2, #02-K10",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t1-005",
+    "coordinates": { "lat": 1.3650, "lng": 103.9920 },
+    "price_tier": "$$"
+  },
+  {
+    "name": "PAUL Le Café",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Beverage",
+    "amenity_type": "bakery café",
+    "description": "A French bakery and café serving pastries, sandwiches, and coffee.",
+    "location_description": "Departure/Transit Lounge West, Level 2, #02-26",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t1-006",
+    "coordinates": { "lat": 1.3651, "lng": 103.9921 },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Burger King",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Beverage",
+    "amenity_type": "fast food",
+    "description": "A well-known fast-food chain for burgers and fries.",
+    "location_description": "Departure/Transit Lounge West, Mezzanine Level, #03-02",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t1-007",
+    "coordinates": { "lat": 1.3652, "lng": 103.9922 },
+    "price_tier": "$"
+  },
+  {
+    "name": "4Fingers Crispy Chicken",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Beverage",
+    "amenity_type": "fast food",
+    "description": "A fast-food chain specializing in crispy fried chicken.",
+    "location_description": "Transit Area",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t1-008",
+    "coordinates": { "lat": 1.3653, "lng": 103.9923 },
+    "price_tier": "$"
+  },
+  {
+    "name": "Chutney Mary Indian Fast Food",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Beverage",
+    "amenity_type": "fast food",
+    "description": "An Indian fast-food restaurant.",
+    "location_description": "Transit Area",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t1-009",
+    "coordinates": { "lat": 1.3654, "lng": 103.9924 },
+    "price_tier": "$"
+  },
+  {
+    "name": "Snooze Lounge",
+    "terminal_code": "SIN-T2",
+    "category": "Services",
+    "amenity_type": "Rest Area",
+    "description": "A comfortable lounge for passengers to rest.",
+    "location_description": "Transit Area, Level 2",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Chill", "Comfort", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t2-001",
+    "coordinates": { "lat": 1.3620, "lng": 103.9910 },
+    "price_tier": "$"
+  },
+  {
+    "name": "Entertainment Deck",
+    "terminal_code": "SIN-T2",
+    "category": "Experiences",
+    "amenity_type": "Gaming Area",
+    "description": "An area with various entertainment options, including video games.",
+    "location_description": "Level 3, Transit Area",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Explore", "Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t2-002",
+    "coordinates": { "lat": 1.3621, "lng": 103.9911 },
+    "price_tier": "$"
+  },
+  {
+    "name": "24-Hour Movie Theatre",
+    "terminal_code": "SIN-T2",
+    "category": "Experiences",
+    "amenity_type": "Cinema",
+    "description": "A movie theatre showing a variety of films 24/7.",
+    "location_description": "Level 3, Transit Area",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Chill", "Explore", "Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t2-003",
+    "coordinates": { "lat": 1.3622, "lng": 103.9912 },
+    "price_tier": "$"
+  },
+  {
+    "name": "Peach Garden Restaurant",
+    "terminal_code": "SIN-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Restaurant",
+    "description": "A Chinese restaurant serving traditional dishes.",
+    "location_description": "Level 2, Public Area",
+    "opening_hours": { "Monday-Sunday": "10:00-22:00" },
+    "vibe_tags": ["Comfort", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t2-004",
+    "coordinates": { "lat": 1.3623, "lng": 103.9913 },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Chutney Mary",
+    "terminal_code": "SIN-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Restaurant",
+    "description": "An Indian restaurant serving a variety of dishes.",
+    "location_description": "Level 2, Public Area",
+    "opening_hours": { "Monday-Sunday": "10:00-22:00" },
+    "vibe_tags": ["Comfort", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t2-005",
+    "coordinates": { "lat": 1.3624, "lng": 103.9914 },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Butterfly Garden",
+    "terminal_code": "SIN-T3",
+    "category": "Experiences",
+    "amenity_type": "Garden",
+    "description": "A popular attraction, the Butterfly Garden is designed as a tropical butterfly habitat.",
+    "location_description": "Level 2, Transit Area",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Explore", "Chill", "Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t3-001",
+    "coordinates": { "lat": 1.3500, "lng": 103.9940 },
+    "price_tier": "$"
+  },
+  {
+    "name": "The Slide @ T3",
+    "terminal_code": "SIN-T3",
+    "category": "Experiences",
+    "amenity_type": "Slide",
+    "description": "The world's tallest slide in an airport.",
+    "location_description": "Level 1, Public Area",
+    "opening_hours": { "Monday-Sunday": "12:00-22:30" },
+    "vibe_tags": ["Explore", "Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t3-002",
+    "coordinates": { "lat": 1.3501, "lng": 103.9941 },
+    "price_tier": "$"
+  },
+  {
+    "name": "ST3PS",
+    "terminal_code": "SIN-T3",
+    "category": "Experiences",
+    "amenity_type": "Seating Area",
+    "description": "A large seating area with a screen for movies and live sports.",
+    "location_description": "Basement 2, Public Area",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Chill", "Explore", "Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t3-003",
+    "coordinates": { "lat": 1.3502, "lng": 103.9942 },
+    "price_tier": "$"
+  },
+  {
+    "name": "The Coffee Bean & Tea Leaf",
+    "terminal_code": "SIN-T3",
+    "category": "Food & Beverage",
+    "amenity_type": "coffee shop",
+    "description": "A coffee shop offering a variety of coffee, tea, and snacks.",
+    "location_description": "Transit Lounge South, Level 2, #02-K4",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t3-005",
+    "coordinates": { "lat": 1.3504, "lng": 103.9944 },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Pret A Manger",
+    "terminal_code": "SIN-T3",
+    "category": "Food & Beverage",
+    "amenity_type": "coffee & fresh food",
+    "description": "A café serving fresh, organic coffee and handmade food.",
+    "location_description": "Transit Lounge Central, Level 2",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t3-006",
+    "coordinates": { "lat": 1.3505, "lng": 103.9945 },
+    "price_tier": "$$"
+  },
+  {
+    "name": "McDonald's",
+    "terminal_code": "SIN-T3",
+    "category": "Food & Beverage",
+    "amenity_type": "fast food",
+    "description": "The popular fast-food chain.",
+    "location_description": "Arrival Hall, Level 1",
+    "opening_hours": { "Monday-Sunday": "24/7" },
+    "vibe_tags": ["Quick", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "id": "sin-t3-007",
+    "coordinates": { "lat": 1.3506, "lng": 103.9946 },
+    "price_tier": "$"
+  }
+] 

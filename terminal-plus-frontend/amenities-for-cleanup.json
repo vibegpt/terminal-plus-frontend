@@ -1,0 +1,2223 @@
+[
+  {
+    "id": "syd-t1-001",
+    "name": "Betty's Burgers",
+    "slug": "bettys-burgers",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "vibe_tags": [
+      "Food",
+      "Social",
+      "Quick"
+    ],
+    "status": "active",
+    "location_description": "Before Security, Food Court",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/bettys-burgers.jpg",
+    "localizations": {
+      "en": {
+        "name": "Betty's Burgers",
+        "description": "Casual dining with gourmet burgers."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-002",
+    "name": "Campos Coffee",
+    "slug": "campos-coffee",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "vibe_tags": [
+      "Food",
+      "Quick",
+      "Work",
+      "Relax",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 24",
+    "coordinates": {
+      "lat": -33.9462,
+      "lng": 151.1773
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/campos-coffee.jpg",
+    "localizations": {
+      "en": {
+        "name": "Campos Coffee",
+        "description": "Specialty coffee and light snacks."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-003",
+    "name": "Heineken House",
+    "slug": "heineken-house",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Bar",
+    "vibe_tags": [
+      "Social",
+      "Food",
+      "Entertainment",
+      "Relax",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 10",
+    "coordinates": {
+      "lat": -33.9463,
+      "lng": 151.1774
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/heineken-house.jpg",
+    "localizations": {
+      "en": {
+        "name": "Heineken House",
+        "description": "Bar with food and entertainment."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-004",
+    "name": "Kitchen by Mike",
+    "slug": "kitchen-by-mike",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "vibe_tags": [
+      "Food",
+      "Social",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 30",
+    "coordinates": {
+      "lat": -33.9464,
+      "lng": 151.1775
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/kitchen-by-mike.jpg",
+    "localizations": {
+      "en": {
+        "name": "Kitchen by Mike",
+        "description": "Casual dining with fresh, local ingredients."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-005",
+    "name": "Lilong by Taste of Shanghai",
+    "slug": "lilong",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "vibe_tags": [
+      "Food",
+      "Social",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 56",
+    "coordinates": {
+      "lat": -33.9465,
+      "lng": 151.1776
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/lilong.jpg",
+    "localizations": {
+      "en": {
+        "name": "Lilong by Taste of Shanghai",
+        "description": "Authentic Chinese cuisine."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-006",
+    "name": "McDonald's",
+    "slug": "mcdonalds",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Fast Food",
+    "vibe_tags": [
+      "Quick",
+      "Food",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gates 24 and 50",
+    "coordinates": {
+      "lat": -33.9466,
+      "lng": 151.1777
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/mcdonalds.jpg",
+    "localizations": {
+      "en": {
+        "name": "McDonald's",
+        "description": "Quick service restaurant with familiar menu items."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-007",
+    "name": "Sahara Grill",
+    "slug": "sahara-grill",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Quick Eats",
+    "vibe_tags": [
+      "Quick",
+      "Food",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 10",
+    "coordinates": {
+      "lat": -33.9467,
+      "lng": 151.1778
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/sahara-grill.jpg",
+    "localizations": {
+      "en": {
+        "name": "Sahara Grill",
+        "description": "Quick Middle Eastern cuisine."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-008",
+    "name": "SumoSalad Green on Green",
+    "slug": "sumosalad",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Quick Eats",
+    "vibe_tags": [
+      "Quick",
+      "Food",
+      "Healthy",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 24",
+    "coordinates": {
+      "lat": -33.9468,
+      "lng": 151.1779
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/sumosalad.jpg",
+    "localizations": {
+      "en": {
+        "name": "SumoSalad Green on Green",
+        "description": "Healthy salads and wraps."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-009",
+    "name": "Sushia",
+    "slug": "sushia",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "vibe_tags": [
+      "Food",
+      "Social",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 30",
+    "coordinates": {
+      "lat": -33.9469,
+      "lng": 151.178
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/sushia.jpg",
+    "localizations": {
+      "en": {
+        "name": "Sushia",
+        "description": "Japanese cuisine and sushi."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-010",
+    "name": "The Bistro by Wolfgang Puck",
+    "slug": "wolfgang-puck-bistro",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "vibe_tags": [
+      "Food",
+      "Social",
+      "Premium",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gate 10",
+    "coordinates": {
+      "lat": -33.947,
+      "lng": 151.1781
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/wolfgang-puck-bistro.jpg",
+    "localizations": {
+      "en": {
+        "name": "The Bistro by Wolfgang Puck",
+        "description": "Upscale casual dining."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-011",
+    "name": "Toby's Estate",
+    "slug": "tobys-estate",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "vibe_tags": [
+      "Food",
+      "Quick",
+      "Work",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, towards Gates 50-63",
+    "coordinates": {
+      "lat": -33.9471,
+      "lng": 151.1782
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/tobys-estate.jpg",
+    "localizations": {
+      "en": {
+        "name": "Toby's Estate",
+        "description": "Specialty coffee and light meals."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-012",
+    "name": "Yo! Sushi",
+    "slug": "yo-sushi",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "vibe_tags": [
+      "Food",
+      "Social",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, The Food Court",
+    "coordinates": {
+      "lat": -33.9472,
+      "lng": 151.1783
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/yo-sushi.jpg",
+    "localizations": {
+      "en": {
+        "name": "Yo! Sushi",
+        "description": "Japanese cuisine with conveyor belt service."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-013",
+    "name": "Heinemann Tax & Duty Free",
+    "slug": "heinemann-duty-free",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Duty-Free Store",
+    "vibe_tags": [
+      "Shopping",
+      "Luxury",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, multiple locations including near Gates 31-33",
+    "coordinates": {
+      "lat": -33.9473,
+      "lng": 151.1784
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/heinemann-duty-free.jpg",
+    "localizations": {
+      "en": {
+        "name": "Heinemann Tax & Duty Free",
+        "description": "Duty-free shopping with luxury products."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-014",
+    "name": "Louis Vuitton",
+    "slug": "louis-vuitton",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Fashion",
+    "vibe_tags": [
+      "Shopping",
+      "Luxury",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, Luxury Precinct",
+    "coordinates": {
+      "lat": -33.9474,
+      "lng": 151.1785
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/louis-vuitton.jpg",
+    "localizations": {
+      "en": {
+        "name": "Louis Vuitton",
+        "description": "Luxury fashion and accessories."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-015",
+    "name": "Gucci",
+    "slug": "gucci",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Fashion",
+    "vibe_tags": [
+      "Shopping",
+      "Luxury",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, towards Gates 50-63",
+    "coordinates": {
+      "lat": -33.9475,
+      "lng": 151.1786
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/gucci.jpg",
+    "localizations": {
+      "en": {
+        "name": "Gucci",
+        "description": "Luxury fashion and accessories."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-016",
+    "name": "Prada",
+    "slug": "prada",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Fashion",
+    "vibe_tags": [
+      "Shopping",
+      "Luxury",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, Luxury Precinct",
+    "coordinates": {
+      "lat": -33.9476,
+      "lng": 151.1787
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/prada.jpg",
+    "localizations": {
+      "en": {
+        "name": "Prada",
+        "description": "Luxury fashion and accessories."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-017",
+    "name": "Cartier",
+    "slug": "cartier",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Jewelry",
+    "vibe_tags": [
+      "Shopping",
+      "Luxury",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, Luxury Precinct",
+    "coordinates": {
+      "lat": -33.9477,
+      "lng": 151.1788
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/cartier.jpg",
+    "localizations": {
+      "en": {
+        "name": "Cartier",
+        "description": "Luxury jewelry and watches."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-018",
+    "name": "Burberry",
+    "slug": "burberry",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Fashion",
+    "vibe_tags": [
+      "Shopping",
+      "Luxury",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, Luxury Precinct",
+    "coordinates": {
+      "lat": -33.9478,
+      "lng": 151.1789
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/burberry.jpg",
+    "localizations": {
+      "en": {
+        "name": "Burberry",
+        "description": "Luxury fashion and accessories."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-019",
+    "name": "Bottega Veneta",
+    "slug": "bottega-veneta",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Fashion",
+    "vibe_tags": [
+      "Shopping",
+      "Luxury",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, Luxury Precinct",
+    "coordinates": {
+      "lat": -33.9479,
+      "lng": 151.179
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/bottega-veneta.jpg",
+    "localizations": {
+      "en": {
+        "name": "Bottega Veneta",
+        "description": "Luxury fashion and accessories."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-020",
+    "name": "Gentle Monster",
+    "slug": "gentle-monster",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Eyewear",
+    "vibe_tags": [
+      "Shopping",
+      "Luxury",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, Luxury Precinct",
+    "coordinates": {
+      "lat": -33.948,
+      "lng": 151.1791
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/gentle-monster.jpg",
+    "localizations": {
+      "en": {
+        "name": "Gentle Monster",
+        "description": "Luxury eyewear and accessories."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-021",
+    "name": "Rip Curl",
+    "slug": "rip-curl",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Surfwear",
+    "vibe_tags": [
+      "Shopping",
+      "Fashion",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Before Security, Food Court",
+    "coordinates": {
+      "lat": -33.9481,
+      "lng": 151.1792
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/rip-curl.jpg",
+    "localizations": {
+      "en": {
+        "name": "Rip Curl",
+        "description": "Surfwear and beach fashion."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-022",
+    "name": "Amcal Pharmacy",
+    "slug": "amcal-pharmacy",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Pharmacy",
+    "vibe_tags": [
+      "Shopping",
+      "Convenience",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, towards Gates 24-25",
+    "coordinates": {
+      "lat": -33.9482,
+      "lng": 151.1793
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/amcal-pharmacy.jpg",
+    "localizations": {
+      "en": {
+        "name": "Amcal Pharmacy",
+        "description": "Pharmacy and health products."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-023",
+    "name": "WHSmith",
+    "slug": "whsmith",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Books & Convenience",
+    "vibe_tags": [
+      "Shopping",
+      "Convenience",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, near Gates 10, 30, 51, and 54",
+    "coordinates": {
+      "lat": -33.9483,
+      "lng": 151.1794
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/whsmith.jpg",
+    "localizations": {
+      "en": {
+        "name": "WHSmith",
+        "description": "Books, magazines, and travel essentials."
+      }
+    }
+  },
+  {
+    "id": "syd-t1-024",
+    "name": "Global Exchange",
+    "slug": "global-exchange",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Currency Exchange",
+    "vibe_tags": [
+      "Services",
+      "Convenience",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Multiple locations before and after security",
+    "coordinates": {
+      "lat": -33.9484,
+      "lng": 151.1795
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/global-exchange.jpg",
+    "localizations": {
+      "en": {
+        "name": "Global Exchange",
+        "description": "Currency exchange services."
+      }
+    }
+  },
+  {
+    "name": "Qantas International First Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "location_description": "Mezzanine Level, after Customs",
+    "access": "Qantas First Class, Platinum, Platinum One, Oneworld Emerald, Emirates First Class",
+    "opening_hours": {
+      "Monday-Sunday": "05:00 – 22:00"
+    },
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "slug": "qantas-international-first-lounge"
+  },
+  {
+    "name": "Qantas International Business Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "location_description": "Mezzanine Level, after Customs",
+    "access": "Qantas Business Class, Gold, Platinum, Platinum One, Qantas Club, Oneworld Sapphire & Emerald",
+    "opening_hours": {
+      "Monday-Sunday": "05:00 – 22:00"
+    },
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "slug": "qantas-international-business-lounge"
+  },
+  {
+    "name": "Air New Zealand Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "location_description": "Level 3, near Gate 59",
+    "access": "Air NZ Business Class, Elite & Gold, Star Alliance Gold",
+    "opening_hours": {
+      "Monday-Sunday": "06:00 – 21:00"
+    },
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "slug": "air-new-zealand-lounge"
+  },
+  {
+    "name": "Singapore Airlines SilverKris Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "location_description": "Level 3, near Gate 59",
+    "access": "Singapore Airlines Business Class, PPS, KrisFlyer Gold, Star Alliance Gold",
+    "opening_hours": {
+      "Monday-Sunday": "05:30 – 18:00"
+    },
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "slug": "singapore-airlines-silverkris-lounge"
+  },
+  {
+    "name": "Emirates Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "location_description": "Level 1, near Gate 58",
+    "access": "Emirates First & Business Class, Skywards Platinum & Gold",
+    "opening_hours": {
+      "Monday-Sunday": "04:00 – 07:20 and 16:10 – 20:40"
+    },
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "slug": "emirates-lounge"
+  },
+  {
+    "name": "The Centurion Lounge (American Express)",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Credit Card Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "location_description": "Departures Level, near Gates 50–63",
+    "access": "Eligible Amex cardholders with same-day boarding pass",
+    "opening_hours": {
+      "Monday-Sunday": "06:00 – 21:00"
+    },
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "slug": "the-centurion-lounge-american-express"
+  },
+  {
+    "name": "The House by Aspire",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Independent Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "location_description": "Departures Level, near Gate 50",
+    "access": "Pay-per-use, Priority Pass, LoungeKey, airline partners",
+    "opening_hours": {
+      "Monday-Sunday": "05:00 – 22:00"
+    },
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "slug": "the-house-by-aspire"
+  },
+  {
+    "name": "SkyTeam Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Alliance Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "location_description": "Departures Level, adjacent to Gate 24",
+    "access": "SkyTeam Elite Plus, Business Class, pay-per-use",
+    "opening_hours": {
+      "Monday": "05:30 – 13:30 & 17:30 – 22:00",
+      "Tuesday": "05:30 – 12:30 & 17:30 – 22:00",
+      "Wednesday": "05:30 – 13:30 & 17:30 – 22:00",
+      "Thursday": "05:30 – 12:30 & 18:00 – 22:00",
+      "Friday": "05:30 – 12:30 & 17:30 – 22:00",
+      "Saturday": "05:30 – 13:30 & 17:30 – 22:00",
+      "Sunday": "05:30 – 12:30 & 18:00 – 22:00"
+    },
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "slug": "skyteam-lounge"
+  },
+  {
+    "name": "Plaza Premium Lounge (Departures)",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Independent Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "location_description": "Level 2, near Gates 25–26",
+    "access": "Pay-per-use, Priority Pass, LoungeKey, airline partners",
+    "opening_hours": {
+      "Monday-Sunday": "05:30 – 22:00"
+    },
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "slug": "plaza-premium-lounge-departures"
+  },
+  {
+    "name": "Plaza Premium Lounge (Arrivals)",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Independent Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "location_description": "Level 1, inside Aerotel, Arrivals B (non-restricted area)",
+    "access": "Pay-per-use",
+    "opening_hours": {
+      "Monday-Sunday": "06:00 – 20:00"
+    },
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "slug": "plaza-premium-lounge-arrivals"
+  },
+  {
+    "id": "sin-t1-001",
+    "name": "Aerotel Airport Transit Hotel & Swimming Pool",
+    "slug": "aerotel-airport-transit-hotel-swimming-pool",
+    "terminal_code": "SIN-T1",
+    "category": "Hotels & Accommodations",
+    "amenity_type": "Hotel",
+    "vibe_tags": [
+      "Relax",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "After Security, Level 3",
+    "coordinates": {
+      "lat": 1.3644,
+      "lng": 103.9915
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/aerotel.jpg"
+  },
+  {
+    "id": "sin-t1-002",
+    "name": "Cactus Garden",
+    "slug": "cactus-garden",
+    "terminal_code": "SIN-T1",
+    "category": "Attractions",
+    "amenity_type": "Garden",
+    "vibe_tags": [
+      "Explore",
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Rooftop, Level 3",
+    "coordinates": {
+      "lat": 1.3645,
+      "lng": 103.9916
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/cactus-garden.jpg"
+  },
+  {
+    "id": "sin-t1-003",
+    "name": "Kinetic Rain Sculpture",
+    "slug": "kinetic-rain-sculpture",
+    "terminal_code": "SIN-T1",
+    "category": "Art & Culture",
+    "amenity_type": "Art Installation",
+    "vibe_tags": [
+      "Explore",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Departure Hall, Public Area",
+    "coordinates": {
+      "lat": 1.3646,
+      "lng": 103.9917
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/kinetic-rain.jpg"
+  },
+  {
+    "id": "sin-t1-004",
+    "name": "The Social Tree",
+    "slug": "the-social-tree",
+    "terminal_code": "SIN-T1",
+    "category": "Art & Culture",
+    "amenity_type": "Interactive Installation",
+    "vibe_tags": [
+      "Explore",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Central Transit Area",
+    "coordinates": {
+      "lat": 1.3647,
+      "lng": 103.9918
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/social-tree.jpg"
+  },
+  {
+    "id": "sin-t1-005",
+    "name": "Lounges",
+    "slug": "lounges-t1",
+    "terminal_code": "SIN-T1",
+    "category": "Lounges",
+    "amenity_type": "Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Work",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "location_description": "Various locations",
+    "coordinates": {
+      "lat": 1.3648,
+      "lng": 103.9919
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/lounge.jpg"
+  },
+  {
+    "id": "sin-t2-001",
+    "name": "Snooze Lounge",
+    "slug": "snooze-lounge",
+    "terminal_code": "SIN-T2",
+    "category": "Rest Areas",
+    "amenity_type": "Rest Area",
+    "vibe_tags": [
+      "Relax",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "location_description": "Transit Area, Level 2",
+    "coordinates": {
+      "lat": 1.362,
+      "lng": 103.991
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/snooze-lounge.jpg"
+  },
+  {
+    "id": "sin-t2-002",
+    "name": "Entertainment Deck",
+    "slug": "entertainment-deck",
+    "terminal_code": "SIN-T2",
+    "category": "Entertainment",
+    "amenity_type": "Gaming Area",
+    "vibe_tags": [
+      "Explore",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Level 3, Transit Area",
+    "coordinates": {
+      "lat": 1.3621,
+      "lng": 103.9911
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/entertainment-deck.jpg"
+  },
+  {
+    "id": "sin-t2-003",
+    "name": "24-Hour Movie Theatre",
+    "slug": "24-hour-movie-theatre",
+    "terminal_code": "SIN-T2",
+    "category": "Entertainment",
+    "amenity_type": "Cinema",
+    "vibe_tags": [
+      "Relax",
+      "Explore",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Level 3, Transit Area",
+    "coordinates": {
+      "lat": 1.3622,
+      "lng": 103.9912
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/movie-theatre.jpg"
+  },
+  {
+    "id": "sin-t2-004",
+    "name": "Peach Garden Restaurant",
+    "slug": "peach-garden-restaurant",
+    "terminal_code": "SIN-T2",
+    "category": "Food & Drink",
+    "amenity_type": "Restaurant",
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "location_description": "Level 2, Public Area",
+    "coordinates": {
+      "lat": 1.3623,
+      "lng": 103.9913
+    },
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/peach-garden.jpg"
+  },
+  {
+    "id": "sin-t2-005",
+    "name": "Chutney Mary",
+    "slug": "chutney-mary",
+    "terminal_code": "SIN-T2",
+    "category": "Food & Drink",
+    "amenity_type": "Restaurant",
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "location_description": "Level 2, Public Area",
+    "coordinates": {
+      "lat": 1.3624,
+      "lng": 103.9914
+    },
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/chutney-mary.jpg"
+  },
+  {
+    "id": "sin-t3-001",
+    "name": "Butterfly Garden",
+    "slug": "butterfly-garden",
+    "terminal_code": "SIN-T3",
+    "category": "Attractions",
+    "amenity_type": "Garden",
+    "vibe_tags": [
+      "Explore",
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Level 2, Transit Area",
+    "coordinates": {
+      "lat": 1.35,
+      "lng": 103.994
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/butterfly-garden.jpg"
+  },
+  {
+    "id": "sin-t3-002",
+    "name": "The Slide @ T3",
+    "slug": "the-slide-t3",
+    "terminal_code": "SIN-T3",
+    "category": "Entertainment",
+    "amenity_type": "Slide",
+    "vibe_tags": [
+      "Explore",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Level 1, Public Area",
+    "coordinates": {
+      "lat": 1.3501,
+      "lng": 103.9941
+    },
+    "opening_hours": {
+      "Monday-Sunday": "12:00-22:30"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/the-slide.jpg"
+  },
+  {
+    "id": "sin-t3-003",
+    "name": "ST3PS",
+    "slug": "st3ps",
+    "terminal_code": "SIN-T3",
+    "category": "Entertainment",
+    "amenity_type": "Seating Area",
+    "vibe_tags": [
+      "Relax",
+      "Explore",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Basement 2, Public Area",
+    "coordinates": {
+      "lat": 1.3502,
+      "lng": 103.9942
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/st3ps.jpg"
+  },
+  {
+    "id": "sin-t3-004",
+    "name": "Lounges",
+    "slug": "lounges-t3",
+    "terminal_code": "SIN-T3",
+    "category": "Lounges",
+    "amenity_type": "Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Work",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "location_description": "Various locations",
+    "coordinates": {
+      "lat": 1.3503,
+      "lng": 103.9943
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/lounge.jpg"
+  },
+  {
+    "id": "sin-t4-001",
+    "name": "Heritage Zone",
+    "slug": "heritage-zone",
+    "terminal_code": "SIN-T4",
+    "category": "Art & Culture",
+    "amenity_type": "Cultural Area",
+    "vibe_tags": [
+      "Explore",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Transit Area, Level 2",
+    "coordinates": {
+      "lat": 1.339,
+      "lng": 103.987
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/heritage-zone.jpg"
+  },
+  {
+    "id": "sin-t4-002",
+    "name": "Blossom – SATS & Plaza Premium Lounge",
+    "slug": "blossom-sats-plaza-premium-lounge",
+    "terminal_code": "SIN-T4",
+    "category": "Lounges",
+    "amenity_type": "Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Work",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "location_description": "Level 2, Transit Area",
+    "coordinates": {
+      "lat": 1.3391,
+      "lng": 103.9871
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/blossom-lounge.jpg"
+  },
+  {
+    "id": "sin-t4-003",
+    "name": "International Food Hall",
+    "slug": "international-food-hall",
+    "terminal_code": "SIN-T4",
+    "category": "Food & Drink",
+    "amenity_type": "Food Hall",
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "location_description": "Level 2, Transit Area",
+    "coordinates": {
+      "lat": 1.3392,
+      "lng": 103.9872
+    },
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/food-hall.jpg"
+  },
+  {
+    "id": "sin-t4-004",
+    "name": "Green Spaces",
+    "slug": "green-spaces",
+    "terminal_code": "SIN-T4",
+    "category": "Attractions",
+    "amenity_type": "Green Area",
+    "vibe_tags": [
+      "Relax",
+      "Explore",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Various locations",
+    "coordinates": {
+      "lat": 1.3393,
+      "lng": 103.9873
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/green-spaces.jpg"
+  },
+  {
+    "id": "sin-jewel-001",
+    "name": "Rain Vortex",
+    "slug": "rain-vortex",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Attractions",
+    "amenity_type": "Waterfall",
+    "vibe_tags": [
+      "Explore",
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Jewel, Level 1",
+    "coordinates": {
+      "lat": 1.36,
+      "lng": 103.989
+    },
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/rain-vortex.jpg"
+  },
+  {
+    "id": "sin-jewel-002",
+    "name": "Forest Valley",
+    "slug": "forest-valley",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Attractions",
+    "amenity_type": "Garden",
+    "vibe_tags": [
+      "Explore",
+      "Relax",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Jewel, Level 1-4",
+    "coordinates": {
+      "lat": 1.3601,
+      "lng": 103.9891
+    },
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/forest-valley.jpg"
+  },
+  {
+    "id": "sin-jewel-003",
+    "name": "Canopy Park",
+    "slug": "canopy-park",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Entertainment",
+    "amenity_type": "Park",
+    "vibe_tags": [
+      "Explore",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Jewel, Level 5",
+    "coordinates": {
+      "lat": 1.3602,
+      "lng": 103.9892
+    },
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/canopy-park.jpg"
+  },
+  {
+    "id": "sin-jewel-004",
+    "name": "Changi Lounge",
+    "slug": "changi-lounge",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Lounges",
+    "amenity_type": "Lounge",
+    "vibe_tags": [
+      "Relax",
+      "Work",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "location_description": "Jewel, Level 1",
+    "coordinates": {
+      "lat": 1.3603,
+      "lng": 103.9893
+    },
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "price_tier": "$$$",
+    "sponsored": false,
+    "image_url": "https://cdn.terminal.plus/images/amenities/changi-lounge.jpg"
+  },
+  {
+    "name": "Foggy Bowls",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Experiences",
+    "amenity_type": "Attractions",
+    "description": "Mist-filled play areas for children",
+    "location_description": "Level 1, near central atrium",
+    "opening_hours": {
+      "Monday-Sunday": "24 hours"
+    },
+    "vibe_tags": [
+      "Explore",
+      "Family",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "slug": "foggy-bowls"
+  },
+  {
+    "name": "Hedge Maze",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Experiences",
+    "amenity_type": "Attractions",
+    "description": "Singapore's largest hedge maze",
+    "location_description": "Level 1, near central atrium",
+    "opening_hours": {
+      "Monday-Sunday": "24 hours"
+    },
+    "vibe_tags": [
+      "Explore",
+      "Family",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "slug": "hedge-maze"
+  },
+  {
+    "name": "Manulife Sky Nets",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Experiences",
+    "amenity_type": "Attractions",
+    "description": "Walking and bouncing nets suspended in the air",
+    "location_description": "Level 1, near central atrium",
+    "opening_hours": {
+      "Monday-Sunday": "24 hours"
+    },
+    "vibe_tags": [
+      "Explore",
+      "Active",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "slug": "manulife-sky-nets"
+  },
+  {
+    "name": "Mirror Maze",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Experiences",
+    "amenity_type": "Attractions",
+    "description": "Immersive mirror maze experience",
+    "location_description": "Level 1, near central atrium",
+    "opening_hours": {
+      "Monday-Sunday": "24 hours"
+    },
+    "vibe_tags": [
+      "Explore",
+      "Family",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "slug": "mirror-maze"
+  },
+  {
+    "name": "Changi Experience Studio",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Experiences",
+    "amenity_type": "Interactive",
+    "description": "Interactive digital attraction about Changi Airport",
+    "location_description": "Level 1, near central atrium",
+    "opening_hours": {
+      "Monday-Sunday": "24 hours"
+    },
+    "vibe_tags": [
+      "Explore",
+      "Learn",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "slug": "changi-experience-studio"
+  },
+  {
+    "name": "Bengawan Solo",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Food & Beverage",
+    "amenity_type": "Bakery & Desserts",
+    "description": "Traditional Singaporean cakes and kueh",
+    "location_description": "Terminal Area",
+    "opening_hours": {
+      "Monday-Sunday": "6:00 AM - 11:00 PM"
+    },
+    "vibe_tags": [
+      "Food",
+      "Local",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "slug": "bengawan-solo"
+  },
+  {
+    "name": "Tiger Street Lab",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Food & Beverage",
+    "amenity_type": "Bars & Pubs",
+    "description": "Craft beer and local fare",
+    "location_description": "Terminal Area",
+    "opening_hours": {
+      "Monday-Sunday": "6:00 AM - 11:00 PM"
+    },
+    "vibe_tags": [
+      "Food",
+      "Social",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "slug": "tiger-street-lab"
+  },
+  {
+    "name": "Din Tai Fung",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Food & Beverage",
+    "amenity_type": "Chinese",
+    "description": "Renowned Taiwanese restaurant famous for xiaolongbao",
+    "location_description": "Terminal Area",
+    "opening_hours": {
+      "Monday-Sunday": "6:00 AM - 11:00 PM"
+    },
+    "vibe_tags": [
+      "Food",
+      "Asian",
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "airport_name": "Singapore Changi",
+    "city": "Singapore",
+    "country": "Singapore",
+    "area": "Asia",
+    "slug": "din-tai-fung"
+  },
+  {
+    "id": "sin-t1-starbucks-001",
+    "name": "Starbucks",
+    "slug": "starbucks",
+    "terminal_code": "SIN-T1",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Departure Transit Lounge West, Level 2, #02-K10",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t1-paul-le-cafe-001",
+    "name": "PAUL Le Café",
+    "slug": "paul-le-cafe",
+    "terminal_code": "SIN-T1",
+    "category": "Coffee & Snacks",
+    "amenity_type": "bakery café",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Departure/Transit Lounge West, Level 2, #02-26",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t2-dunkin-donuts-001",
+    "name": "Dunkin' Donuts",
+    "slug": "dunkin-donuts",
+    "terminal_code": "SIN-T2",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee & donuts",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Departure Transit Area, #02-K14",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t2-coffee-bean-001",
+    "name": "The Coffee Bean & Tea Leaf",
+    "slug": "the-coffee-bean-tea-leaf",
+    "terminal_code": "SIN-T2",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Transfer F area",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t3-starbucks-001",
+    "name": "Starbucks",
+    "slug": "starbucks",
+    "terminal_code": "SIN-T3",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Departure Transit Lounge, Level 2",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t3-coffee-bean-001",
+    "name": "The Coffee Bean & Tea Leaf",
+    "slug": "the-coffee-bean-tea-leaf",
+    "terminal_code": "SIN-T3",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Transit Lounge South, Level 2, #02-K4",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t3-pret-a-manger-001",
+    "name": "Pret A Manger",
+    "slug": "pret-a-manger",
+    "terminal_code": "SIN-T3",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee & fresh food",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Transit Lounge Central, Level 2",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t4-coffee-bean-001",
+    "name": "The Coffee Bean & Tea Leaf",
+    "slug": "the-coffee-bean-tea-leaf",
+    "terminal_code": "SIN-T4",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Level 2, #02-36",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-jewel-starbucks-001",
+    "name": "Starbucks",
+    "slug": "starbucks",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Level 2, #02-204",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-jewel-coffee-bean-001",
+    "name": "The Coffee Bean & Tea Leaf",
+    "slug": "the-coffee-bean-tea-leaf",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Level 1, #01-200",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-jewel-paul-bakery-001",
+    "name": "PAUL Bakery & Restaurant",
+    "slug": "paul-bakery-restaurant",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Coffee & Snacks",
+    "amenity_type": "bakery café",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Basement 1, #B1-225",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-jewel-dunkin-donuts-001",
+    "name": "Dunkin' Donuts",
+    "slug": "dunkin-donuts",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee & donuts",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Basement 2, #B2-270",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t1-burger-king-001",
+    "name": "Burger King",
+    "slug": "burger-king",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Departure/Transit Lounge West, Mezzanine Level, #03-02",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t1-4fingers-001",
+    "name": "4Fingers Crispy Chicken",
+    "slug": "4fingers-crispy-chicken",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Transit Area",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t2-chutney-mary-001",
+    "name": "Chutney Mary Indian Fast Food",
+    "slug": "chutney-mary-indian-fast-food",
+    "terminal_code": "SIN-T2",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Transit Area",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t3-mcdonalds-001",
+    "name": "McDonald's",
+    "slug": "mcdonalds",
+    "terminal_code": "SIN-T3",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Arrival Hall, Level 1",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t3-4fingers-001",
+    "name": "4Fingers Crispy Chicken",
+    "slug": "4fingers-crispy-chicken",
+    "terminal_code": "SIN-T3",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "#B2-02",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-t4-burger-king-001",
+    "name": "Burger King",
+    "slug": "burger-king",
+    "terminal_code": "SIN-T4",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "International Food Hall",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-jewel-shake-shack-001",
+    "name": "Shake Shack",
+    "slug": "shake-shack",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Level 2",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": ""
+  },
+  {
+    "id": "sin-jewel-aw-001",
+    "name": "A&W Restaurants",
+    "slug": "aw-restaurants",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "vibe_tags": [
+      "Quick",
+      "Comfort"
+    ],
+    "status": "active",
+    "location_description": "Level 2",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "price_tier": "$",
+    "sponsored": false,
+    "image_url": ""
+  }
+]

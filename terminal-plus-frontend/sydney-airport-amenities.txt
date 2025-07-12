@@ -1,0 +1,163 @@
+SYDNEY AIRPORT AMENITIES (T1) - VERIFIED
+
+1. Aerotel Sydney
+   Terminal: SYD-T1
+   Category: Accommodation
+   Type: Airport Hotel
+   Vibe Tags: Rest, Comfort, Premium
+   Location: Arrivals Level, Terminal 1
+   Price: From AUD $99 for 6 hours
+
+2. Plaza Premium Lounge
+   Terminal: SYD-T1
+   Category: Lounge
+   Type: Pay-to-use Lounge
+   Vibe Tags: Relax, Premium, Comfort
+   Location: Airside, near Gate 25
+   Price: From AUD $66 for 3 hours
+
+3. Qantas International Business Lounge
+   Terminal: SYD-T1
+   Category: Lounge
+   Type: Airline Lounge
+   Vibe Tags: Premium, Work, Comfort
+   Location: Airside, near Gate 10
+   Price: Access for eligible passengers
+
+4. Heinemann Tax & Duty Free
+   Terminal: SYD-T1
+   Category: Retail
+   Type: Duty-Free Store
+   Vibe Tags: Shopping, Luxury
+   Location: Multiple locations airside
+   Price: Varies by product
+
+5. McDonald's
+   Terminal: SYD-T1
+   Category: Dining
+   Type: Quick Service Restaurant
+   Vibe Tags: Quick, Food
+   Location: Airside, near Gates 24 and 50
+   Price: Varies by item
+
+6. Kitchen by Mike
+   Terminal: SYD-T1
+   Category: Dining
+   Type: Casual Dining
+   Vibe Tags: Food, Social
+   Location: Airside, near Gate 30
+   Price: Varies by item
+
+7. Global Exchange
+   Terminal: SYD-T1
+   Category: Services
+   Type: Currency Exchange
+   Vibe Tags: Services, Convenience
+   Location: Multiple locations pre- and post-security
+   Price: Based on exchange rates and fees
+
+8. Smarte Carte Baggage Storage
+   Terminal: SYD-T1
+   Category: Services
+   Type: Baggage Storage
+   Vibe Tags: Services, Convenience
+   Location: Arrivals Level, opposite Blooming Trails
+   Price: From AUD $16 for 24 hours
+
+9. Free Wi-Fi
+   Terminal: SYD-T1
+   Category: Services
+   Type: Internet Access
+   Vibe Tags: Work, Convenience
+   Location: Throughout Terminal 1
+   Price: Free
+
+10. Accessible Toilets
+    Terminal: SYD-T1
+    Category: Facilities
+    Type: Restroom
+    Vibe Tags: Facilities, Convenience
+    Location: Throughout Terminal 1
+    Price: Free
+
+11. Assistance Animal Relief Area
+    Terminal: SYD-T1
+    Category: Facilities
+    Type: Pet Relief Area
+    Vibe Tags: Facilities, Convenience
+    Location: Arrivals Level, opposite Gate 54
+    Price: Free
+
+12. Changing Places Bathroom
+    Terminal: SYD-T1
+    Category: Facilities
+    Type: Accessible Restroom
+    Vibe Tags: Facilities, Convenience
+    Location: Arrivals Level, near Gate 54 and adjacent to the Meeting Point
+    Price: Free
+
+13. Information Desks
+    Terminal: SYD-T1
+    Category: Services
+    Type: Customer Service
+    Vibe Tags: Services, Convenience
+    Location: Various locations on Departures and Arrivals Levels
+    Price: Free
+
+14. Medical Centre
+    Terminal: SYD-T1
+    Category: Services
+    Type: Medical Facility
+    Vibe Tags: Services, Health
+    Location: Level 3, Terminal 1
+    Price: Varies by service
+
+15. Airport Ambassadors
+    Terminal: SYD-T1
+    Category: Services
+    Type: Customer Assistance
+    Vibe Tags: Services, Convenience
+    Location: Throughout Terminal 1
+    Price: Free
+
+16. TTY Phones
+    Terminal: SYD-T1
+    Category: Facilities
+    Type: Communication Device
+    Vibe Tags: Facilities, Convenience
+    Location: Various locations on Levels 1 and 2, and airside
+    Price: Free
+
+17. Luggage Trolleys
+    Terminal: SYD-T1
+    Category: Services
+    Type: Baggage Assistance
+    Vibe Tags: Services, Convenience
+    Location: Kerbside and baggage halls
+    Price: AUD $5 kerbside; Free in baggage halls and car parks
+
+18. Free Internet Kiosks
+    Terminal: SYD-T1
+    Category: Services
+    Type: Internet Access
+    Vibe Tags: Work, Convenience
+    Location: Various locations throughout Terminal 1
+    Price: Free
+
+19. Prayer Room
+    Terminal: SYD-T1
+    Category: Facilities
+    Type: Religious Facility
+    Vibe Tags: Quiet, Reflection
+    Location: Airside, near Gate 33
+    Price: Free
+
+20. Children's Play Area
+    Terminal: SYD-T1
+    Category: Facilities
+    Type: Play Area
+    Vibe Tags: Family, Entertainment
+    Location: Airside, near Gate 10
+    Price: Free
+
+Note: This list only includes amenities that have been verified to exist at Sydney Airport T1. Other amenities in the system may need to be verified or removed. 

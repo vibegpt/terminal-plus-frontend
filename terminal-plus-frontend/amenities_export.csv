@@ -1,0 +1,85 @@
+id,name,vibe_tags,location_description,opening_hours
+syd-t1-001,Betty's Burgers,Food;Social;Quick,"Before Security, Food Court",{'Monday-Sunday': '24/7'}
+syd-t1-002,Campos Coffee,Food;Quick;Work;Relax;Comfort,"After Security, near Gate 24",{'Monday-Sunday': '24/7'}
+syd-t1-003,Heineken House,Social;Food;Entertainment;Relax;Comfort,"After Security, near Gate 10",{'Monday-Sunday': '24/7'}
+syd-t1-004,Kitchen by Mike,Food;Social;Quick;Comfort,"After Security, near Gate 30",{'Monday-Sunday': '24/7'}
+syd-t1-005,Lilong by Taste of Shanghai,Food;Social;Quick;Comfort,"After Security, near Gate 56",{'Monday-Sunday': '24/7'}
+syd-t1-006,McDonald's,Quick;Food;Comfort,"After Security, near Gates 24 and 50",{'Monday-Sunday': '24/7'}
+syd-t1-007,Sahara Grill,Quick;Food;Comfort,"After Security, near Gate 10",{'Monday-Sunday': '24/7'}
+syd-t1-008,SumoSalad Green on Green,Quick;Food;Healthy;Comfort,"After Security, near Gate 24",{'Monday-Sunday': '24/7'}
+syd-t1-009,Sushia,Food;Social;Quick;Comfort,"After Security, near Gate 30",{'Monday-Sunday': '24/7'}
+syd-t1-010,The Bistro by Wolfgang Puck,Food;Social;Premium;Quick;Comfort,"After Security, near Gate 10",{'Monday-Sunday': '24/7'}
+syd-t1-011,Toby's Estate,Food;Quick;Work;Comfort,"After Security, towards Gates 50-63",{'Monday-Sunday': '24/7'}
+syd-t1-012,Yo! Sushi,Food;Social;Quick;Comfort,"After Security, The Food Court",{'Monday-Sunday': '24/7'}
+syd-t1-013,Heinemann Tax & Duty Free,Shopping;Luxury;Quick;Comfort,"After Security, multiple locations including near Gates 31-33",{'Monday-Sunday': '24/7'}
+syd-t1-014,Louis Vuitton,Shopping;Luxury;Quick;Comfort,"After Security, Luxury Precinct",{'Monday-Sunday': '24/7'}
+syd-t1-015,Gucci,Shopping;Luxury;Quick;Comfort,"After Security, towards Gates 50-63",{'Monday-Sunday': '24/7'}
+syd-t1-016,Prada,Shopping;Luxury;Quick;Comfort,"After Security, Luxury Precinct",{'Monday-Sunday': '24/7'}
+syd-t1-017,Cartier,Shopping;Luxury;Quick;Comfort,"After Security, Luxury Precinct",{'Monday-Sunday': '24/7'}
+syd-t1-018,Burberry,Shopping;Luxury;Quick;Comfort,"After Security, Luxury Precinct",{'Monday-Sunday': '24/7'}
+syd-t1-019,Bottega Veneta,Shopping;Luxury;Quick;Comfort,"After Security, Luxury Precinct",{'Monday-Sunday': '24/7'}
+syd-t1-020,Gentle Monster,Shopping;Luxury;Quick;Comfort,"After Security, Luxury Precinct",{'Monday-Sunday': '24/7'}
+syd-t1-021,Rip Curl,Shopping;Fashion;Quick;Comfort,"Before Security, Food Court",{'Monday-Sunday': '24/7'}
+syd-t1-022,Amcal Pharmacy,Shopping;Convenience;Quick;Comfort,"After Security, towards Gates 24-25",{'Monday-Sunday': '24/7'}
+syd-t1-023,WHSmith,Shopping;Convenience;Quick;Comfort,"After Security, near Gates 10, 30, 51, and 54",{'Monday-Sunday': '24/7'}
+syd-t1-024,Global Exchange,Services;Convenience;Quick;Comfort,Multiple locations before and after security,{'Monday-Sunday': '24/7'}
+,Qantas International First Lounge,Relax;Quick;Comfort,"Mezzanine Level, after Customs",{'Monday-Sunday': '05:00 – 22:00'}
+,Qantas International Business Lounge,Relax;Quick;Comfort,"Mezzanine Level, after Customs",{'Monday-Sunday': '05:00 – 22:00'}
+,Air New Zealand Lounge,Relax;Quick;Comfort,"Level 3, near Gate 59",{'Monday-Sunday': '06:00 – 21:00'}
+,Singapore Airlines SilverKris Lounge,Relax;Quick;Comfort,"Level 3, near Gate 59",{'Monday-Sunday': '05:30 – 18:00'}
+,Emirates Lounge,Relax;Quick;Comfort,"Level 1, near Gate 58",{'Monday-Sunday': '04:00 – 07:20 and 16:10 – 20:40'}
+,The Centurion Lounge (American Express),Relax;Quick;Comfort,"Departures Level, near Gates 50–63",{'Monday-Sunday': '06:00 – 21:00'}
+,The House by Aspire,Relax;Quick;Comfort,"Departures Level, near Gate 50",{'Monday-Sunday': '05:00 – 22:00'}
+,SkyTeam Lounge,Relax;Quick;Comfort,"Departures Level, adjacent to Gate 24","{'Monday': '05:30 – 13:30 & 17:30 – 22:00', 'Tuesday': '05:30 – 12:30 & 17:30 – 22:00', 'Wednesday': '05:30 – 13:30 & 17:30 – 22:00', 'Thursday': '05:30 – 12:30 & 18:00 – 22:00', 'Friday': '05:30 – 12:30 & 17:30 – 22:00', 'Saturday': '05:30 – 13:30 & 17:30 – 22:00', 'Sunday': '05:30 – 12:30 & 18:00 – 22:00'}"
+,Plaza Premium Lounge (Departures),Relax;Quick;Comfort,"Level 2, near Gates 25–26",{'Monday-Sunday': '05:30 – 22:00'}
+,Plaza Premium Lounge (Arrivals),Relax;Quick;Comfort,"Level 1, inside Aerotel, Arrivals B (non-restricted area)",{'Monday-Sunday': '06:00 – 20:00'}
+sin-t1-001,Aerotel Airport Transit Hotel & Swimming Pool,Relax;Comfort,"After Security, Level 3",{'Monday-Sunday': '24/7'}
+sin-t1-002,Cactus Garden,Explore;Relax;Quick;Comfort,"Rooftop, Level 3",{'Monday-Sunday': '24/7'}
+sin-t1-003,Kinetic Rain Sculpture,Explore;Quick;Comfort,"Departure Hall, Public Area",{'Monday-Sunday': '24/7'}
+sin-t1-004,The Social Tree,Explore;Quick;Comfort,Central Transit Area,{'Monday-Sunday': '24/7'}
+sin-t1-005,Lounges,Relax;Work;Comfort;Quick,Various locations,{'Monday-Sunday': '24/7'}
+sin-t2-001,Snooze Lounge,Relax;Comfort;Quick,"Transit Area, Level 2",{'Monday-Sunday': '24/7'}
+sin-t2-002,Entertainment Deck,Explore;Quick;Comfort,"Level 3, Transit Area",{'Monday-Sunday': '24/7'}
+sin-t2-003,24-Hour Movie Theatre,Relax;Explore;Quick;Comfort,"Level 3, Transit Area",{'Monday-Sunday': '24/7'}
+sin-t2-004,Peach Garden Restaurant,Comfort;Quick,"Level 2, Public Area",{'Monday-Sunday': '10:00-22:00'}
+sin-t2-005,Chutney Mary,Comfort;Quick,"Level 2, Public Area",{'Monday-Sunday': '10:00-22:00'}
+sin-t3-001,Butterfly Garden,Explore;Relax;Quick;Comfort,"Level 2, Transit Area",{'Monday-Sunday': '24/7'}
+sin-t3-002,The Slide @ T3,Explore;Quick;Comfort,"Level 1, Public Area",{'Monday-Sunday': '12:00-22:30'}
+sin-t3-003,ST3PS,Relax;Explore;Quick;Comfort,"Basement 2, Public Area",{'Monday-Sunday': '24/7'}
+sin-t3-004,Lounges,Relax;Work;Comfort;Quick,Various locations,{'Monday-Sunday': '24/7'}
+sin-t4-001,Heritage Zone,Explore;Quick;Comfort,"Transit Area, Level 2",{'Monday-Sunday': '24/7'}
+sin-t4-002,Blossom – SATS & Plaza Premium Lounge,Relax;Work;Comfort;Quick,"Level 2, Transit Area",{'Monday-Sunday': '24/7'}
+sin-t4-003,International Food Hall,Comfort;Quick,"Level 2, Transit Area",{'Monday-Sunday': '10:00-22:00'}
+sin-t4-004,Green Spaces,Relax;Explore;Quick;Comfort,Various locations,{'Monday-Sunday': '24/7'}
+sin-jewel-001,Rain Vortex,Explore;Relax;Quick;Comfort,"Jewel, Level 1",{'Monday-Sunday': '10:00-22:00'}
+sin-jewel-002,Forest Valley,Explore;Relax;Quick;Comfort,"Jewel, Level 1-4",{'Monday-Sunday': '10:00-22:00'}
+sin-jewel-003,Canopy Park,Explore;Quick;Comfort,"Jewel, Level 5",{'Monday-Sunday': '10:00-22:00'}
+sin-jewel-004,Changi Lounge,Relax;Work;Comfort;Quick,"Jewel, Level 1",{'Monday-Sunday': '10:00-22:00'}
+,Foggy Bowls,Explore;Family;Quick;Comfort,"Level 1, near central atrium",{'Monday-Sunday': '24 hours'}
+,Hedge Maze,Explore;Family;Quick;Comfort,"Level 1, near central atrium",{'Monday-Sunday': '24 hours'}
+,Manulife Sky Nets,Explore;Active;Quick;Comfort,"Level 1, near central atrium",{'Monday-Sunday': '24 hours'}
+,Mirror Maze,Explore;Family;Quick;Comfort,"Level 1, near central atrium",{'Monday-Sunday': '24 hours'}
+,Changi Experience Studio,Explore;Learn;Quick;Comfort,"Level 1, near central atrium",{'Monday-Sunday': '24 hours'}
+,Bengawan Solo,Food;Local;Quick;Comfort,Terminal Area,{'Monday-Sunday': '6:00 AM - 11:00 PM'}
+,Tiger Street Lab,Food;Social;Quick;Comfort,Terminal Area,{'Monday-Sunday': '6:00 AM - 11:00 PM'}
+,Din Tai Fung,Food;Asian;Quick;Comfort,Terminal Area,{'Monday-Sunday': '6:00 AM - 11:00 PM'}
+sin-t1-starbucks-001,Starbucks,Quick;Comfort,"Departure Transit Lounge West, Level 2, #02-K10",{'Monday-Sunday': '24/7'}
+sin-t1-paul-le-cafe-001,PAUL Le Café,Quick;Comfort,"Departure/Transit Lounge West, Level 2, #02-26",{'Monday-Sunday': '24/7'}
+sin-t2-dunkin-donuts-001,Dunkin' Donuts,Quick;Comfort,"Departure Transit Area, #02-K14",{'Monday-Sunday': '24/7'}
+sin-t2-coffee-bean-001,The Coffee Bean & Tea Leaf,Quick;Comfort,Transfer F area,{'Monday-Sunday': '24/7'}
+sin-t3-starbucks-001,Starbucks,Quick;Comfort,"Departure Transit Lounge, Level 2",{'Monday-Sunday': '24/7'}
+sin-t3-coffee-bean-001,The Coffee Bean & Tea Leaf,Quick;Comfort,"Transit Lounge South, Level 2, #02-K4",{'Monday-Sunday': '24/7'}
+sin-t3-pret-a-manger-001,Pret A Manger,Quick;Comfort,"Transit Lounge Central, Level 2",{'Monday-Sunday': '24/7'}
+sin-t4-coffee-bean-001,The Coffee Bean & Tea Leaf,Quick;Comfort,"Level 2, #02-36",{'Monday-Sunday': '24/7'}
+sin-jewel-starbucks-001,Starbucks,Quick;Comfort,"Level 2, #02-204",{'Monday-Sunday': '24/7'}
+sin-jewel-coffee-bean-001,The Coffee Bean & Tea Leaf,Quick;Comfort,"Level 1, #01-200",{'Monday-Sunday': '24/7'}
+sin-jewel-paul-bakery-001,PAUL Bakery & Restaurant,Quick;Comfort,"Basement 1, #B1-225",{'Monday-Sunday': '24/7'}
+sin-jewel-dunkin-donuts-001,Dunkin' Donuts,Quick;Comfort,"Basement 2, #B2-270",{'Monday-Sunday': '24/7'}
+sin-t1-burger-king-001,Burger King,Quick;Comfort,"Departure/Transit Lounge West, Mezzanine Level, #03-02",{'Monday-Sunday': '24/7'}
+sin-t1-4fingers-001,4Fingers Crispy Chicken,Quick;Comfort,Transit Area,{'Monday-Sunday': '24/7'}
+sin-t2-chutney-mary-001,Chutney Mary Indian Fast Food,Quick;Comfort,Transit Area,{'Monday-Sunday': '24/7'}
+sin-t3-mcdonalds-001,McDonald's,Quick;Comfort,"Arrival Hall, Level 1",{'Monday-Sunday': '24/7'}
+sin-t3-4fingers-001,4Fingers Crispy Chicken,Quick;Comfort,#B2-02,{'Monday-Sunday': '24/7'}
+sin-t4-burger-king-001,Burger King,Quick;Comfort,International Food Hall,{'Monday-Sunday': '24/7'}
+sin-jewel-shake-shack-001,Shake Shack,Quick;Comfort,Level 2,{'Monday-Sunday': '24/7'}
+sin-jewel-aw-001,A&W Restaurants,Quick;Comfort,Level 2,{'Monday-Sunday': '24/7'}
