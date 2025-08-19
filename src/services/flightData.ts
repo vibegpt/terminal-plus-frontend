@@ -21,9 +21,7 @@ export async function fetchFlightInfo({ flightNumber, dep, arr, date }: FetchFli
 
 import { fetchFlightInfo } from "@/services/flightData";
 
-const flightDurationCache: Record<string, number> = {};
 
-const flightDurationCache: Record<string, number> = {};
 
 const fallbackDurations: Record<string, number> = {
   "SYD-SIN": 510,
