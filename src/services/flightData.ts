@@ -17,7 +17,11 @@ export async function fetchFlightInfo({ flightNumber, dep, arr, date }: FetchFli
   if (!res.ok) throw new Error("Failed to fetch flight data");
   return res.json();
 }
+}
 
+import { fetchFlightInfo } from "@/services/flightData";
+
+const flightDurationCache: Record<string, number> = {};
 
 const flightDurationCache: Record<string, number> = {};
 
