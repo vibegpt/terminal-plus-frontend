@@ -157,12 +157,10 @@ export default defineConfig({
           
           // Heavy libraries - separate chunks
           'animation': ['framer-motion'],
-          'maps': ['@react-google-maps/api'],
-          'analytics': ['@sentry/react', 'posthog-js'],
           'supabase': ['@supabase/supabase-js'],
-          
+
           // Utils
-          'utils': ['date-fns', 'clsx', 'tailwind-merge'],
+          'utils': ['clsx', 'tailwind-merge'],
         },
       },
     },
