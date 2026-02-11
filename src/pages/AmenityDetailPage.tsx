@@ -117,7 +117,7 @@ export default function AmenityDetailPage() {
       if (primaryVibe) {
         const { data: similar } = await supabase
           .from('amenity_detail')
-          .select('id, amenity_slug, name, terminal_code, opening_hours, price_level, vibe_tags')
+          .select('id, amenity_slug, name, terminal_code, opening_hours, price_level, vibe_tags, logo_url')
           .eq('airport_code', 'SIN')
           .eq('terminal_code', data.terminal_code)
           .ilike('vibe_tags', `%${primaryVibe}%`)
@@ -193,6 +193,17 @@ export default function AmenityDetailPage() {
           </div>
         </div>
       </header>
+
+      {/* Hero Image */}
+      {amenity.logo_url && (
+        <div className="w-full h-48 bg-gray-100">
+          <img
+            src={amenity.logo_url}
+            alt={amenity.name}
+            className="w-full h-48 object-cover"
+          />
+        </div>
+      )}
 
       {/* Content */}
       <div className="px-4 pt-5">
@@ -303,6 +314,18 @@ export default function AmenityDetailPage() {
                     onClick={() => navigate(`/amenity/${sim.amenity_slug}`)}
                     className="w-full flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors text-left"
                   >
+                    {sim.logo_url ? (
+                      <img
+                        src={sim.logo_url}
+                        alt={sim.name}
+                        className="w-10 h-10 rounded-lg object-cover flex-shrink-0 bg-gray-200"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center flex-shrink-0">
+                        <MapPin className="w-4 h-4 text-gray-400" />
+                      </div>
+                    )}
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-900 truncate">{sim.name}</p>
                       <p className="text-xs text-gray-500">

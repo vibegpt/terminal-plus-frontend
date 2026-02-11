@@ -314,6 +314,18 @@ export const CollectionDetailPage: React.FC = () => {
                   !openStatus.open ? 'opacity-60' : ''
                 }`}
               >
+                {amenity.logo_url ? (
+                  <img
+                    src={amenity.logo_url}
+                    alt={amenity.name}
+                    className="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-gray-100"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-gray-300" />
+                  </div>
+                )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <p className="text-sm font-semibold text-gray-900 truncate">{amenity.name}</p>
