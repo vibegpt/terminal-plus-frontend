@@ -10,6 +10,7 @@ import SimplifiedExplore from "@/pages/simplified-explore";
 import TransitGuide from "@/pages/transit-guide/[airport]";
 import ExploreTerminal from '@/pages/explore-terminal';
 import { VibeProvider } from '@/context/VibeContext';
+import ChatBubble from '@/components/ChatBubble';
 
 // Placeholder for transit guide
 function TransitGuidePlaceholder() {
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/explore-terminal" element={<ExploreTerminal />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ChatBubble />
     </VibeProvider>
   );
 }
