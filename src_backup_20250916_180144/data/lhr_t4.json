@@ -1,0 +1,25 @@
+[
+  {
+    "name": "caffe-nero-t4-gate-16",
+    "terminal_code": "LHR-T4",
+    "category": "Food & Beverage",
+    "amenity_type": "Café",
+    "description": "Ever since we opened our first coffee house in 1997, Caffè Nero has been dedicated to two things: creating the very finest handcrafted Italian coffee and providing a warm and relaxing atmosphere in which to enjoy it. As every second counts when you're flying, you need good food - fast! This is why Caffè Nero at Heathrow offers a 15-minute menu.",
+    "location_description": "Near Gate 16",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-22:00"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4702,
+      "lng": -0.4522
+    },
+    "price_tier": "$$"
+  }
+] 

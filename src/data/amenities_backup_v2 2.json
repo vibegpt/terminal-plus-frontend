@@ -1,0 +1,7706 @@
+[
+  {
+    "name": "Ca'puccino",
+    "terminal_code": "LHR-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Cafe",
+    "description": "Italian-style coffee and pastries.",
+    "location_description": "Airside, Departure Lounge",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-21:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4704,
+      "lng": -0.4524
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Joe & The Juice",
+    "terminal_code": "LHR-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Juice Bar",
+    "description": "Health-focused juices, smoothies, and sandwiches.",
+    "location_description": "Near Gate A15",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-21:00"
+    },
+    "vibe_tags": [
+      "Quick",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4706,
+      "lng": -0.4526
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "The Perfectionists' Café by Heston Blumenthal",
+    "terminal_code": "LHR-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Upscale Restaurant",
+    "description": "Innovative British cuisine by celebrity chef Heston Blumenthal.",
+    "location_description": "Airside, near the central concourse",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-22:00"
+    },
+    "vibe_tags": [
+      "Explore",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4699,
+      "lng": -0.4522
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Wondertree",
+    "terminal_code": "LHR-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Restaurant",
+    "description": "Family-friendly all-day dining with global comfort food.",
+    "location_description": "Airside, Level 5 near Gate A18",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4698,
+      "lng": -0.4517
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Plaza Premium Lounge",
+    "terminal_code": "LHR-T2",
+    "category": "Services",
+    "amenity_type": "Lounge",
+    "description": "Independent premium lounge with food, drinks, and showers.",
+    "location_description": "Airside, Level 4 after security",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4702,
+      "lng": -0.4521
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Burberry",
+    "terminal_code": "LHR-T2",
+    "category": "Shop",
+    "amenity_type": "Luxury Fashion",
+    "description": "Iconic British luxury brand offering fashion and accessories.",
+    "location_description": "Airside, Luxury Retail Area",
+    "opening_hours": {
+      "Monday-Sunday": "06:00-21:00"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4703,
+      "lng": -0.4523
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "WHSmith",
+    "terminal_code": "LHR-T2",
+    "category": "Shop",
+    "amenity_type": "Travel Essentials",
+    "description": "Books, snacks, and last-minute travel items.",
+    "location_description": "Airside, near security exit",
+    "opening_hours": {
+      "Monday-Sunday": "04:30-22:00"
+    },
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4701,
+      "lng": -0.452
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "World Duty Free",
+    "terminal_code": "LHR-T2",
+    "category": "Shop",
+    "amenity_type": "Duty Free",
+    "description": "Tax-free goods including fragrances, alcohol, and travel exclusives.",
+    "location_description": "Airside, Departures",
+    "opening_hours": {
+      "Monday-Sunday": "04:30-22:00"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4705,
+      "lng": -0.4525
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Aerotel London Heathrow",
+    "terminal_code": "LHR-T3",
+    "category": "Hotel",
+    "amenity_type": "Hotel",
+    "description": "Compact hourly hotel with ensuite rooms inside T3 arrivals. Ideal for long layovers, early flights, or unexpected delays. Bookable by hour or overnight. Walk-in accepted based on availability.",
+    "location_description": "Landside, T3 Arrivals Hall",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort",
+      "Chill"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Aerotel London Heathrow (T3, near T2 access)",
+    "terminal_code": "LHR-T3",
+    "category": "Hotel",
+    "amenity_type": "Hotel",
+    "description": "Hourly hotel with ensuite rooms. Ideal for layovers, early arrivals, or overnight rest. Located in T3 but easily accessible from T2 via walkway. Book online or walk-in.",
+    "location_description": "Landside, T3 Arrivals, 10-min walk from T2",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort",
+      "Chill"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "The Commission by Drake & Morgan",
+    "terminal_code": "LHR-T4",
+    "category": "Bar",
+    "amenity_type": "Bar",
+    "description": "Stylish cocktail bar and eatery with all-day menu. Great for solo travelers or social drinks.",
+    "location_description": "Airside, Central food court zone",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Chill",
+      "Refuel"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Caffè Nero",
+    "terminal_code": "LHR-T4",
+    "category": "Cafe",
+    "amenity_type": "Cafe",
+    "description": "Italian-style espresso, sandwiches, and pastries. Grab & go friendly with plenty of seating.",
+    "location_description": "Airside, Departure lounge",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Pret a Manger",
+    "terminal_code": "LHR-T4",
+    "category": "Cafe",
+    "amenity_type": "Cafe",
+    "description": "Freshly made food, organic coffee, and vegan-friendly options. Great for fast casual dining.",
+    "location_description": "Airside, Main retail concourse, near security",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "World Duty Free",
+    "terminal_code": "LHR-T4",
+    "category": "Duty Free",
+    "amenity_type": "Duty Free",
+    "description": "Extensive range of alcohol, beauty, fragrance, and travel retail exclusives. Open to all international travelers.",
+    "location_description": "Airside, Main concourse, post-security",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Explore"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "YOTELAIR London Heathrow",
+    "terminal_code": "LHR-T4",
+    "category": "Hotel",
+    "amenity_type": "Hotel",
+    "description": "Futuristic sleep pods and compact cabins available by the hour or overnight. Equipped with smart beds, Wi-Fi, private showers. Accessible without passing security—perfect for transit or work-catchup stops.",
+    "location_description": "Landside, Mezzanine Level, T4 Arrivals",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "El Al King David Lounge",
+    "terminal_code": "LHR-T4",
+    "category": "Lounge",
+    "amenity_type": "Lounge",
+    "description": "Serves El Al Business and First Class passengers. Kosher catering and Israeli press available.",
+    "location_description": "Airside, Close to Gate 4",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort",
+      "Chill",
+      "Refuel"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Gulf Air Falcon Gold Lounge",
+    "terminal_code": "LHR-T4",
+    "category": "Lounge",
+    "amenity_type": "Lounge",
+    "description": "Access for Gulf Air premium passengers. Offers quiet seating, refreshments, and flight views.",
+    "location_description": "Airside, Upper level near Gate 6",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort",
+      "Chill",
+      "Refuel"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Plaza Premium Lounge",
+    "terminal_code": "LHR-T4",
+    "category": "Lounge",
+    "amenity_type": "Lounge",
+    "description": "Pay-per-use lounge with food, drinks, shower, and rest areas. Open to all travelers regardless of airline.",
+    "location_description": "Airside, Near Gate 6",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort",
+      "Chill",
+      "Refuel"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "SkyTeam Lounge",
+    "terminal_code": "LHR-T4",
+    "category": "Lounge",
+    "amenity_type": "Lounge",
+    "description": "Exclusive access for SkyTeam Elite Plus and Business Class travelers. Features a wellness area and buffet.",
+    "location_description": "Airside, Near Gate 10",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort",
+      "Chill",
+      "Refuel"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Burberry",
+    "terminal_code": "LHR-T4",
+    "category": "Luxury",
+    "amenity_type": "Luxury",
+    "description": "Iconic British fashion house offering trench coats, bags, scarves, and travelwear. Duty-free pricing.",
+    "location_description": "Airside, Luxury arcade, near Gate 6",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Explore"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Hugo Boss",
+    "terminal_code": "LHR-T4",
+    "category": "Luxury",
+    "amenity_type": "Luxury",
+    "description": "Stylish menswear and accessories including tailoring and travel attire.",
+    "location_description": "Airside, Near central shopping arcade, T4",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Explore"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Michael Kors",
+    "terminal_code": "LHR-T4",
+    "category": "Luxury",
+    "amenity_type": "Luxury",
+    "description": "Handbags, watches, and fashion accessories in a contemporary American style.",
+    "location_description": "Airside, Luxury retail wing, post-security",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Explore"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Boots",
+    "terminal_code": "LHR-T4",
+    "category": "Mini-Mart",
+    "amenity_type": "Mini-Mart",
+    "description": "Health, beauty, sandwiches, and toiletries. Pre-order available online.",
+    "location_description": "Airside, Departure area near security",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "WHSmith",
+    "terminal_code": "LHR-T4",
+    "category": "Mini-Mart",
+    "amenity_type": "Mini-Mart",
+    "description": "Books, drinks, snacks, magazines, and travel essentials.",
+    "location_description": "Airside, Gate 4 and near main entrance",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Comptoir Libanais",
+    "terminal_code": "LHR-T4",
+    "category": "Restaurant",
+    "amenity_type": "Restaurant",
+    "description": "Colorful Lebanese dishes including wraps, tagines, mezze, and desserts. Vegetarian options available.",
+    "location_description": "Airside, Food terrace, near retail arcade",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Explore"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Glorious Britain",
+    "terminal_code": "LHR-T4",
+    "category": "Retail",
+    "amenity_type": "Retail",
+    "description": "London-themed souvenirs, gifts, and UK merchandise. Great for last-minute keepsakes.",
+    "location_description": "Airside, Next to Boots",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Explore"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "InMotion",
+    "terminal_code": "LHR-T4",
+    "category": "Tech",
+    "amenity_type": "Tech",
+    "description": "Electronics and travel accessories including headphones, chargers, and gadgets.",
+    "location_description": "Airside, Near WHSmith",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Costa Coffee",
+    "terminal_code": "LHR-T4-ARR",
+    "category": "Cafe",
+    "amenity_type": "Cafe",
+    "description": "Espresso drinks, hot breakfast, pastries and snacks. Open early morning to late evening.",
+    "location_description": "Arrivals (Landside), T4 Arrivals Hall, near exit",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Travelex Currency Exchange",
+    "terminal_code": "LHR-T4-ARR",
+    "category": "Finance",
+    "amenity_type": "Finance",
+    "description": "Currency exchange with travel money cards, ATMs, and walk-up counter. Available during flight hours.",
+    "location_description": "Arrivals (Landside), Customs exit area",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "WHSmith",
+    "terminal_code": "LHR-T4-ARR",
+    "category": "Mini-Mart",
+    "amenity_type": "Mini-Mart",
+    "description": "Travel supplies, books, snacks, and convenience items. Publicly accessible post-arrival.",
+    "location_description": "Arrivals (Landside), Main concourse near car hire desks",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Information Desk",
+    "terminal_code": "LHR-T4-ARR",
+    "category": "Service",
+    "amenity_type": "Service",
+    "description": "Staffed info point for general airport help, connections, and lost property. Multilingual staff.",
+    "location_description": "Arrivals (Landside), Center of Arrivals Hall",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "SIM Card Vending Machine",
+    "terminal_code": "LHR-T4-ARR",
+    "category": "Telecom",
+    "amenity_type": "Telecom",
+    "description": "Self-serve kiosk with data SIMs and eSIM QR options. Accepts card and supports 24/7 use.",
+    "location_description": "Arrivals (Landside), Near baggage carousel and exit",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Work"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Car Rental Desks (Avis, Sixt, Budget, etc.)",
+    "terminal_code": "LHR-T4-ARR",
+    "category": "Transport",
+    "amenity_type": "Transport",
+    "description": "Major car rental firms with onsite booking and pickup. Reservations and walk-ins welcome.",
+    "location_description": "Arrivals (Landside), Back of Arrivals near WHSmith",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Work"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Taxi & Rideshare Pickup Point",
+    "terminal_code": "LHR-T4-ARR",
+    "category": "Transport",
+    "amenity_type": "Transport",
+    "description": "Designated lanes for black cabs, Uber, and private hire. Follow signs outside baggage exit.",
+    "location_description": "Arrivals (Curbside), Outside terminal front doors",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Gordon Ramsay Plane Food",
+    "terminal_code": "LHR-T5",
+    "category": "Bar",
+    "amenity_type": "Bar",
+    "description": "Upscale airport brasserie with cocktails, wine, and British fare. Quick Plane Food To Go option available.",
+    "location_description": "Airside, Near Gate A7, T5",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Chill"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Huxleys Restaurant & Bar",
+    "terminal_code": "LHR-T5",
+    "category": "Bar",
+    "amenity_type": "Bar",
+    "description": "Traditional British pub with beer, wine, and all-day menu including fish & chips and burgers.",
+    "location_description": "Airside, T5 main concourse",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Chill"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "World Duty Free – Beauty & Fragrance",
+    "terminal_code": "LHR-T5",
+    "category": "Duty Free",
+    "amenity_type": "Duty Free",
+    "description": "Perfume, cosmetics, and beauty exclusives. Duty-free pricing for international travelers.",
+    "location_description": "Airside, Central walkthrough, T5",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Explore"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Heathrow Personal Shopper Lounge",
+    "terminal_code": "LHR-T5",
+    "category": "Experiences",
+    "amenity_type": "Private Shopping",
+    "description": "Complimentary service with multilingual staff helping travelers navigate luxury and gifting.",
+    "location_description": "Airside, near luxury retail",
+    "opening_hours": {
+      "Monday-Sunday": "08:00–20:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Explore",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4727,
+      "lng": -0.4926
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "T5 Art Walk – British Airways Collection",
+    "terminal_code": "LHR-T5",
+    "category": "Experiences",
+    "amenity_type": "Art Installation",
+    "description": "A permanent exhibition of contemporary British art featuring sculptures and photography along the concourse.",
+    "location_description": "Airside, central and south concourses",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4724,
+      "lng": -0.4923
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Sofitel London Heathrow",
+    "terminal_code": "LHR-T5",
+    "category": "Hotel",
+    "amenity_type": "Hotel",
+    "description": "5-star hotel directly connected to T5 via covered walkway. Ideal for premium travelers, overnight layovers, or pre-flight relaxation. On-site spa, fine dining, and meeting rooms available.",
+    "location_description": "Connected Landside, Direct walkway from T5 Departures Level",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort",
+      "Chill"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "WHSmith",
+    "terminal_code": "LHR-T5",
+    "category": "Mini-Mart",
+    "amenity_type": "Mini-Mart",
+    "description": "Books, snacks, drinks, and last-minute travel supplies. Several locations in T5.",
+    "location_description": "Airside, T5 main concourse and Gate A20",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Aspire Lounge – Terminal 5",
+    "terminal_code": "LHR-T5",
+    "category": "Services",
+    "amenity_type": "Pay-per-Use Lounge",
+    "description": "Independent lounge open to all passengers with food, drinks, workstations, and showers.",
+    "location_description": "Airside, near Gate A18",
+    "opening_hours": {
+      "Monday-Sunday": "05:00–20:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4704,
+      "lng": -0.4905
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "British Airways Concorde Room",
+    "terminal_code": "LHR-T5",
+    "category": "Services",
+    "amenity_type": "Elite First Class Lounge",
+    "description": "Invite-only luxury lounge with fine dining, private cabanas, and champagne bar.",
+    "location_description": "Airside, South Lounge complex – behind First Lounge",
+    "opening_hours": {
+      "Monday-Sunday": "05:30–22:30"
+    },
+    "vibe_tags": [
+      "Work",
+      "Chill"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4705,
+      "lng": -0.4906
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "British Airways Galleries Club Lounge (North)",
+    "terminal_code": "LHR-T5",
+    "category": "Services",
+    "amenity_type": "Airline Lounge – Business",
+    "description": "Modern lounge with buffet, bar, showers, work areas, and views of the runway.",
+    "location_description": "Airside, North Lounge complex, Level 3",
+    "opening_hours": {
+      "Monday-Sunday": "05:00–22:30"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4702,
+      "lng": -0.4903
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "British Airways Galleries Club Lounge (South)",
+    "terminal_code": "LHR-T5",
+    "category": "Services",
+    "amenity_type": "Airline Lounge – Business",
+    "description": "South version of BA's business lounge with ample seating, food, drink, and productivity zones.",
+    "location_description": "Airside, South Lounge complex, near Gate A18",
+    "opening_hours": {
+      "Monday-Sunday": "05:00–22:30"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4703,
+      "lng": -0.4904
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "British Airways Galleries First Lounge",
+    "terminal_code": "LHR-T5",
+    "category": "Services",
+    "amenity_type": "Airline Lounge – First Class",
+    "description": "Exclusive lounge with à la carte dining, champagne bar, business area, and spa showers.",
+    "location_description": "Airside, South Lounge complex, near Gate A18",
+    "opening_hours": {
+      "Monday-Sunday": "05:00–22:30"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4701,
+      "lng": -0.4902
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "British Airways Galleries Lounge – T5B",
+    "terminal_code": "LHR-T5",
+    "category": "Services",
+    "amenity_type": "Airline Lounge – Business",
+    "description": "Smaller satellite lounge for BA Club World passengers transiting through Terminal 5B. Includes food, drinks, Wi-Fi, and seating.",
+    "location_description": "Airside, Terminal 5B Departures, near Gate B36",
+    "opening_hours": {
+      "Monday-Sunday": "05:00–22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4706,
+      "lng": -0.4925
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "British Airways Galleries Lounge – T5C",
+    "terminal_code": "LHR-T5",
+    "category": "Services",
+    "amenity_type": "Airline Lounge – Business",
+    "description": "Light-use lounge in satellite C pier. Open depending on flight volume and time of day.",
+    "location_description": "Airside, Terminal 5C, upper floor",
+    "opening_hours": {
+      "Monday-Sunday": "Varies by flight schedule"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4707,
+      "lng": -0.4941
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Plaza Premium Sleep Pods (Planned)",
+    "terminal_code": "LHR-T5",
+    "category": "Services",
+    "amenity_type": "Sleep Pods",
+    "description": "Planned future installation: private rest pods for short naps and layovers. Under development (2025+).",
+    "location_description": "Expected Airside near Gate A18 (TBD)",
+    "opening_hours": {
+      "Monday-Sunday": "TBD"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort"
+    ],
+    "status": "planned",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4728,
+      "lng": -0.4927
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Quiet Seating Zone",
+    "terminal_code": "LHR-T5",
+    "category": "Services",
+    "amenity_type": "Rest Area",
+    "description": "Dedicated seating area with no announcements, low lighting, and ergonomic chairs.",
+    "location_description": "Airside, near Gate A10",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4725,
+      "lng": -0.4924
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Boots",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Pharmacy & Toiletries",
+    "description": "Medicines, skincare, baby supplies, food-to-go, and toiletries.",
+    "location_description": "Landside, Airside, and T5B satellite",
+    "opening_hours": {
+      "Monday-Sunday": "05:00–22:00"
+    },
+    "vibe_tags": [
+      "Quick",
+      "Refuel",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4713,
+      "lng": -0.4912
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Bottega Veneta",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Italian Luxury Fashion",
+    "description": "Elegant leather bags, fashion accessories, and premium eyewear.",
+    "location_description": "Airside, next to Gucci and Hermes",
+    "opening_hours": {
+      "Monday-Sunday": "06:30–21:00"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4718,
+      "lng": -0.4917
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Chanel",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Luxury Fashion & Beauty",
+    "description": "Fragrance, beauty, and exclusive travel collections from Chanel.",
+    "location_description": "Airside, near World Duty Free",
+    "opening_hours": {
+      "Monday-Sunday": "06:00–21:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.471,
+      "lng": -0.4909
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Glorious Britain",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Souvenirs & Gifts",
+    "description": "UK-themed souvenirs: mugs, tees, London buses, tea, royal memorabilia, and quirky gifts.",
+    "location_description": "Airside, near World Duty Free",
+    "opening_hours": {
+      "Monday-Sunday": "05:30–21:00"
+    },
+    "vibe_tags": [
+      "Explore",
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4722,
+      "lng": -0.4921
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Hackett London",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "British Menswear",
+    "description": "Classic British tailoring, shirts, and casualwear for men.",
+    "location_description": "Airside, men's fashion row",
+    "opening_hours": {
+      "Monday-Sunday": "06:00–21:00"
+    },
+    "vibe_tags": [
+      "Work",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4719,
+      "lng": -0.4918
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Hamleys",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Toys & Games",
+    "description": "The world-famous toy store featuring gifts for children of all ages — plush toys, games, souvenirs.",
+    "location_description": "Airside, main shopping concourse",
+    "opening_hours": {
+      "Monday-Sunday": "06:00–21:30"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Explore",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4721,
+      "lng": -0.492
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Montblanc",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Luxury Accessories",
+    "description": "Premium pens, watches, wallets, and business gifts.",
+    "location_description": "Airside, central retail area",
+    "opening_hours": {
+      "Monday-Sunday": "06:30–21:00"
+    },
+    "vibe_tags": [
+      "Work",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4716,
+      "lng": -0.4915
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Mulberry",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "British Luxury Fashion",
+    "description": "British leather bags, accessories, and travel goods.",
+    "location_description": "Airside, near Gate A10",
+    "opening_hours": {
+      "Monday-Sunday": "06:00–21:30"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4715,
+      "lng": -0.4914
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Rolex",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Watches & Jewelry",
+    "description": "Flagship boutique for Swiss luxury timepieces. Appointment recommended.",
+    "location_description": "Airside, luxury row",
+    "opening_hours": {
+      "Monday-Sunday": "07:00–21:00"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4711,
+      "lng": -0.491
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Smythson",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Stationery & Gifts",
+    "description": "Luxury notebooks, leather diaries, and elegant gifting items.",
+    "location_description": "Airside, luxury row",
+    "opening_hours": {
+      "Monday-Sunday": "06:00–21:00"
+    },
+    "vibe_tags": [
+      "Work",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4723,
+      "lng": -0.4922
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "The Harry Potter Shop",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Themed Souvenirs",
+    "description": "Official Harry Potter merchandise including wands, sweets, books, and Hogwarts gear.",
+    "location_description": "Airside, near Gate A10",
+    "opening_hours": {
+      "Monday-Sunday": "06:00–21:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Explore",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.472,
+      "lng": -0.4919
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "WHSmith",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Books & Travel Essentials",
+    "description": "Books, snacks, tech, magazines, SIMs, and travel must-haves.",
+    "location_description": "Multiple locations: airside + landside",
+    "opening_hours": {
+      "Monday-Sunday": "05:00–22:00"
+    },
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4712,
+      "lng": -0.4911
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "World Duty Free",
+    "terminal_code": "LHR-T5",
+    "category": "Shop",
+    "amenity_type": "Duty Free",
+    "description": "Perfumes, skincare, makeup, alcohol, chocolates, and travel-exclusive offers.",
+    "location_description": "Airside, central concourse after security",
+    "opening_hours": {
+      "Monday-Sunday": "04:30–22:30"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4708,
+      "lng": -0.4907
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Itsu",
+    "terminal_code": "LHR-T5",
+    "category": "Snack Bar",
+    "amenity_type": "Snack Bar",
+    "description": "Asian-inspired healthy fast food with sushi, salads, miso soup, and hot rice bowls.",
+    "location_description": "Airside, Near Gate A6, T5",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "InMotion",
+    "terminal_code": "LHR-T5",
+    "category": "Tech",
+    "amenity_type": "Tech",
+    "description": "Travel electronics store with headphones, power banks, and accessories. Fast service.",
+    "location_description": "Airside, Next to Boots, T5 South Concourse",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Costa Coffee",
+    "terminal_code": "LHR-T5-ARR",
+    "category": "Cafe",
+    "amenity_type": "Cafe",
+    "description": "UK-based coffee chain with espresso drinks, snacks, and grab & go bites.",
+    "location_description": "Arrivals (Landside), T5 Arrivals Hall, main corridor",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Pret a Manger",
+    "terminal_code": "LHR-T5-ARR",
+    "category": "Cafe",
+    "amenity_type": "Cafe",
+    "description": "Fresh sandwiches, salads, organic coffee, and bakery items. Ideal for quick stops or meet-ups.",
+    "location_description": "Arrivals (Landside), T5 Arrivals Hall, near seating zone",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Travelex Currency Exchange",
+    "terminal_code": "LHR-T5-ARR",
+    "category": "Finance",
+    "amenity_type": "Finance",
+    "description": "Walk-up currency exchange and travel money services. Multiple counters and ATMs available.",
+    "location_description": "Arrivals (Landside), Customs exit corridor",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "WHSmith",
+    "terminal_code": "LHR-T5-ARR",
+    "category": "Mini-Mart",
+    "amenity_type": "Mini-Mart",
+    "description": "Newspapers, snacks, drinks, books, and travel accessories.",
+    "location_description": "Arrivals (Landside), Opposite exit near taxi rank",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Information Desk",
+    "terminal_code": "LHR-T5-ARR",
+    "category": "Service",
+    "amenity_type": "Service",
+    "description": "Assistance with connections, lost items, and general help. Manned throughout flight hours.",
+    "location_description": "Arrivals (Landside), Center of arrivals hall near signage pillar",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "SIM Card Kiosk",
+    "terminal_code": "LHR-T5-ARR",
+    "category": "Telecom",
+    "amenity_type": "Telecom",
+    "description": "Vending kiosk for UK SIMs and eSIM QR codes. 24/7 operation with self-service touchscreen.",
+    "location_description": "Arrivals (Landside), Exit zone near baggage claim",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Work"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Car Rental Desks (Avis, Hertz, Enterprise, etc.)",
+    "terminal_code": "LHR-T5-ARR",
+    "category": "Transport",
+    "amenity_type": "Transport",
+    "description": "Major car rental firms offering walk-in and reserved bookings. Staffed desks available.",
+    "location_description": "Arrivals (Landside), Rear corner of Arrivals near WHSmith",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Work"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Taxi & Rideshare Pickup Point",
+    "terminal_code": "LHR-T5-ARR",
+    "category": "Transport",
+    "amenity_type": "Transport",
+    "description": "Designated pickup for black cabs, Uber, and private transfers. Clearly marked signage.",
+    "location_description": "Arrivals (Curbside), Outside Arrivals Hall near exit lanes",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "Birds in Flight",
+    "slug": "birds-in-flight",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "A unique sculpture symbolising hope, freedom and infinite quest.",
+    "location_description": "T3 Transit - Level 2",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Chandelier",
+    "slug": "chandelier",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "A 16m-tall play structure that allows both the young and young-at-heart to have fun.",
+    "location_description": "T4 Transit - Level 1",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Coming Home",
+    "slug": "coming-home",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "An artist’s tribute to families.",
+    "location_description": "T3 Transit - Level 1",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Heritage Zone",
+    "slug": "heritage-zone",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "A nostalgic zone giving a glimpse into the evolution of shophouse architecture.",
+    "location_description": "T4 Transit - Level 2",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Immersive Wall",
+    "slug": "immersive-wall",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "A digital wall celebrating the beauty of travel.",
+    "location_description": "T4 Transit - Level 2",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Mother and Child",
+    "slug": "mother-and-child",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "Abstract sculptures capturing the essence of maternal love.",
+    "location_description": "T3 Transit - Level 2",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Petalclouds",
+    "slug": "petalclouds",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "A sculpture inspired by the unity of art, music and science.",
+    "location_description": "T4 Transit - Level 2",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Rhythm of Nature",
+    "slug": "rhythm-of-nature",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "A hand-sculpted wall celebrating multiculturalism in Singapore.",
+    "location_description": "T3 Transit - Level 1",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Saga Seed",
+    "slug": "saga-seed",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "A sculpture representing growth and strength.",
+    "location_description": "T3 Transit - Level 1",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Spirit of Man (Success and Achievement)",
+    "slug": "spirit-of-man",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "A pair of majestic sculptures collectively symbolising success and achievement.",
+    "location_description": "T1 Transit - Level 2",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Steel in Bloom",
+    "slug": "steel-in-bloom",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "A 6m tall steel centrepiece featuring intricate botanical motifs.",
+    "location_description": "T4 Transit - Level 2",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "The Memory of Lived Space",
+    "slug": "memory-of-lived-space",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "An art installation exploring the play of light and shadow.",
+    "location_description": "T3 Transit - Level 2",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Travelling Family",
+    "slug": "travelling-family",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "A sculpture capturing the joy of family travel, perfect for a fun photo moment.",
+    "location_description": "T4 Transit - Level 2",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Vessel",
+    "slug": "vessel",
+    "terminal_code": "SIN",
+    "category": "Attraction",
+    "amenity_type": "Transit Attraction",
+    "description": "Stoneware sculptures depicting Southeast Asia’s culinary and performance heritage.",
+    "location_description": "T3 Transit - Level 2",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Discover Singapore",
+    "slug": "discover-singapore",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Electronics Computers by Sprint-Cass",
+    "slug": "electronics-computers-sprint-cass",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Eu Yan Sang",
+    "slug": "eu-yan-sang",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-246",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Ferragamo",
+    "slug": "ferragamo",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-222",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "FILA",
+    "slug": "fila",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T4 Transit #02-53/54",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "FILA KIDS",
+    "slug": "fila-kids",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-161",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Fragrance Bak Kwa",
+    "slug": "fragrance-bak-kwa",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Furla",
+    "slug": "furla",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T3 Transit #02-14",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Garrett Popcorn Shops®",
+    "slug": "garrett-popcorn",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Gassan Watches",
+    "slug": "gassan-watches",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Giordano",
+    "slug": "giordano",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T1 Transit #02-19",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Goldheart",
+    "slug": "goldheart",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T3 Transit #02-47",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Guardian Health & Beauty",
+    "slug": "guardian-health-beauty",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Gucci",
+    "slug": "gucci",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T3 Transit #02-15/16",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "HERMÈS",
+    "slug": "hermes",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Irvins Salted Egg",
+    "slug": "irvins-salted-egg",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "iStudio",
+    "slug": "istudio",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Kaboom",
+    "slug": "kaboom",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "KASHKHA",
+    "slug": "kashkha",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T4 Transit #02-44",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Kering Eyewear x Lagardere",
+    "slug": "kering-eyewear-lagardere",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-203",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Kunthaville",
+    "slug": "kunthaville",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T3 Transit #02-K11",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Lacoste",
+    "slug": "lacoste",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T1 Transit #02-30",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "LEGO® Airport Store",
+    "slug": "lego-airport-store",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Lindt",
+    "slug": "lindt",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T1 Transit #02-K23",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Longchamp",
+    "slug": "longchamp",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "LOTTE DUTY FREE WINES & SPIRITS",
+    "slug": "lotte-duty-free-wines-spirits",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Louis Vuitton",
+    "slug": "louis-vuitton",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "lululemon",
+    "slug": "lululemon",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T1 Transit #02-18",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Sunglass Hut",
+    "slug": "sunglass-hut",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Swarovski",
+    "slug": "swarovski",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Taste Singapore",
+    "slug": "taste-singapore",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T4 Transit #02-72",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "The Cocoa Trees",
+    "slug": "the-cocoa-trees",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "The Digital Gadgets",
+    "slug": "the-digital-gadgets",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-182",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "The Fashion Place",
+    "slug": "the-fashion-place",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T4 Transit #02-60/61",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Tiffany & Co.",
+    "slug": "tiffany-co",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Time Emporium",
+    "slug": "time-emporium",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T3 Transit #02-24",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Times Travel",
+    "slug": "times-travel",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T1 Transit #02-30A",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Tod's",
+    "slug": "tods",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-225-01",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Tommy Hilfiger",
+    "slug": "tommy-hilfiger",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-239",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Tory Burch",
+    "slug": "tory-burch",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Travelex Money Changer",
+    "slug": "travelex-money-changer",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "TUMI",
+    "slug": "tumi",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-184",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "TWG Tea Boutique",
+    "slug": "twg-tea-boutique",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Uniqlo",
+    "slug": "uniqlo",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T1 Transit #02-23",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Unity",
+    "slug": "unity",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-192",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "UOB Gold",
+    "slug": "uob-gold",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-K19",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Victoria's Secret Beauty & Accessories",
+    "slug": "victorias-secret-beauty-accessories",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "WH Smith",
+    "slug": "wh-smith",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "ZAKKASG",
+    "slug": "zakkasg",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T4 Transit #02-67",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "ZEGNA",
+    "slug": "zegna",
+    "terminal_code": "SIN",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "T2 Transit #02-217",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only"
+    ]
+  },
+  {
+    "name": "Forest Valley",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Attractions",
+    "amenity_type": "Garden",
+    "description": "",
+    "location_description": "Jewel, Level 1-4",
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/forest-valley.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3601,
+      "lng": 103.9891
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Rain Vortex",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Attractions",
+    "amenity_type": "Waterfall",
+    "description": "",
+    "location_description": "Jewel, Level 1",
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/rain-vortex.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.36,
+      "lng": 103.989
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Dunkin' Donuts",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee & donuts",
+    "description": "",
+    "location_description": "Basement 2, #B2-270",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "PAUL Bakery & Restaurant",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Coffee & Snacks",
+    "amenity_type": "bakery café",
+    "description": "",
+    "location_description": "Basement 1, #B1-225",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Starbucks",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "description": "",
+    "location_description": "Level 2, #02-204",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "The Coffee Bean & Tea Leaf",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "description": "",
+    "location_description": "Level 1, #01-200",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Canopy Park",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Entertainment",
+    "amenity_type": "Park",
+    "description": "",
+    "location_description": "Jewel, Level 5",
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/canopy-park.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3602,
+      "lng": 103.9892
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Changi Experience Studio",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Experiences",
+    "amenity_type": "Interactive",
+    "description": "Interactive digital attraction about Changi Airport",
+    "location_description": "Level 1, near central atrium",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3608,
+      "lng": 103.9898
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Foggy Bowls",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Experiences",
+    "amenity_type": "Attractions",
+    "description": "Mist-filled play areas for children",
+    "location_description": "Level 1, near central atrium",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3604,
+      "lng": 103.9894
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Hedge Maze",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Experiences",
+    "amenity_type": "Attractions",
+    "description": "Singapore's largest hedge maze",
+    "location_description": "Level 1, near central atrium",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3605,
+      "lng": 103.9895
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Manulife Sky Nets",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Experiences",
+    "amenity_type": "Attractions",
+    "description": "Walking and bouncing nets suspended in the air",
+    "location_description": "Level 1, near central atrium",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Explore",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3606,
+      "lng": 103.9896
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Mirror Maze",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Experiences",
+    "amenity_type": "Attractions",
+    "description": "Immersive mirror maze experience",
+    "location_description": "Level 1, near central atrium",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3607,
+      "lng": 103.9897
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Bengawan Solo",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Food & Beverage",
+    "amenity_type": "Bakery & Desserts",
+    "description": "Traditional Singaporean cakes and kueh",
+    "location_description": "Terminal Area",
+    "opening_hours": {
+      "Monday-Sunday": "6:00-23:00"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3609,
+      "lng": 103.9899
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Din Tai Fung",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Food & Beverage",
+    "amenity_type": "Chinese",
+    "description": "Renowned Taiwanese restaurant famous for xiaolongbao",
+    "location_description": "Terminal Area",
+    "opening_hours": {
+      "Monday-Sunday": "6:00-23:00"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3611,
+      "lng": 103.9901
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Tiger Street Lab",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Food & Beverage",
+    "amenity_type": "Bars & Pubs",
+    "description": "Craft beer and local fare",
+    "location_description": "Terminal Area",
+    "opening_hours": {
+      "Monday-Sunday": "6:00-23:00"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.361,
+      "lng": 103.99
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "A&W Restaurants",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "description": "",
+    "location_description": "Level 2",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Shake Shack",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "description": "",
+    "location_description": "Level 2",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Changi Lounge",
+    "terminal_code": "SIN-JEWEL",
+    "category": "Lounges",
+    "amenity_type": "Lounge",
+    "description": "",
+    "location_description": "Jewel, Level 1",
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick",
+      "Work"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/changi-lounge.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3603,
+      "lng": 103.9893
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Kinetic Rain Sculpture",
+    "terminal_code": "SIN-T1",
+    "category": "Art & Culture",
+    "amenity_type": "Art Installation",
+    "description": "",
+    "location_description": "Departure Hall, Public Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/kinetic-rain.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3646,
+      "lng": 103.9917
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "The Social Tree",
+    "terminal_code": "SIN-T1",
+    "category": "Art & Culture",
+    "amenity_type": "Interactive Installation",
+    "description": "",
+    "location_description": "Central Transit Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/social-tree.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3647,
+      "lng": 103.9918
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Cactus Garden",
+    "terminal_code": "SIN-T1",
+    "category": "Attractions",
+    "amenity_type": "Garden",
+    "description": "",
+    "location_description": "Rooftop, Level 3",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/cactus-garden.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3645,
+      "lng": 103.9916
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "PAUL Le Café",
+    "terminal_code": "SIN-T1",
+    "category": "Coffee & Snacks",
+    "amenity_type": "bakery café",
+    "description": "",
+    "location_description": "Departure/Transit Lounge West, Level 2, #02-26",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Starbucks",
+    "terminal_code": "SIN-T1",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "description": "",
+    "location_description": "Departure Transit Lounge West, Level 2, #02-K10",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Aji Ichi",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Andes by Astons",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Asian Street Kitchen",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Bee Cheng Hiang",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Bikanervala",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Bistro by BAS",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Bricco Café",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort",
+      "Work"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Crystal Jade Go",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Dunkin'",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Hudsons Coffee",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Work"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Kopitiam",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Explore",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Old Town White Coffee",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Pezzo",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Subway",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Toast Box",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Treasures Yi Dian Xin by Imperial Treasure",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "Ya Kun Kaya Toast",
+    "terminal_code": "SIN-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Refuel",
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "public",
+    "tags": []
+  },
+  {
+    "name": "4Fingers Crispy Chicken",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Beverage",
+    "amenity_type": "fast food",
+    "description": "A fast-food chain specializing in crispy fried chicken.",
+    "location_description": "Transit Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3653,
+      "lng": 103.9923
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Burger King",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Beverage",
+    "amenity_type": "fast food",
+    "description": "A well-known fast-food chain for burgers and fries.",
+    "location_description": "Departure/Transit Lounge West, Mezzanine Level, #03-02",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3652,
+      "lng": 103.9922
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Chutney Mary Indian Fast Food",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Beverage",
+    "amenity_type": "fast food",
+    "description": "An Indian fast-food restaurant.",
+    "location_description": "Transit Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3654,
+      "lng": 103.9924
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "PAUL Le Café",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Beverage",
+    "amenity_type": "bakery café",
+    "description": "A French bakery and café serving pastries, sandwiches, and coffee.",
+    "location_description": "Departure/Transit Lounge West, Level 2, #02-26",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3651,
+      "lng": 103.9921
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "4Fingers Crispy Chicken",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "description": "",
+    "location_description": "Transit Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Burger King",
+    "terminal_code": "SIN-T1",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "description": "",
+    "location_description": "Departure/Transit Lounge West, Mezzanine Level, #03-02",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Aerotel Airport Transit Hotel & Swimming Pool",
+    "terminal_code": "SIN-T1",
+    "category": "Hotels & Accommodations",
+    "amenity_type": "Hotel",
+    "description": "",
+    "location_description": "After Security, Level 3",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/aerotel.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3644,
+      "lng": 103.9915
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Lounges",
+    "terminal_code": "SIN-T1",
+    "category": "Lounges",
+    "amenity_type": "Lounge",
+    "description": "",
+    "location_description": "Various locations",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick",
+      "Work"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/lounge.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3648,
+      "lng": 103.9919
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "7-Eleven",
+    "slug": "7-eleven",
+    "terminal_code": "SIN-T1",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "DFS Singapore",
+    "slug": "dfs-singapore",
+    "terminal_code": "SIN-T1",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "Discover Singapore",
+    "slug": "discover-singapore",
+    "terminal_code": "SIN-T1",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "iStudio",
+    "slug": "istudio",
+    "terminal_code": "SIN-T1",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "Lacoste",
+    "slug": "lacoste",
+    "terminal_code": "SIN-T1",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "The Cocoa Trees",
+    "slug": "the-cocoa-trees",
+    "terminal_code": "SIN-T1",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "The Shilla Duty Free",
+    "slug": "the-shilla-duty-free",
+    "terminal_code": "SIN-T1",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "WHSmith",
+    "slug": "whsmith",
+    "terminal_code": "SIN-T1",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "Dunkin' Donuts",
+    "terminal_code": "SIN-T2",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee & donuts",
+    "description": "",
+    "location_description": "Departure Transit Area, #02-K14",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "The Coffee Bean & Tea Leaf",
+    "terminal_code": "SIN-T2",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "description": "",
+    "location_description": "Transfer F area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "24-Hour Movie Theatre",
+    "terminal_code": "SIN-T2",
+    "category": "Entertainment",
+    "amenity_type": "Cinema",
+    "description": "",
+    "location_description": "Level 3, Transit Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/movie-theatre.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3622,
+      "lng": 103.9912
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Entertainment Deck",
+    "terminal_code": "SIN-T2",
+    "category": "Entertainment",
+    "amenity_type": "Gaming Area",
+    "description": "",
+    "location_description": "Level 3, Transit Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/entertainment-deck.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3621,
+      "lng": 103.9911
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Chutney Mary",
+    "terminal_code": "SIN-T2",
+    "category": "Food & Drink",
+    "amenity_type": "Restaurant",
+    "description": "",
+    "location_description": "Level 2, Public Area",
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/chutney-mary.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3624,
+      "lng": 103.9914
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Chutney Mary Indian Fast Food",
+    "terminal_code": "SIN-T2",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "description": "",
+    "location_description": "Transit Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Peach Garden Restaurant",
+    "terminal_code": "SIN-T2",
+    "category": "Food & Drink",
+    "amenity_type": "Restaurant",
+    "description": "",
+    "location_description": "Level 2, Public Area",
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/peach-garden.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3623,
+      "lng": 103.9913
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Snooze Lounge",
+    "terminal_code": "SIN-T2",
+    "category": "Rest Areas",
+    "amenity_type": "Rest Area",
+    "description": "",
+    "location_description": "Transit Area, Level 2",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/snooze-lounge.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.362,
+      "lng": 103.991
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "7-Eleven",
+    "slug": "7-eleven",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "DFS Singapore",
+    "slug": "dfs-singapore",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "Discover Singapore",
+    "slug": "discover-singapore",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "iStudio",
+    "slug": "istudio",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "Lacoste",
+    "slug": "lacoste",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "The Cocoa Trees",
+    "slug": "the-cocoa-trees",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "The Shilla Duty Free",
+    "slug": "the-shilla-duty-free",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "WHSmith",
+    "slug": "whsmith",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "Butterfly Garden",
+    "terminal_code": "SIN-T3",
+    "category": "Attractions",
+    "amenity_type": "Garden",
+    "description": "",
+    "location_description": "Level 2, Transit Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/butterfly-garden.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.35,
+      "lng": 103.994
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Pret A Manger",
+    "terminal_code": "SIN-T3",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee & fresh food",
+    "description": "",
+    "location_description": "Transit Lounge Central, Level 2",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Starbucks",
+    "terminal_code": "SIN-T3",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "description": "",
+    "location_description": "Departure Transit Lounge, Level 2",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "The Coffee Bean & Tea Leaf",
+    "terminal_code": "SIN-T3",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "description": "",
+    "location_description": "Transit Lounge South, Level 2, #02-K4",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "ST3PS",
+    "terminal_code": "SIN-T3",
+    "category": "Entertainment",
+    "amenity_type": "Seating Area",
+    "description": "",
+    "location_description": "Basement 2, Public Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/st3ps.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3502,
+      "lng": 103.9942
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "ST3PS Public Screening Zone",
+    "terminal_code": "SIN-T3",
+    "category": "Entertainment",
+    "amenity_type": "Entertainment",
+    "description": "Large LED screen and amphitheatre-style seating area broadcasting movies, sports, and cultural content. Free public access for all transiting passengers.",
+    "location_description": "Airside, Basement 2, Terminal 3 (near food court)",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Comfort",
+      "Explore",
+      "Chill"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "access": ""
+  },
+  {
+    "name": "The Slide @ T3",
+    "terminal_code": "SIN-T3",
+    "category": "Entertainment",
+    "amenity_type": "Slide",
+    "description": "",
+    "location_description": "Level 1, Public Area",
+    "opening_hours": {
+      "Monday-Sunday": "12:00-22:30"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/the-slide.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3501,
+      "lng": 103.9941
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "McDonald's",
+    "terminal_code": "SIN-T3",
+    "category": "Food & Beverage",
+    "amenity_type": "fast food",
+    "description": "The popular fast-food chain.",
+    "location_description": "Arrival Hall, Level 1",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3506,
+      "lng": 103.9946
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Pret A Manger",
+    "terminal_code": "SIN-T3",
+    "category": "Food & Beverage",
+    "amenity_type": "coffee & fresh food",
+    "description": "A café serving fresh, organic coffee and handmade food.",
+    "location_description": "Transit Lounge Central, Level 2",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3505,
+      "lng": 103.9945
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "The Coffee Bean & Tea Leaf",
+    "terminal_code": "SIN-T3",
+    "category": "Food & Beverage",
+    "amenity_type": "coffee shop",
+    "description": "A coffee shop offering a variety of coffee, tea, and snacks.",
+    "location_description": "Transit Lounge South, Level 2, #02-K4",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3504,
+      "lng": 103.9944
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "4Fingers Crispy Chicken",
+    "terminal_code": "SIN-T3",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "description": "",
+    "location_description": "#B2-02",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "McDonald's",
+    "terminal_code": "SIN-T3",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "description": "",
+    "location_description": "Arrival Hall, Level 1",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Lounges",
+    "terminal_code": "SIN-T3",
+    "category": "Lounges",
+    "amenity_type": "Lounge",
+    "description": "",
+    "location_description": "Various locations",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick",
+      "Work"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/lounge.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3503,
+      "lng": 103.9943
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "7-Eleven",
+    "slug": "7-eleven",
+    "terminal_code": "SIN-T3",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "DFS Singapore",
+    "slug": "dfs-singapore",
+    "terminal_code": "SIN-T3",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "Discover Singapore",
+    "slug": "discover-singapore",
+    "terminal_code": "SIN-T3",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "iStudio",
+    "slug": "istudio",
+    "terminal_code": "SIN-T3",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "Lacoste",
+    "slug": "lacoste",
+    "terminal_code": "SIN-T3",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "The Cocoa Trees",
+    "slug": "the-cocoa-trees",
+    "terminal_code": "SIN-T3",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "The Shilla Duty Free",
+    "slug": "the-shilla-duty-free",
+    "terminal_code": "SIN-T3",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "WHSmith",
+    "slug": "whsmith",
+    "terminal_code": "SIN-T3",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Multiple Locations",
+    "opening_hours": {
+      "All": "24 Hours"
+    },
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$",
+    "access": "transit-only",
+    "tags": [
+      "transit-only",
+      "multi-terminal"
+    ]
+  },
+  {
+    "name": "Green Spaces",
+    "terminal_code": "SIN-T4",
+    "category": "Attractions",
+    "amenity_type": "Green Area",
+    "description": "",
+    "location_description": "Various locations",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Explore",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/green-spaces.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3393,
+      "lng": 103.9873
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "The Coffee Bean & Tea Leaf",
+    "terminal_code": "SIN-T4",
+    "category": "Coffee & Snacks",
+    "amenity_type": "coffee shop",
+    "description": "",
+    "location_description": "Level 2, #02-36",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Burger King",
+    "terminal_code": "SIN-T4",
+    "category": "Food & Drink",
+    "amenity_type": "fast food",
+    "description": "",
+    "location_description": "International Food Hall",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "International Food Hall",
+    "terminal_code": "SIN-T4",
+    "category": "Food & Drink",
+    "amenity_type": "Food Hall",
+    "description": "",
+    "location_description": "Level 2, Transit Area",
+    "opening_hours": {
+      "Monday-Sunday": "10:00-22:00"
+    },
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/food-hall.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3392,
+      "lng": 103.9872
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Blossom – SATS & Plaza Premium Lounge",
+    "terminal_code": "SIN-T4",
+    "category": "Lounges",
+    "amenity_type": "Lounge",
+    "description": "",
+    "location_description": "Level 2, Transit Area",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick",
+      "Work"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/blossom-lounge.jpg",
+    "airport_code": "SIN",
+    "coordinates": {
+      "lat": 1.3391,
+      "lng": 103.9871
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Newslink T1 After Security Near Gate 8",
+    "terminal_code": "SYD-T1",
+    "category": "books and news",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Newslink T1 After Security Towards Gates 50 63",
+    "terminal_code": "SYD-T1",
+    "category": "books and news",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Newslink T1 Arrivals Exit B",
+    "terminal_code": "SYD-T1",
+    "category": "books and news",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Newslink T1 Before Security Near Check In D",
+    "terminal_code": "SYD-T1",
+    "category": "books and news",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Qantas Business Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Comfort",
+    "amenity_type": "Lounge",
+    "description": "",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Work",
+      "Chill"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/qantas-lounge.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.945711,
+      "lng": 151.177622
+    },
+    "price_tier": "$$$",
+    "access": "",
+    "tags": []
+  },
+  {
+    "name": "Betty's Burgers",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/bettys-burgers.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Campos Coffee",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "description": "",
+    "location_description": "After Security, near Gate 24",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/campos-coffee.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9462,
+      "lng": 151.1773
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Heineken House",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Bar",
+    "description": "",
+    "location_description": "After Security, near Gate 10",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/heineken-house.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9463,
+      "lng": 151.1774
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Kitchen by Mike",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "After Security, near Gate 30",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/kitchen-by-mike.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9464,
+      "lng": 151.1775
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Lilong by Taste of Shanghai",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "After Security, near Gate 56",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/lilong.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9465,
+      "lng": 151.1776
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "McDonald's",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Fast Food",
+    "description": "",
+    "location_description": "After Security, near Gates 24 and 50",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/mcdonalds.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9466,
+      "lng": 151.1777
+    },
+    "price_tier": "$"
+  },
+  {
+    "name": "Sahara Grill",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Quick Eats",
+    "description": "",
+    "location_description": "After Security, near Gate 10",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/sahara-grill.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9467,
+      "lng": 151.1778
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Starbucks Coffee",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick",
+      "Chill"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/starbucks.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.945911,
+      "lng": 151.177422
+    },
+    "price_tier": "$$",
+    "access": "",
+    "tags": []
+  },
+  {
+    "name": "SumoSalad Green on Green",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Quick Eats",
+    "description": "",
+    "location_description": "After Security, near Gate 24",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/sumosalad.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9468,
+      "lng": 151.1779
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Sushia",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "After Security, near Gate 30",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/sushia.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9469,
+      "lng": 151.178
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "The Bistro by Wolfgang Puck",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "After Security, near Gate 10",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/wolfgang-puck-bistro.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.947,
+      "lng": 151.1781
+    },
+    "price_tier": "$$$$"
+  },
+  {
+    "name": "Toby's Estate",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "description": "",
+    "location_description": "After Security, towards Gates 50-63",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Refuel",
+      "Quick",
+      "Work"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/tobys-estate.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9471,
+      "lng": 151.1782
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Yo! Sushi",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "After Security, The Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/yo-sushi.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9472,
+      "lng": 151.1783
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "A Little Something",
+    "terminal_code": "SYD-T1",
+    "category": "duty free",
+    "amenity_type": "souvenirs",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/29Y5driIMPDK8cty4buRHN/4795de534d8306c17df07be2cd472c63/A_little_something.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Heinemann Open Stores",
+    "terminal_code": "SYD-T1",
+    "category": "duty free",
+    "amenity_type": "fashion and accessories, heinemann-products",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16nv3R0iGFkbTjVDO2jkl3/5d5a81ab27234114d35c7d4ad8e1d91f/T1_Gatestore.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Heinemann Pier B North Airside",
+    "terminal_code": "SYD-T1",
+    "category": "duty free",
+    "amenity_type": "fashion and accessories, heinemann-products",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3E0piOWoguRjlT82XGIB0r/5b388f00279c4fe091ab29b21f9daa12/Pier_B_North.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Heinemann Pier C Airside Departures",
+    "terminal_code": "SYD-T1",
+    "category": "duty free",
+    "amenity_type": "fashion and accessories, heinemann-products",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5W2Bw58D3WacY6A2ssYI4G/53e813a86c624c4ac11413a9486c8f94/Pier_C.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Heinemann T1 After Security Mega B",
+    "terminal_code": "SYD-T1",
+    "category": "duty free",
+    "amenity_type": "fashion and accessories, heinemann-products",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1bPsDLwr65UA9DyYENjUph/7e153eae99041386233330d47c90366b/MegaB.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Balenciaga",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/4hE43coTdDWDzxMfwOkV9p/aabe9d7de69a31016aca6d4a347650c2/Balenciaga_Campaign_660_x_552_pixels.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Bottega Veneta",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3GT6i305wwhrBcnnB1Vcv8/4ab14c9089e5123580f03ae832357bd7/TILE_-_660px_x_552px.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Burberry",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1IxC2RaNrCGcOyAgUEIYiC/7726ca8fcca871eec5f805223c708dd7/Burberry_Store_Brand_Tile-4-.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Dior",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3Y8bgLVnQyvdUBCrypZNRh/b76f4b9b0c6f195a500453d1941e3d36/Tile.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Gentle Monster",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/49Sq0jwiTjmdmbALvHTwuy/da5f90dab3ab3030aa461175505665a9/GM_BOLD_TITLE_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Gucci",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/7M0uFeuCjw92lOfN5uPMnX/d524465ddd0059957ea9815fc97bc71b/UNCROPPED_IMAGE_HORSEBIT_JACKIE_BAMBOO_TRIO.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Hermes",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/m6Qk8gL5gT1K1wD5eN0B2/28bdf71c1106a72e737c0eb83e786b3e/2019-NO-LOCATION-Hermes-Sydney-International-Airport-Store-1111-1200x800.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Omega",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/KkI9GgE0SCAYSCm8eWcI4/36495b6cbb03756d10c73b0631c34913/Omega_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Prada",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6oY14p8sV2O8EU4e6E8k8G/fd2709e99a8037b5a5b51c140c83a79d/Prada_Store_Tiles.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Saint Laurent",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2T0R43O7tP0d2n54dM2M7U/e54e4c2dd7767acfd553f18e5b6028fa/SAINT_LAURENT_SYDNEY_INT._AIRPORT.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Sunglass Hut T1 After Security Towards Gates 50 63",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1K0mP9f448uyU4Gggk08O2/0593416972412e690f0ca30e54d39fec/SGH_Generic_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Tiffany And Co",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5W2h2F4XqQOKw0mUqQoSWg/c42289c89f2a96a066601b3b27670404/Tiffany-store-shot.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Versace",
+    "terminal_code": "SYD-T1",
+    "category": "fashion and accessories",
+    "amenity_type": "luxury",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/sU0c0r55uNlMv7K1561fF/b6245138f32ac9105ca592d3f6d7abac/Sydney_International_Airport_Medusa_Biggie_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Heinemann Tax And Duty Free Arrivals A",
+    "terminal_code": "SYD-T1",
+    "category": "heinemann-products",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3n0K8zP9F6cwaYSmWgoQkA/e7602e1c31169ec02c11451f2d65a6f2/Arrivals_A.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Heinemann Tax And Duty Free Arrivals B",
+    "terminal_code": "SYD-T1",
+    "category": "heinemann-products",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/P65i69Nq4gM8CgSMEQeM4/302096e22c071720d2d3257692e5c83d/Arrivals_B.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Air New Zealand Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "description": "",
+    "location_description": "Level 3, near Gate 59",
+    "opening_hours": {
+      "Monday-Sunday": "06:00 – 21:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": ""
+  },
+  {
+    "name": "Emirates Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "description": "",
+    "location_description": "Level 1, near Gate 58",
+    "opening_hours": {
+      "Monday-Sunday": "04:00 – 07:20 and 16:10 – 20:40"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": ""
+  },
+  {
+    "name": "Plaza Premium Lounge (Arrivals)",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Independent Lounge",
+    "description": "",
+    "location_description": "Level 1, inside Aerotel, Arrivals B (non-restricted area)",
+    "opening_hours": {
+      "Monday-Sunday": "06:00 – 20:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": ""
+  },
+  {
+    "name": "Plaza Premium Lounge (Departures)",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Independent Lounge",
+    "description": "",
+    "location_description": "Level 2, near Gates 25–26",
+    "opening_hours": {
+      "Monday-Sunday": "05:30 – 22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": ""
+  },
+  {
+    "name": "Qantas International Business Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "description": "",
+    "location_description": "Mezzanine Level, after Customs",
+    "opening_hours": {
+      "Monday-Sunday": "05:00 – 22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": ""
+  },
+  {
+    "name": "Qantas International First Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "description": "",
+    "location_description": "Mezzanine Level, after Customs",
+    "opening_hours": {
+      "Monday-Sunday": "05:00 – 22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": ""
+  },
+  {
+    "name": "Singapore Airlines SilverKris Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "description": "",
+    "location_description": "Level 3, near Gate 59",
+    "opening_hours": {
+      "Monday-Sunday": "05:30 – 18:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": ""
+  },
+  {
+    "name": "SkyTeam Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Alliance Lounge",
+    "description": "",
+    "location_description": "Departures Level, adjacent to Gate 24",
+    "opening_hours": {
+      "Monday": "05:30 - 22:00",
+      "Tuesday": "05:30 - 22:00",
+      "Wednesday": "05:30 - 22:00",
+      "Thursday": "05:30 - 22:00",
+      "Friday": "05:30 - 22:00",
+      "Saturday": "05:30 - 22:00",
+      "Sunday": "05:30 - 22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": ""
+  },
+  {
+    "name": "The Centurion Lounge (American Express)",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Credit Card Lounge",
+    "description": "",
+    "location_description": "Departures Level, near Gates 50–63",
+    "opening_hours": {
+      "Monday-Sunday": "06:00 – 21:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": ""
+  },
+  {
+    "name": "The House by Aspire",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Independent Lounge",
+    "description": "",
+    "location_description": "Departures Level, near Gate 50",
+    "opening_hours": {
+      "Monday-Sunday": "05:00 – 22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": ""
+  },
+  {
+    "name": "Bvlgari",
+    "terminal_code": "SYD-T1",
+    "category": "luxury",
+    "amenity_type": "fashion and accessories",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3w5m1Vyc8JkUbLHnCo4JJv/473648a995a1b94fef8d5fb620fb6fc5/1_AU_21_76072_151235_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Cartier",
+    "terminal_code": "SYD-T1",
+    "category": "luxury",
+    "amenity_type": "fashion and accessories",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5SqCQNDc3MT4FGzR6yzgYU/9c2f7aa90764fdcbaf19a2a4a2e3db38/Cartier_Airport_Facade-_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Celine",
+    "terminal_code": "SYD-T1",
+    "category": "luxury",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/kYXvNm1mJMPgm0l04TL8E/d80e6eec181b68e3e9f6593cf183e4a4/Tile_660x552_background.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Moncler",
+    "terminal_code": "SYD-T1",
+    "category": "luxury",
+    "amenity_type": "fashion and accessories",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/18gL5iWf0I8j3e5hW36o4y/6e08dd1075c324424dd47290132c321b/Moncler_SYD_Airport__660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Amcal Pharmacy",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Pharmacy",
+    "description": "",
+    "location_description": "After Security, towards Gates 24-25",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/amcal-pharmacy.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9482,
+      "lng": 151.1793
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Bottega Veneta",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Fashion",
+    "description": "",
+    "location_description": "After Security, Luxury Precinct",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/bottega-veneta.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9479,
+      "lng": 151.179
+    },
+    "price_tier": "$$$$"
+  },
+  {
+    "name": "Burberry",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Fashion",
+    "description": "",
+    "location_description": "After Security, Luxury Precinct",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/burberry.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9478,
+      "lng": 151.1789
+    },
+    "price_tier": "$$$$"
+  },
+  {
+    "name": "Cartier",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Jewelry",
+    "description": "",
+    "location_description": "After Security, Luxury Precinct",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/cartier.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9477,
+      "lng": 151.1788
+    },
+    "price_tier": "$$$$"
+  },
+  {
+    "name": "Gentle Monster",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Eyewear",
+    "description": "",
+    "location_description": "After Security, Luxury Precinct",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/gentle-monster.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.948,
+      "lng": 151.1791
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Global Exchange",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Currency Exchange",
+    "description": "",
+    "location_description": "Multiple locations before and after security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick",
+      "Work"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/global-exchange.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9484,
+      "lng": 151.1795
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Gucci",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Fashion",
+    "description": "",
+    "location_description": "After Security, towards Gates 50-63",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/gucci.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9475,
+      "lng": 151.1786
+    },
+    "price_tier": "$$$$"
+  },
+  {
+    "name": "Heinemann Tax & Duty Free",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Duty-Free Store",
+    "description": "",
+    "location_description": "After Security, multiple locations including near Gates 31-33",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/heinemann-duty-free.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9473,
+      "lng": 151.1784
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Prada",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Fashion",
+    "description": "",
+    "location_description": "After Security, Luxury Precinct",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/prada.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9476,
+      "lng": 151.1787
+    },
+    "price_tier": "$$$$"
+  },
+  {
+    "name": "Rip Curl",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Surfwear",
+    "description": "",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/rip-curl.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9481,
+      "lng": 151.1792
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "WHSmith",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Books & Convenience",
+    "description": "",
+    "location_description": "After Security, near Gates 10, 30, 51, and 54",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/whsmith.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9483,
+      "lng": 151.1794
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Baggage Storage By Smarte Carte",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/4zuWbkjq9iCm2OAca0gCCM/c9aef7bef335c7928021ec328ca5aa0b/Baggage_Storage_web_tile.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Blooming Trails",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/62jdquRgf6UsaUUAamEKCS/a143382976b2790af1647b3851d33446/BloomingTrails_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Flight Centre",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5TRUk60U3C2cQEme4kc8Ue/a24e94cb8f05ea936db9ed7febf873ff/FlightCentre_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Global Exchange After Security Pier C Food Court Gate 51",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Global Exchange Before Security Near Check In E",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Global Exchange T1 After Security Near Australian Way",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Global Exchange T1 After Security Near Qantas Club",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Global Exchange T1 Arrivals Exit A",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Global Exchange T1 Before Security Arrivals Exit B",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Lost Property",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5cWnJ4aI5tO3yPqL8P5020/226d7010467a21f7d4c82b130f1d07c0/Lost_property_2.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Optus",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1Tq3j1P9qAc4aW0g4mAy8e/4a6730cd90680d2208a3d13b2de488dd/Optus_webtile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Optus T1 Arrivals",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1Tq3j1P9qAc4aW0g4mAy8e/4a6730cd90680d2208a3d13b2de488dd/Optus_webtile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Travelex",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 24",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 30",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 53",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 8",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Travelex T1 Arrivals Exit A",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Travelex T1 Before Security Near Check In K",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Vodafone",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6Yv3l98b3G4kG2cggSKqU6/50529d38561141c2c31c9a633fa790b8/Vodafone_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Vodafone T1 Arrivals",
+    "terminal_code": "SYD-T1",
+    "category": "services and currency",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6Yv3l98b3G4kG2cggSKqU6/50529d38561141c2c31c9a633fa790b8/Vodafone_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Aesop",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Beauty & Cosmetics",
+    "description": "Luxury skincare and body care products.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$$",
+    "access": ""
+  },
+  {
+    "name": "Burberry Beauty",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Beauty & Cosmetics",
+    "description": "Luxury beauty products from Burberry.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$$",
+    "access": ""
+  },
+  {
+    "name": "Duty Free Store",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop",
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/duty-free.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.945611,
+      "lng": 151.177722
+    },
+    "price_tier": "$$$",
+    "access": "",
+    "tags": []
+  },
+  {
+    "name": "Hermès",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/hermes.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.945811,
+      "lng": 151.177522
+    },
+    "price_tier": "$$$",
+    "access": "",
+    "tags": []
+  },
+  {
+    "name": "Hugo Boss T1",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Apparel",
+    "description": "Premium fashion and accessories for men and women.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$$",
+    "access": ""
+  },
+  {
+    "name": "Jo Malone",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Beauty & Cosmetics",
+    "description": "Luxury fragrances and home scents.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$$",
+    "access": ""
+  },
+  {
+    "name": "L'Occitane",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Beauty & Cosmetics",
+    "description": "Natural skincare and beauty products from Provence.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$",
+    "access": ""
+  },
+  {
+    "name": "Le Labo",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Beauty & Cosmetics",
+    "description": "Artisanal fragrances and luxury perfumes.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$$",
+    "access": ""
+  },
+  {
+    "name": "MAC Cosmetics",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Beauty & Cosmetics",
+    "description": "Premium cosmetics and beauty products from MAC.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$$",
+    "access": ""
+  },
+  {
+    "name": "Mecca Maxima",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Beauty & Cosmetics",
+    "description": "Beauty and cosmetics from leading brands.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$",
+    "access": ""
+  },
+  {
+    "name": "Mecca T1",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Beauty & Cosmetics",
+    "description": "Beauty and cosmetics from leading brands.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$",
+    "access": ""
+  },
+  {
+    "name": "Peter Alexander",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Apparel",
+    "description": "Sleepwear, loungewear, and accessories.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$",
+    "access": ""
+  },
+  {
+    "name": "Sunglass Hut T1 Departures",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Apparel",
+    "description": "Designer sunglasses and eyewear.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$$",
+    "access": ""
+  },
+  {
+    "name": "Tech2Go",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Electronics",
+    "description": "Travel electronics, gadgets, and accessories.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$",
+    "access": ""
+  },
+  {
+    "name": "Victoria's Secret",
+    "terminal_code": "SYD-T1",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Apparel",
+    "description": "Lingerie, beauty products, and accessories.",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$$",
+    "access": ""
+  },
+  {
+    "name": "Australian Way",
+    "terminal_code": "SYD-T1",
+    "category": "souvenirs",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/17TcXoTJrIA2GqY6ueuCKK/3e676a2bd8ead85343b979759f3cc380/STORE_THUMBNAIL_-_Australian_Way_-_T3_Qantas_-_660x552px.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Amcal Pharmacy After Security Towards Gates 24 25",
+    "terminal_code": "SYD-T1",
+    "category": "travel essentials",
+    "amenity_type": "services and currency",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5sZZBkKp8WO2MgsI2iWq0e/26dbae791bc4acb657e8c467f655af72/AmcalPharmacy_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Amcal Pharmacy Before Security Near Check In C And J",
+    "terminal_code": "SYD-T1",
+    "category": "travel essentials",
+    "amenity_type": "services and currency",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5sZZBkKp8WO2MgsI2iWq0e/26dbae791bc4acb657e8c467f655af72/AmcalPharmacy_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  },
+  {
+    "name": "Amcal Pharmacy T1 After Security Towards Gates 50 63",
+    "terminal_code": "SYD-T1",
+    "category": "travel essentials",
+    "amenity_type": "services and currency",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5sZZBkKp8WO2MgsI2iWq0e/26dbae791bc4acb657e8c467f655af72/AmcalPharmacy_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": ""
+  }
+]

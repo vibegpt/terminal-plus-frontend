@@ -1,0 +1,3427 @@
+{
+  "Shop": [
+    {
+      "slug": "aerotel-singapore",
+      "name": "Aerotel Singapore",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "ambassador-transit-hotel",
+      "name": "Ambassador Transit Hotel",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "apple-store",
+      "name": "apple-store",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "bakers-well-t2",
+      "name": "Baker's Well",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Bakery"
+    },
+    {
+      "slug": "bee-cheng-hiang",
+      "name": "Bee Cheng Hiang",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "bengawan-solo",
+      "name": "Bengawan Solo",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "butterfly-garden",
+      "name": "Butterfly Garden",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "cabin-bar-dfs",
+      "name": "cabin-bar-dfs",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "cactus-garden",
+      "name": "Cactus Garden",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "canopy-park",
+      "name": "Canopy Park",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "changi-experience-studio",
+      "name": "Changi Experience Studio",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "charles-keith",
+      "name": "charles-keith",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "chatterbox-express-t1",
+      "name": "Chatterbox Express",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Local Cuisine"
+    },
+    {
+      "slug": "coach",
+      "name": "coach",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "crowne-plaza-changi-airport",
+      "name": "Crowne Plaza Changi Airport",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "din-tai-fung",
+      "name": "Din Tai Fung",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "electronics-computers-sprint-cass",
+      "name": "Electronics Computers by Sprint-Cass",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "electronics-computers-sprint-cass-t1",
+      "name": "electronics-computers-sprint-cass-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "electronics-computers-sprint-cass-t2",
+      "name": "electronics-computers-sprint-cass-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "entertainment-deck",
+      "name": "Entertainment Deck",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "eu-yan-sang",
+      "name": "Eu Yan Sang",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "fila",
+      "name": "FILA",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": ""
+    },
+    {
+      "slug": "fila-jewel",
+      "name": "fila-jewel",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "fila-kids-t2",
+      "name": "fila-kids-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "fila-t4",
+      "name": "fila-t4",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "foggy-bowls",
+      "name": "Foggy Bowls",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "fragrance-bak-kwa",
+      "name": "Fragrance Bak Kwa",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "fragrance-bak-kwa-t1",
+      "name": "fragrance-bak-kwa-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Food & Gifts"
+    },
+    {
+      "slug": "fragrance-bak-kwa-t2",
+      "name": "fragrance-bak-kwa-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Food & Gifts"
+    },
+    {
+      "slug": "fragrance-bak-kwa-t3",
+      "name": "fragrance-bak-kwa-t3",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Food & Gifts"
+    },
+    {
+      "slug": "furla",
+      "name": "Furla",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "furla-jewel",
+      "name": "furla-jewel",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "furla-t3",
+      "name": "furla-t3",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "garrett-popcorn",
+      "name": "Garrett Popcorn Shops®",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "garrett-popcorn-t1",
+      "name": "garrett-popcorn-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Snacks & Confectionery"
+    },
+    {
+      "slug": "garrett-popcorn-t4",
+      "name": "garrett-popcorn-t4",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Snacks & Confectionery"
+    },
+    {
+      "slug": "gassan-watches",
+      "name": "Gassan Watches",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "gassan-watches-t1",
+      "name": "gassan-watches-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Watches & Jewelry"
+    },
+    {
+      "slug": "gassan-watches-t2",
+      "name": "gassan-watches-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Watches & Jewelry"
+    },
+    {
+      "slug": "giordano",
+      "name": "Giordano",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "giordano-sin-t1",
+      "name": "giordano-sin-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "goldheart",
+      "name": "Goldheart",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-before-security-basement-shop-24",
+      "name": "Guardian Health & Beauty - Before Security Basement Shop 24",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-before-security-level-2-shop-13",
+      "name": "Guardian Health & Beauty - Before Security Level 2 Shop 13",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-level-2-shop-155",
+      "name": "Guardian Health & Beauty - Level 2 Shop 155",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-level-2-shop-16",
+      "name": "Guardian Health & Beauty - Level 2 Shop 16",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-level-2-shop-29",
+      "name": "Guardian Health & Beauty - Level 2 Shop 29",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-level-2-shop-66",
+      "name": "Guardian Health & Beauty - Level 2 Shop 66",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-level-2-shop-69",
+      "name": "Guardian Health & Beauty - Level 2 Shop 69",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t1-16",
+      "name": "guardian-health-beauty-sin-t1-16",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t1-69",
+      "name": "guardian-health-beauty-sin-t1-69",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t2-13",
+      "name": "guardian-health-beauty-sin-t2-13",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t2-155",
+      "name": "guardian-health-beauty-sin-t2-155",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t3-29",
+      "name": "guardian-health-beauty-sin-t3-29",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t3-66",
+      "name": "guardian-health-beauty-sin-t3-66",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t3-basement-24",
+      "name": "guardian-health-beauty-sin-t3-basement-24",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "gucci",
+      "name": "Gucci",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "gucci-t1",
+      "name": "gucci-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "gucci-t2",
+      "name": "gucci-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "gucci-t3",
+      "name": "gucci-t3",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "hedge-maze",
+      "name": "Hedge Maze",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "hermes",
+      "name": "HERMÈS",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "hermes-t1",
+      "name": "hermes-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "hermes-t2",
+      "name": "hermes-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "hermes-t3",
+      "name": "hermes-t3",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "irvins-salted-egg",
+      "name": "Irvins Salted Egg",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "irvins-salted-egg-jewel",
+      "name": "irvins-salted-egg-jewel",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Snacks"
+    },
+    {
+      "slug": "irvins-salted-egg-t1",
+      "name": "irvins-salted-egg-t1",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Snacks"
+    },
+    {
+      "slug": "irvins-salted-egg-t4",
+      "name": "irvins-salted-egg-t4",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Snacks"
+    },
+    {
+      "slug": "istudio",
+      "name": "istudio",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Electronics"
+    },
+    {
+      "slug": "kaboom",
+      "name": "Kaboom",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "kaboom-t1",
+      "name": "kaboom-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Electronics"
+    },
+    {
+      "slug": "kaboom-t2",
+      "name": "kaboom-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Electronics"
+    },
+    {
+      "slug": "kaboom-t3",
+      "name": "kaboom-t3",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Electronics"
+    },
+    {
+      "slug": "kashkha",
+      "name": "KASHKHA",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "kering-eyewear-lagardere",
+      "name": "Kering Eyewear x Lagardere",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "kinokuniya",
+      "name": "Kinokuniya",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "koi-pond",
+      "name": "Koi Pond",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "koi-th",
+      "name": "Koi Thé",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "kunthaville",
+      "name": "Kunthaville",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "lacoste",
+      "name": "lacoste",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "lego-airport-store",
+      "name": "LEGO® Airport Store",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "lindt",
+      "name": "Lindt",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "longchamp",
+      "name": "Longchamp",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "longchamp-t1",
+      "name": "longchamp-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "longchamp-t2",
+      "name": "longchamp-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "longchamp-t3",
+      "name": "longchamp-t3",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "lotte-duty-free",
+      "name": "Lotte Duty Free",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-1-shop-10",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 10",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-1-shop-12",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 12",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-1-shop-151",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 151",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-1-shop-176",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 176",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-1-shop-19",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 19",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-1-shop-23",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 23",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-1-shop-29",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 29",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-10",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 10",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-197",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 197",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-22",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 22",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-25",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 25",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-37",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 37",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-401",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 401",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-46",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 46",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-53",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 53",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-57",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 57",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-65",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 65",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-68",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 68",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-2-shop-91",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 91",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-3-shop-189",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 3 Shop 189",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-level-3-shop-7",
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 3 Shop 7",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t1-level-1-10",
+      "name": "lotte-duty-free-wines-spirits-t1-level-1-10",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t1-level-1-23",
+      "name": "lotte-duty-free-wines-spirits-t1-level-1-23",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t1-level-2-22",
+      "name": "lotte-duty-free-wines-spirits-t1-level-2-22",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t1-level-2-46",
+      "name": "lotte-duty-free-wines-spirits-t1-level-2-46",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t1-level-2-53",
+      "name": "lotte-duty-free-wines-spirits-t1-level-2-53",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t1-level-2-68",
+      "name": "lotte-duty-free-wines-spirits-t1-level-2-68",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t2-level-1-151",
+      "name": "lotte-duty-free-wines-spirits-t2-level-1-151",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t2-level-1-176",
+      "name": "lotte-duty-free-wines-spirits-t2-level-1-176",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t2-level-2-197",
+      "name": "lotte-duty-free-wines-spirits-t2-level-2-197",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t2-level-2-401",
+      "name": "lotte-duty-free-wines-spirits-t2-level-2-401",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t2-level-2-91",
+      "name": "lotte-duty-free-wines-spirits-t2-level-2-91",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t2-level-3-189",
+      "name": "lotte-duty-free-wines-spirits-t2-level-3-189",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t3-level-1-19",
+      "name": "lotte-duty-free-wines-spirits-t3-level-1-19",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t3-level-1-29",
+      "name": "lotte-duty-free-wines-spirits-t3-level-1-29",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t3-level-2-10",
+      "name": "lotte-duty-free-wines-spirits-t3-level-2-10",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t3-level-2-37",
+      "name": "lotte-duty-free-wines-spirits-t3-level-2-37",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t3-level-2-65",
+      "name": "lotte-duty-free-wines-spirits-t3-level-2-65",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t3-level-3-7",
+      "name": "lotte-duty-free-wines-spirits-t3-level-3-7",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t4-level-1-12",
+      "name": "lotte-duty-free-wines-spirits-t4-level-1-12",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t4-level-2-25",
+      "name": "lotte-duty-free-wines-spirits-t4-level-2-25",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "lotte-duty-free-wines-spirits-t4-level-2-57",
+      "name": "lotte-duty-free-wines-spirits-t4-level-2-57",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Duty-Free Store"
+    },
+    {
+      "slug": "louis-vuitton",
+      "name": "Louis Vuitton",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "louis-vuitton-t1",
+      "name": "louis-vuitton-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "louis-vuitton-t3",
+      "name": "louis-vuitton-t3",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "lululemon",
+      "name": "lululemon",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "manulife-sky-nets",
+      "name": "Manulife Sky Nets",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "michael-kors",
+      "name": "michael-kors",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "mirror-maze",
+      "name": "Mirror Maze",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "montblanc",
+      "name": "montblanc",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "muji",
+      "name": "Muji",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "old-chang-kee",
+      "name": "Old Chang Kee",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "paradise-dynasty",
+      "name": "Paradise Dynasty",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "paris-baguette-t4",
+      "name": "Paris Baguette",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Bakery Café"
+    },
+    {
+      "slug": "plaza-premium-lounge",
+      "name": "Plaza Premium Lounge",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": "Lounge"
+    },
+    {
+      "slug": "rain-vortex",
+      "name": "Rain Vortex",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "rituals",
+      "name": "rituals",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "shiseido-forest-valley",
+      "name": "Shiseido Forest Valley",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "singapore-airlines-silverkris-lounge",
+      "name": "Singapore Airlines SilverKris Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "social-tree",
+      "name": "Social Tree",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "song-fa-bak-kut-teh",
+      "name": "Song Fa Bak Kut Teh",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "spa-express",
+      "name": "Spa Express",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "sunflower-garden",
+      "name": "Sunflower Garden",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "sunglass-hut",
+      "name": "Sunglass Hut",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "sunglass-hut-t1",
+      "name": "sunglass-hut-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "sunglass-hut-t2",
+      "name": "sunglass-hut-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "sunglass-hut-t3",
+      "name": "sunglass-hut-t3",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Retail"
+    },
+    {
+      "slug": "sushi-tei",
+      "name": "Sushi Tei",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "swarovski",
+      "name": "Swarovski",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "swarovski-t1",
+      "name": "swarovski-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "swarovski-t2",
+      "name": "swarovski-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "t1-basement-food-court",
+      "name": "T1 Basement Food Court",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Food Court"
+    },
+    {
+      "slug": "t3-basement-food-court",
+      "name": "T3 Basement Food Court",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Food Court"
+    },
+    {
+      "slug": "taste-singapore",
+      "name": "Taste Singapore",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "telecommunications-kiosk",
+      "name": "Telecommunications Kiosk",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "the-digital-gadgets",
+      "name": "The Digital Gadgets",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "the-fashion-place",
+      "name": "The Fashion Place",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "the-slidet3",
+      "name": "The Slide@T3",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "the-cocoa-trees",
+      "name": "the-cocoa-trees",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "the-digital-gadgets-jewel",
+      "name": "the-digital-gadgets-jewel",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "the-digital-gadgets-t4",
+      "name": "the-digital-gadgets-t4",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Retail"
+    },
+    {
+      "slug": "tiffany-co",
+      "name": "Tiffany & Co.",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "tiger-street-lab",
+      "name": "Tiger Street Lab",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "timberland",
+      "name": "timberland",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "time-emporium",
+      "name": "Time Emporium",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "times-travel",
+      "name": "Times Travel",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "tods",
+      "name": "Tod's",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "tokyu-hands",
+      "name": "Tokyu Hands",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "tokyu-hands-t4",
+      "name": "Tokyu Hands",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "tokyu-hands-",
+      "name": "Tokyu Hands ",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Retail"
+    },
+    {
+      "slug": "tommy-hilfiger",
+      "name": "Tommy Hilfiger",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "tory-burch",
+      "name": "Tory Burch",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "tory-burch-t1",
+      "name": "tory-burch-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "tory-burch-t2",
+      "name": "tory-burch-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "travelex-money-changer",
+      "name": "Travelex Money Changer",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "travelex-money-changer-t1",
+      "name": "travelex-money-changer-t1",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Currency Exchange"
+    },
+    {
+      "slug": "travelex-money-changer-t2",
+      "name": "travelex-money-changer-t2",
+      "category": "Services",
+      "terminal": "SIN-T2",
+      "type": "Currency Exchange"
+    },
+    {
+      "slug": "travelex-money-changer-t3",
+      "name": "travelex-money-changer-t3",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": "Currency Exchange"
+    },
+    {
+      "slug": "trs-tax-refund",
+      "name": "TRS Tax Refund",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "tumi",
+      "name": "TUMI",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "twg-tea",
+      "name": "TWG Tea",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Tea Boutique"
+    },
+    {
+      "slug": "twg-tea-boutique",
+      "name": "TWG Tea Boutique",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "twg-tea-boutique-t1",
+      "name": "twg-tea-boutique-t1",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Tea Boutique"
+    },
+    {
+      "slug": "twg-tea-boutique-t2",
+      "name": "twg-tea-boutique-t2",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Tea Boutique"
+    },
+    {
+      "slug": "twg-tea-boutique-t3",
+      "name": "twg-tea-boutique-t3",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Tea Boutique"
+    },
+    {
+      "slug": "uniqlo",
+      "name": "Uniqlo",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "uniqlo-jewel",
+      "name": "uniqlo-jewel",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "uniqlo-t1",
+      "name": "uniqlo-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Fashion & Accessories"
+    },
+    {
+      "slug": "unity",
+      "name": "Unity",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "uob-gold",
+      "name": "UOB Gold",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "victorias-secret-beauty-accessories",
+      "name": "Victoria's Secret Beauty & Accessories",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "victorias-secret-beauty-accessories-t1",
+      "name": "victorias-secret-beauty-accessories-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Fashion & Beauty"
+    },
+    {
+      "slug": "victorias-secret-beauty-accessories-t2",
+      "name": "victorias-secret-beauty-accessories-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Fashion & Beauty"
+    },
+    {
+      "slug": "watches-of-switzerland",
+      "name": "watches-of-switzerland",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Watches & Jewelry"
+    },
+    {
+      "slug": "wh-smith-before-security-level-1-shop-26",
+      "name": "WH Smith - Before Security Level 1 Shop 26",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "wh-smith-before-security-level-1-shop-84",
+      "name": "WH Smith - Before Security Level 1 Shop 84",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "wh-smith-level-2-shop-207",
+      "name": "WH Smith - Level 2 Shop 207",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "wh-smith-level-2-shop-41",
+      "name": "WH Smith - Level 2 Shop 41",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "wh-smith-level-2-shop-43",
+      "name": "WH Smith - Level 2 Shop 43",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "wh-smith-level-2-shop-59",
+      "name": "WH Smith - Level 2 Shop 59",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "wh-smith-level-2-shop-67",
+      "name": "WH Smith - Level 2 Shop 67",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "wh-smith-level-2-shop-7",
+      "name": "WH Smith - Level 2 Shop 7",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "whsmith-t1-level-1-84",
+      "name": "whsmith-t1-level-1-84",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t1-level-2-41",
+      "name": "whsmith-t1-level-2-41",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t1-level-2-67",
+      "name": "whsmith-t1-level-2-67",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t2-level-1-26",
+      "name": "whsmith-t2-level-1-26",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t2-level-2-207",
+      "name": "whsmith-t2-level-2-207",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t3-level-2-43",
+      "name": "whsmith-t3-level-2-43",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t3-level-2-7",
+      "name": "whsmith-t3-level-2-7",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t4-level-2-59",
+      "name": "whsmith-t4-level-2-59",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "ya-kun-kaya-toast",
+      "name": "Ya Kun Kaya Toast",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "yotelair-singapore-changi",
+      "name": "YOTELAIR Singapore Changi",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "zakkasg",
+      "name": "ZAKKASG",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "zara",
+      "name": "Zara",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "zegna",
+      "name": "ZEGNA",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    }
+  ],
+  "Chill": [
+    {
+      "slug": "butterfly-garden",
+      "name": "Butterfly Garden",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "cactus-garden",
+      "name": "Cactus Garden",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "canopy-park",
+      "name": "Canopy Park",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "canopy-park-t2",
+      "name": "Canopy Park",
+      "category": "Attraction",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "canopy-park-t3",
+      "name": "Canopy Park",
+      "category": "Attraction",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "canopy-park-t4",
+      "name": "Canopy Park",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "cathay-pacific-lounge",
+      "name": "Cathay Pacific Lounge",
+      "category": "Services",
+      "terminal": "SIN-T2",
+      "type": "Lounge"
+    },
+    {
+      "slug": "dnata-lounge",
+      "name": "dnata Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "hedge-maze",
+      "name": "Hedge Maze",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "koi-pond",
+      "name": "Koi Pond",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "mirror-maze",
+      "name": "Mirror Maze",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "paradise-dynasty",
+      "name": "Paradise Dynasty",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "plaza-premium-lounge",
+      "name": "Plaza Premium Lounge",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": "Lounge"
+    },
+    {
+      "slug": "rhythm-of-nature",
+      "name": "Rhythm of Nature",
+      "category": "Attraction",
+      "terminal": "SIN-JEWEL",
+      "type": ""
+    },
+    {
+      "slug": "sats-premier-lounge",
+      "name": "SATS Premier Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "singapore-airlines-silverkris-lounge",
+      "name": "Singapore Airlines SilverKris Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "social-tree",
+      "name": "Social Tree",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "sunflower-garden",
+      "name": "Sunflower Garden",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "the-slidet3",
+      "name": "The Slide@T3",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "the-cocoa-trees",
+      "name": "the-cocoa-trees",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "tiger-street-lab",
+      "name": "Tiger Street Lab",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    }
+  ],
+  "Discover": [
+    {
+      "slug": "bakers-well-t2",
+      "name": "Baker's Well",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Bakery"
+    },
+    {
+      "slug": "birds-in-flight",
+      "name": "Birds in Flight",
+      "category": "Attraction",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "butterfly-garden",
+      "name": "Butterfly Garden",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "cactus-garden",
+      "name": "Cactus Garden",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "cafe-o-t2",
+      "name": "Café O",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Local Café"
+    },
+    {
+      "slug": "canopy-park",
+      "name": "Canopy Park",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "canopy-park-t2",
+      "name": "Canopy Park",
+      "category": "Attraction",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "canopy-park-t3",
+      "name": "Canopy Park",
+      "category": "Attraction",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "canopy-park-t4",
+      "name": "Canopy Park",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "chandelier",
+      "name": "Chandelier",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "changi-experience-studio",
+      "name": "Changi Experience Studio",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "chengdu-bowl-t3",
+      "name": "Chengdu Bowl",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Sichuan Restaurant"
+    },
+    {
+      "slug": "coming-home",
+      "name": "Coming Home",
+      "category": "Attraction",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "cultural-stage-t3",
+      "name": "Cultural Performances Stage",
+      "category": "Entertainment",
+      "terminal": "SIN-T3",
+      "type": "Performance"
+    },
+    {
+      "slug": "entertainment-deck",
+      "name": "Entertainment Deck",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "fish-spa-t1",
+      "name": "Fish Spa",
+      "category": "Wellness",
+      "terminal": "SIN-T1",
+      "type": "Spa"
+    },
+    {
+      "slug": "goldheart",
+      "name": "Goldheart",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "gwangjang-gaon-jewel",
+      "name": "Gwangjang GAON",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Korean Restaurant"
+    },
+    {
+      "slug": "hard-rock-cafe-t2",
+      "name": "Hard Rock Cafe",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Themed Restaurant"
+    },
+    {
+      "slug": "hedge-maze",
+      "name": "Hedge Maze",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "heritage-zone",
+      "name": "Heritage Zone",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "immersive-wall",
+      "name": "Immersive Wall",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "jewel-viewpoint-t3",
+      "name": "Jewel Waterfall Viewpoint",
+      "category": "Attraction",
+      "terminal": "SIN-T3",
+      "type": "Observation"
+    },
+    {
+      "slug": "mirror-maze",
+      "name": "Mirror Maze",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "mother-and-child",
+      "name": "Mother and Child",
+      "category": "Attraction",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "petalclouds",
+      "name": "Petalclouds",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "rain-vortex",
+      "name": "Rain Vortex",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "rhythm-of-nature",
+      "name": "Rhythm of Nature",
+      "category": "Attraction",
+      "terminal": "SIN-JEWEL",
+      "type": ""
+    },
+    {
+      "slug": "saga-seed",
+      "name": "Saga Seed",
+      "category": "Attraction",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "sats-premier-lounge",
+      "name": "SATS Premier Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "social-tree",
+      "name": "Social Tree",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "spirit-of-man",
+      "name": "spirit-of-man",
+      "category": "Attraction",
+      "terminal": "SIN-T1",
+      "type": "Art Installation"
+    },
+    {
+      "slug": "steel-in-bloom",
+      "name": "Steel in Bloom",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "sunflower-garden",
+      "name": "Sunflower Garden",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "swensens-t3",
+      "name": "Swensen's",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Ice Cream & American Diner"
+    },
+    {
+      "slug": "t2-staff-canteen",
+      "name": "T2 Staff Canteen",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Food Court"
+    },
+    {
+      "slug": "tap-brew-t1",
+      "name": "Tap + Brew",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Pub & Brewery"
+    },
+    {
+      "slug": "the-digital-gadgets",
+      "name": "The Digital Gadgets",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "memory-of-lived-space",
+      "name": "The Memory of Lived Space",
+      "category": "Attraction",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "the-slidet3",
+      "name": "The Slide@T3",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "the-digital-gadgets-jewel",
+      "name": "the-digital-gadgets-jewel",
+      "category": "Shopping",
+      "terminal": "SIN-JEWEL",
+      "type": "Retail"
+    },
+    {
+      "slug": "the-digital-gadgets-t4",
+      "name": "the-digital-gadgets-t4",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Retail"
+    },
+    {
+      "slug": "tiger-den-t4",
+      "name": "Tiger Den",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Bar"
+    },
+    {
+      "slug": "travelling-family",
+      "name": "Travelling Family",
+      "category": "Attraction",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "tsuta-jewel",
+      "name": "Tsuta",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Michelin Star Ramen"
+    },
+    {
+      "slug": "vessel",
+      "name": "Vessel",
+      "category": "Attraction",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "woke-ramen-t1",
+      "name": "Woke Ramen",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Ramen"
+    }
+  ],
+  "Refuel": [
+    {
+      "slug": "aw-root-beer-t3",
+      "name": "A&W Root Beer",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Restaurant"
+    },
+    {
+      "slug": "aji-ichi-sushi-bar-t4",
+      "name": "Aji Ichi Sushi Bar",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Sushi Bar"
+    },
+    {
+      "slug": "andes-by-astons-t1",
+      "name": "Andes by Astons",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Western Restaurant"
+    },
+    {
+      "slug": "bakers-well-t2",
+      "name": "Baker's Well",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Bakery"
+    },
+    {
+      "slug": "bee-cheng-hiang",
+      "name": "Bee Cheng Hiang",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "boost-juice-t2",
+      "name": "Boost Juice",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Juice & Smoothies"
+    },
+    {
+      "slug": "burger-king-t1",
+      "name": "Burger King",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Fast Food"
+    },
+    {
+      "slug": "cabin-bar-dfs",
+      "name": "cabin-bar-dfs",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "cafe-o-t2",
+      "name": "Café O",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Local Café"
+    },
+    {
+      "slug": "cha-mulan-jewel",
+      "name": "CHA MULAN",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Tea House"
+    },
+    {
+      "slug": "chatterbox-express-t1",
+      "name": "Chatterbox Express",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Local Cuisine"
+    },
+    {
+      "slug": "chengdu-bowl-t3",
+      "name": "Chengdu Bowl",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Sichuan Restaurant"
+    },
+    {
+      "slug": "crown-prince-kitchenette-t3",
+      "name": "Crown Prince Kitchenette",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Zi Char"
+    },
+    {
+      "slug": "cultural-stage-t3",
+      "name": "Cultural Performances Stage",
+      "category": "Entertainment",
+      "terminal": "SIN-T3",
+      "type": "Performance"
+    },
+    {
+      "slug": "din-tai-fung",
+      "name": "Din Tai Fung",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "dnata-lounge",
+      "name": "dnata Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "dunkin-t2",
+      "name": "Dunkin'",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Coffee & Donuts"
+    },
+    {
+      "slug": "eu-yan-sang",
+      "name": "Eu Yan Sang",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "fish-co-jewel",
+      "name": "Fish & Co.",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Seafood Restaurant"
+    },
+    {
+      "slug": "fish-spa-t1",
+      "name": "Fish Spa",
+      "category": "Wellness",
+      "terminal": "SIN-T1",
+      "type": "Spa"
+    },
+    {
+      "slug": "garrett-popcorn-t1",
+      "name": "garrett-popcorn-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Snacks & Confectionery"
+    },
+    {
+      "slug": "garrett-popcorn-t4",
+      "name": "garrett-popcorn-t4",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Snacks & Confectionery"
+    },
+    {
+      "slug": "gopizza-t2",
+      "name": "GOPIZZA",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Pizza"
+    },
+    {
+      "slug": "gwangjang-gaon-jewel",
+      "name": "Gwangjang GAON",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Korean Restaurant"
+    },
+    {
+      "slug": "hard-rock-cafe-t2",
+      "name": "Hard Rock Cafe",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Themed Restaurant"
+    },
+    {
+      "slug": "heavenly-wang-t1",
+      "name": "Heavenly Wang",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Local Cuisine"
+    },
+    {
+      "slug": "hudsons-coffee-t2",
+      "name": "Hudsons Coffee",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Coffee Shop"
+    },
+    {
+      "slug": "ichikokudo-hokkaido-ramen-t3",
+      "name": "Ichikokudo Hokkaido Ramen",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Ramen"
+    },
+    {
+      "slug": "irvins-salted-egg-jewel",
+      "name": "irvins-salted-egg-jewel",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Snacks"
+    },
+    {
+      "slug": "irvins-salted-egg-t1",
+      "name": "irvins-salted-egg-t1",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Snacks"
+    },
+    {
+      "slug": "irvins-salted-egg-t4",
+      "name": "irvins-salted-egg-t4",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Snacks"
+    },
+    {
+      "slug": "jamba-t1",
+      "name": "Jamba",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Smoothies & Health Food"
+    },
+    {
+      "slug": "kinokuniya",
+      "name": "Kinokuniya",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "koi-pond",
+      "name": "Koi Pond",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "koi-th",
+      "name": "Koi Thé",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "mcdonalds-t3",
+      "name": "McDonald's",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Fast Food"
+    },
+    {
+      "slug": "mr-teh-tarik-express-t3",
+      "name": "Mr Teh Tarik Express",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Indian-Muslim Café"
+    },
+    {
+      "slug": "mrs-pho-jewel",
+      "name": "Mrs Pho",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Vietnamese Restaurant"
+    },
+    {
+      "slug": "muji",
+      "name": "Muji",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "old-chang-kee",
+      "name": "Old Chang Kee",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "old-town-express-t3",
+      "name": "Old Town Express",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Malaysian Café"
+    },
+    {
+      "slug": "paris-baguette-t4",
+      "name": "Paris Baguette",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Bakery Café"
+    },
+    {
+      "slug": "pontian-wanton-noodle-t1",
+      "name": "Pontian Wanton Noodle",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Noodles"
+    },
+    {
+      "slug": "saboten-t1",
+      "name": "Saboten",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Japanese Restaurant"
+    },
+    {
+      "slug": "song-fa-bak-kut-teh",
+      "name": "Song Fa Bak Kut Teh",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "starbucks-t3",
+      "name": "Starbucks",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Coffee Shop"
+    },
+    {
+      "slug": "sushi-tei",
+      "name": "Sushi Tei",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "swee-choon-t2",
+      "name": "Swee Choon",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Dim Sum"
+    },
+    {
+      "slug": "swensens-t3",
+      "name": "Swensen's",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Ice Cream & American Diner"
+    },
+    {
+      "slug": "t1-basement-food-court",
+      "name": "T1 Basement Food Court",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Food Court"
+    },
+    {
+      "slug": "t2-staff-canteen",
+      "name": "T2 Staff Canteen",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Food Court"
+    },
+    {
+      "slug": "t3-basement-food-court",
+      "name": "T3 Basement Food Court",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Food Court"
+    },
+    {
+      "slug": "tap-brew-t1",
+      "name": "Tap + Brew",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Pub & Brewery"
+    },
+    {
+      "slug": "tiger-den-t4",
+      "name": "Tiger Den",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Bar"
+    },
+    {
+      "slug": "tokyu-hands",
+      "name": "Tokyu Hands",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "tokyu-hands-t4",
+      "name": "Tokyu Hands",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "tokyu-hands-",
+      "name": "Tokyu Hands ",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Retail"
+    },
+    {
+      "slug": "tsuta-jewel",
+      "name": "Tsuta",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Michelin Star Ramen"
+    },
+    {
+      "slug": "twg-tea",
+      "name": "TWG Tea",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Tea Boutique"
+    },
+    {
+      "slug": "twg-tea-boutique",
+      "name": "TWG Tea Boutique",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "twg-tea-boutique-t1",
+      "name": "twg-tea-boutique-t1",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Tea Boutique"
+    },
+    {
+      "slug": "twg-tea-boutique-t2",
+      "name": "twg-tea-boutique-t2",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Tea Boutique"
+    },
+    {
+      "slug": "twg-tea-boutique-t3",
+      "name": "twg-tea-boutique-t3",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Tea Boutique"
+    },
+    {
+      "slug": "woke-ramen-t1",
+      "name": "Woke Ramen",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Ramen"
+    },
+    {
+      "slug": "ya-kun-family-cafe-t3",
+      "name": "Ya Kun Family Cafe",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Traditional Café"
+    },
+    {
+      "slug": "ya-kun-kaya-toast",
+      "name": "Ya Kun Kaya Toast",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    }
+  ],
+  "Comfort": [
+    {
+      "slug": "aerotel-singapore",
+      "name": "Aerotel Singapore",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "aji-ichi-sushi-bar-t4",
+      "name": "Aji Ichi Sushi Bar",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Sushi Bar"
+    },
+    {
+      "slug": "ambassador-transit-hotel",
+      "name": "Ambassador Transit Hotel",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "andes-by-astons-t1",
+      "name": "Andes by Astons",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Western Restaurant"
+    },
+    {
+      "slug": "boost-juice-t2",
+      "name": "Boost Juice",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Juice & Smoothies"
+    },
+    {
+      "slug": "cathay-pacific-lounge",
+      "name": "Cathay Pacific Lounge",
+      "category": "Services",
+      "terminal": "SIN-T2",
+      "type": "Lounge"
+    },
+    {
+      "slug": "cha-mulan-jewel",
+      "name": "CHA MULAN",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Tea House"
+    },
+    {
+      "slug": "crown-prince-kitchenette-t3",
+      "name": "Crown Prince Kitchenette",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Zi Char"
+    },
+    {
+      "slug": "crowne-plaza-changi-airport",
+      "name": "Crowne Plaza Changi Airport",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "din-tai-fung",
+      "name": "Din Tai Fung",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "dnata-lounge",
+      "name": "dnata Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "fish-co-jewel",
+      "name": "Fish & Co.",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Seafood Restaurant"
+    },
+    {
+      "slug": "fish-spa-t1",
+      "name": "Fish Spa",
+      "category": "Wellness",
+      "terminal": "SIN-T1",
+      "type": "Spa"
+    },
+    {
+      "slug": "gwangjang-gaon-jewel",
+      "name": "Gwangjang GAON",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Korean Restaurant"
+    },
+    {
+      "slug": "hard-rock-cafe-t2",
+      "name": "Hard Rock Cafe",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Themed Restaurant"
+    },
+    {
+      "slug": "ichikokudo-hokkaido-ramen-t3",
+      "name": "Ichikokudo Hokkaido Ramen",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Ramen"
+    },
+    {
+      "slug": "jamba-t1",
+      "name": "Jamba",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Smoothies & Health Food"
+    },
+    {
+      "slug": "koi-th",
+      "name": "Koi Thé",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "mrs-pho-jewel",
+      "name": "Mrs Pho",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Vietnamese Restaurant"
+    },
+    {
+      "slug": "plaza-premium-lounge",
+      "name": "Plaza Premium Lounge",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": "Lounge"
+    },
+    {
+      "slug": "saboten-t1",
+      "name": "Saboten",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Japanese Restaurant"
+    },
+    {
+      "slug": "sats-premier-lounge",
+      "name": "SATS Premier Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "shiseido-forest-valley",
+      "name": "Shiseido Forest Valley",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "singapore-airlines-silverkris-lounge",
+      "name": "Singapore Airlines SilverKris Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "spa-express",
+      "name": "Spa Express",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "sushi-tei",
+      "name": "Sushi Tei",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "swee-choon-t2",
+      "name": "Swee Choon",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Dim Sum"
+    },
+    {
+      "slug": "swensens-t3",
+      "name": "Swensen's",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Ice Cream & American Diner"
+    },
+    {
+      "slug": "tap-brew-t1",
+      "name": "Tap + Brew",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Pub & Brewery"
+    },
+    {
+      "slug": "memory-of-lived-space",
+      "name": "The Memory of Lived Space",
+      "category": "Attraction",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "tiger-den-t4",
+      "name": "Tiger Den",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Bar"
+    },
+    {
+      "slug": "tsuta-jewel",
+      "name": "Tsuta",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Michelin Star Ramen"
+    },
+    {
+      "slug": "twg-tea",
+      "name": "TWG Tea",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Tea Boutique"
+    },
+    {
+      "slug": "ya-kun-family-cafe-t3",
+      "name": "Ya Kun Family Cafe",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Traditional Café"
+    },
+    {
+      "slug": "yotelair-singapore-changi",
+      "name": "YOTELAIR Singapore Changi",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Retail"
+    },
+    {
+      "slug": "zara",
+      "name": "Zara",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    }
+  ],
+  "Work": [
+    {
+      "slug": "cathay-pacific-lounge",
+      "name": "Cathay Pacific Lounge",
+      "category": "Services",
+      "terminal": "SIN-T2",
+      "type": "Lounge"
+    },
+    {
+      "slug": "cha-mulan-jewel",
+      "name": "CHA MULAN",
+      "category": "Food & Beverage",
+      "terminal": "SIN-JEWEL",
+      "type": "Tea House"
+    },
+    {
+      "slug": "dnata-lounge",
+      "name": "dnata Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "electronics-computers-sprint-cass",
+      "name": "Electronics Computers by Sprint-Cass",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "electronics-computers-sprint-cass-t1",
+      "name": "electronics-computers-sprint-cass-t1",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "electronics-computers-sprint-cass-t2",
+      "name": "electronics-computers-sprint-cass-t2",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "hudsons-coffee-t2",
+      "name": "Hudsons Coffee",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Coffee Shop"
+    },
+    {
+      "slug": "plaza-premium-lounge",
+      "name": "Plaza Premium Lounge",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": "Lounge"
+    },
+    {
+      "slug": "sats-premier-lounge",
+      "name": "SATS Premier Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "singapore-airlines-silverkris-lounge",
+      "name": "Singapore Airlines SilverKris Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "starbucks-t3",
+      "name": "Starbucks",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Coffee Shop"
+    }
+  ],
+  "Explore": [
+    {
+      "slug": "birds-in-flight",
+      "name": "Birds in Flight",
+      "category": "Attraction",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "cabin-bar-dfs",
+      "name": "cabin-bar-dfs",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "canopy-park-t2",
+      "name": "Canopy Park",
+      "category": "Attraction",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "canopy-park-t3",
+      "name": "Canopy Park",
+      "category": "Attraction",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "canopy-park-t4",
+      "name": "Canopy Park",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "chandelier",
+      "name": "Chandelier",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "coming-home",
+      "name": "Coming Home",
+      "category": "Attraction",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "cultural-stage-t3",
+      "name": "Cultural Performances Stage",
+      "category": "Entertainment",
+      "terminal": "SIN-T3",
+      "type": "Performance"
+    },
+    {
+      "slug": "fish-spa-t1",
+      "name": "Fish Spa",
+      "category": "Wellness",
+      "terminal": "SIN-T1",
+      "type": "Spa"
+    },
+    {
+      "slug": "heritage-zone",
+      "name": "Heritage Zone",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "immersive-wall",
+      "name": "Immersive Wall",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "jewel-viewpoint-t3",
+      "name": "Jewel Waterfall Viewpoint",
+      "category": "Attraction",
+      "terminal": "SIN-T3",
+      "type": "Observation"
+    },
+    {
+      "slug": "mother-and-child",
+      "name": "Mother and Child",
+      "category": "Attraction",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "petalclouds",
+      "name": "Petalclouds",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "rhythm-of-nature",
+      "name": "Rhythm of Nature",
+      "category": "Attraction",
+      "terminal": "SIN-JEWEL",
+      "type": ""
+    },
+    {
+      "slug": "saga-seed",
+      "name": "Saga Seed",
+      "category": "Attraction",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "spirit-of-man",
+      "name": "spirit-of-man",
+      "category": "Attraction",
+      "terminal": "SIN-T1",
+      "type": "Art Installation"
+    },
+    {
+      "slug": "steel-in-bloom",
+      "name": "Steel in Bloom",
+      "category": "Attraction",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "memory-of-lived-space",
+      "name": "The Memory of Lived Space",
+      "category": "Attraction",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "tokyu-hands-t4",
+      "name": "Tokyu Hands",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "travelling-family",
+      "name": "Travelling Family",
+      "category": "Attraction",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "vessel",
+      "name": "Vessel",
+      "category": "Attraction",
+      "terminal": "SIN-T2",
+      "type": ""
+    }
+  ],
+  "Quick": [
+    {
+      "slug": "aw-root-beer-t3",
+      "name": "A&W Root Beer",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Restaurant"
+    },
+    {
+      "slug": "boost-juice-t2",
+      "name": "Boost Juice",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Juice & Smoothies"
+    },
+    {
+      "slug": "burger-king-t1",
+      "name": "Burger King",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Fast Food"
+    },
+    {
+      "slug": "cathay-pacific-lounge",
+      "name": "Cathay Pacific Lounge",
+      "category": "Services",
+      "terminal": "SIN-T2",
+      "type": "Lounge"
+    },
+    {
+      "slug": "dnata-lounge",
+      "name": "dnata Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "dunkin-t2",
+      "name": "Dunkin'",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Coffee & Donuts"
+    },
+    {
+      "slug": "goldheart",
+      "name": "Goldheart",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "gopizza-t2",
+      "name": "GOPIZZA",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Pizza"
+    },
+    {
+      "slug": "guardian-health-beauty-before-security-basement-shop-24",
+      "name": "Guardian Health & Beauty - Before Security Basement Shop 24",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-before-security-level-2-shop-13",
+      "name": "Guardian Health & Beauty - Before Security Level 2 Shop 13",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-level-2-shop-155",
+      "name": "Guardian Health & Beauty - Level 2 Shop 155",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-level-2-shop-16",
+      "name": "Guardian Health & Beauty - Level 2 Shop 16",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-level-2-shop-29",
+      "name": "Guardian Health & Beauty - Level 2 Shop 29",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-level-2-shop-66",
+      "name": "Guardian Health & Beauty - Level 2 Shop 66",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-level-2-shop-69",
+      "name": "Guardian Health & Beauty - Level 2 Shop 69",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t1-16",
+      "name": "guardian-health-beauty-sin-t1-16",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t1-69",
+      "name": "guardian-health-beauty-sin-t1-69",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t2-13",
+      "name": "guardian-health-beauty-sin-t2-13",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t2-155",
+      "name": "guardian-health-beauty-sin-t2-155",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t3-29",
+      "name": "guardian-health-beauty-sin-t3-29",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t3-66",
+      "name": "guardian-health-beauty-sin-t3-66",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "guardian-health-beauty-sin-t3-basement-24",
+      "name": "guardian-health-beauty-sin-t3-basement-24",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Pharmacy"
+    },
+    {
+      "slug": "heavenly-wang-t1",
+      "name": "Heavenly Wang",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Local Cuisine"
+    },
+    {
+      "slug": "hudsons-coffee-t2",
+      "name": "Hudsons Coffee",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Coffee Shop"
+    },
+    {
+      "slug": "jamba-t1",
+      "name": "Jamba",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Smoothies & Health Food"
+    },
+    {
+      "slug": "lego-airport-store",
+      "name": "LEGO® Airport Store",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": ""
+    },
+    {
+      "slug": "mcdonalds-t3",
+      "name": "McDonald's",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Fast Food"
+    },
+    {
+      "slug": "mr-teh-tarik-express-t3",
+      "name": "Mr Teh Tarik Express",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Indian-Muslim Café"
+    },
+    {
+      "slug": "muji",
+      "name": "Muji",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "old-town-express-t3",
+      "name": "Old Town Express",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Malaysian Café"
+    },
+    {
+      "slug": "paris-baguette-t4",
+      "name": "Paris Baguette",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T4",
+      "type": "Bakery Café"
+    },
+    {
+      "slug": "plaza-premium-lounge",
+      "name": "Plaza Premium Lounge",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": "Lounge"
+    },
+    {
+      "slug": "pontian-wanton-noodle-t1",
+      "name": "Pontian Wanton Noodle",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Noodles"
+    },
+    {
+      "slug": "sats-premier-lounge",
+      "name": "SATS Premier Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "singapore-airlines-silverkris-lounge",
+      "name": "Singapore Airlines SilverKris Lounge",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Lounge"
+    },
+    {
+      "slug": "spa-express",
+      "name": "Spa Express",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "starbucks-t3",
+      "name": "Starbucks",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Coffee Shop"
+    },
+    {
+      "slug": "t1-basement-food-court",
+      "name": "T1 Basement Food Court",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T1",
+      "type": "Food Court"
+    },
+    {
+      "slug": "t2-staff-canteen",
+      "name": "T2 Staff Canteen",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T2",
+      "type": "Food Court"
+    },
+    {
+      "slug": "t3-basement-food-court",
+      "name": "T3 Basement Food Court",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Food Court"
+    },
+    {
+      "slug": "telecommunications-kiosk",
+      "name": "Telecommunications Kiosk",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    },
+    {
+      "slug": "tokyu-hands-t4",
+      "name": "Tokyu Hands",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": ""
+    },
+    {
+      "slug": "travelex",
+      "name": "Travelex",
+      "category": "Services",
+      "terminal": "SIN-T2",
+      "type": "Currency Exchange"
+    },
+    {
+      "slug": "travelex-money-changer",
+      "name": "Travelex Money Changer",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": ""
+    },
+    {
+      "slug": "travelex-money-changer-t1",
+      "name": "travelex-money-changer-t1",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Currency Exchange"
+    },
+    {
+      "slug": "travelex-money-changer-t2",
+      "name": "travelex-money-changer-t2",
+      "category": "Services",
+      "terminal": "SIN-T2",
+      "type": "Currency Exchange"
+    },
+    {
+      "slug": "travelex-money-changer-t3",
+      "name": "travelex-money-changer-t3",
+      "category": "Services",
+      "terminal": "SIN-T4",
+      "type": "Currency Exchange"
+    },
+    {
+      "slug": "unity",
+      "name": "Unity",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "uob-currency-exchange",
+      "name": "UOB Currency Exchange",
+      "category": "Services",
+      "terminal": "SIN-T1",
+      "type": "Banking"
+    },
+    {
+      "slug": "uob-gold",
+      "name": "UOB Gold",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": ""
+    },
+    {
+      "slug": "whsmith-t1-level-1-84",
+      "name": "whsmith-t1-level-1-84",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t1-level-2-41",
+      "name": "whsmith-t1-level-2-41",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t1-level-2-67",
+      "name": "whsmith-t1-level-2-67",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t2-level-1-26",
+      "name": "whsmith-t2-level-1-26",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t2-level-2-207",
+      "name": "whsmith-t2-level-2-207",
+      "category": "Shopping",
+      "terminal": "SIN-T2",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t3-level-2-43",
+      "name": "whsmith-t3-level-2-43",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t3-level-2-7",
+      "name": "whsmith-t3-level-2-7",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "whsmith-t4-level-2-59",
+      "name": "whsmith-t4-level-2-59",
+      "category": "Shopping",
+      "terminal": "SIN-T4",
+      "type": "Books & Convenience"
+    },
+    {
+      "slug": "ya-kun-family-cafe-t3",
+      "name": "Ya Kun Family Cafe",
+      "category": "Food & Beverage",
+      "terminal": "SIN-T3",
+      "type": "Traditional Café"
+    },
+    {
+      "slug": "ya-kun-kaya-toast",
+      "name": "Ya Kun Kaya Toast",
+      "category": "Shopping",
+      "terminal": "SIN-T3",
+      "type": "Retail"
+    },
+    {
+      "slug": "zara",
+      "name": "Zara",
+      "category": "Shopping",
+      "terminal": "SIN-T1",
+      "type": "Retail"
+    }
+  ]
+}

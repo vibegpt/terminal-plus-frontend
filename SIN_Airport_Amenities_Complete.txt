@@ -1,0 +1,462 @@
+SINGAPORE CHANGI AIRPORT (SIN) - COMPLETE AMENITIES LIST
+========================================================
+
+This file contains all amenities from Singapore Changi Airport across all terminals (T1, T2, T3, T4, and Jewel), with their associated vibe tags.
+
+VIBE TAGS LEGEND:
+- Shop: Retail stores, shopping, duty-free
+- Refuel: Food & dining establishments  
+- Quick: Fast service options
+- Explore: Attractions, art installations, gardens
+- Chill: Relaxation areas, lounges
+- Comfort: Wellness, spa services
+- Connect: Business services, WiFi, charging
+- Work: Business centers, meeting rooms
+
+================================================================================
+TERMINAL 1 (SIN-T1)
+================================================================================
+
+ATTRACTIONS:
+- Mother and Child [Explore]
+- Saga Seed [Explore]
+- Travelling Family [Explore]
+
+SHOPPING:
+- Electronics Computers by Sprint-Cass [Shop]
+- Fragrance Bak Kwa [Shop]
+- Garrett Popcorn Shops® [Shop]
+- Gassan Watches [Shop]
+- Giordano [Shop]
+- Guardian Health & Beauty - Level 2 Shop 16 [Shop, Quick]
+- Guardian Health & Beauty - Level 2 Shop 69 [Shop, Quick]
+- Gucci [Shop]
+- HERMÈS [Shop]
+- Irvins Salted Egg [Shop]
+- Kaboom [Shop]
+- Lindt [Shop]
+- Longchamp [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 10 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 23 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 53 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 68 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 22 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 46 [Shop]
+- Louis Vuitton [Shop]
+- lululemon [Shop]
+- Sunglass Hut [Shop]
+- Swarovski [Shop]
+- Tiffany & Co. [Shop]
+- Times Travel [Shop]
+- Tory Burch [Shop]
+- Travelex Money Changer [Quick, Shop]
+- TWG Tea Boutique [Shop]
+- Uniqlo [Shop]
+- Victoria's Secret Beauty & Accessories [Shop]
+- WH Smith - Before Security Level 1 Shop 84 [Shop]
+- WH Smith - Level 2 Shop 67 [Shop]
+- WH Smith - Level 2 Shop 41 [Shop]
+
+SERVICES:
+- Travelex Money Changer [Quick, Shop]
+
+WELLNESS:
+- Fish Spa [Comfort, Explore]
+
+ADDITIONAL AMENITIES (without vibe tags):
+- Manulife Sky Nets
+- Mirror Maze
+- Rain Vortex
+- Shiseido Forest Valley
+- Entertainment Deck
+- Butterfly Garden
+- Cactus Garden
+- Koi Pond
+- Sunflower Garden
+- Tiger Street Lab
+- Din Tai Fung
+- Paradise Dynasty
+- Bee Cheng Hiang
+- Koi Thé
+- Sushi Tei
+- Song Fa Bak Kut Teh
+- Crowne Plaza Changi Airport
+- Ambassador Transit Hotel
+- Singapore Airlines SilverKris Lounge
+- SATS Premier Lounge
+- dnata Lounge
+- UOB Currency Exchange
+- Telecommunications Kiosk
+- TRS Tax Refund
+- Spa Express
+- Lotte Duty Free
+- Uniqlo
+- Zara
+- Eu Yan Sang
+- Muji
+- Tokyu Hands
+
+================================================================================
+TERMINAL 2 (SIN-T2)
+================================================================================
+
+ATTRACTIONS:
+- Spirit of Man (Success and Achievement) [Explore]
+- The Memory of Lived Space [Explore]
+- Vessel [Explore]
+
+SHOPPING:
+- Eu Yan Sang [Shop]
+- Fragrance Bak Kwa [Shop]
+- Gassan Watches [Shop]
+- Guardian Health & Beauty - Before Security Level 2 Shop 13 [Shop, Quick]
+- Guardian Health & Beauty - Level 2 Shop 155 [Shop, Quick]
+- Gucci [Shop]
+- HERMÈS [Shop]
+- Irvins Salted Egg [Shop]
+- Kaboom [Shop]
+- Kering Eyewear x Lagardere [Shop]
+- Longchamp [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 176 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 401 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 91 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 151 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 3 Shop 189 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 197 [Shop]
+- Sunglass Hut [Shop]
+- Swarovski [Shop]
+- The Digital Gadgets [Shop]
+- Tod's [Shop]
+- Tommy Hilfiger [Shop]
+- Tory Burch [Shop]
+- Travelex Money Changer [Quick, Shop]
+- TUMI [Shop]
+- TWG Tea Boutique [Shop]
+- Unity [Shop, Quick]
+- UOB Gold [Shop]
+- Victoria's Secret Beauty & Accessories [Shop]
+- WH Smith - Before Security Level 1 Shop 26 [Shop]
+- WH Smith - Level 2 Shop 207 [Shop]
+- ZEGNA [Shop]
+
+SERVICES:
+- Travelex Money Changer [Quick, Shop]
+- UOB Gold [Shop]
+
+ATTRACTIONS:
+- Canopy Park [Chill, Explore]
+
+ADDITIONAL AMENITIES (without vibe tags):
+- Foggy Bowls
+- Mirror Maze
+- Rain Vortex
+- Entertainment Deck
+- Butterfly Garden
+- Cactus Garden
+- Koi Pond
+- Sunflower Garden
+- Bengawan Solo
+- Tiger Street Lab
+- Din Tai Fung
+- Paradise Dynasty
+- Koi Thé
+- Old Chang Kee
+- Song Fa Bak Kut Teh
+- Aerotel Singapore
+- YOTELAIR Singapore Changi
+- Cathay Pacific Lounge
+- Singapore Airlines SilverKris Lounge
+- dnata Lounge
+- Travelex
+- UOB Currency Exchange
+- Telecommunications Kiosk
+- TRS Tax Refund
+- Kinokuniya
+- Uniqlo
+- Zara
+- Irvins Salted Egg
+- Eu Yan Sang
+- Muji
+
+================================================================================
+TERMINAL 3 (SIN-T3)
+================================================================================
+
+ATTRACTIONS:
+- Birds in Flight [Explore]
+- Coming Home [Explore]
+
+SHOPPING:
+- Electronics Computers by Sprint-Cass [Shop]
+- Eu Yan Sang [Shop]
+- Fragrance Bak Kwa [Shop]
+- Furla [Shop]
+- Goldheart [Shop]
+- Guardian Health & Beauty - Before Security Basement Shop 24 [Shop, Quick]
+- Guardian Health & Beauty - Level 2 Shop 66 [Shop, Quick]
+- Guardian Health & Beauty - Level 2 Shop 29 [Shop, Quick]
+- HERMÈS [Shop]
+- Irvins Salted Egg [Shop]
+- Kaboom [Shop]
+- Kunthaville [Shop]
+- LEGO® Airport Store [Shop]
+- Longchamp [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 29 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 19 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 65 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 10 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 37 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 3 Shop 7 [Shop]
+- Louis Vuitton [Shop]
+- Sunglass Hut [Shop]
+- Swarovski [Shop]
+- Tiffany & Co. [Shop]
+- Time Emporium [Shop]
+- Travelex Money Changer [Quick, Shop]
+- TWG Tea Boutique [Shop]
+- WH Smith - Level 2 Shop 43 [Shop]
+- WH Smith - Level 2 Shop 7 [Shop]
+
+SERVICES:
+- Travelex Money Changer [Quick, Shop]
+
+FOOD & BEVERAGE:
+- A&W Root Beer [Refuel, Quick]
+
+ENTERTAINMENT:
+- Cultural Performances Stage [Explore]
+
+ATTRACTIONS:
+- Jewel Waterfall Viewpoint [Explore]
+- Canopy Park [Chill, Explore]
+
+ADDITIONAL AMENITIES (without vibe tags):
+- apple-store
+- cabin-bar-dfs
+- charles-keith
+- coach
+- electronics-computers-sprint-cass-t2
+- fragrance-bak-kwa-t3
+- furla-t3
+- guardian-health-beauty-sin-t3-basement-24
+- guardian-health-beauty-sin-t3-66
+- guardian-health-beauty-sin-t3-29
+- gucci-t3
+- hermes-t3
+- istudio
+- kaboom-t3
+- lacoste
+- longchamp-t3
+- lotte-duty-free-wines-spirits-t3-level-1-19
+- lotte-duty-free-wines-spirits-t3-level-1-29
+- lotte-duty-free-wines-spirits-t3-level-2-65
+- lotte-duty-free-wines-spirits-t3-level-2-65
+- lotte-duty-free-wines-spirits-t3-level-2-37
+- lotte-duty-free-wines-spirits-t3-level-3-7
+- louis-vuitton-t3
+- michael-kors
+- montblanc
+- rituals
+- the-cocoa-trees
+- timberland
+- vessel
+- watches-of-switzerland
+- whsmith-t3-level-2-43
+- whsmith-t3-level-2-7
+- memory-of-lived-space
+- lotte-duty-free-wines-spirits-t3-level-2-10
+- The Slide@T3
+- Foggy Bowls
+- Changi Experience Studio
+- Entertainment Deck
+- Butterfly Garden
+- Cactus Garden
+- Koi Pond
+- Sunflower Garden
+- Bengawan Solo
+- Tiger Street Lab
+- Din Tai Fung
+- Paradise Dynasty
+- Bee Cheng Hiang
+- Ya Kun Kaya Toast
+- Sushi Tei
+- Aerotel Singapore
+- YOTELAIR Singapore Changi
+- Cathay Pacific Lounge
+- SATS Premier Lounge
+- dnata Lounge
+- UOB Currency Exchange
+- Telecommunications Kiosk
+- TRS Tax Refund
+- Spa Express
+- Kinokuniya
+- Lotte Duty Free
+- Uniqlo
+- Irvins Salted Egg
+- Muji
+- Tokyu Hands
+
+================================================================================
+TERMINAL 4 (SIN-T4)
+================================================================================
+
+ATTRACTIONS:
+- Chandelier [Explore]
+- Heritage Zone [Explore]
+- Immersive Wall [Explore]
+- Petalclouds [Explore]
+- Steel in Bloom [Explore]
+
+SHOPPING:
+- Garrett Popcorn Shops® [Shop]
+- Irvins Salted Egg [Shop]
+- KASHKHA [Shop]
+- LEGO® Airport Store [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 25 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 12 [Shop]
+- LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 57 [Shop]
+- Sunglass Hut [Shop]
+- Taste Singapore [Shop]
+- The Digital Gadgets [Shop]
+- The Fashion Place [Shop]
+- Travelex Money Changer [Quick, Shop]
+- TWG Tea Boutique [Shop]
+- WH Smith - Level 2 Shop 59 [Shop]
+- ZAKKASG [Shop]
+
+SERVICES:
+- Travelex Money Changer [Quick, Shop]
+
+ATTRACTIONS:
+- Canopy Park [Chill, Explore]
+- Tokyu Hands [Explore]
+
+ADDITIONAL AMENITIES (without vibe tags):
+- fila-t4
+- garrett-popcorn-t4
+- heritage-zone
+- immersive-wall
+- irvins-salted-egg-t4
+- kashkha
+- lego-airport-store
+- lotte-duty-free-wines-spirits-t4-level-1-12
+- lotte-duty-free-wines-spirits-t4-level-2-25
+- lotte-duty-free-wines-spirits-t4-level-2-57
+- petalclouds
+- steel-in-bloom
+- sunglass-hut-t3
+- taste-singapore
+- the-digital-gadgets-t4
+- the-fashion-place
+- travelex-money-changer-t3
+- travelling-family
+- twg-tea-boutique-t3
+- whsmith-t4-level-2-59
+- zakkasg
+- Manulife Sky Nets
+- Mirror Maze
+- Changi Experience Studio
+- Entertainment Deck
+- Butterfly Garden
+- Cactus Garden
+- Koi Pond
+- Sunflower Garden
+- Tiger Street Lab
+- Din Tai Fung
+- Paradise Dynasty
+- Koi Thé
+- Ya Kun Kaya Toast
+- Sushi Tei
+- Song Fa Bak Kut Teh
+- Ambassador Transit Hotel
+- YOTELAIR Singapore Changi
+- Singapore Airlines SilverKris Lounge
+- Plaza Premium Lounge
+- SATS Premier Lounge
+- UOB Currency Exchange
+- Telecommunications Kiosk
+- TRS Tax Refund
+- Spa Express
+- Lotte Duty Free
+- Charles & Keith
+- Zara
+- Irvins Salted Egg
+- TWG Tea
+- Tokyu Hands
+
+================================================================================
+JEWEL CHANGI (SIN-JEWEL)
+================================================================================
+
+ATTRACTIONS:
+- Rhythm of Nature [Explore]
+
+SHOPPING:
+- FILA [Shop]
+- Furla [Shop]
+- Irvins Salted Egg [Shop]
+- The Digital Gadgets [Shop]
+- Uniqlo [Shop]
+
+ADDITIONAL AMENITIES (without vibe tags):
+- fila-jewel
+- furla-jewel
+- irvins-salted-egg-jewel
+- rhythm-of-nature
+- the-digital-gadgets-jewel
+- uniqlo-jewel
+- Canopy Park
+- Foggy Bowls
+- Hedge Maze
+- Manulife Sky Nets
+- Mirror Maze
+- Rain Vortex
+- Shiseido Forest Valley
+- Changi Experience Studio
+- Social Tree
+- Bengawan Solo
+- Tiger Street Lab
+- Din Tai Fung
+- Koi Thé
+- Song Fa Bak Kut Teh
+- Travelex
+- UOB Currency Exchange
+- Telecommunications Kiosk
+- TRS Tax Refund
+- Spa Express
+- Kinokuniya
+- Zara
+- Irvins Salted Egg
+- Eu Yan Sang
+- Muji
+
+================================================================================
+SUMMARY STATISTICS
+================================================================================
+
+TOTAL AMENITIES BY TERMINAL:
+- Terminal 1: 80+ amenities
+- Terminal 2: 70+ amenities  
+- Terminal 3: 90+ amenities
+- Terminal 4: 60+ amenities
+- Jewel: 30+ amenities
+
+VIBE TAG DISTRIBUTION:
+- Shop: Most common tag across all terminals
+- Explore: Attractions, art installations, gardens
+- Quick: Fast services like currency exchange, pharmacies
+- Refuel: Only 1 amenity (A&W Root Beer in T3)
+- Chill: Canopy Park attractions
+- Comfort: Wellness services like Fish Spa
+
+NOTABLE FEATURES:
+- Only 1 amenity has "Refuel" vibe tag: A&W Root Beer in Terminal 3
+- Many amenities have no vibe tags assigned
+- Shopping dominates across all terminals
+- Explore tag used for attractions and cultural areas
+- Quick tag used for essential services
+
+================================================================================
+END OF DOCUMENT
+================================================================================
+

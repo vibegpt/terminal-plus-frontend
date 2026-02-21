@@ -1,0 +1,30 @@
+id,created_at,amenity_slug,description,website_url,logo_url,vibe_tags,booking_required,available_in_tr,price_level,opening_hours,terminal_code,airport_code,name
+,2024-01-01,aji-ichi,Japanese cuisine restaurant,,,"Refuel,Comfort",false,true,$$,24/7,SIN-T1,SIN,Aji Ichi
+,2024-01-01,andes-by-astons,Western grill and steakhouse,,,"Refuel,Comfort",false,true,$$,24/7,SIN-T1,SIN,Andes by Astons
+,2024-01-01,asian-street-kitchen,Multi-Asian street food concepts,,,"Refuel,Explore",false,true,$$,24/7,SIN-T1,SIN,Asian Street Kitchen
+,2024-01-01,bikanervala,Indian vegetarian restaurant and sweets,,,"Refuel,Explore",false,true,$$,24/7,SIN-T1,SIN,Bikanervala
+,2024-01-01,crystal-jade-go,Chinese cuisine with dim sum,,,"Refuel,Comfort",false,true,$$,24/7,SIN-T1,SIN,Crystal Jade Go
+,2024-01-01,old-town-white-coffee,Malaysian kopitiam chain,,,"Refuel,Comfort",false,true,$$,24/7,SIN-T1,SIN,Old Town White Coffee
+,2024-01-01,toast-box,Traditional Singaporean breakfast and kaya toast,,,"Refuel,Explore",false,true,$,24/7,SIN-T1,SIN,Toast Box
+,2024-01-01,ya-kun-kaya-toast,Iconic Singapore kaya toast and coffee,,,"Refuel,Explore",false,true,$,24/7,SIN-T1,SIN,Ya Kun Kaya Toast
+,2024-01-01,kopitiam,Local food court with variety of stalls,,,"Explore,Refuel",false,true,$,24/7,SIN-T1,SIN,Kopitiam
+,2024-01-01,bistro-by-bas,Contemporary bistro dining,,,"Comfort,Refuel",false,true,$$,24/7,SIN-T1,SIN,Bistro by BAS
+,2024-01-01,bricco-cafe,Italian cafe and dining,,,"Comfort,Work",false,true,$$,24/7,SIN-T1,SIN,Bricco Café
+,2024-01-01,pezzo,Pizza by the slice,,,"Quick,Refuel",false,true,$,24/7,SIN-T1,SIN,Pezzo
+,2024-01-01,subway-t1,Submarine sandwiches and salads,,,"Quick,Refuel",false,true,$,24/7,SIN-T1,SIN,Subway
+,2024-01-01,treasures-yi-dian-xin,Chinese dim sum by Imperial Treasure,,,"Refuel,Comfort",false,true,$$$,24/7,SIN-T1,SIN,Treasures Yi Dian Xin by Imperial Treasure
+,2024-01-01,burger-king-t1,Fast food burgers and fries,,,Quick,false,true,$,24/7,SIN-T1,SIN,Burger King
+,2024-01-01,4fingers-crispy-chicken-t1,Korean-style crispy chicken,,,Quick,false,true,$,24/7,SIN-T1,SIN,4Fingers Crispy Chicken
+,2024-01-01,chutney-mary-t1,Indian fast food,,,Quick,false,true,$,24/7,SIN-T1,SIN,Chutney Mary Indian Fast Food
+,2024-01-01,chutney-mary-t2,Indian cuisine restaurant,,,Quick,false,true,$$,10:00-22:00,SIN-T2,SIN,Chutney Mary
+,2024-01-01,peach-garden-t2,Chinese restaurant,,,Quick,false,true,$$,10:00-22:00,SIN-T2,SIN,Peach Garden Restaurant
+,2024-01-01,changi-airport-food-court,Variety of local and international cuisine,,,"Refuel,Quick",false,true,$$,24/7,SIN-T3,SIN,Changi Airport Food Court
+,2024-01-01,mcdonalds-t3,Fast food burgers and fries,,,Quick,false,true,$,24/7,SIN-T3,SIN,McDonald's
+,2024-01-01,4fingers-crispy-chicken-t3,Korean-style crispy chicken,,,Quick,false,true,$,24/7,SIN-T3,SIN,4Fingers Crispy Chicken
+,2024-01-01,international-food-hall,Multiple international food vendors,,,Quick,false,true,$$,10:00-22:00,SIN-T4,SIN,International Food Hall
+,2024-01-01,burger-king-t4,Fast food burgers and fries,,,Quick,false,true,$,24/7,SIN-T4,SIN,Burger King
+,2024-01-01,din-tai-fung,Taiwanese restaurant famous for xiaolongbao,,,"Refuel,Comfort,Quick",false,false,$,6:00-23:00,SIN-JEWEL,SIN,Din Tai Fung
+,2024-01-01,tiger-street-lab,Craft beer and local fare,,,"Comfort,Refuel,Quick",false,false,$,6:00-23:00,SIN-JEWEL,SIN,Tiger Street Lab
+,2024-01-01,bengawan-solo,Traditional Singaporean cakes and kueh,,,"Refuel,Quick",false,false,$,6:00-23:00,SIN-JEWEL,SIN,Bengawan Solo
+,2024-01-01,a-w-restaurants,Root beer floats and classic American fast food,,,"Comfort,Quick",false,false,$,24/7,SIN-JEWEL,SIN,A&W Restaurants
+,2024-01-01,shake-shack,Premium burgers and shakes,,,"Comfort,Quick",false,false,$,24/7,SIN-JEWEL,SIN,Shake Shack

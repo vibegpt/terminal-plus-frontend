@@ -1,0 +1,266 @@
+/* Import vibe-specific styles */
+@import './styles/vibes.css';
+
+/* Import Adaptive Luxe design system */
+@import './styles/adaptive-luxe.css';
+
+/* Import mobile scroll optimizations */
+@import './styles/mobile-scroll.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar hiding for horizontal collections */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Smooth scrolling for collections */
+.collections-carousel {
+  scroll-behavior: smooth;
+}
+
+/* Collection card hover effects */
+.collection-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.collection-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Vibe section animations */
+.vibe-section {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered animation delays */
+.vibe-section:nth-child(1) { animation-delay: 0.1s; }
+.vibe-section:nth-child(2) { animation-delay: 0.2s; }
+.vibe-section:nth-child(3) { animation-delay: 0.3s; }
+.vibe-section:nth-child(4) { animation-delay: 0.4s; }
+.vibe-section:nth-child(5) { animation-delay: 0.5s; }
+.vibe-section:nth-child(6) { animation-delay: 0.6s; }
+.vibe-section:nth-child(7) { animation-delay: 0.7s; }
+
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  .max-w-md {
+    max-width: 100%;
+  }
+}
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 60 4.8% 95.9%;
+  --secondary-foreground: 24 9.8% 10%;
+  --accent: 60 4.8% 95.9%;
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+}
+
+/* Mobile-first viewport constraints */
+.mobile-container {
+  max-width: 375px;
+  margin: 0 auto;
+  min-height: 100vh;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+/* Ensure Swiper works properly on mobile */
+.amenity-swiper {
+  width: 100%;
+  height: auto;
+}
+
+.amenity-swiper .swiper-slide {
+  width: auto;
+  height: auto;
+}
+
+.vibe-glow-relax {
+  box-shadow: 0 0 40px 10px rgba(168, 208, 230, 0.45) !important; /* #A8D0E6 */
+}
+.vibe-glow-explore {
+  box-shadow: 0 0 40px 10px rgba(132, 204, 22, 0.45) !important; /* #84CC16 */
+}
+
+/* Softer gradients for vibe sections */
+.vibe-section-comfort { 
+  background: linear-gradient(135deg, #f3e7fc 0%, #e9d5ff 100%); 
+  border-left: 4px solid #a855f7;
+}
+.vibe-section-chill { 
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); 
+  border-left: 4px solid #3b82f6;
+}
+.vibe-section-refuel { 
+  background: linear-gradient(135deg, #fed7aa 0%, #ffedd5 100%); 
+  border-left: 4px solid #f97316;
+}
+.vibe-section-work { 
+  background: linear-gradient(135deg, #e5e7eb 0%, #f3f4f6 100%); 
+  border-left: 4px solid #6b7280;
+}
+.vibe-section-quick { 
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); 
+  border-left: 4px solid #f59e0b;
+}
+.vibe-section-explore { 
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); 
+  border-left: 4px solid #10b981;
+}
+.vibe-section-shop { 
+  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); 
+  border-left: 4px solid #ec4899;
+}
+
+/* Enhanced vibe section styling */
+.vibe-section-comfort,
+.vibe-section-chill,
+.vibe-section-refuel,
+.vibe-section-work,
+.vibe-section-quick,
+.vibe-section-explore,
+.vibe-section-shop {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.vibe-section-comfort:hover,
+.vibe-section-chill:hover,
+.vibe-section-refuel:hover,
+.vibe-section-work:hover,
+.vibe-section-quick:hover,
+.vibe-section-explore:hover,
+.vibe-section-shop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.vibe-glow-refuel {
+  box-shadow: 0 0 40px 10px rgba(247, 108, 108, 0.45) !important; /* #F76C6C */
+}
+.vibe-glow-work {
+  box-shadow: 0 0 40px 10px rgba(211, 184, 140, 0.45) !important; /* #D3B88C */
+}
+.vibe-glow-quick {
+  box-shadow: 0 0 40px 10px rgba(255, 221, 87, 0.45) !important; /* #FFDD57 */
+}
+.vibe-glow-comfort {
+  box-shadow: 0 0 40px 10px rgba(203, 170, 203, 0.45) !important; /* #CBAACB */
+}
+.vibe-glow-mix {
+  box-shadow: 0 0 40px 10px rgba(147, 51, 234, 0.45) !important; /* Purple gradient for mix */
+}
+
+/* Smart7 Collections Grid */
+.smart7-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.collection-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  padding: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  text-align: center;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.collection-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.collection-card .icon {
+  font-size: 3em;
+  margin-bottom: 15px;
+}
+
+.collection-card h3 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.collection-card p {
+  font-size: 0.9em;
+  opacity: 0.9;
+  line-height: 1.4;
+}

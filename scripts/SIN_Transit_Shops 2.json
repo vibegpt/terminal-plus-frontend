@@ -1,0 +1,434 @@
+[
+  {
+    "name": "Discover Singapore",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "discover-singapore",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Electronics Computers by Sprint-Cass",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "electronics-computers-sprint-cass",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Eu Yan Sang",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-246",
+    "slug": "eu-yan-sang",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Ferragamo",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-222",
+    "slug": "ferragamo",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "FILA",
+    "terminal_code": "SIN",
+    "location": "T4 Transit #02-53/54",
+    "slug": "fila",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "FILA KIDS",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-161",
+    "slug": "fila-kids",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Fragrance Bak Kwa",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "fragrance-bak-kwa",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Furla",
+    "terminal_code": "SIN",
+    "location": "T3 Transit #02-14",
+    "slug": "furla",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Garrett Popcorn Shops®",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "garrett-popcorn",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Gassan Watches",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "gassan-watches",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Giordano",
+    "terminal_code": "SIN",
+    "location": "T1 Transit #02-19",
+    "slug": "giordano",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Goldheart",
+    "terminal_code": "SIN",
+    "location": "T3 Transit #02-47",
+    "slug": "goldheart",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Guardian Health & Beauty - Level 2 Shop 16",
+    "terminal_code": "SIN",
+    "location": "T1 Level 2 Shop 16",
+    "slug": "guardian-health-beauty-level-2-shop-16",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Guardian Health & Beauty - Level 2 Shop 69",
+    "terminal_code": "SIN",
+    "location": "T1 Level 2 Shop 69",
+    "slug": "guardian-health-beauty-level-2-shop-69",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Guardian Health & Beauty - Level 2 Shop 155",
+    "terminal_code": "SIN",
+    "location": "T2 Level 2 Shop 155",
+    "slug": "guardian-health-beauty-level-2-shop-155",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Guardian Health & Beauty - Level 2 Shop 66",
+    "terminal_code": "SIN",
+    "location": "T3 Level 2 Shop 66",
+    "slug": "guardian-health-beauty-level-2-shop-66",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Guardian Health & Beauty - Level 2 Shop 29",
+    "terminal_code": "SIN",
+    "location": "T3 Level 2 Shop 29",
+    "slug": "guardian-health-beauty-level-2-shop-29",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Gucci",
+    "terminal_code": "SIN",
+    "location": "T3 Transit #02-15/16",
+    "slug": "gucci",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "HERMÈS",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "hermes",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Irvins Salted Egg",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "irvins-salted-egg",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "iStudio",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "istudio",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Kaboom",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "kaboom",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "KASHKHA",
+    "terminal_code": "SIN",
+    "location": "T4 Transit #02-44",
+    "slug": "kashkha",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Kering Eyewear x Lagardere",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-203",
+    "slug": "kering-eyewear-lagardere",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Kunthaville",
+    "terminal_code": "SIN",
+    "location": "T3 Transit #02-K11",
+    "slug": "kunthaville",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Lacoste",
+    "terminal_code": "SIN",
+    "location": "T1 Transit #02-30",
+    "slug": "lacoste",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "LEGO® Airport Store",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "lego-airport-store",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Lindt",
+    "terminal_code": "SIN",
+    "location": "T1 Transit #02-K23",
+    "slug": "lindt",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Longchamp",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "longchamp",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "LOTTE DUTY FREE WINES & SPIRITS",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "lotte-duty-free-wines-spirits",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Louis Vuitton",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "louis-vuitton",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "lululemon",
+    "terminal_code": "SIN",
+    "location": "T1 Transit #02-18",
+    "slug": "lululemon",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Sunglass Hut",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "sunglass-hut",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Swarovski",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "swarovski",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Taste Singapore",
+    "terminal_code": "SIN",
+    "location": "T4 Transit #02-72",
+    "slug": "taste-singapore",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "The Cocoa Trees",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "the-cocoa-trees",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "The Digital Gadgets",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-182",
+    "slug": "the-digital-gadgets",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "The Fashion Place",
+    "terminal_code": "SIN",
+    "location": "T4 Transit #02-60/61",
+    "slug": "the-fashion-place",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Tiffany & Co.",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "tiffany-co",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Time Emporium",
+    "terminal_code": "SIN",
+    "location": "T3 Transit #02-24",
+    "slug": "time-emporium",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Times Travel",
+    "terminal_code": "SIN",
+    "location": "T1 Transit #02-30A",
+    "slug": "times-travel",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Tod's",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-225-01",
+    "slug": "tods",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Tommy Hilfiger",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-239",
+    "slug": "tommy-hilfiger",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Tory Burch",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "tory-burch",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Travelex Money Changer",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "travelex-money-changer",
+    "vibe_tags": ["Quick"],
+    "transit_only": true
+  },
+  {
+    "name": "TUMI",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-184",
+    "slug": "tumi",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "TWG Tea Boutique",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "twg-tea-boutique",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Uniqlo",
+    "terminal_code": "SIN",
+    "location": "T1 Transit #02-23",
+    "slug": "uniqlo",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Unity",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-192",
+    "slug": "unity",
+    "vibe_tags": ["Shop", "Quick"],
+    "transit_only": true
+  },
+  {
+    "name": "UOB Gold",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-K19",
+    "slug": "uob-gold",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "Victoria's Secret Beauty & Accessories",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "victorias-secret-beauty-accessories",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "WH Smith",
+    "terminal_code": "SIN",
+    "location": "Multiple Locations",
+    "slug": "wh-smith",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "ZAKKASG",
+    "terminal_code": "SIN",
+    "location": "T4 Transit #02-67",
+    "slug": "zakkasg",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  },
+  {
+    "name": "ZEGNA",
+    "terminal_code": "SIN",
+    "location": "T2 Transit #02-217",
+    "slug": "zegna",
+    "vibe_tags": ["Shop"],
+    "transit_only": true
+  }
+] 

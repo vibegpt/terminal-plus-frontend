@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Boost Juice",
+    "terminal_code": "SYD-T1",
+    "amenity_type": "food",
+    "category": "beverage",
+    "location_description": "Fresh juice and smoothies, free WiFi available",
+    "price_tier": "$$",
+    "opening_hours": "06:00-22:00"
+  },
+  {
+    "name": "Starbucks Coffee",
+    "terminal_code": "SYD-T1",
+    "amenity_type": "food",
+    "category": "cafe",
+    "location_description": "Near Gate 5, offering free WiFi",
+    "price_tier": "$",
+    "opening_hours": "06:00-22:00"
+  },
+  {
+    "name": "Duty Free Shop",
+    "terminal_code": "SYD-T1",
+    "amenity_type": "retail",
+    "category": "duty_free",
+    "location_description": "International departures area",
+    "price_tier": "$$$",
+    "opening_hours": "24/7"
+  },
+  {
+    "name": "Business Lounge",
+    "terminal_code": "SYD-T2",
+    "amenity_type": "lounge",
+    "category": "business",
+    "location_description": "Complimentary refreshments and WiFi",
+    "price_tier": "$$$",
+    "opening_hours": "06:00-23:00"
+  },
+  {
+    "name": "Express Convenience Store",
+    "terminal_code": "SYD-T1",
+    "amenity_type": "retail",
+    "category": "convenience",
+    "location_description": "Quick snacks and essentials",
+    "price_tier": "$$",
+    "opening_hours": "05:00-24:00"
+  },
+  {
+    "name": "Meditation Garden",
+    "terminal_code": "SYD-T2",
+    "amenity_type": "wellness",
+    "category": "garden",
+    "location_description": "Quiet space for relaxation",
+    "price_tier": "Free",
+    "opening_hours": "24/7"
+  }
+] 

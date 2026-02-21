@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 :root {
+  --tp-bg: #0a0a0f;
+  --tp-surface: #13131a;
+  --tp-accent: #7c6dfa;
+}
+html { background: #0a0a0f; }
+body { background: var(--tp-bg); color: #f0f0f8; }
+
+:root {
   --background: 0 0% 100%;
   --foreground: 20 14.3% 4.1%;
   --muted: 60 4.8% 95.9%;

@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Betty's Burgers",
+    "slug": "bettys-burgers",
+    "vibes": ["Refuel", "Quick"],
+    "terminal": "T1",
+    "airportCode": "SYD",
+    "image_url": "https://cdn.terminal.plus/images/amenities/bettys-burgers.jpg",
+    "logo_url": "https://cdn.terminal.plus/logos/bettys-burgers.png"
+  },
+  {
+    "name": "Gucci",
+    "slug": "gucci",
+    "vibes": ["Shop", "Luxury"],
+    "terminal": "T1",
+    "airportCode": "SYD",
+    "image_url": "https://cdn.terminal.plus/images/amenities/gucci.jpg",
+    "logo_url": "https://cdn.terminal.plus/logos/gucci.png"
+  },
+  {
+    "name": "Starbucks Coffee",
+    "slug": "starbucks-coffee",
+    "vibes": ["Refuel", "Quick", "Chill"],
+    "terminal": "T1",
+    "airportCode": "SYD",
+    "image_url": "https://cdn.terminal.plus/images/amenities/starbucks.jpg",
+    "logo_url": "https://cdn.terminal.plus/logos/starbucks.png"
+  },
+  {
+    "name": "Hermès",
+    "slug": "hermes",
+    "vibes": ["Shop", "Luxury"],
+    "terminal": "T1",
+    "airportCode": "SYD",
+    "image_url": "https://cdn.terminal.plus/images/amenities/hermes.jpg",
+    "logo_url": "https://cdn.terminal.plus/logos/hermes.png"
+  },
+  {
+    "name": "Qantas Business Lounge",
+    "slug": "qantas-business-lounge",
+    "vibes": ["Comfort", "Work", "Chill"],
+    "terminal": "T1",
+    "airportCode": "SYD",
+    "image_url": "https://cdn.terminal.plus/images/amenities/qantas-lounge.jpg",
+    "logo_url": "https://cdn.terminal.plus/logos/qantas.png"
+  },
+  {
+    "name": "Duty Free Store",
+    "slug": "duty-free-store",
+    "vibes": ["Shop", "Explore"],
+    "terminal": "T1",
+    "airportCode": "SYD",
+    "image_url": "https://cdn.terminal.plus/images/amenities/duty-free.jpg",
+    "logo_url": "https://cdn.terminal.plus/logos/duty-free.png"
+  },
+  {
+    "name": "Campos Coffee",
+    "slug": "campos-coffee",
+    "vibes": ["Refuel", "Quick", "Chill"],
+    "terminal": "T1",
+    "airportCode": "SYD",
+    "image_url": "https://cdn.terminal.plus/images/amenities/campos-coffee.jpg",
+    "logo_url": "https://cdn.terminal.plus/logos/campos-coffee.png"
+  }
+] 

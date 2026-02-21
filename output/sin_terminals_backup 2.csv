@@ -1,0 +1,412 @@
+id,name,amenity_slug,terminal_code,airport_code,category,amenity_type,description,location_description,opening_hours,vibe_tags,price_level,collection_id,priority,is_featured,rating,website_url,logo_url,booking_required,available_in_transit,status
+sin-t1-mother-and-child,Mother and Child,,SIN-T1,SIN,Attraction,,,,,Explore,,explore,1,true,4.3923955770746606,,,,,
+sin-t1-saga-seed,Saga Seed,,SIN-T1,SIN,Attraction,,,,,Explore,,explore,1,true,4.044743102948964,,,,true,
+sin-t1-travelling-family,Travelling Family,,SIN-T1,SIN,Attraction,,,,,Explore,,explore,1,true,4.541039216102928,,,,,
+sin-t1-electronics-computers-sprint-cass,Electronics Computers by Sprint-Cass,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.636241094713468,,,,true,
+sin-t1-fragrance-bak-kwa,Fragrance Bak Kwa,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.271142175902691,,,,true,
+sin-t1-garrett-popcorn,Garrett Popcorn Shops®,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.011859761784638,,,,true,
+sin-t1-gassan-watches,Gassan Watches,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.118819396961943,,,,true,
+sin-t1-giordano,Giordano,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.209937829927623,,,,true,
+sin-t1-guardian-health-beauty-level-2-shop-16,Guardian Health & Beauty - Level 2 Shop 16,,SIN-T1,SIN,Shopping,,,"Level 2, Shop 16","{""Monday-Sunday"":""24/7""}",Shop;Quick,,duty-free,2,,4.228768714361743,,,,true,
+sin-t1-guardian-health-beauty-level-2-shop-69,Guardian Health & Beauty - Level 2 Shop 69,,SIN-T1,SIN,Shopping,,,"Level 2, Shop 69","{""Monday-Sunday"":""06:00-00:00""}",Shop;Quick,,duty-free,1,,4.598281214956108,,,,true,
+sin-t1-gucci,Gucci,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.877117426693008,,,,true,
+sin-t1-hermes,HERMÈS,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.640452128992642,,,,true,
+sin-t1-irvins-salted-egg,Irvins Salted Egg,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.290281419266966,,,,true,
+sin-t1-kaboom,Kaboom,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.392075604708541,,,,true,
+sin-t1-lindt,Lindt,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.283924150629252,,,,true,
+sin-t1-longchamp,Longchamp,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.227638732043143,,,,true,
+sin-t1-lotte-duty-free-wines-spirits-level-1-shop-10,LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 10,,SIN-T1,SIN,Shopping,,,"Level 1, Shop 10","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.813544110710814,,,,true,
+sin-t1-lotte-duty-free-wines-spirits-level-1-shop-23,LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 23,,SIN-T1,SIN,Shopping,,,"Level 1, Shop 23","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.1032043622854655,,,,true,
+sin-t1-lotte-duty-free-wines-spirits-level-2-shop-53,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 53,,SIN-T1,SIN,Shopping,,,"Level 2, Shop 53","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.642141035897647,,,,true,
+sin-t1-lotte-duty-free-wines-spirits-level-2-shop-68,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 68,,SIN-T1,SIN,Shopping,,,"Level 2, Shop 68","{""Monday-Sunday"":""06:00-00:00""}",Shop,,duty-free,1,,4.320731272957216,,,,true,
+sin-t1-lotte-duty-free-wines-spirits-level-2-shop-22,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 22,,SIN-T1,SIN,Shopping,,,"Level 2, Shop 22","{""Monday-Sunday"":""06:00-00:00""}",Shop,,duty-free,1,,4.185036879569023,,,,true,
+sin-t1-lotte-duty-free-wines-spirits-level-2-shop-46,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 46,,SIN-T1,SIN,Shopping,,,"Level 2, Shop 46","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.39856053670119,,,,true,
+sin-t1-louis-vuitton,Louis Vuitton,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.640722742916757,,,,true,
+sin-t1-lululemon,lululemon,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.5784820719153485,,,,true,
+sin-t1-sunglass-hut,Sunglass Hut,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.833245503422479,,,,true,
+sin-t1-swarovski,Swarovski,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.0435659040230645,,,,true,
+sin-t1-tiffany-co,Tiffany & Co.,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.135297654564081,,,,true,
+sin-t1-times-travel,Times Travel,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.743330787778223,,,,true,
+sin-t1-tory-burch,Tory Burch,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.190685590832315,,,,true,
+sin-t1-travelex-money-changer,Travelex Money Changer,,SIN-T1,SIN,Shopping,,,,,Quick;Shop,,duty-free,1,,4.2004093815710934,,,,,
+sin-t1-twg-tea-boutique,TWG Tea Boutique,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.270052465953849,,,,true,
+sin-t1-uniqlo,Uniqlo,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.203703315131763,,,,true,
+sin-t1-victorias-secret-beauty-accessories,Victoria's Secret Beauty & Accessories,,SIN-T1,SIN,Shopping,,,,,Shop,,duty-free,1,,4.147627989203131,,,,true,
+sin-t1-wh-smith-before-security-level-1-shop-84,WH Smith - Before Security Level 1 Shop 84,,SIN-T1,SIN,Shopping,,,"Before Security, Level 1, Shop 84","{""Monday-Sunday"":""07:00-23:00""}",Shop,,duty-free,1,,4.069976806649924,,,,,
+sin-t1-wh-smith-level-2-shop-67,WH Smith - Level 2 Shop 67,,SIN-T1,SIN,Shopping,,,"Level 2, Shop 67","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.654485652071739,,,,true,
+sin-t1-wh-smith-level-2-shop-41,WH Smith - Level 2 Shop 41,,SIN-T1,SIN,Shopping,,,"Level 2, Shop 41","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.281695126779935,,,,true,
+sin-t1-electronics-computers-sprint-cass-t1,electronics-computers-sprint-cass-t1,,SIN-T1,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.844547178431166,,,,true,active
+sin-t1-fragrance-bak-kwa-t1,fragrance-bak-kwa-t1,,SIN-T1,SIN,Shopping,Food & Gifts,Shopping amenity in SIN-T1,,{},Shop,,duty-free,1,,4.852533613373404,,,,true,active
+sin-t1-garrett-popcorn-t1,garrett-popcorn-t1,,SIN-T1,SIN,Shopping,Snacks & Confectionery,,,{},Shop,,duty-free,1,,4.555722778794481,,,,true,active
+sin-t1-gassan-watches-t1,gassan-watches-t1,,SIN-T1,SIN,Shopping,Watches & Jewelry,,,{},Shop,,duty-free,1,,4.841750325170583,,,,true,active
+sin-t1-giordano-sin-t1,giordano-sin-t1,,SIN-T1,SIN,Shopping,Fashion & Accessories,Shopping amenity in SIN-T1,,{},Shop,,duty-free,1,,4.536462046399869,,,,true,active
+sin-t1-guardian-health-beauty-sin-t1-16,guardian-health-beauty-sin-t1-16,,SIN-T1,SIN,Shopping,Pharmacy,,,{},Shop;Quick,,duty-free,1,,4.411642577164741,,,,true,active
+sin-t1-guardian-health-beauty-sin-t1-69,guardian-health-beauty-sin-t1-69,,SIN-T1,SIN,Shopping,Pharmacy,,,{},Shop;Quick,,duty-free,1,,4.24899147429355,,,,true,active
+sin-t1-gucci-t1,gucci-t1,,SIN-T1,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.707931505469528,,,,true,active
+sin-t1-hermes-t1,hermes-t1,,SIN-T1,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.724417710655285,,,,true,active
+sin-t1-irvins-salted-egg-t1,irvins-salted-egg-t1,,SIN-T1,SIN,Food & Beverage,Snacks,,,{},Shop,,quick-bites,3,,4.546500865222602,,,,true,active
+sin-t1-kaboom-t1,kaboom-t1,,SIN-T1,SIN,Shopping,Electronics,,,{},Shop,,duty-free,1,,4.3787366535415275,,,,true,active
+sin-t1-lindt-1,lindt,,SIN-T1,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.586467562798708,,,,true,active
+sin-t1-longchamp-t1,longchamp-t1,,SIN-T1,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.516004019793314,,,,true,active
+sin-t1-lotte-duty-free-wines-spirits-t1-level-1-10,lotte-duty-free-wines-spirits-t1-level-1-10,,SIN-T1,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.055955065606107,,,,true,active
+sin-t1-lotte-duty-free-wines-spirits-t1-level-1-23,lotte-duty-free-wines-spirits-t1-level-1-23,,SIN-T1,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.251768087139442,,,,true,active
+sin-t1-lotte-duty-free-wines-spirits-t1-level-2-53,lotte-duty-free-wines-spirits-t1-level-2-53,,SIN-T1,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.758866613916323,,,,true,active
+sin-t1-lotte-duty-free-wines-spirits-t1-level-2-68,lotte-duty-free-wines-spirits-t1-level-2-68,,SIN-T1,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.001016677568562,,,,true,active
+sin-t1-lotte-duty-free-wines-spirits-t1-level-2-22,lotte-duty-free-wines-spirits-t1-level-2-22,,SIN-T1,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.177121393062455,,,,true,active
+sin-t1-lotte-duty-free-wines-spirits-t1-level-2-46,lotte-duty-free-wines-spirits-t1-level-2-46,,SIN-T1,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.47521428237588,,,,true,active
+sin-t1-louis-vuitton-t1,louis-vuitton-t1,,SIN-T1,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.746630420827321,,,,true,active
+sin-t1-lululemon-1,lululemon,,SIN-T1,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.029338568926217,,,,true,active
+sin-t1-mother-and-child-1,mother-and-child,,SIN-T1,SIN,Attraction,Art Installation,,,{},Explore,,explore,1,true,4.237796487406676,,,,,active
+sin-t1-saga-seed-1,saga-seed,,SIN-T1,SIN,Attraction,Art Installation,,,{},Explore,,explore,1,true,4.750060556167986,,,,true,active
+sin-t1-spirit-of-man,spirit-of-man,,SIN-T1,SIN,Attraction,Art Installation,,,{},Explore,,explore,1,true,4.782638455146843,,,,true,active
+sin-t1-sunglass-hut-t1,sunglass-hut-t1,,SIN-T1,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.000745061977522,,,,true,active
+sin-t1-swarovski-t1,swarovski-t1,,SIN-T1,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.616845289950766,,,,true,active
+sin-t1-tiffany-co-1,tiffany-co,,SIN-T1,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.191553315527323,,,,true,active
+sin-t1-times-travel-1,times-travel,,SIN-T1,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.390541530728797,,,,true,active
+sin-t1-tory-burch-t1,tory-burch-t1,,SIN-T1,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.974445183310635,,,,true,active
+sin-t1-travelex-money-changer-t1,travelex-money-changer-t1,,SIN-T1,SIN,Services,Currency Exchange,,,{},Quick;Shop,,explore,1,,4.371707599358208,,,,,active
+sin-t1-twg-tea-boutique-t1,twg-tea-boutique-t1,,SIN-T1,SIN,Food & Beverage,Tea Boutique,,,{},Shop,,quick-bites,3,,4.301788916402735,,,,true,active
+sin-t1-uniqlo-t1,uniqlo-t1,,SIN-T1,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.574130475783117,,,,true,active
+sin-t1-victorias-secret-beauty-accessories-t1,victorias-secret-beauty-accessories-t1,,SIN-T1,SIN,Shopping,Fashion & Beauty,,,{},Shop,,duty-free,1,,4.935417913278551,,,,true,active
+sin-t1-whsmith-t1-level-1-84,whsmith-t1-level-1-84,,SIN-T1,SIN,Shopping,Books & Convenience,,,{},Shop,,duty-free,1,,4.78714009563469,,,,,active
+sin-t1-whsmith-t1-level-2-67,whsmith-t1-level-2-67,,SIN-T1,SIN,Shopping,Books & Convenience,,,{},Shop,,duty-free,1,,4.785001269542218,,,,true,active
+sin-t1-whsmith-t1-level-2-41,whsmith-t1-level-2-41,,SIN-T1,SIN,Shopping,Books & Convenience,,,{},Shop,,duty-free,1,,4.433672717981557,,,,true,active
+sin-t1-manulife-sky-nets,Manulife Sky Nets,,SIN-T1,SIN,Shopping,Retail,Walking and bouncing nets suspended in the air,,{},,,duty-free,1,,4.795113018008452,,,,,active
+sin-t1-mirror-maze,Mirror Maze,,SIN-T1,SIN,Shopping,Retail,Immersive mirror maze experience,,{},,,duty-free,1,,4.863329109522699,,,,,active
+sin-t1-rain-vortex,Rain Vortex,,SIN-T1,SIN,Shopping,Retail,The world's tallest indoor waterfall,,{},,,duty-free,1,,4.648890100685138,,,,,active
+sin-t1-shiseido-forest-valley,Shiseido Forest Valley,,SIN-T1,SIN,Shopping,Retail,Lush indoor forest with walking trails,,{},,,duty-free,1,,4.216427957859911,,,,,active
+sin-t1-entertainment-deck,Entertainment Deck,,SIN-T1,SIN,Shopping,Retail,Games and entertainment zone,,{},,,duty-free,1,,4.459170924947177,,,,,active
+sin-t1-butterfly-garden,Butterfly Garden,,SIN-T1,SIN,Shopping,Retail,Tropical butterfly habitat with flowering plants,,{},,,duty-free,1,,4.905554609943746,,,,,active
+sin-t1-cactus-garden,Cactus Garden,,SIN-T1,SIN,Shopping,Retail,Outdoor roof garden with over 100 species of cacti,,{},,,duty-free,1,,4.849156891571091,,,,,active
+sin-t1-koi-pond,Koi Pond,,SIN-T1,SIN,Shopping,Retail,Tranquil pond with Japanese koi fish,,{},,,duty-free,1,,4.618391946421568,,,,,active
+sin-t1-sunflower-garden,Sunflower Garden,,SIN-T1,SIN,Shopping,Retail,Rooftop garden with viewing gallery,,{},,,duty-free,1,,4.202622468094919,,,,,active
+sin-t1-tiger-street-lab,Tiger Street Lab,,SIN-T1,SIN,Shopping,Retail,Craft beer and local fare,,{},,,duty-free,1,,4.172562659595715,,,,,active
+sin-t1-din-tai-fung,Din Tai Fung,,SIN-T1,SIN,Shopping,Retail,Renowned Taiwanese restaurant famous for xiaolongbao,,{},,,duty-free,1,,4.381699978499632,,,,,active
+sin-t1-paradise-dynasty,Paradise Dynasty,,SIN-T1,SIN,Shopping,Retail,Known for signature colorful xiaolongbao,,{},,,duty-free,1,,4.638609520570363,,,,,active
+sin-t1-bee-cheng-hiang,Bee Cheng Hiang,,SIN-T1,SIN,Shopping,Retail,Famous for its barbecued pork jerky,,{},,,duty-free,1,,4.602964919335981,,,,,active
+sin-t1-koi-th,Koi Thé,,SIN-T1,SIN,Shopping,Retail,Premium Taiwanese bubble tea,,{},,,duty-free,1,,4.021372346368861,,,,,active
+sin-t1-sushi-tei,Sushi Tei,,SIN-T1,SIN,Shopping,Retail,Premium sushi and Japanese cuisine,,{},,,duty-free,1,,4.136021583314233,,,,,active
+sin-t1-song-fa-bak-kut-teh,Song Fa Bak Kut Teh,,SIN-T1,SIN,Shopping,Retail,Award-winning pork rib soup,,{},,,duty-free,1,,4.674941962297536,,,,,active
+sin-t1-crowne-plaza-changi-airport,Crowne Plaza Changi Airport,,SIN-T1,SIN,Shopping,Retail,Luxury hotel connected to Terminal 3,,{},,,duty-free,1,,4.259253597011641,,,,,active
+sin-t1-ambassador-transit-hotel,Ambassador Transit Hotel,,SIN-T1,SIN,Shopping,Retail,In-terminal hotel for transiting passengers,,{},,,duty-free,1,,4.144032453320891,,,,,active
+sin-t1-singapore-airlines-silverkris-lounge,Singapore Airlines SilverKris Lounge,,SIN-T1,SIN,Services,Lounge,Premium lounge for Singapore Airlines first and business class passengers,,{},,,explore,1,,4.754242259818113,,,,,active
+sin-t1-sats-premier-lounge,SATS Premier Lounge,,SIN-T1,SIN,Services,Lounge,Comfortable lounge with shower facilities,,{},,,explore,1,,4.499248814783622,,,,,active
+sin-t1-dnata-lounge,dnata Lounge,,SIN-T1,SIN,Services,Lounge,Modern lounge with extensive food options,,{},,,explore,1,,4.885169072198435,,,,,active
+sin-t1-uob-currency-exchange,UOB Currency Exchange,,SIN-T1,SIN,Services,Banking,Competitive rates for currency exchange,,{},,,explore,1,,4.587575917713558,,,,,active
+sin-t1-telecommunications-kiosk,Telecommunications Kiosk,,SIN-T1,SIN,Shopping,Retail,SIM cards and mobile services,,{},,,duty-free,1,,4.183079642329888,,,,,active
+sin-t1-trs-tax-refund,TRS Tax Refund,,SIN-T1,SIN,Shopping,Retail,Tourist refund scheme counter,,{},,,duty-free,1,,4.907340564273982,,,,,active
+sin-t1-spa-express,Spa Express,,SIN-T1,SIN,Shopping,Retail,Quick massage and spa treatments,,{},,,duty-free,1,,4.591824330899909,,,,,active
+sin-t1-lotte-duty-free,Lotte Duty Free,,SIN-T1,SIN,Shopping,Duty-Free Store,Korean duty-free retailer,,{},,,duty-free,1,,4.190289534367106,,,,,active
+sin-t1-uniqlo-1,Uniqlo,,SIN-T1,SIN,Shopping,Fashion & Accessories,Japanese casual wear designer,,{},,,duty-free,1,,4.36463153103104,,,,,active
+sin-t1-zara,Zara,,SIN-T1,SIN,Shopping,Retail,Spanish fast fashion retailer,,{},,,duty-free,1,,4.691804869545225,,,,,active
+sin-t1-eu-yan-sang,Eu Yan Sang,,SIN-T1,SIN,Shopping,Retail,Traditional Chinese medicine,,{},,,duty-free,1,,4.057570563161601,,,,,active
+sin-t1-muji,Muji,,SIN-T1,SIN,Shopping,Retail,Minimalist Japanese home goods,,{},,,duty-free,1,,4.198377913530441,,,,,active
+sin-t1-tokyu-hands,Tokyu Hands,,SIN-T1,SIN,Shopping,Retail,Japanese lifestyle store,,{},,,duty-free,1,,4.695493526057987,,,,,active
+sin-t1-fish-spa-t1,Fish Spa,,SIN-T1,SIN,Wellness,Spa,Unique fish spa experience with Garra Rufa fish for natural exfoliation,"Transit Area, Near Gate D41","{""Monday-Sunday"":""24/7""}",Comfort;Explore,,wellness,3,,4.713193084260028,,,,true,active
+sin-t2-spirit-of-man,Spirit of Man (Success and Achievement),,SIN-T2,SIN,Attraction,,,,,Explore,,explore,1,true,4.485688146578496,,,,,
+sin-t2-memory-of-lived-space,The Memory of Lived Space,,SIN-T2,SIN,Attraction,,,,,Explore,,explore,1,true,4.159369097109107,,,,,
+sin-t2-vessel,Vessel,,SIN-T2,SIN,Attraction,,,,,Explore,,explore,1,true,4.752278277677777,,,,true,
+sin-t2-eu-yan-sang,Eu Yan Sang ,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.303105669912894,,,,,
+sin-t2-fragrance-bak-kwa,Fragrance Bak Kwa,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.59692658012036,,,,true,
+sin-t2-gassan-watches,Gassan Watches,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.207109078905035,,,,true,
+sin-t2-guardian-health-beauty-before-security-level-2-shop-13,Guardian Health & Beauty - Before Security Level 2 Shop 13,,SIN-T2,SIN,Shopping,,,"Before Security, Level 2, Shop 13","{""Monday-Sunday"":""07:00-23:00""}",Shop;Quick,,duty-free,1,,4.32096457481358,,,,,
+sin-t2-guardian-health-beauty-level-2-shop-155,Guardian Health & Beauty - Level 2 Shop 155,,SIN-T2,SIN,Shopping,,,"Level 2, Shop 155","{""Monday-Sunday"":""24/7""}",Shop;Quick,,duty-free,2,,4.9175030653403455,,,,true,
+sin-t2-gucci,Gucci,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.110327559039334,,,,true,
+sin-t2-hermes,HERMÈS,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.2983811771225096,,,,true,
+sin-t2-irvins-salted-egg,Irvins Salted Egg,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.903462376019429,,,,true,
+sin-t2-kaboom,Kaboom,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.988232415095603,,,,true,
+sin-t2-kering-eyewear-lagardere,Kering Eyewear x Lagardere,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.466102770018644,,,,true,
+sin-t2-longchamp,Longchamp,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.113191317454156,,,,true,
+sin-t2-lotte-duty-free-wines-spirits-level-1-shop-176,LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 176,,SIN-T2,SIN,Shopping,,,"Level 1, Shop 176","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.489349018282766,,,,true,
+sin-t2-lotte-duty-free-wines-spirits-level-2-shop-401,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 401,,SIN-T2,SIN,Shopping,,,"Level 2, Shop 401","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.085988577332565,,,,true,
+sin-t2-lotte-duty-free-wines-spirits-level-2-shop-91,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 91,,SIN-T2,SIN,Shopping,,,"Level 2, Shop 91","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.2819401190712165,,,,true,
+sin-t2-lotte-duty-free-wines-spirits-level-1-shop-151,LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 151,,SIN-T2,SIN,Shopping,,,"Level 1, Shop 151","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.7323936099717825,,,,true,
+sin-t2-lotte-duty-free-wines-spirits-level-3-shop-189,LOTTE DUTY FREE WINES & SPIRITS - Level 3 Shop 189,,SIN-T2,SIN,Shopping,,,"Level 3, Shop 189","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.419348072277012,,,,true,
+sin-t2-lotte-duty-free-wines-spirits-level-2-shop-197,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 197,,SIN-T2,SIN,Shopping,,,"Level 2, Shop 197","{""Monday-Sunday"":""06:00-01:00""}",Shop,,duty-free,1,,4.103743766745278,,,,true,
+sin-t2-sunglass-hut,Sunglass Hut,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.453784587792287,,,,true,
+sin-t2-swarovski,Swarovski,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.124609165482271,,,,true,
+sin-t2-the-digital-gadgets,The Digital Gadgets,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.999346444427418,,,,true,
+sin-t2-tods,Tod's,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.21462998854034,,,,true,
+sin-t2-tommy-hilfiger,Tommy Hilfiger,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.858860368459239,,,,true,
+sin-t2-tory-burch,Tory Burch,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.011318941952744,,,,true,
+sin-t2-travelex-money-changer,Travelex Money Changer,,SIN-T2,SIN,Shopping,,,,,Quick;Shop,,duty-free,1,,4.157183997811108,,,,,
+sin-t2-tumi,TUMI,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.769443265225782,,,,true,
+sin-t2-twg-tea-boutique,TWG Tea Boutique,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.096273655250311,,,,true,
+sin-t2-unity,Unity,,SIN-T2,SIN,Shopping,,,,,Shop;Quick,,duty-free,1,,4.058304884795062,,,,true,
+sin-t2-uob-gold,UOB Gold,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.889900083464486,,,,true,
+sin-t2-victorias-secret-beauty-accessories,Victoria's Secret Beauty & Accessories,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.869583869178474,,,,true,
+sin-t2-wh-smith-before-security-level-1-shop-26,WH Smith - Before Security Level 1 Shop 26,,SIN-T2,SIN,Shopping,,,"Before Security, Level 1, Shop 26","{""Monday-Sunday"":""07:00-23:00""}",Shop,,duty-free,1,,4.86977170588981,,,,,
+sin-t2-wh-smith-level-2-shop-207,WH Smith - Level 2 Shop 207,,SIN-T2,SIN,Shopping,,,"Level 2, Shop 207","{""Monday-Sunday"":""06:00-01:00""}",Shop,,duty-free,1,,4.941718929040081,,,,true,
+sin-t2-zegna,ZEGNA,,SIN-T2,SIN,Shopping,,,,,Shop,,duty-free,1,,4.634694165445359,,,,true,
+sin-t2-eu-yan-sang-1,eu-yan-sang,,SIN-T2,SIN,Shopping,Traditional Medicine,,,{},Shop,,duty-free,1,,4.446925893903832,,,,,active
+sin-t2-fila-kids-t2,fila-kids-t2,,SIN-T2,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.770324240033896,,,,,active
+sin-t2-fragrance-bak-kwa-t2,fragrance-bak-kwa-t2,,SIN-T2,SIN,Shopping,Food & Gifts,Shopping amenity in SIN-T2,,{},Shop,,duty-free,1,,4.433759313223662,,,,true,active
+sin-t2-gassan-watches-t2,gassan-watches-t2,,SIN-T2,SIN,Shopping,Watches & Jewelry,,,{},Shop,,duty-free,1,,4.366519208963435,,,,true,active
+sin-t2-guardian-health-beauty-sin-t2-13,guardian-health-beauty-sin-t2-13,,SIN-T2,SIN,Shopping,Pharmacy,,,{},Shop;Quick,,duty-free,1,,4.914508682100507,,,,,active
+sin-t2-guardian-health-beauty-sin-t2-155,guardian-health-beauty-sin-t2-155,,SIN-T2,SIN,Shopping,Pharmacy,,,{},Shop;Quick,,duty-free,1,,4.314977396008645,,,,true,active
+sin-t2-gucci-t2,gucci-t2,,SIN-T2,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.424239973606338,,,,true,active
+sin-t2-hermes-t2,hermes-t2,,SIN-T2,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.015273481520681,,,,true,active
+sin-t2-kaboom-t2,kaboom-t2,,SIN-T2,SIN,Shopping,Electronics,,,{},Shop,,duty-free,1,,4.238661804430739,,,,true,active
+sin-t2-kering-eyewear-lagardere-1,kering-eyewear-lagardere,,SIN-T2,SIN,Shopping,Eyewear,,,{},Shop,,duty-free,1,,4.058867358547955,,,,true,active
+sin-t2-longchamp-t2,longchamp-t2,,SIN-T2,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.744921749796439,,,,true,active
+sin-t2-lotte-duty-free-wines-spirits-t2-level-1-176,lotte-duty-free-wines-spirits-t2-level-1-176,,SIN-T2,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.384349921613237,,,,true,active
+sin-t2-lotte-duty-free-wines-spirits-t2-level-2-91,lotte-duty-free-wines-spirits-t2-level-2-91,,SIN-T2,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.409515703099911,,,,true,active
+sin-t2-lotte-duty-free-wines-spirits-t2-level-1-151,lotte-duty-free-wines-spirits-t2-level-1-151,,SIN-T2,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.758743260314518,,,,true,active
+sin-t2-lotte-duty-free-wines-spirits-t2-level-2-401,lotte-duty-free-wines-spirits-t2-level-2-401,,SIN-T2,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.786506341629927,,,,true,active
+sin-t2-lotte-duty-free-wines-spirits-t2-level-3-189,lotte-duty-free-wines-spirits-t2-level-3-189,,SIN-T2,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.69877728518544,,,,true,active
+sin-t2-lotte-duty-free-wines-spirits-t2-level-2-197,lotte-duty-free-wines-spirits-t2-level-2-197,,SIN-T2,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.556573982235872,,,,true,active
+sin-t2-sunglass-hut-t2,sunglass-hut-t2,,SIN-T2,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.705638948937916,,,,true,active
+sin-t2-swarovski-t2,swarovski-t2,,SIN-T2,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.9935238084452624,,,,true,active
+sin-t2-tods-1,tods,,SIN-T2,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.619151333557543,,,,true,active
+sin-t2-tommy-hilfiger-1,tommy-hilfiger,,SIN-T2,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.955329368020836,,,,true,active
+sin-t2-tory-burch-t2,tory-burch-t2,,SIN-T2,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.99137790121677,,,,true,active
+sin-t2-travelex-money-changer-t2,travelex-money-changer-t2,,SIN-T2,SIN,Services,Currency Exchange,,,{},Quick;Shop,,explore,1,,4.124677549437115,,,,,active
+sin-t2-tumi-1,tumi,,SIN-T2,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.7309930739029555,,,,true,active
+sin-t2-twg-tea-boutique-t2,twg-tea-boutique-t2,,SIN-T2,SIN,Food & Beverage,Tea Boutique,,,{},Shop,,quick-bites,3,,4.696120272849164,,,,true,active
+sin-t2-unity-1,unity,,SIN-T2,SIN,Shopping,Retail,,,{},Shop;Quick,,duty-free,1,,4.2379700196855925,,,,true,active
+sin-t2-uob-gold-1,uob-gold,,SIN-T2,SIN,Services,Banking,,,{},Shop,,explore,1,,4.230652178556115,,,,true,active
+sin-t2-victorias-secret-beauty-accessories-t2,victorias-secret-beauty-accessories-t2,,SIN-T2,SIN,Shopping,Fashion & Beauty,,,{},Shop,,duty-free,1,,4.541865891457106,,,,true,active
+sin-t2-whsmith-t2-level-1-26,whsmith-t2-level-1-26,,SIN-T2,SIN,Shopping,Books & Convenience,,,{},Shop,,duty-free,1,,4.474487159772431,,,,,active
+sin-t2-whsmith-t2-level-2-207,whsmith-t2-level-2-207,,SIN-T2,SIN,Shopping,Books & Convenience,,,{},Shop,,duty-free,1,,4.262144290310729,,,,true,active
+sin-t2-zegna-1,zegna,,SIN-T2,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.748383346002917,,,,true,active
+sin-t2-foggy-bowls,Foggy Bowls,,SIN-T2,SIN,Shopping,Retail,Mist-filled play areas for children,,{},,,duty-free,1,,4.1432114653945415,,,,,active
+sin-t2-mirror-maze,Mirror Maze,,SIN-T2,SIN,Shopping,Retail,Immersive mirror maze experience,,{},,,duty-free,1,,4.059637377263499,,,,,active
+sin-t2-rain-vortex,Rain Vortex,,SIN-T2,SIN,Shopping,Retail,The world's tallest indoor waterfall,,{},,,duty-free,1,,4.648965067141734,,,,,active
+sin-t2-entertainment-deck,Entertainment Deck,,SIN-T2,SIN,Shopping,Retail,Games and entertainment zone,,{},,,duty-free,1,,4.764833261569482,,,,,active
+sin-t2-butterfly-garden,Butterfly Garden,,SIN-T2,SIN,Shopping,Retail,Tropical butterfly habitat with flowering plants,,{},,,duty-free,1,,4.022356078188052,,,,,active
+sin-t2-cactus-garden,Cactus Garden,,SIN-T2,SIN,Shopping,Retail,Outdoor roof garden with over 100 species of cacti,,{},,,duty-free,1,,4.252064886943203,,,,,active
+sin-t2-koi-pond,Koi Pond,,SIN-T2,SIN,Shopping,Retail,Tranquil pond with Japanese koi fish,,{},,,duty-free,1,,4.4121204823003035,,,,,active
+sin-t2-sunflower-garden,Sunflower Garden,,SIN-T2,SIN,Shopping,Retail,Rooftop garden with viewing gallery,,{},,,duty-free,1,,4.337943970932452,,,,,active
+sin-t2-bengawan-solo,Bengawan Solo,,SIN-T2,SIN,Shopping,Retail,Traditional Singaporean cakes and kueh,,{},,,duty-free,1,,4.1026239568714935,,,,,active
+sin-t2-tiger-street-lab,Tiger Street Lab,,SIN-T2,SIN,Shopping,Retail,Craft beer and local fare,,{},,,duty-free,1,,4.043339166729413,,,,,active
+sin-t2-din-tai-fung,Din Tai Fung,,SIN-T2,SIN,Shopping,Retail,Renowned Taiwanese restaurant famous for xiaolongbao,,{},,,duty-free,1,,4.990292182596191,,,,,active
+sin-t2-paradise-dynasty,Paradise Dynasty,,SIN-T2,SIN,Shopping,Retail,Known for signature colorful xiaolongbao,,{},,,duty-free,1,,4.115281929772962,,,,,active
+sin-t2-koi-th,Koi Thé,,SIN-T2,SIN,Shopping,Retail,Premium Taiwanese bubble tea,,{},,,duty-free,1,,4.061961881751129,,,,,active
+sin-t2-old-chang-kee,Old Chang Kee,,SIN-T2,SIN,Shopping,Retail,Local curry puffs and fried snacks,,{},,,duty-free,1,,4.603699151811556,,,,,active
+sin-t2-song-fa-bak-kut-teh,Song Fa Bak Kut Teh,,SIN-T2,SIN,Shopping,Retail,Award-winning pork rib soup,,{},,,duty-free,1,,4.176823701747077,,,,,active
+sin-t2-aerotel-singapore,Aerotel Singapore,,SIN-T2,SIN,Shopping,Retail,Airport transit hotel with swimming pool,,{},,,duty-free,1,,4.245848361940991,,,,,active
+sin-t2-yotelair-singapore-changi,YOTELAIR Singapore Changi,,SIN-T2,SIN,Shopping,Retail,Modern capsule-style transit hotel inside the terminal,,{},,,duty-free,1,,4.656824199275567,,,,,active
+sin-t2-cathay-pacific-lounge,Cathay Pacific Lounge,,SIN-T2,SIN,Services,Lounge,Elegant lounge for Cathay Pacific passengers,,{},,,explore,1,,4.461228117741562,,,,,active
+sin-t2-singapore-airlines-silverkris-lounge,Singapore Airlines SilverKris Lounge,,SIN-T2,SIN,Services,Lounge,Premium lounge for Singapore Airlines first and business class passengers,,{},,,explore,1,,4.630688726556551,,,,,active
+sin-t2-dnata-lounge,dnata Lounge,,SIN-T2,SIN,Services,Lounge,Modern lounge with extensive food options,,{},,,explore,1,,4.805410158487437,,,,,active
+sin-t2-travelex,Travelex,,SIN-T2,SIN,Services,Currency Exchange,Global foreign exchange services,,{},,,explore,1,,4.630214548695269,,,,,active
+sin-t2-uob-currency-exchange,UOB Currency Exchange,,SIN-T2,SIN,Services,Banking,Competitive rates for currency exchange,,{},,,explore,1,,4.942024543099841,,,,,active
+sin-t2-telecommunications-kiosk,Telecommunications Kiosk,,SIN-T2,SIN,Shopping,Retail,SIM cards and mobile services,,{},,,duty-free,1,,4.8658782659163835,,,,,active
+sin-t2-trs-tax-refund,TRS Tax Refund,,SIN-T2,SIN,Shopping,Retail,Tourist refund scheme counter,,{},,,duty-free,1,,4.676211486486089,,,,,active
+sin-t2-kinokuniya,Kinokuniya,,SIN-T2,SIN,Shopping,Retail,Comprehensive Japanese bookstore,,{},,,duty-free,1,,4.781926956308593,,,,,active
+sin-t2-uniqlo,Uniqlo,,SIN-T2,SIN,Shopping,Fashion & Accessories,Japanese casual wear designer,,{},,,duty-free,1,,4.100564776248127,,,,,active
+sin-t2-zara,Zara,,SIN-T2,SIN,Shopping,Retail,Spanish fast fashion retailer,,{},,,duty-free,1,,4.090889904106282,,,,,active
+sin-t2-irvins-salted-egg-1,Irvins Salted Egg,,SIN-T2,SIN,Food & Beverage,Snacks,Popular salted egg fish skin and chips,,{},,,quick-bites,3,,4.61230666294106,,,,,active
+sin-t2-eu-yan-sang-2,Eu Yan Sang,,SIN-T2,SIN,Shopping,Retail,Traditional Chinese medicine,,{},,,duty-free,1,,4.36493204110733,,,,,active
+sin-t2-muji,Muji,,SIN-T2,SIN,Shopping,Retail,Minimalist Japanese home goods,,{},,,duty-free,1,,4.88484622685273,,,,,active
+sin-t2-canopy-park-t2,Canopy Park,,SIN-T2,SIN,Attraction,,"Indoor park with nets, mazes and slides",,{},Chill;Explore,,explore,2,true,4.65784038207677,,,,true,
+sin-t3-birds-in-flight,Birds in Flight,,SIN-T3,SIN,Attraction,,,,,Explore,,explore,1,true,4.803798261638677,,,,true,
+sin-t3-coming-home,Coming Home,,SIN-T3,SIN,Attraction,,,,,Explore,,explore,1,true,4.570211166670405,,,,,
+sin-t3-electronics-computers-sprint-cass,Electronics Computers by Sprint-Cass,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.106225285237715,,,,true,
+sin-t3-eu-yan-sang,Eu Yan Sang,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.46925043450075,,,,,
+sin-t3-fragrance-bak-kwa,Fragrance Bak Kwa,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.831315126154546,,,,true,
+sin-t3-furla,Furla,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.078558054254115,,,,true,
+sin-t3-goldheart,Goldheart,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.257763922770675,,,,true,
+sin-t3-guardian-health-beauty-before-security-basement-shop-24,Guardian Health & Beauty - Before Security Basement Shop 24,,SIN-T3,SIN,Shopping,,,"Before Security, Basement, Shop 24","{""Monday-Sunday"":""10:00-23:00""}",Shop;Quick,,duty-free,1,,4.100098168594869,,,,,
+sin-t3-guardian-health-beauty-level-2-shop-66,Guardian Health & Beauty - Level 2 Shop 66,,SIN-T3,SIN,Shopping,,,"Level 2, Shop 66","{""Monday-Sunday"":""06:00-01:00""}",Shop;Quick,,duty-free,1,,4.92573615379296,,,,true,
+sin-t3-guardian-health-beauty-level-2-shop-29,Guardian Health & Beauty - Level 2 Shop 29,,SIN-T3,SIN,Shopping,,,"Level 2, Shop 29","{""Monday-Sunday"":""24/7""}",Shop;Quick,,duty-free,2,,4.0686138741690785,,,,true,
+sin-t3-hermes,HERMÈS,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.351167874665374,,,,true,
+sin-t3-irvins-salted-egg,Irvins Salted Egg,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.396135947258706,,,,true,
+sin-t3-kaboom,Kaboom,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.338365246570999,,,,true,
+sin-t3-kunthaville,Kunthaville,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.548047989481277,,,,true,
+sin-t3-lego-airport-store,LEGO® Airport Store,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.674742753807266,,,,true,
+sin-t3-longchamp,Longchamp,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.642423572256808,,,,true,
+sin-t3-lotte-duty-free-wines-spirits-level-1-shop-29,LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 29,,SIN-T3,SIN,Shopping,,,"Level 1, Shop 29","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.209518580430382,,,,true,
+sin-t3-lotte-duty-free-wines-spirits-level-1-shop-19,LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 19,,SIN-T3,SIN,Shopping,,,"Level 1, Shop 19","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.307584389773724,,,,true,
+sin-t3-lotte-duty-free-wines-spirits-level-2-shop-65,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 65,,SIN-T3,SIN,Shopping,,,"Level 2, Shop 65","{""Monday-Sunday"":""06:00-01:00""}",Shop,,duty-free,1,,4.1704053061572,,,,true,
+sin-t3-lotte-duty-free-wines-spirits-level-2-shop-10,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 10,,SIN-T3,SIN,Shopping,,,"Level 2, Shop 10","{""Monday-Sunday"":""06:00-01:00""}",Shop,,duty-free,1,,4.649937959038766,,,,true,
+sin-t3-lotte-duty-free-wines-spirits-level-2-shop-37,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 37,,SIN-T3,SIN,Shopping,,,"Level 2, Shop 37","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.284390660556586,,,,true,
+sin-t3-lotte-duty-free-wines-spirits-level-3-shop-7,LOTTE DUTY FREE WINES & SPIRITS - Level 3 Shop 7,,SIN-T3,SIN,Shopping,,,"Level 3, Shop 7","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.421438636863217,,,,true,
+sin-t3-louis-vuitton,Louis Vuitton,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.389895588622661,,,,true,
+sin-t3-sunglass-hut,Sunglass Hut,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.272094047433065,,,,true,
+sin-t3-swarovski,Swarovski,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.702412913390618,,,,true,
+sin-t3-tiffany-co,Tiffany & Co.,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.552993593690461,,,,true,
+sin-t3-time-emporium,Time Emporium,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.363105343054131,,,,true,
+sin-t3-travelex-money-changer,Travelex Money Changer,,SIN-T3,SIN,Shopping,,,,,Quick;Shop,,duty-free,1,,4.806258096828988,,,,,
+sin-t3-twg-tea-boutique,TWG Tea Boutique,,SIN-T3,SIN,Shopping,,,,,Shop,,duty-free,1,,4.85688296417073,,,,true,
+sin-t3-wh-smith-level-2-shop-43,WH Smith - Level 2 Shop 43,,SIN-T3,SIN,Shopping,,,"Level 2, Shop 43","{""Monday-Sunday"":""06:00-01:00""}",Shop,,duty-free,1,,4.93594252813574,,,,true,
+sin-t3-wh-smith-level-2-shop-7,WH Smith - Level 2 Shop 7,,SIN-T3,SIN,Shopping,,,"Level 2, Shop 7","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.96443161467622,,,,true,
+sin-t3-apple-store,apple-store,,SIN-T3,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.352409155708987,,,,true,active
+sin-t3-cabin-bar-dfs,cabin-bar-dfs,,SIN-T3,SIN,Shopping,Retail,,,{},Explore,,duty-free,1,,4.0464727465122525,,,,true,active
+sin-t3-charles-keith,charles-keith,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.720430363778924,,,,true,active
+sin-t3-coach,coach,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.2956223451292495,,,,true,active
+sin-t3-electronics-computers-sprint-cass-t2,electronics-computers-sprint-cass-t2,,SIN-T3,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.3607389552542095,,,,true,active
+sin-t3-fragrance-bak-kwa-t3,fragrance-bak-kwa-t3,,SIN-T3,SIN,Shopping,Food & Gifts,Shopping amenity in SIN-T3,,{},Shop,,duty-free,1,,4.761124829378992,,,,true,active
+sin-t3-furla-t3,furla-t3,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.927810841715181,,,,true,active
+sin-t3-guardian-health-beauty-sin-t3-basement-24,guardian-health-beauty-sin-t3-basement-24,,SIN-T3,SIN,Shopping,Pharmacy,,,{},Shop;Quick,,duty-free,1,,4.5550528323728345,,,,,active
+sin-t3-guardian-health-beauty-sin-t3-66,guardian-health-beauty-sin-t3-66,,SIN-T3,SIN,Shopping,Pharmacy,,,{},Shop;Quick,,duty-free,1,,4.889070808903677,,,,true,active
+sin-t3-guardian-health-beauty-sin-t3-29,guardian-health-beauty-sin-t3-29,,SIN-T3,SIN,Shopping,Pharmacy,,,{},Shop;Quick,,duty-free,1,,4.605908985513873,,,,true,active
+sin-t3-gucci-t3,gucci-t3,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.747717235202153,,,,true,active
+sin-t3-hermes-t3,hermes-t3,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.63324934542845,,,,true,active
+sin-t3-istudio,istudio,,SIN-T3,SIN,Shopping,Electronics,,,{},Shop,,duty-free,1,,4.151690510865552,,,,true,active
+sin-t3-kaboom-t3,kaboom-t3,,SIN-T3,SIN,Shopping,Electronics,,,{},Shop,,duty-free,1,,4.373939854768357,,,,true,active
+sin-t3-lacoste,lacoste,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.751677360855666,,,,true,active
+sin-t3-longchamp-t3,longchamp-t3,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.452197065613353,,,,true,active
+sin-t3-lotte-duty-free-wines-spirits-t3-level-1-19,lotte-duty-free-wines-spirits-t3-level-1-19,,SIN-T3,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.651215205479398,,,,true,active
+sin-t3-lotte-duty-free-wines-spirits-t3-level-1-29,lotte-duty-free-wines-spirits-t3-level-1-29,,SIN-T3,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.137921328764609,,,,true,active
+sin-t3-lotte-duty-free-wines-spirits-t3-level-2-65,lotte-duty-free-wines-spirits-t3-level-2-65,,SIN-T3,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.359245522906381,,,,true,active
+sin-t3-lotte-duty-free-wines-spirits-t3-level-2-65-1,lotte-duty-free-wines-spirits-t3-level-2-65,,SIN-T3,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.039615803684136,,,,true,active
+sin-t3-lotte-duty-free-wines-spirits-t3-level-2-37,lotte-duty-free-wines-spirits-t3-level-2-37,,SIN-T3,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.833854379431747,,,,true,active
+sin-t3-lotte-duty-free-wines-spirits-t3-level-3-7,lotte-duty-free-wines-spirits-t3-level-3-7,,SIN-T3,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.395305958753987,,,,true,active
+sin-t3-louis-vuitton-t3,louis-vuitton-t3,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.863436630606491,,,,true,active
+sin-t3-michael-kors,michael-kors,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.953033959381621,,,,true,active
+sin-t3-montblanc,montblanc,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.534173632553484,,,,true,active
+sin-t3-rituals,rituals,,SIN-T3,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.254004613966735,,,,true,active
+sin-t3-the-cocoa-trees,the-cocoa-trees,,SIN-T3,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.333539916601381,,,,true,active
+sin-t3-timberland,timberland,,SIN-T3,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.806052190364034,,,,true,active
+sin-t3-vessel,vessel,,SIN-T3,SIN,Shopping,Retail,,,{},Explore,,duty-free,1,,4.124805631481181,,,,true,active
+sin-t3-watches-of-switzerland,watches-of-switzerland,,SIN-T3,SIN,Shopping,Watches & Jewelry,,,{},Shop,,duty-free,1,,4.325496734573828,,,,true,active
+sin-t3-whsmith-t3-level-2-43,whsmith-t3-level-2-43,,SIN-T3,SIN,Shopping,Books & Convenience,,,{},Shop,,duty-free,1,,4.767096821569463,,,,true,active
+sin-t3-whsmith-t3-level-2-7,whsmith-t3-level-2-7,,SIN-T3,SIN,Shopping,Books & Convenience,,,{},Shop,,duty-free,1,,4.574661852877325,,,,true,active
+sin-t3-memory-of-lived-space,memory-of-lived-space,,SIN-T3,SIN,Attraction,Art Installation,,,{},Explore,,explore,1,true,4.714350805448513,,,,true,active
+sin-t3-lotte-duty-free-wines-spirits-t3-level-2-10,lotte-duty-free-wines-spirits-t3-level-2-10,,SIN-T3,SIN,Shopping,Duty-Free Store,,"Level 2, Shop 10","{""Monday-Sunday"":""06:00-01:00""}",Shop,,duty-free,1,,4.2479943161563885,,,,true,active
+sin-t3-the-slide-t3,The Slide@T3,,SIN-T3,SIN,Shopping,Retail,World's tallest slide in an airport,,{},,,duty-free,1,,4.798929365886306,,,,,active
+sin-t3-foggy-bowls,Foggy Bowls,,SIN-T3,SIN,Shopping,Retail,Mist-filled play areas for children,,{},,,duty-free,1,,4.047224283183301,,,,,active
+sin-t3-the-slide-t3-1,The Slide@T3,,SIN-T3,SIN,Shopping,Retail,World's tallest slide in an airport,,{},,,duty-free,1,,4.151059973162752,,,,,active
+sin-t3-changi-experience-studio,Changi Experience Studio,,SIN-T3,SIN,Shopping,Retail,Interactive digital attraction about Changi Airport,,{},,,duty-free,1,,4.906284542171142,,,,,active
+sin-t3-entertainment-deck,Entertainment Deck,,SIN-T3,SIN,Shopping,Retail,Games and entertainment zone,,{},,,duty-free,1,,4.571020884685976,,,,,active
+sin-t3-butterfly-garden,Butterfly Garden,,SIN-T3,SIN,Shopping,Retail,Tropical butterfly habitat with flowering plants,,{},,,duty-free,1,,4.840379795552872,,,,,active
+sin-t3-cactus-garden,Cactus Garden,,SIN-T3,SIN,Shopping,Retail,Outdoor roof garden with over 100 species of cacti,,{},,,duty-free,1,,4.563808063672404,,,,,active
+sin-t3-koi-pond,Koi Pond,,SIN-T3,SIN,Shopping,Retail,Tranquil pond with Japanese koi fish,,{},,,duty-free,1,,4.25715935539399,,,,,active
+sin-t3-sunflower-garden,Sunflower Garden,,SIN-T3,SIN,Shopping,Retail,Rooftop garden with viewing gallery,,{},,,duty-free,1,,4.4720959259932735,,,,,active
+sin-t3-bengawan-solo,Bengawan Solo,,SIN-T3,SIN,Shopping,Retail,Traditional Singaporean cakes and kueh,,{},,,duty-free,1,,4.823785653305009,,,,,active
+sin-t3-tiger-street-lab,Tiger Street Lab,,SIN-T3,SIN,Shopping,Retail,Craft beer and local fare,,{},,,duty-free,1,,4.03821607117431,,,,,active
+sin-t3-din-tai-fung,Din Tai Fung,,SIN-T3,SIN,Shopping,Retail,Renowned Taiwanese restaurant famous for xiaolongbao,,{},,,duty-free,1,,4.684724504305321,,,,,active
+sin-t3-paradise-dynasty,Paradise Dynasty,,SIN-T3,SIN,Shopping,Retail,Known for signature colorful xiaolongbao,,{},,,duty-free,1,,4.353532431654168,,,,,active
+sin-t3-bee-cheng-hiang,Bee Cheng Hiang,,SIN-T3,SIN,Shopping,Retail,Famous for its barbecued pork jerky,,{},,,duty-free,1,,4.5383239369928186,,,,,active
+sin-t3-ya-kun-kaya-toast,Ya Kun Kaya Toast,,SIN-T3,SIN,Shopping,Retail,Traditional Singaporean breakfast sets,,{},,,duty-free,1,,4.673153698031715,,,,,active
+sin-t3-sushi-tei,Sushi Tei,,SIN-T3,SIN,Shopping,Retail,Premium sushi and Japanese cuisine,,{},,,duty-free,1,,4.293167284954082,,,,,active
+sin-t3-aerotel-singapore,Aerotel Singapore,,SIN-T3,SIN,Shopping,Retail,Airport transit hotel with swimming pool,,{},,,duty-free,1,,4.968465455203669,,,,,active
+sin-t3-yotelair-singapore-changi,YOTELAIR Singapore Changi,,SIN-T3,SIN,Shopping,Retail,Modern capsule-style transit hotel inside the terminal,,{},,,duty-free,1,,4.692930347060416,,,,,active
+sin-t3-cathay-pacific-lounge,Cathay Pacific Lounge,,SIN-T3,SIN,Services,Lounge,Elegant lounge for Cathay Pacific passengers,,{},,,explore,1,,4.419962903972497,,,,,active
+sin-t3-sats-premier-lounge,SATS Premier Lounge,,SIN-T3,SIN,Services,Lounge,Comfortable lounge with shower facilities,,{},,,explore,1,,4.961180469455623,,,,,active
+sin-t3-dnata-lounge,dnata Lounge,,SIN-T3,SIN,Services,Lounge,Modern lounge with extensive food options,,{},,,explore,1,,4.005640579847265,,,,,active
+sin-t3-uob-currency-exchange,UOB Currency Exchange,,SIN-T3,SIN,Services,Banking,Competitive rates for currency exchange,,{},,,explore,1,,4.743855748826563,,,,,active
+sin-t3-telecommunications-kiosk,Telecommunications Kiosk,,SIN-T3,SIN,Shopping,Retail,SIM cards and mobile services,,{},,,duty-free,1,,4.46755764292443,,,,,active
+sin-t3-trs-tax-refund,TRS Tax Refund,,SIN-T3,SIN,Shopping,Retail,Tourist refund scheme counter,,{},,,duty-free,1,,4.49624248912247,,,,,active
+sin-t3-spa-express,Spa Express,,SIN-T3,SIN,Shopping,Retail,Quick massage and spa treatments,,{},,,duty-free,1,,4.760476444889641,,,,,active
+sin-t3-kinokuniya,Kinokuniya,,SIN-T3,SIN,Shopping,Retail,Comprehensive Japanese bookstore,,{},,,duty-free,1,,4.376033886286149,,,,,active
+sin-t3-lotte-duty-free,Lotte Duty Free,,SIN-T3,SIN,Shopping,Duty-Free Store,Korean duty-free retailer,,{},,,duty-free,1,,4.445448734284418,,,,,active
+sin-t3-uniqlo,Uniqlo,,SIN-T3,SIN,Shopping,Fashion & Accessories,Japanese casual wear designer,,{},,,duty-free,1,,4.60714608857012,,,,,active
+sin-t3-irvins-salted-egg-1,Irvins Salted Egg,,SIN-T3,SIN,Food & Beverage,Snacks,Popular salted egg fish skin and chips,,{},,,quick-bites,3,,4.748632471431993,,,,,active
+sin-t3-muji,Muji,,SIN-T3,SIN,Shopping,Retail,Minimalist Japanese home goods,,{},,,duty-free,1,,4.206072933991306,,,,,active
+sin-t3-tokyu-hands,Tokyu Hands,,SIN-T3,SIN,Shopping,Retail,Japanese lifestyle store,,{},,,duty-free,1,,4.977203660319132,,,,,active
+sin-t3-canopy-park-t3,Canopy Park,,SIN-T3,SIN,Attraction,,"Indoor park with nets, mazes and slides",,{},Chill;Explore,,explore,2,true,4.451512186549941,,,,true,
+sin-t3-aw-root-beer-t3,A&W Root Beer,,SIN-T3,SIN,Food & Beverage,Restaurant,"Nostalgic American fast food chain, famous for root beer floats","Level 2, Public Area","{""Monday-Sunday"":""24/7""}",Refuel;Quick,,quick-bites,4,,4.1963632982093495,,,,true,active
+sin-t3-cultural-stage-t3,Cultural Performances Stage,,SIN-T3,SIN,Entertainment,Performance,Regular cultural performances showcasing Asian heritage,"Level 2, Transit Area","{""Performance Times"":""Variable""}",Explore,,entertainment,1,,4.584066251452763,,,,true,active
+sin-t3-jewel-viewpoint-t3,Jewel Waterfall Viewpoint,,SIN-T3,SIN,Attraction,Observation,Access point to view the famous Jewel Changi waterfall via Skytrain,Link to Jewel via Skytrain,"{""Monday-Sunday"":""05:00-02:30""}",Explore,,explore,1,true,4.111259667076072,,,,true,active
+sin-t4-chandelier,Chandelier,,SIN-T4,SIN,Attraction,,,,,Explore,,explore,1,true,4.79191771301979,,,,true,
+sin-t4-heritage-zone,Heritage Zone,,SIN-T4,SIN,Attraction,,,,,Explore,,explore,1,true,4.42252215506346,,,,true,
+sin-t4-immersive-wall,Immersive Wall,,SIN-T4,SIN,Attraction,,,,,Explore,,explore,1,true,4.759992288483761,,,,true,
+sin-t4-petalclouds,Petalclouds,,SIN-T4,SIN,Attraction,,,,,Explore,,explore,1,true,4.335371611403482,,,,true,
+sin-t4-steel-in-bloom,Steel in Bloom,,SIN-T4,SIN,Attraction,,,,,Explore,,explore,1,true,4.848689473277418,,,,,
+sin-t4-garrett-popcorn,Garrett Popcorn Shops®,,SIN-T4,SIN,Shopping,,,,,Shop,,duty-free,1,,4.963144836033634,,,,true,
+sin-t4-irvins-salted-egg,Irvins Salted Egg,,SIN-T4,SIN,Shopping,,,,,Shop,,duty-free,1,,4.006840488908479,,,,true,
+sin-t4-kashkha,KASHKHA,,SIN-T4,SIN,Shopping,,,,,Shop,,duty-free,1,,4.694513473010812,,,,true,
+sin-t4-lego-airport-store,LEGO® Airport Store,,SIN-T4,SIN,Shopping,,,,,Shop,,duty-free,1,,4.770195300283731,,,,true,
+sin-t4-lotte-duty-free-wines-spirits-level-2-shop-25,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 25,,SIN-T4,SIN,Shopping,,,"Level 2, Shop 25","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.128454843540499,,,,true,
+sin-t4-lotte-duty-free-wines-spirits-level-1-shop-12,LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 12,,SIN-T4,SIN,Shopping,,,"Level 1, Shop 12","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.500976490770671,,,,true,
+sin-t4-lotte-duty-free-wines-spirits-level-2-shop-57,LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 57,,SIN-T4,SIN,Shopping,,,"Level 2, Shop 57","{""Monday-Sunday"":""24/7""}",Shop,,duty-free,2,,4.562219880143633,,,,true,
+sin-t4-sunglass-hut,Sunglass Hut,,SIN-T4,SIN,Shopping,,,,,Shop,,duty-free,1,,4.022418742270711,,,,true,
+sin-t4-taste-singapore,Taste Singapore,,SIN-T4,SIN,Shopping,,,,,Shop,,duty-free,1,,4.067571831453721,,,,true,
+sin-t4-the-digital-gadgets,The Digital Gadgets,,SIN-T4,SIN,Shopping,,,,,Shop,,duty-free,1,,4.76702985944079,,,,,
+sin-t4-the-fashion-place,The Fashion Place,,SIN-T4,SIN,Shopping,,,,,Shop,,duty-free,1,,4.258852671519342,,,,true,
+sin-t4-travelex-money-changer,Travelex Money Changer,,SIN-T4,SIN,Shopping,,,,,Quick;Shop,,duty-free,1,,4.41191004934551,,,,true,
+sin-t4-twg-tea-boutique,TWG Tea Boutique,,SIN-T4,SIN,Shopping,,,,,Shop,,duty-free,1,,4.882743214631126,,,,true,
+sin-t4-wh-smith-level-2-shop-59,WH Smith - Level 2 Shop 59,,SIN-T4,SIN,Shopping,,,"Level 2, Shop 59","{""Monday-Sunday"":""06:00-00:00""}",Shop,,duty-free,1,,4.396115294625033,,,,true,
+sin-t4-zakkasg,ZAKKASG,,SIN-T4,SIN,Shopping,,,,,Shop,,duty-free,1,,4.948181651040026,,,,true,
+sin-t4-chandelier-1,chandelier,,SIN-T4,SIN,Shopping,Retail,,,{},Explore,,duty-free,1,,4.2130541689555905,,,,true,active
+sin-t4-fila-t4,fila-t4,,SIN-T4,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.559229766541556,,,,,active
+sin-t4-garrett-popcorn-t4,garrett-popcorn-t4,,SIN-T4,SIN,Shopping,Snacks & Confectionery,,,{},Shop,,duty-free,1,,4.720813751751888,,,,true,active
+sin-t4-heritage-zone-1,heritage-zone,,SIN-T4,SIN,Attractions,Cultural Area,,,{},Explore,,explore,1,,4.47330764612029,,,,true,active
+sin-t4-immersive-wall-1,immersive-wall,,SIN-T4,SIN,Attractions,Cultural Area,,,{},Explore,,explore,1,,4.215714688682992,,,,true,active
+sin-t4-irvins-salted-egg-t4,irvins-salted-egg-t4,,SIN-T4,SIN,Food & Beverage,Snacks,,,{},Shop,,quick-bites,3,,4.914287405141701,,,,true,active
+sin-t4-kashkha-1,kashkha,,SIN-T4,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.776999248131093,,,,true,active
+sin-t4-lego-airport-store-1,lego-airport-store,,SIN-T4,SIN,Shopping,Toys & Games,,,{},Shop,,duty-free,1,,4.30181412475298,,,,true,active
+sin-t4-lotte-duty-free-wines-spirits-t4-level-1-12,lotte-duty-free-wines-spirits-t4-level-1-12,,SIN-T4,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.646476290577776,,,,true,active
+sin-t4-lotte-duty-free-wines-spirits-t4-level-2-25,lotte-duty-free-wines-spirits-t4-level-2-25,,SIN-T4,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.3033704336650365,,,,true,active
+sin-t4-lotte-duty-free-wines-spirits-t4-level-2-57,lotte-duty-free-wines-spirits-t4-level-2-57,,SIN-T4,SIN,Shopping,Duty-Free Store,,,{},Shop,,duty-free,1,,4.229423501728638,,,,true,active
+sin-t4-petalclouds-1,petalclouds,,SIN-T4,SIN,Shopping,Retail,,,{},Explore,,duty-free,1,,4.657227620167722,,,,true,active
+sin-t4-steel-in-bloom-1,steel-in-bloom,,SIN-T4,SIN,Attraction,Art Installation,,,{},Explore,,explore,1,true,4.617753034861773,,,,true,active
+sin-t4-sunglass-hut-t3,sunglass-hut-t3,,SIN-T4,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.922479254314588,,,,true,active
+sin-t4-taste-singapore-1,taste-singapore,,SIN-T4,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.400551924729617,,,,true,active
+sin-t4-the-digital-gadgets-t4,the-digital-gadgets-t4,,SIN-T4,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.308926197570197,,,,,active
+sin-t4-the-fashion-place-1,the-fashion-place,,SIN-T4,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.240566978250195,,,,true,active
+sin-t4-travelex-money-changer-t3,travelex-money-changer-t3,,SIN-T4,SIN,Services,Currency Exchange,,,{},Quick;Shop,,explore,1,,4.2581325995648065,,,,true,active
+sin-t4-travelling-family,travelling-family,,SIN-T4,SIN,Shopping,Retail,,,{},Explore,,duty-free,1,,4.871859863726491,,,,true,active
+sin-t4-twg-tea-boutique-t3,twg-tea-boutique-t3,,SIN-T4,SIN,Food & Beverage,Tea Boutique,,,{},Shop,,quick-bites,3,,4.724862831044659,,,,true,active
+sin-t4-whsmith-t4-level-2-59,whsmith-t4-level-2-59,,SIN-T4,SIN,Shopping,Books & Convenience,,,{},Shop,,duty-free,1,,4.965644188965479,,,,true,active
+sin-t4-zakkasg-1,zakkasg,,SIN-T4,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.93670959836343,,,,true,active
+sin-t4-manulife-sky-nets,Manulife Sky Nets,,SIN-T4,SIN,Shopping,Retail,Walking and bouncing nets suspended in the air,,{},,,duty-free,1,,4.949666490729427,,,,,active
+sin-t4-mirror-maze,Mirror Maze,,SIN-T4,SIN,Shopping,Retail,Immersive mirror maze experience,,{},,,duty-free,1,,4.46598153356895,,,,,active
+sin-t4-changi-experience-studio,Changi Experience Studio,,SIN-T4,SIN,Shopping,Retail,Interactive digital attraction about Changi Airport,,{},,,duty-free,1,,4.235156860385759,,,,,active
+sin-t4-entertainment-deck,Entertainment Deck,,SIN-T4,SIN,Shopping,Retail,Games and entertainment zone,,{},,,duty-free,1,,4.2211213651514825,,,,,active
+sin-t4-butterfly-garden,Butterfly Garden,,SIN-T4,SIN,Shopping,Retail,Tropical butterfly habitat with flowering plants,,{},,,duty-free,1,,4.588116713869616,,,,,active
+sin-t4-cactus-garden,Cactus Garden,,SIN-T4,SIN,Shopping,Retail,Outdoor roof garden with over 100 species of cacti,,{},,,duty-free,1,,4.362814539556943,,,,,active
+sin-t4-koi-pond,Koi Pond,,SIN-T4,SIN,Shopping,Retail,Tranquil pond with Japanese koi fish,,{},,,duty-free,1,,4.480007730682846,,,,,active
+sin-t4-sunflower-garden,Sunflower Garden,,SIN-T4,SIN,Shopping,Retail,Rooftop garden with viewing gallery,,{},,,duty-free,1,,4.9810485677540735,,,,,active
+sin-t4-tiger-street-lab,Tiger Street Lab,,SIN-T4,SIN,Shopping,Retail,Craft beer and local fare,,{},,,duty-free,1,,4.864064259904174,,,,,active
+sin-t4-din-tai-fung,Din Tai Fung,,SIN-T4,SIN,Shopping,Retail,Renowned Taiwanese restaurant famous for xiaolongbao,,{},,,duty-free,1,,4.545333108654286,,,,,active
+sin-t4-paradise-dynasty,Paradise Dynasty,,SIN-T4,SIN,Shopping,Retail,Known for signature colorful xiaolongbao,,{},,,duty-free,1,,4.369210843078822,,,,,active
+sin-t4-koi-th,Koi Thé,,SIN-T4,SIN,Shopping,Retail,Premium Taiwanese bubble tea,,{},,,duty-free,1,,4.069160076168333,,,,,active
+sin-t4-ya-kun-kaya-toast,Ya Kun Kaya Toast,,SIN-T4,SIN,Shopping,Retail,Traditional Singaporean breakfast sets,,{},,,duty-free,1,,4.101572195621704,,,,,active
+sin-t4-sushi-tei,Sushi Tei,,SIN-T4,SIN,Shopping,Retail,Premium sushi and Japanese cuisine,,{},,,duty-free,1,,4.872946361454007,,,,,active
+sin-t4-song-fa-bak-kut-teh,Song Fa Bak Kut Teh,,SIN-T4,SIN,Shopping,Retail,Award-winning pork rib soup,,{},,,duty-free,1,,4.473384348832262,,,,,active
+sin-t4-ambassador-transit-hotel,Ambassador Transit Hotel,,SIN-T4,SIN,Shopping,Retail,In-terminal hotel for transiting passengers,,{},,,duty-free,1,,4.466894843529916,,,,,active
+sin-t4-yotelair-singapore-changi,YOTELAIR Singapore Changi,,SIN-T4,SIN,Shopping,Retail,Modern capsule-style transit hotel inside the terminal,,{},,,duty-free,1,,4.399475742564059,,,,,active
+sin-t4-singapore-airlines-silverkris-lounge,Singapore Airlines SilverKris Lounge,,SIN-T4,SIN,Services,Lounge,Premium lounge for Singapore Airlines first and business class passengers,,{},,,explore,1,,4.626556240792673,,,,,active
+sin-t4-plaza-premium-lounge,Plaza Premium Lounge,,SIN-T4,SIN,Services,Lounge,Award-winning independent airport lounge,,{},,,explore,1,,4.7847564289192555,,,,,active
+sin-t4-sats-premier-lounge,SATS Premier Lounge,,SIN-T4,SIN,Services,Lounge,Comfortable lounge with shower facilities,,{},,,explore,1,,4.560622442057072,,,,,active
+sin-t4-uob-currency-exchange,UOB Currency Exchange,,SIN-T4,SIN,Services,Banking,Competitive rates for currency exchange,,{},,,explore,1,,4.424377223365582,,,,,active
+sin-t4-telecommunications-kiosk,Telecommunications Kiosk,,SIN-T4,SIN,Shopping,Retail,SIM cards and mobile services,,{},,,duty-free,1,,4.403908910349721,,,,,active
+sin-t4-trs-tax-refund,TRS Tax Refund,,SIN-T4,SIN,Shopping,Retail,Tourist refund scheme counter,,{},,,duty-free,1,,4.388128090928536,,,,,active
+sin-t4-spa-express,Spa Express,,SIN-T4,SIN,Shopping,Retail,Quick massage and spa treatments,,{},,,duty-free,1,,4.067389140594344,,,,,active
+sin-t4-lotte-duty-free,Lotte Duty Free,,SIN-T4,SIN,Shopping,Duty-Free Store,Korean duty-free retailer,,{},,,duty-free,1,,4.858244855731532,,,,,active
+sin-t4-charles-keith,Charles & Keith,,SIN-T4,SIN,Shopping,Retail,Singaporean footwear and accessories brand,,{},,,duty-free,1,,4.220639699397394,,,,,active
+sin-t4-zara,Zara,,SIN-T4,SIN,Shopping,Retail,Spanish fast fashion retailer,,{},,,duty-free,1,,4.397120657566079,,,,,active
+sin-t4-irvins-salted-egg-1,Irvins Salted Egg,,SIN-T4,SIN,Food & Beverage,Snacks,Popular salted egg fish skin and chips,,{},,,quick-bites,3,,4.577170825598369,,,,,active
+sin-t4-twg-tea,TWG Tea,,SIN-T4,SIN,Food & Beverage,Tea Boutique,Luxury tea brand,,{},,,quick-bites,3,,4.673034113896003,,,,,active
+sin-t4-tokyu-hands,Tokyu Hands ,,SIN-T4,SIN,Shopping,Retail,Japanese lifestyle store,,{},,,duty-free,1,,4.658747028168789,,,,,active
+sin-t4-canopy-park-t4,Canopy Park,,SIN-T4,SIN,Attraction,,"Indoor park with nets, mazes and slides",,{},Chill;Explore,,explore,2,true,4.346392078451512,,,,true,
+sin-t4-tokyu-hands-t4,Tokyu Hands,,SIN-T4,SIN,Services,,Japanese lifestyle store,,{},Explore,,explore,2,,4.8905593249751975,,,,true,
+sin-jewel-rhythm-of-nature,Rhythm of Nature,,SIN-JEWEL,SIN,Attraction,,,,,Explore,,explore,1,true,4.931316534632143,,,,,
+sin-jewel-fila,FILA,,SIN-JEWEL,SIN,Shopping,,,,,Shop,,duty-free,1,,4.802695483398608,,,,,
+sin-jewel-furla,Furla,,SIN-JEWEL,SIN,Shopping,,,,,Shop,,duty-free,1,,4.1075461174469075,,,,,
+sin-jewel-irvins-salted-egg,Irvins Salted Egg,,SIN-JEWEL,SIN,Shopping,,,,,Shop,,duty-free,1,,4.791005743919234,,,,,
+sin-jewel-the-digital-gadgets,The Digital Gadgets,,SIN-JEWEL,SIN,Shopping,,,,,Shop,,duty-free,1,,4.245552055151005,,,,,
+sin-jewel-uniqlo,Uniqlo,,SIN-JEWEL,SIN,Shopping,,,,,Shop,,duty-free,1,,4.045958637901423,,,,,
+sin-jewel-fila-jewel,fila-jewel,,SIN-JEWEL,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.27332346928428,,,,,active
+sin-jewel-furla-jewel,furla-jewel,,SIN-JEWEL,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.340293419151124,,,,,active
+sin-jewel-irvins-salted-egg-jewel,irvins-salted-egg-jewel,,SIN-JEWEL,SIN,Food & Beverage,Snacks,,,{},Shop,,quick-bites,3,,4.916920658373273,,,,,active
+sin-jewel-rhythm-of-nature-1,rhythm-of-nature,,SIN-JEWEL,SIN,Shopping,Retail,,,{},Explore,,duty-free,1,,4.429679245565198,,,,,active
+sin-jewel-the-digital-gadgets-jewel,the-digital-gadgets-jewel,,SIN-JEWEL,SIN,Shopping,Retail,,,{},Shop,,duty-free,1,,4.286144244649268,,,,,active
+sin-jewel-uniqlo-jewel,uniqlo-jewel,,SIN-JEWEL,SIN,Shopping,Fashion & Accessories,,,{},Shop,,duty-free,1,,4.6397926246111965,,,,,active
+sin-jewel-canopy-park,Canopy Park,,SIN-JEWEL,SIN,Shopping,Retail,"Indoor park with nets, mazes and slides",,{},,,duty-free,1,,4.497155259269054,,,,,active
+sin-jewel-foggy-bowls,Foggy Bowls,,SIN-JEWEL,SIN,Shopping,Retail,Mist-filled play areas for children,,{},,,duty-free,1,,4.65903680968437,,,,,active
+sin-jewel-hedge-maze,Hedge Maze,,SIN-JEWEL,SIN,Shopping,Retail,Singapore's largest hedge maze,,{},,,duty-free,1,,4.954270260278166,,,,,active
+sin-jewel-manulife-sky-nets,Manulife Sky Nets,,SIN-JEWEL,SIN,Shopping,Retail,Walking and bouncing nets suspended in the air,,{},,,duty-free,1,,4.210145999302101,,,,,active
+sin-jewel-mirror-maze,Mirror Maze,,SIN-JEWEL,SIN,Shopping,Retail,Immersive mirror maze experience,,{},,,duty-free,1,,4.677485039881322,,,,,active
+sin-jewel-rain-vortex,Rain Vortex,,SIN-JEWEL,SIN,Shopping,Retail,The world's tallest indoor waterfall,,{},,,duty-free,1,,4.322283362101969,,,,,active
+sin-jewel-shiseido-forest-valley,Shiseido Forest Valley,,SIN-JEWEL,SIN,Shopping,Retail,Lush indoor forest with walking trails,,{},,,duty-free,1,,4.293979371280825,,,,,active
+sin-jewel-changi-experience-studio,Changi Experience Studio,,SIN-JEWEL,SIN,Shopping,Retail,Interactive digital attraction about Changi Airport,,{},,,duty-free,1,,4.4419318925964495,,,,,active
+sin-jewel-social-tree,Social Tree,,SIN-JEWEL,SIN,Shopping,Retail,Interactive installation for photo sharing,,{},,,duty-free,1,,4.306546622933656,,,,,active
+sin-jewel-bengawan-solo,Bengawan Solo,,SIN-JEWEL,SIN,Shopping,Retail,Traditional Singaporean cakes and kueh,,{},,,duty-free,1,,4.210587387298272,,,,,active
+sin-jewel-tiger-street-lab,Tiger Street Lab,,SIN-JEWEL,SIN,Shopping,Retail,Craft beer and local fare,,{},,,duty-free,1,,4.977313817307449,,,,,active
+sin-jewel-din-tai-fung,Din Tai Fung,,SIN-JEWEL,SIN,Shopping,Retail,Renowned Taiwanese restaurant famous for xiaolongbao,,{},,,duty-free,1,,4.223998065368016,,,,,active
+sin-jewel-koi-th,Koi Thé,,SIN-JEWEL,SIN,Shopping,Retail,Premium Taiwanese bubble tea,,{},,,duty-free,1,,4.466018283816611,,,,,active
+sin-jewel-song-fa-bak-kut-teh,Song Fa Bak Kut Teh,,SIN-JEWEL,SIN,Shopping,Retail,Award-winning pork rib soup,,{},,,duty-free,1,,4.231712038298237,,,,,active
+sin-jewel-travelex,Travelex,,SIN-JEWEL,SIN,Services,Currency Exchange,Global foreign exchange services,,{},,,explore,1,,4.848822305593434,,,,,active
+sin-jewel-uob-currency-exchange,UOB Currency Exchange,,SIN-JEWEL,SIN,Services,Banking,Competitive rates for currency exchange,,{},,,explore,1,,4.865846067531425,,,,,active
+sin-jewel-telecommunications-kiosk,Telecommunications Kiosk,,SIN-JEWEL,SIN,Shopping,Retail,SIM cards and mobile services,,{},,,duty-free,1,,4.934307208187866,,,,,active
+sin-jewel-trs-tax-refund,TRS Tax Refund,,SIN-JEWEL,SIN,Shopping,Retail,Tourist refund scheme counter,,{},,,duty-free,1,,4.429270431112658,,,,,active
+sin-jewel-spa-express,Spa Express,,SIN-JEWEL,SIN,Shopping,Retail,Quick massage and spa treatments,,{},,,duty-free,1,,4.569414147668867,,,,,active
+sin-jewel-kinokuniya,Kinokuniya,,SIN-JEWEL,SIN,Shopping,Retail,Comprehensive Japanese bookstore,,{},,,duty-free,1,,4.05289589691416,,,,,active
+sin-jewel-zara,Zara,,SIN-JEWEL,SIN,Shopping,Retail,Spanish fast fashion retailer,,{},,,duty-free,1,,4.716605802642347,,,,,active
+sin-jewel-irvins-salted-egg-1,Irvins Salted Egg,,SIN-JEWEL,SIN,Food & Beverage,Snacks,Popular salted egg fish skin and chips,,{},,,quick-bites,3,,4.580356857935774,,,,,active
+sin-jewel-eu-yan-sang,Eu Yan Sang,,SIN-JEWEL,SIN,Shopping,Retail,Traditional Chinese medicine,,{},,,duty-free,1,,4.928606487039419,,,,,active
+sin-jewel-muji,Muji,,SIN-JEWEL,SIN,Shopping,Retail,Minimalist Japanese home goods,,{},,,duty-free,1,,4.120531011344167,,,,,active

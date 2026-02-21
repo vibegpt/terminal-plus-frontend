@@ -1,0 +1,90 @@
+[
+  {
+    "name": "iStudio",
+    "slug": "istudio",
+    "airport_code": "SIN",
+    "terminal": "T1 T2 T3",
+    "terminals": ["T1", "T2", "T3"],
+    "location": "Multiple Locations",
+    "vibe_tags": ["Shop"],
+    "transit_only": true,
+    "access_in_transit": true
+  },
+  {
+    "name": "The Cocoa Trees",
+    "slug": "the-cocoa-trees",
+    "airport_code": "SIN",
+    "terminal": "T1 T2 T3",
+    "terminals": ["T1", "T2", "T3"],
+    "location": "Multiple Locations",
+    "vibe_tags": ["Shop"],
+    "transit_only": true,
+    "access_in_transit": true
+  },
+  {
+    "name": "Discover Singapore",
+    "slug": "discover-singapore",
+    "airport_code": "SIN",
+    "terminal": "T1 T2 T3",
+    "terminals": ["T1", "T2", "T3"],
+    "location": "Multiple Locations",
+    "vibe_tags": ["Shop"],
+    "transit_only": true,
+    "access_in_transit": true
+  },
+  {
+    "name": "The Shilla Duty Free",
+    "slug": "the-shilla-duty-free",
+    "airport_code": "SIN",
+    "terminal": "T1 T2 T3",
+    "terminals": ["T1", "T2", "T3"],
+    "location": "Multiple Locations",
+    "vibe_tags": ["Shop"],
+    "transit_only": true,
+    "access_in_transit": true
+  },
+  {
+    "name": "DFS Singapore",
+    "slug": "dfs-singapore",
+    "airport_code": "SIN",
+    "terminal": "T1 T2 T3",
+    "terminals": ["T1", "T2", "T3"],
+    "location": "Multiple Locations",
+    "vibe_tags": ["Shop"],
+    "transit_only": true,
+    "access_in_transit": true
+  },
+  {
+    "name": "WHSmith",
+    "slug": "whsmith",
+    "airport_code": "SIN",
+    "terminal": "T1 T2 T3",
+    "terminals": ["T1", "T2", "T3"],
+    "location": "Multiple Locations",
+    "vibe_tags": ["Shop", "Quick"],
+    "transit_only": true,
+    "access_in_transit": true
+  },
+  {
+    "name": "7-Eleven",
+    "slug": "7-eleven",
+    "airport_code": "SIN",
+    "terminal": "T1 T2 T3",
+    "terminals": ["T1", "T2", "T3"],
+    "location": "Multiple Locations",
+    "vibe_tags": ["Quick", "Shop"],
+    "transit_only": true,
+    "access_in_transit": true
+  },
+  {
+    "name": "Lacoste",
+    "slug": "lacoste",
+    "airport_code": "SIN",
+    "terminal": "T1 T2 T3",
+    "terminals": ["T1", "T2", "T3"],
+    "location": "Multiple Locations",
+    "vibe_tags": ["Shop"],
+    "transit_only": true,
+    "access_in_transit": true
+  }
+] 

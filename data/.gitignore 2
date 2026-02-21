@@ -1,0 +1,13 @@
+# Keep raw data but exclude processed data
+enriched-amenities.json
+processed-*.json
+output-*.json
+
+# Exclude large data files
+*.csv
+*.xlsx
+*.xls
+
+# Keep sample data
+!sample-*.json
+!example-*.json 

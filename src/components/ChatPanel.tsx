@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, MapPin, Clock } from 'lucide-react';
+import { X, Send, MapPin, Clock, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
 import { useChat } from '../hooks/useChat';
+import { useVoice } from '../hooks/useVoice';
 import type { ChatMessage } from '../services/chatService';
 import type { AmenityDetail } from '../lib/supabase';
 
@@ -13,12 +14,18 @@ interface ChatPanelProps {
 }
 
 export default function ChatPanel({ open, onClose, onNewMessage }: ChatPanelProps) {
-  const { messages, loading, error, sendMessage } = useChat();
+  const { messages, loading, error, sendMessage, context, updateContext } = useChat();
   const [input, setInput] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const prevMsgCount = useRef(messages.length);
+
+  const voice = useVoice({
+    onTranscript: (text) => sendMessage(text),
+  });
+
+  const isListening = voice.status === 'listening';
 
   // Auto-scroll on new messages
   useEffect(() => {
@@ -38,6 +45,21 @@ export default function ChatPanel({ open, onClose, onNewMessage }: ChatPanelProp
     }
   }, [open]);
 
+  // Stop TTS when panel closes
+  useEffect(() => {
+    if (!open) voice.stopSpeaking();
+  }, [open]);
+
+  // Auto-TTS: speak assistant reply when last user message was voice
+  useEffect(() => {
+    if (!voice.ttsEnabled || messages.length < 2) return;
+    const lastMsg = messages[messages.length - 1];
+    const prevMsg = messages[messages.length - 2];
+    if (false) {
+      voice.speak(lastMsg.content);
+    }
+  }, [messages, voice.ttsEnabled]);
+
   const handleSend = () => {
     const text = input.trim();
     if (!text || loading) return;
@@ -49,6 +71,14 @@ export default function ChatPanel({ open, onClose, onNewMessage }: ChatPanelProp
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
+    }
+  };
+
+  const handleMicToggle = () => {
+    if (isListening) {
+      voice.stopListening();
+    } else {
+      voice.startListening();
     }
   };
 
@@ -103,12 +133,17 @@ export default function ChatPanel({ open, onClose, onNewMessage }: ChatPanelProp
                 </div>
               )}
 
-              {messages.map((msg) => (
+              {messages.map((msg, idx) => (
                 <MessageBubble
                   key={msg.id}
                   message={msg}
                   onAmenityTap={handleAmenityTap}
                   onFollowUp={sendMessage}
+                  isSpeaking={
+                    voice.status === 'speaking' &&
+                    msg.role === 'assistant' &&
+                    idx === messages.length - 1
+                  }
                 />
               ))}
 
@@ -123,20 +158,56 @@ export default function ChatPanel({ open, onClose, onNewMessage }: ChatPanelProp
 
             {/* Input */}
             <div className="flex-shrink-0 border-t border-gray-200 dark:border-slate-700 px-4 py-3 pb-[env(safe-area-inset-bottom,12px)]">
+              {/* TTS toggle */}
+              {voice.supported && (
+                <button
+                  onClick={() => voice.setTtsEnabled(!voice.ttsEnabled)}
+                  className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-slate-400 mb-2 hover:text-gray-700 dark:hover:text-slate-300 transition-colors"
+                >
+                  {voice.ttsEnabled ? (
+                    <Volume2 className="w-3.5 h-3.5" />
+                  ) : (
+                    <VolumeX className="w-3.5 h-3.5" />
+                  )}
+                  Voice replies {voice.ttsEnabled ? 'on' : 'off'}
+                </button>
+              )}
+
               <div className="flex items-center gap-2">
+                {/* Mic button */}
+                {voice.supported && (
+                  <button
+                    onClick={handleMicToggle}
+                    disabled={loading || voice.status === 'processing'}
+                    className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all active:scale-95 disabled:opacity-40 ${
+                      isListening
+                        ? 'bg-red-500 text-white animate-pulse'
+                        : 'bg-gray-200 dark:bg-slate-700 text-gray-600 dark:text-slate-300 hover:bg-gray-300 dark:hover:bg-slate-600'
+                    }`}
+                    aria-label={isListening ? 'Stop listening' : 'Start voice input'}
+                  >
+                    {isListening ? (
+                      <MicOff className="w-4 h-4" />
+                    ) : (
+                      <Mic className="w-4 h-4" />
+                    )}
+                  </button>
+                )}
+
                 <input
                   ref={inputRef}
                   type="text"
-                  value={input}
+                  value={isListening ? voice.interimTranscript : input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask about Changi..."
-                  disabled={loading}
+                  placeholder={isListening ? 'Listening...' : 'Ask about Changi...'}
+                  disabled={loading || isListening}
+                  readOnly={isListening}
                   className="flex-1 rounded-full bg-gray-100 dark:bg-slate-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
                 />
                 <button
                   onClick={handleSend}
-                  disabled={!input.trim() || loading}
+                  disabled={!input.trim() || loading || isListening}
                   className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center disabled:opacity-40 hover:bg-blue-700 active:scale-95 transition-all"
                   aria-label="Send message"
                 >
@@ -157,10 +228,12 @@ function MessageBubble({
   message,
   onAmenityTap,
   onFollowUp,
+  isSpeaking,
 }: {
   message: ChatMessage;
   onAmenityTap: (slug: string) => void;
   onFollowUp: (text: string) => void;
+  isSpeaking?: boolean;
 }) {
   const isUser = message.role === 'user';
 
@@ -176,6 +249,14 @@ function MessageBubble({
         >
           {message.content}
         </div>
+
+        {/* Speaking indicator */}
+        {isSpeaking && (
+          <div className="flex items-center gap-1 mt-1 text-[11px] text-blue-500 dark:text-blue-400">
+            <Volume2 className="w-3 h-3" />
+            Speaking...
+          </div>
+        )}
 
         {/* Amenity cards */}
         {!isUser && message.amenities && message.amenities.length > 0 && (
@@ -215,7 +296,7 @@ function AmenityMiniCard({
   const name = amenity.name || 'Unknown';
   const terminal = amenity.terminal_code || '';
   const hours = amenity.opening_hours;
-  const imageUrl = amenity.image_url;
+  const imageUrl = amenity.logo_url;
 
   // Simple terminal label: "SIN-T3" → "T3"
   const terminalLabel = terminal.replace('SIN-', '');

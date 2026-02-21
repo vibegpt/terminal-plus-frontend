@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Birds in Flight",
+    "slug": "birds-in-flight",
+    "terminal_code": "SIN",
+    "location": "T3 Transit - Level 2",
+    "vibe_tags": ["Explore"],
+    "description": "A unique sculpture symbolising hope, freedom and infinite quest.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Chandelier",
+    "slug": "chandelier",
+    "terminal_code": "SIN",
+    "location": "T4 Transit - Level 1",
+    "vibe_tags": ["Explore"],
+    "description": "A 16m-tall play structure that allows both the young and young-at-heart to have fun.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Coming Home",
+    "slug": "coming-home",
+    "terminal_code": "SIN",
+    "location": "T3 Transit - Level 1",
+    "vibe_tags": ["Explore"],
+    "description": "An artist’s tribute to families.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Heritage Zone",
+    "slug": "heritage-zone",
+    "terminal_code": "SIN",
+    "location": "T4 Transit - Level 2",
+    "vibe_tags": ["Explore"],
+    "description": "A nostalgic zone giving a glimpse into the evolution of shophouse architecture.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Immersive Wall",
+    "slug": "immersive-wall",
+    "terminal_code": "SIN",
+    "location": "T4 Transit - Level 2",
+    "vibe_tags": ["Explore"],
+    "description": "A digital wall celebrating the beauty of travel.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Mother and Child",
+    "slug": "mother-and-child",
+    "terminal_code": "SIN",
+    "location": "T3 Transit - Level 2",
+    "vibe_tags": ["Explore"],
+    "description": "Abstract sculptures capturing the essence of maternal love.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Petalclouds",
+    "slug": "petalclouds",
+    "terminal_code": "SIN",
+    "location": "T4 Transit - Level 2",
+    "vibe_tags": ["Explore"],
+    "description": "A sculpture inspired by the unity of art, music and science.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Rhythm of Nature",
+    "slug": "rhythm-of-nature",
+    "terminal_code": "SIN",
+    "location": "T3 Transit - Level 1",
+    "vibe_tags": ["Explore"],
+    "description": "A hand-sculpted wall celebrating multiculturalism in Singapore.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Saga Seed",
+    "slug": "saga-seed",
+    "terminal_code": "SIN",
+    "location": "T3 Transit - Level 1",
+    "vibe_tags": ["Explore"],
+    "description": "A sculpture representing growth and strength.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Spirit of Man (Success and Achievement)",
+    "slug": "spirit-of-man",
+    "terminal_code": "SIN",
+    "location": "T1 Transit - Level 2",
+    "vibe_tags": ["Explore"],
+    "description": "A pair of majestic sculptures collectively symbolising success and achievement.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Steel in Bloom",
+    "slug": "steel-in-bloom",
+    "terminal_code": "SIN",
+    "location": "T4 Transit - Level 2",
+    "vibe_tags": ["Explore"],
+    "description": "A 6m tall steel centrepiece featuring intricate botanical motifs.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "The Memory of Lived Space",
+    "slug": "memory-of-lived-space",
+    "terminal_code": "SIN",
+    "location": "T3 Transit - Level 2",
+    "vibe_tags": ["Explore"],
+    "description": "An art installation exploring the play of light and shadow.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Travelling Family",
+    "slug": "travelling-family",
+    "terminal_code": "SIN",
+    "location": "T4 Transit - Level 2",
+    "vibe_tags": ["Explore"],
+    "description": "A sculpture capturing the joy of family travel, perfect for a fun photo moment.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  },
+  {
+    "name": "Vessel",
+    "slug": "vessel",
+    "terminal_code": "SIN",
+    "location": "T3 Transit - Level 2",
+    "vibe_tags": ["Explore"],
+    "description": "Stoneware sculptures depicting Southeast Asia’s culinary and performance heritage.",
+    "open_hours": "24 Hours",
+    "context_visibility": ["transit"]
+  }
+] 

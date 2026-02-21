@@ -1,0 +1,26 @@
+[
+  {
+    "name": "SYD T2 Sample Amenity",
+    "terminal_code": "SYD-T2",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "description": "Sample amenity for SYD Terminal 2",
+    "location_description": "After Security",
+    "opening_hours": {
+      "Monday-Sunday": "6am-10pm"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/default.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9399,
+      "lng": 151.1753
+    },
+    "price_tier": "$$",
+    "slug": "syd-t2-sample-amenity"
+  }
+] 

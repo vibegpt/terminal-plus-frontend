@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  terminal-plus:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+      args:
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+        VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
+        VITE_SENTRY_DSN: ${VITE_SENTRY_DSN}
+        VITE_APP_ENV: production
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.terminal-plus.rule=Host(`terminal-plus.local`)"
+      - "traefik.http.services.terminal-plus.loadbalancer.server.port=80"

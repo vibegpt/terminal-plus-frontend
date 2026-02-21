@@ -1,0 +1,100 @@
+/* Add this to your global CSS or Tailwind config */
+/* Hide scrollbar for all browsers */
+
+/* Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* IE and Edge */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+}
+
+/* Firefox */
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
+/* Ensure smooth scroll snap on mobile */
+@supports (scroll-snap-type: x mandatory) {
+  .snap-x {
+    scroll-snap-type: x mandatory;
+  }
+  
+  .snap-start {
+    scroll-snap-align: start;
+  }
+}
+
+/* Improve touch scrolling on iOS */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent text selection while scrolling */
+.collection-card {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 2.5 Card Visibility Pattern - Optimized for mobile screens */
+.collections-container {
+  /* On mobile (320px+): Show ~2.5 cards (160px each + gaps) */
+  width: 100%;
+  max-width: 100vw;
+}
+
+/* Collection card sizing for optimal 2.5 card visibility */
+@media (max-width: 640px) {
+  .collection-card-mobile {
+    width: 140px; /* Slightly smaller for mobile */
+    min-width: 140px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .collection-card-tablet {
+    width: 160px;
+    min-width: 160px;
+  }
+}
+
+@media (min-width: 769px) {
+  .collection-card-desktop {
+    width: 176px; /* Original w-44 size */
+    min-width: 176px;
+  }
+}
+
+/* Enhanced scroll snap for collection cards */
+.collections-scroll-container {
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+}
+
+.collection-card-snap {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+/* Fade edges effect for better scroll indication */
+.collections-scroll-fade::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.8), transparent);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Momentum scrolling optimization for iOS */
+.collections-scroll-container {
+  -webkit-overflow-scrolling: touch;
+  scroll-padding: 16px; /* Matches pl-4 */
+}
