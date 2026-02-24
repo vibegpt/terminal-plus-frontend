@@ -310,7 +310,7 @@ export const CollectionDetailPage: React.FC = () => {
             return (
               <button
                 key={amenity.id}
-                onClick={() => navigate(`/amenity/${amenity.amenity_slug}`, { state: { vibe: vibeSlug } })}
+                onClick={() => amenity.amenity_slug && navigate(`/amenity/${amenity.amenity_slug}`, { state: { vibe: vibeSlug } })}
                 className={`w-full flex items-center gap-3 p-3.5 bg-[#13131a] rounded-xl text-left transition-colors hover:bg-white/5 active:bg-white/10 ${
                   !openStatus.open ? 'opacity-60' : ''
                 }`}

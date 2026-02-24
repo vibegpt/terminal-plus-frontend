@@ -336,7 +336,7 @@ const VibesFeedMVP: React.FC = () => {
         <div className="flex gap-3 overflow-hidden">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="flex-shrink-0">
-              <div className="h-32 w-36 bg-white/10 rounded-2xl animate-pulse" />
+              <div className="w-36 bg-white/10 rounded-2xl animate-pulse" style={{ minHeight: '180px' }} />
             </div>
           ))}
         </div>
@@ -529,7 +529,10 @@ const VibesFeedMVP: React.FC = () => {
                       maxWidth: '160px' // Maximum card width for better mobile fit
                     }}
                   >
-                    <div className="relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer group">
+                    <div
+                      className="relative rounded-2xl overflow-hidden cursor-pointer group"
+                      style={{ minHeight: '180px' }}
+                    >
                       {collection.hero_image_url ? (
                         <>
                           <img
@@ -537,7 +540,7 @@ const VibesFeedMVP: React.FC = () => {
                             alt={collection.name}
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                         </>
                       ) : (
                         <div className={`absolute inset-0 bg-gradient-to-br ${vibeConfig.gradient}`} />
@@ -548,12 +551,10 @@ const VibesFeedMVP: React.FC = () => {
                         </span>
                       )}
                       <div className="absolute bottom-0 left-0 right-0 p-3">
-                        <p className="text-white font-semibold text-sm leading-tight">{collection.name}</p>
+                        <p className="text-white font-bold text-base leading-tight">{collection.name}</p>
                         <p className="text-white/60 text-xs mt-0.5">{Math.min(collection.spots_total || 7, 7)} spots</p>
                       </div>
                     </div>
-
-
                   </button>
                 ))}
 
@@ -568,7 +569,7 @@ const VibesFeedMVP: React.FC = () => {
                       maxWidth: '180px'
                     }}
                   >
-                    <div className="h-32 rounded-2xl border-2 border-dashed border-white/20 flex flex-col items-center justify-center hover:border-blue-400 hover:bg-white/5 transition-all">
+                    <div className="rounded-2xl border-2 border-dashed border-white/20 flex flex-col items-center justify-center hover:border-blue-400 hover:bg-white/5 transition-all" style={{ minHeight: '180px' }}>
                       <span className="text-2xl mb-1">+</span>
                       <span className="text-sm text-gray-400">See all</span>
                       <span className="text-xs text-gray-500 mt-1">{section.collections.length} total</span>
