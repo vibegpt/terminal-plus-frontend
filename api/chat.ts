@@ -461,7 +461,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const extractedContext: Partial<ChatContext> = {}
     if (parsed.extracted_context) {
       if (parsed.extracted_context.terminal) extractedContext.terminal = parsed.extracted_context.terminal
-      if (parsed.extracted_context.available_minutes) extractedContext.availableMinutes = parsed.extracted_context.available_minutes
+      if (parsed.extracted_context.availableMinutes) extractedContext.availableMinutes = parsed.extracted_context.availableMinutes
       if (parsed.extracted_context.gate) extractedContext.gate = parsed.extracted_context.gate
     }
     // Also surface what our own extractor found
