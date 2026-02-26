@@ -1,66 +1,56 @@
 // src/pages/HomePage.tsx
-// MVP Vibe Feed - Queries amenity_detail directly by vibe_tags
-// No collections table, no junction tables, no middleware services
+// MVP Vibe Feed - Photo cards with cinematic overlay treatment
+// Mobile-first: 176×224px cards (4:5 ratio), 2.3 visible at 390px viewport
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Clock, ChevronRight } from 'lucide-react';
+import { MapPin, ChevronRight, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { smart7Select } from '@/utils/smart7Select';
 
 // ── Vibe Configuration ──────────────────────────────────────────────
 const VIBES = [
-  { key: 'Comfort', icon: '🛏️', label: 'Comfort', desc: 'Rest, recharge & recover', gradient: 'from-violet-500 to-purple-600', bg: 'bg-violet-50' },
-  { key: 'Chill', icon: '😌', label: 'Chill', desc: 'Peaceful spots to unwind', gradient: 'from-sky-400 to-blue-500', bg: 'bg-sky-50' },
-  { key: 'Refuel', icon: '🍜', label: 'Refuel', desc: 'Food & drinks', gradient: 'from-orange-400 to-red-500', bg: 'bg-orange-50' },
-  { key: 'Explore', icon: '🧭', label: 'Explore', desc: 'Discover & experience', gradient: 'from-emerald-400 to-teal-500', bg: 'bg-emerald-50' },
-  { key: 'Work', icon: '💻', label: 'Work', desc: 'Get things done', gradient: 'from-slate-500 to-gray-700', bg: 'bg-slate-50' },
-  { key: 'Shop', icon: '🛍️', label: 'Shop', desc: 'Retail & duty free', gradient: 'from-pink-400 to-rose-500', bg: 'bg-pink-50' },
-  { key: 'Quick', icon: '⚡', label: 'Quick', desc: 'Fast & essential', gradient: 'from-amber-400 to-yellow-500', bg: 'bg-amber-50' },
+  { key: 'Comfort',  icon: '🛏️', label: 'Comfort',  desc: 'Rest & recharge',      color: '#7C3AED' },
+  { key: 'Chill',    icon: '😌', label: 'Chill',    desc: 'Peaceful spots',        color: '#0284C7' },
+  { key: 'Refuel',   icon: '🍜', label: 'Refuel',   desc: 'Food & drinks',         color: '#EA580C' },
+  { key: 'Explore',  icon: '🧭', label: 'Explore',  desc: 'Discover Changi',       color: '#059669' },
+  { key: 'Work',     icon: '💻', label: 'Work',     desc: 'Get things done',       color: '#475569' },
+  { key: 'Shop',     icon: '🛍️', label: 'Shop',     desc: 'Retail & duty free',    color: '#DB2777' },
+  { key: 'Quick',    icon: '⚡', label: 'Quick',    desc: 'Fast & essential',      color: '#D97706' },
 ] as const;
 
-// Time-based vibe ordering
-function getVibeOrder(): string[] {
-  const hour = new Date().getHours();
-  if (hour >= 5 && hour < 9)   return ['Comfort', 'Refuel', 'Quick', 'Chill', 'Work', 'Explore', 'Shop'];
-  if (hour >= 9 && hour < 12)  return ['Refuel', 'Work', 'Quick', 'Explore', 'Shop', 'Chill', 'Comfort'];
-  if (hour >= 12 && hour < 14) return ['Refuel', 'Quick', 'Chill', 'Explore', 'Shop', 'Work', 'Comfort'];
-  if (hour >= 14 && hour < 18) return ['Explore', 'Shop', 'Refuel', 'Chill', 'Quick', 'Work', 'Comfort'];
-  if (hour >= 18 && hour < 22) return ['Refuel', 'Shop', 'Chill', 'Explore', 'Comfort', 'Quick', 'Work'];
-  return ['Comfort', 'Chill', 'Quick', 'Refuel', 'Explore', 'Shop', 'Work']; // Late night
+type VibeKey = typeof VIBES[number]['key'];
+
+function getVibeOrder(): VibeKey[] {
+  const h = new Date().getHours();
+  if (h >= 5  && h < 9)  return ['Comfort','Refuel','Quick','Chill','Work','Explore','Shop'];
+  if (h >= 9  && h < 12) return ['Refuel','Work','Quick','Explore','Shop','Chill','Comfort'];
+  if (h >= 12 && h < 14) return ['Refuel','Quick','Chill','Explore','Shop','Work','Comfort'];
+  if (h >= 14 && h < 18) return ['Explore','Shop','Refuel','Chill','Quick','Work','Comfort'];
+  if (h >= 18 && h < 22) return ['Refuel','Shop','Chill','Explore','Comfort','Quick','Work'];
+  return ['Comfort','Chill','Quick','Refuel','Explore','Shop','Work'];
 }
 
-function getGreeting(): string {
-  const hour = new Date().getHours();
-  if (hour >= 5 && hour < 12)  return 'Good morning ✈️';
-  if (hour >= 12 && hour < 17) return 'Good afternoon ✈️';
-  if (hour >= 17 && hour < 22) return 'Good evening ✈️';
-  return 'Late night? We got you 🌙';
+function getTimeLabel(): string {
+  const h = new Date().getHours();
+  if (h >= 5  && h < 12) return 'Morning picks';
+  if (h >= 12 && h < 17) return 'Afternoon picks';
+  if (h >= 17 && h < 22) return 'Evening picks';
+  return 'Late night picks';
 }
 
-// Check if amenity is currently open
 function isOpenNow(hours: string): boolean {
-  if (!hours) return true;
-  if (hours === '24/7') return true;
-  
-  const match = hours.match(/(\d{2}):(\d{2})\s*[-–]\s*(\d{2}):(\d{2})/);
-  if (!match) return true; // Can't parse, assume open
-  
-  const [, openH, openM, closeH, closeM] = match.map(Number);
-  const now = new Date();
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
-  const openMinutes = openH * 60 + openM;
-  let closeMinutes = closeH * 60 + closeM;
-  
-  // Handle overnight hours (e.g., 06:00-01:00)
-  if (closeMinutes <= openMinutes) {
-    closeMinutes += 24 * 60;
-    if (currentMinutes < openMinutes) {
-      return currentMinutes + 24 * 60 < closeMinutes;
-    }
+  if (!hours || hours === '24/7') return true;
+  const m = hours.match(/(\d{1,2}):(\d{2})\s*[-–]\s*(\d{1,2}):(\d{2})/);
+  if (!m) return true;
+  const [, oH, oM, cH, cM] = m.map(Number);
+  const now = new Date().getHours() * 60 + new Date().getMinutes();
+  const open = oH * 60 + oM;
+  let close = cH * 60 + cM;
+  if (close <= open) {
+    close += 1440;
+    if (now < open) return now + 1440 < close;
   }
-  
-  return currentMinutes >= openMinutes && currentMinutes < closeMinutes;
+  return now >= open && now < close;
 }
 
 // ── Types ──────────────────────────────────────────────────────────
@@ -76,92 +66,227 @@ interface Amenity {
   logo_url: string;
 }
 
-interface VibeSection {
-  vibe: typeof VIBES[number];
-  amenities: Amenity[];
-}
-
-// ── Terminal Display Names ──────────────────────────────────────────
 const TERMINAL_SHORT: Record<string, string> = {
-  'SIN-T1': 'T1',
-  'SIN-T2': 'T2',
-  'SIN-T3': 'T3',
-  'SIN-T4': 'T4',
-  'SIN-JEWEL': 'Jewel',
+  'SIN-T1': 'T1', 'SIN-T2': 'T2', 'SIN-T3': 'T3',
+  'SIN-T4': 'T4', 'SIN-JEWEL': 'Jewel',
 };
 
-// ── Component ──────────────────────────────────────────────────────
+// ── Fallback gradient per vibe (shows when image is missing) ───────
+const VIBE_FALLBACK: Record<string, string> = {
+  Comfort:  'linear-gradient(160deg, #4C1D95 0%, #7C3AED 100%)',
+  Chill:    'linear-gradient(160deg, #0C4A6E 0%, #0284C7 100%)',
+  Refuel:   'linear-gradient(160deg, #7C2D12 0%, #EA580C 100%)',
+  Explore:  'linear-gradient(160deg, #064E3B 0%, #059669 100%)',
+  Work:     'linear-gradient(160deg, #1E293B 0%, #475569 100%)',
+  Shop:     'linear-gradient(160deg, #831843 0%, #DB2777 100%)',
+  Quick:    'linear-gradient(160deg, #78350F 0%, #D97706 100%)',
+};
+
+// ── AmenityCard ────────────────────────────────────────────────────
+const AmenityCard: React.FC<{
+  amenity: Amenity;
+  vibeKey: string;
+  onClick: () => void;
+}> = ({ amenity, vibeKey, onClick }) => {
+  const [imgError, setImgError] = useState(false);
+  const open = isOpenNow(amenity.opening_hours);
+  const term = TERMINAL_SHORT[amenity.terminal_code] || amenity.terminal_code;
+  const hasPhoto = !!amenity.logo_url && !imgError;
+
+  return (
+    <button
+      onClick={onClick}
+      className="flex-shrink-0 text-left group"
+      style={{ width: '176px' }}
+    >
+      {/* Card — 176×224px, 4:5 ratio */}
+      <div
+        className="relative rounded-2xl overflow-hidden active:scale-[0.97] transition-transform duration-150"
+        style={{
+          width: '176px',
+          height: '224px',
+          background: hasPhoto ? undefined : VIBE_FALLBACK[vibeKey],
+        }}
+      >
+        {/* Hero image */}
+        {hasPhoto && (
+          <img
+            src={amenity.logo_url}
+            alt={amenity.name}
+            onError={() => setImgError(true)}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+          />
+        )}
+
+        {/* Cinematic gradient overlay:
+            transparent at top → deep black at bottom
+            Gives image maximum breathing room while keeping text readable */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.08) 40%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.88) 100%)',
+          }}
+        />
+
+        {/* Top badges row */}
+        <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+          {/* Terminal pill */}
+          <span
+            className="text-[10px] font-semibold text-white px-2 py-0.5 rounded-full"
+            style={{ background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(8px)' }}
+          >
+            {term}
+          </span>
+
+          {/* Closed badge — only shown if closed */}
+          {!open && (
+            <span
+              className="text-[10px] font-medium text-white/80 px-2 py-0.5 rounded-full"
+              style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(8px)' }}
+            >
+              Closed
+            </span>
+          )}
+        </div>
+
+        {/* Bottom content */}
+        <div className="absolute bottom-0 left-0 right-0 p-3.5">
+          <h3 className="font-semibold text-white text-[13px] leading-snug line-clamp-2 mb-1">
+            {amenity.name}
+          </h3>
+          <div className="flex items-center gap-2">
+            {amenity.price_level && amenity.price_level !== 'unknown' && (
+              <span className="text-[11px] text-white/60 font-medium">
+                {amenity.price_level}
+              </span>
+            )}
+            {amenity.opening_hours === '24/7' && (
+              <span className="text-[11px] text-white/60">Open 24/7</span>
+            )}
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+};
+
+// ── VibeSection ────────────────────────────────────────────────────
+const VibeSection: React.FC<{
+  vibe: typeof VIBES[number];
+  amenities: Amenity[];
+  onAmenityClick: (slug: string) => void;
+  onSeeAll: () => void;
+}> = ({ vibe, amenities, onAmenityClick, onSeeAll }) => {
+  if (amenities.length === 0) return null;
+
+  return (
+    <section className="py-4">
+      {/* Section header */}
+      <div className="px-4 flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2.5">
+          <span className="text-xl">{vibe.icon}</span>
+          <div>
+            <h2 className="text-[15px] font-bold text-white leading-none">{vibe.label}</h2>
+            <p className="text-[11px] text-white/45 mt-0.5">{vibe.desc}</p>
+          </div>
+        </div>
+        <button
+          onClick={onSeeAll}
+          className="flex items-center gap-0.5 text-[12px] text-white/40 hover:text-white/70 transition-colors"
+        >
+          See all
+          <ChevronRight className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
+      {/* Horizontal scroll */}
+      <div className="relative">
+        <div
+          className="flex gap-3 overflow-x-auto px-4 pb-1 scrollbar-hide"
+          style={{ WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory' }}
+        >
+          {amenities.map(amenity => (
+            <div key={amenity.id} style={{ scrollSnapAlign: 'start' }}>
+              <AmenityCard
+                amenity={amenity}
+                vibeKey={vibe.key}
+                onClick={() => onAmenityClick(amenity.amenity_slug)}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Right fade — signals scrollability */}
+        <div
+          className="absolute right-0 top-0 bottom-1 w-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to left, #0a0a0f, transparent)' }}
+        />
+      </div>
+    </section>
+  );
+};
+
+// ── HomePage ───────────────────────────────────────────────────────
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
-  const [sections, setSections] = useState<VibeSection[]>([]);
+  const [sections, setSections] = useState<{ vibe: typeof VIBES[number]; amenities: Amenity[] }[]>([]);
   const [loading, setLoading] = useState(true);
-  const [terminal, setTerminal] = useState('all'); // 'all' or specific terminal
-  const [showTerminalPicker, setShowTerminalPicker] = useState(false);
+  const [terminal, setTerminal] = useState('all');
+  const [showPicker, setShowPicker] = useState(false);
 
   const loadVibes = useCallback(async () => {
     setLoading(true);
     const vibeOrder = getVibeOrder();
-    const orderedVibes = vibeOrder.map(key => VIBES.find(v => v.key === key)!);
-
-    const results: VibeSection[] = [];
+    const orderedVibes = vibeOrder.map(k => VIBES.find(v => v.key === k)!);
+    const results = [];
 
     for (const vibe of orderedVibes) {
-      let query = supabase
+      let q = supabase
         .from('amenity_detail')
         .select('id, amenity_slug, name, description, vibe_tags, terminal_code, opening_hours, price_level, logo_url')
         .eq('airport_code', 'SIN')
         .ilike('vibe_tags', `%${vibe.key}%`)
-        .limit(50); // Pool of 50, deduplicate to 7
+        .not('logo_url', 'is', null)  // Prefer amenities with photos
+        .limit(21);
 
-      if (terminal !== 'all') {
-        query = query.eq('terminal_code', terminal);
-      }
+      if (terminal !== 'all') q = q.eq('terminal_code', terminal);
 
-      const { data, error } = await query;
+      const { data } = await q;
 
-      if (error) {
-        console.error(`Error loading ${vibe.key}:`, error);
-        results.push({ vibe, amenities: [] });
-        continue;
-      }
-
-      const userTerminal = sessionStorage.getItem('tp_user_terminal') || null;
-      const smart7 = terminal !== 'all'
-        ? (data || []).sort((a, b) => {
-            const aOpen = isOpenNow(a.opening_hours);
-            const bOpen = isOpenNow(b.opening_hours);
-            if (aOpen !== bOpen) return aOpen ? -1 : 1;
-            return a.name.localeCompare(b.name);
-          }).slice(0, 7)
-        : smart7Select(data || [], userTerminal, 7);
-
-      results.push({ vibe, amenities: smart7 });
+      // Sort: open first, then shuffle within each group
+      const shuffled = (data || []).sort(() => Math.random() - 0.5);
+      const open   = shuffled.filter(a => isOpenNow(a.opening_hours));
+      const closed = shuffled.filter(a => !isOpenNow(a.opening_hours));
+      results.push({ vibe, amenities: [...open, ...closed].slice(0, 9) });
     }
 
     setSections(results);
     setLoading(false);
   }, [terminal]);
 
-  useEffect(() => {
-    loadVibes();
-  }, [loadVibes]);
+  useEffect(() => { loadVibes(); }, [loadVibes]);
 
-  const terminalLabel = terminal === 'all' ? 'All Terminals' : TERMINAL_SHORT[terminal] || terminal;
+  const termLabel = terminal === 'all' ? 'All Terminals' : (TERMINAL_SHORT[terminal] || terminal);
 
-  // ── Loading State ──────────────────────────────────────────────
+  // ── Skeleton ─────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen pb-24" style={{ background: '#0a0a0f' }}>
         <div className="px-4 pt-12 pb-4">
-          <div className="h-8 w-48 bg-gray-200 rounded-lg animate-pulse mb-2" />
-          <div className="h-5 w-32 bg-gray-100 rounded animate-pulse" />
+          <div className="h-6 w-28 rounded-lg animate-pulse mb-1.5" style={{ background: '#1a1a25' }} />
+          <div className="h-4 w-20 rounded animate-pulse" style={{ background: '#151520' }} />
         </div>
         {[1, 2, 3].map(i => (
-          <div key={i} className="px-4 py-6">
-            <div className="h-6 w-24 bg-gray-200 rounded animate-pulse mb-4" />
-            <div className="flex gap-3 overflow-hidden">
+          <div key={i} className="py-4 px-4">
+            <div className="h-5 w-20 rounded animate-pulse mb-3" style={{ background: '#1a1a25' }} />
+            <div className="flex gap-3">
               {[1, 2, 3].map(j => (
-                <div key={j} className="w-44 h-48 bg-gray-100 rounded-2xl animate-pulse flex-shrink-0" />
+                <div
+                  key={j}
+                  className="rounded-2xl animate-pulse flex-shrink-0"
+                  style={{ width: 176, height: 224, background: '#151520' }}
+                />
               ))}
             </div>
           </div>
@@ -170,46 +295,67 @@ export const HomePage: React.FC = () => {
     );
   }
 
-  // ── Main Render ──────────────────────────────────────────────────
+  // ── Render ────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-gray-50 pb-24">
+    <div className="min-h-screen pb-24" style={{ background: '#0a0a0f' }}>
+
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-        <div className="px-4 pt-3 pb-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">Terminal+</h1>
-              <p className="text-sm text-gray-500">{getGreeting()}</p>
-            </div>
-            
-            {/* Terminal Picker */}
+      <header
+        className="sticky top-0 z-50 px-4 pt-12 pb-3"
+        style={{ background: 'rgba(10,10,15,0.92)', backdropFilter: 'blur(12px)' }}
+      >
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-lg font-bold text-white tracking-tight">Terminal+</h1>
+            <p className="text-[11px] mt-0.5" style={{ color: 'rgba(255,255,255,0.38)' }}>
+              {getTimeLabel()} · Changi Airport
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {/* Search button */}
+            <button
+              onClick={() => navigate('/search')}
+              className="p-2 rounded-full transition-colors"
+              style={{ background: 'rgba(255,255,255,0.08)' }}
+            >
+              <Search className="w-4 h-4 text-white/70" />
+            </button>
+
+            {/* Terminal picker */}
             <div className="relative">
               <button
-                onClick={() => setShowTerminalPicker(!showTerminalPicker)}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-full text-sm font-medium text-gray-700 transition-colors"
+                onClick={() => setShowPicker(!showPicker)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium text-white/80 transition-colors"
+                style={{ background: 'rgba(255,255,255,0.08)' }}
               >
-                <MapPin className="w-3.5 h-3.5" />
-                <span>{terminalLabel}</span>
+                <MapPin className="w-3 h-3 text-white/60" />
+                {termLabel}
               </button>
-              
-              {showTerminalPicker && (
+
+              {showPicker && (
                 <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowTerminalPicker(false)} />
-                  <div className="absolute right-0 top-full mt-2 z-50 bg-white rounded-xl shadow-lg border border-gray-200 py-1 min-w-[160px]">
+                  <div className="fixed inset-0 z-40" onClick={() => setShowPicker(false)} />
+                  <div
+                    className="absolute right-0 top-full mt-2 z-50 rounded-xl py-1 min-w-[168px]"
+                    style={{ background: '#1a1a25', border: '1px solid rgba(255,255,255,0.08)' }}
+                  >
                     {[
-                      { value: 'all', label: 'All Terminals' },
-                      { value: 'SIN-T1', label: 'Terminal 1' },
-                      { value: 'SIN-T2', label: 'Terminal 2' },
-                      { value: 'SIN-T3', label: 'Terminal 3' },
-                      { value: 'SIN-T4', label: 'Terminal 4' },
+                      { value: 'all',       label: 'All Terminals' },
+                      { value: 'SIN-T1',    label: 'Terminal 1' },
+                      { value: 'SIN-T2',    label: 'Terminal 2' },
+                      { value: 'SIN-T3',    label: 'Terminal 3' },
+                      { value: 'SIN-T4',    label: 'Terminal 4' },
                       { value: 'SIN-JEWEL', label: 'Jewel' },
                     ].map(opt => (
                       <button
                         key={opt.value}
-                        onClick={() => { setTerminal(opt.value); setShowTerminalPicker(false); }}
-                        className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                          terminal === opt.value ? 'text-blue-600 font-medium bg-blue-50' : 'text-gray-700'
-                        }`}
+                        onClick={() => { setTerminal(opt.value); setShowPicker(false); }}
+                        className="w-full text-left px-4 py-2.5 text-[13px] transition-colors"
+                        style={{
+                          color: terminal === opt.value ? '#a78bfa' : 'rgba(255,255,255,0.7)',
+                          background: terminal === opt.value ? 'rgba(167,139,250,0.08)' : undefined,
+                        }}
                       >
                         {opt.label}
                       </button>
@@ -222,92 +368,19 @@ export const HomePage: React.FC = () => {
         </div>
       </header>
 
-      {/* Vibe Sections */}
-      {sections.map(({ vibe, amenities }) => {
-        if (amenities.length === 0) return null;
-        
-        return (
-          <section key={vibe.key} className="py-5">
-            {/* Vibe Header */}
-            <div className="px-4 flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2.5">
-                <span className="text-2xl">{vibe.icon}</span>
-                <div>
-                  <h2 className="text-base font-bold text-gray-900">{vibe.label}</h2>
-                  <p className="text-xs text-gray-500">{vibe.desc}</p>
-                </div>
-              </div>
-              <button
-                onClick={() => navigate(`/vibe/${vibe.key.toLowerCase()}`)}
-                className="flex items-center gap-0.5 text-sm text-gray-400 hover:text-gray-600 transition-colors"
-              >
-                All
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+      {/* Vibe Feed */}
+      <div className="pt-2">
+        {sections.map(({ vibe, amenities }) => (
+          <VibeSection
+            key={vibe.key}
+            vibe={vibe}
+            amenities={amenities}
+            onAmenityClick={(slug) => navigate(`/amenity/${slug}`)}
+            onSeeAll={() => navigate(`/vibe/${vibe.key.toLowerCase()}`)}
+          />
+        ))}
+      </div>
 
-            {/* Amenity Cards - Horizontal Scroll */}
-            <div className="relative">
-              <div
-                className="flex gap-3 overflow-x-auto px-4 pb-2 scrollbar-hide"
-                style={{ WebkitOverflowScrolling: 'touch' }}
-              >
-                {amenities.map((amenity) => {
-                  const open = isOpenNow(amenity.opening_hours);
-                  const termShort = TERMINAL_SHORT[amenity.terminal_code] || amenity.terminal_code;
-                  
-                  return (
-                    <button
-                      key={amenity.id}
-                      onClick={() => navigate(`/amenity/${amenity.amenity_slug}`)}
-                      className="flex-shrink-0 w-40 text-left group"
-                    >
-                      {/* Card */}
-                      <div className={`relative h-44 rounded-2xl overflow-hidden bg-gradient-to-br ${vibe.gradient} p-3.5 flex flex-col justify-between transition-transform active:scale-[0.97]`}>
-                        {/* Terminal badge */}
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-semibold text-white/70 bg-white/15 px-2 py-0.5 rounded-full">
-                            {termShort}
-                          </span>
-                          {!open && (
-                            <span className="text-[10px] font-medium text-white/60 bg-black/20 px-2 py-0.5 rounded-full">
-                              Closed
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Name */}
-                        <div>
-                          <h3 className="font-semibold text-white text-sm leading-tight line-clamp-2 mb-1">
-                            {amenity.name}
-                          </h3>
-                          {amenity.opening_hours && amenity.opening_hours !== '24/7' && (
-                            <div className="flex items-center gap-1">
-                              <Clock className="w-3 h-3 text-white/50" />
-                              <span className="text-[10px] text-white/60">{amenity.opening_hours}</span>
-                            </div>
-                          )}
-                          {amenity.opening_hours === '24/7' && (
-                            <span className="text-[10px] text-white/70 font-medium">24/7</span>
-                          )}
-                          {amenity.price_level && amenity.price_level !== 'unknown' && (
-                            <span className="text-[10px] text-white/60 ml-1">{amenity.price_level}</span>
-                          )}
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-              
-              {/* Right fade indicator */}
-              {amenities.length > 2 && (
-                <div className="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none" />
-              )}
-            </div>
-          </section>
-        );
-      })}
     </div>
   );
 };

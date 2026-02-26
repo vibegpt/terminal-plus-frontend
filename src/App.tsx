@@ -6,7 +6,7 @@ import { AppShell } from './components/AppShell';
 import { OnboardingFlow, useOnboarding } from './components/OnboardingFlow';
 
 // MVP routes — lazy loaded
-const VibesFeedMVP = lazy(() => import("@/pages/VibesFeedMVP"));
+const HomePage = lazy(() => import("@/pages/HomePage"));
 const VibePage = lazy(() => import("@/pages/VibePage"));
 const CollectionDetailPage = lazy(() => import("@/pages/CollectionDetailPage"));
 const AmenityDetailPage = lazy(() => import("@/pages/AmenityDetailPage"));
@@ -41,7 +41,7 @@ function AppInner() {
       <Suspense fallback={<Loading />}>
         <Routes>
           {/* Core MVP flow */}
-          <Route path="/" element={<VibesFeedMVP />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/vibe/:vibeId" element={<VibePage />} />
           <Route path="/collection/:vibeSlug/:collectionId" element={<CollectionDetailPage />} />
           <Route path="/amenity/:terminalCode/:slug" element={<AmenityDetailPage />} />
