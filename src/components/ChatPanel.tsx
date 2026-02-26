@@ -93,7 +93,7 @@ export default function ChatPanel({ open, onClose, onNewMessage }: ChatPanelProp
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 z-50 bg-black/50"
+            className="fixed inset-0 z-[60] bg-black/50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -102,7 +102,7 @@ export default function ChatPanel({ open, onClose, onNewMessage }: ChatPanelProp
 
           {/* Panel */}
           <motion.div
-            className="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-white dark:bg-slate-900 rounded-t-2xl h-[80vh] max-h-[600px] shadow-2xl"
+            className="fixed inset-x-0 bottom-0 z-[60] flex flex-col bg-white dark:bg-slate-900 rounded-t-2xl h-[80vh] max-h-[600px] shadow-2xl"
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
