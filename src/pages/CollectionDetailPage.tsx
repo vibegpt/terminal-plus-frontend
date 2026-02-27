@@ -6,7 +6,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, MapPin, Clock, Search, Filter, ChevronDown, ChevronRight, DollarSign } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { smart7Select } from '@/utils/smart7Select';
+import { getUserContext, selectScoredAmenities, type ScoredAmenity } from '@/utils/contextualScoring';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 const TERMINAL_SHORT: Record<string, string> = {
@@ -52,9 +52,10 @@ export const CollectionDetailPage: React.FC = () => {
   const navigate = useNavigate();
   const [collection, setCollection] = useState<any>(null);
   const [amenities, setAmenities] = useState<any[]>([]);
+  const [scoredMeta, setScoredMeta] = useState<ScoredAmenity[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState<'distance' | 'rating' | 'name' | 'price'>('name');
+  const [sortBy, setSortBy] = useState<'relevance' | 'distance' | 'name' | 'price'>('relevance');
   const [filterBy, setFilterBy] = useState<'all' | 'open' | 'nearby'>('all');
   const [showFilters, setShowFilters] = useState(false);
 
@@ -93,8 +94,10 @@ export const CollectionDetailPage: React.FC = () => {
             .order('priority', { ascending: true });
 
           const mappedAmenities = amenityData?.map(item => item.amenity_detail) || [];
-          const userTerminal = sessionStorage.getItem('tp_user_terminal') || null;
-          rawAmenities = smart7Select(mappedAmenities, userTerminal, 7);
+          const ctx = getUserContext({ selectedVibe: vibeSlug || '' });
+          const scored = selectScoredAmenities(mappedAmenities, ctx, 7);
+          rawAmenities = scored.map(s => s.amenity);
+          if (mounted) setScoredMeta(scored);
         }
 
         // Fallback: if no junction data, query amenity_detail by vibe
@@ -108,12 +111,13 @@ export const CollectionDetailPage: React.FC = () => {
             .order('name')
             .limit(50);
 
-          const userTerminal = sessionStorage.getItem('tp_user_terminal') || null;
-          rawAmenities = smart7Select(vibeAmenities || [], userTerminal, 7);
+          const ctx = getUserContext({ selectedVibe: vibeSlug || '' });
+          const scored = selectScoredAmenities(vibeAmenities || [], ctx, 7);
+          rawAmenities = scored.map(s => s.amenity);
+          if (mounted) setScoredMeta(scored);
         }
 
         if (mounted) {
-          // Use DB collection or create a synthetic one from the slug
           setCollection(collectionData || {
             name: collectionId?.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
             description: `${VIBE_DB_TAG[vibeSlug?.toLowerCase() || ''] || vibeSlug} spots at Changi`,
@@ -156,20 +160,23 @@ export const CollectionDetailPage: React.FC = () => {
     }
 
     // Sort
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case 'distance':
-          return (a.terminal_code || '').localeCompare(b.terminal_code || '');
-        case 'name':
-          return (a.name || '').localeCompare(b.name || '');
-        case 'price': {
-          const priceOrder: Record<string, number> = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 };
-          return (priceOrder[a.price_level] || 2) - (priceOrder[b.price_level] || 2);
+    if (sortBy !== 'relevance') {
+      filtered.sort((a, b) => {
+        switch (sortBy) {
+          case 'distance':
+            return (a.terminal_code || '').localeCompare(b.terminal_code || '');
+          case 'name':
+            return (a.name || '').localeCompare(b.name || '');
+          case 'price': {
+            const priceOrder: Record<string, number> = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 };
+            return (priceOrder[a.price_level] || 2) - (priceOrder[b.price_level] || 2);
+          }
+          default:
+            return 0;
         }
-        default:
-          return 0;
-      }
-    });
+      });
+    }
+    // 'relevance': preserve contextual score order from selectScoredAmenities
 
     return filtered;
   }, [amenities, searchQuery, sortBy, filterBy]);
@@ -265,9 +272,10 @@ export const CollectionDetailPage: React.FC = () => {
                   <span className="text-xs font-medium text-gray-500">SORT:</span>
                   <select
                     value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as any)}
+                    onChange={(e) => setSortBy(e.target.value as 'relevance' | 'distance' | 'name' | 'price')}
                     className="text-xs bg-white/5 border border-white/10 text-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   >
+                    <option value="relevance">For You</option>
                     <option value="name">Name</option>
                     <option value="distance">Terminal</option>
                     <option value="price">Price</option>
@@ -306,6 +314,9 @@ export const CollectionDetailPage: React.FC = () => {
           filteredAndSortedAmenities.map(amenity => {
             const openStatus = isOpenNow(amenity.opening_hours);
             const termShort = TERMINAL_SHORT[amenity.terminal_code] || amenity.terminal_code;
+            const devScore = import.meta.env.DEV
+              ? scoredMeta.find(s => s.amenity.id === amenity.id)?.debugLabel
+              : undefined;
 
             return (
               <button
@@ -330,6 +341,9 @@ export const CollectionDetailPage: React.FC = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <p className="text-sm font-semibold text-white truncate">{amenity.name}</p>
+                  {devScore && (
+                    <span className="text-[10px] text-yellow-400/70 font-mono">{devScore}</span>
+                  )}
                     {!openStatus.open && (
                       <span className="text-[10px] text-red-400 font-medium bg-red-500/15 px-1.5 py-0.5 rounded flex-shrink-0">
                         Closed

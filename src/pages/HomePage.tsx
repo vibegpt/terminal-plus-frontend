@@ -9,6 +9,7 @@ import {
   getCollectionsForVibe,
   getTimeSlot,
 } from '../services/VibeCollectionsService';
+import { getUserContext, scoreCollection } from '../utils/contextualScoring';
 
 // ── Vibe Configuration ─────────────────────────────────────────────
 const VIBES = [
@@ -48,6 +49,7 @@ interface Collection {
   hero_image_url?: string;
   amenity_count?: number;
   is_dynamic?: boolean;
+  time_relevance?: { morning: number; afternoon: number; evening: number; lateNight: number };
 }
 
 const TERMINAL_SHORT: Record<string, string> = {
@@ -227,8 +229,13 @@ export const HomePage: React.FC = () => {
           hero_image_url: db?.hero_image_url ?? undefined,
           amenity_count: db?.amenity_count ?? 7,
           is_dynamic: mapping.isDynamic,
+          time_relevance: mapping.time_relevance,
         };
       });
+
+      // Sort collections within each vibe by contextual score
+      const ctx = getUserContext({ selectedVibe: vibe.serviceKey });
+      collections.sort((a, b) => scoreCollection(b, ctx) - scoreCollection(a, ctx));
 
       results.push({ vibe, collections });
     }
