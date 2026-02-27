@@ -2,7 +2,7 @@
 // Collections feed — 7 vibes, each showing named collection cards
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { MapPin, ChevronRight, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import {
@@ -185,15 +185,28 @@ const VibeSection: React.FC<{
 // ── HomePage ───────────────────────────────────────────────────────
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [sections, setSections] = useState<{ vibe: typeof VIBES[number]; collections: Collection[] }[]>([]);
   const [loading, setLoading] = useState(true);
   const [terminal, setTerminal] = useState('all');
   const [showPicker, setShowPicker] = useState(false);
 
+  // ?vibe=refuel → 'Refuel' (capitalize to match VIBES key)
+  const urlVibe = searchParams.get('vibe');
+  const pinnedKey = urlVibe
+    ? (urlVibe.charAt(0).toUpperCase() + urlVibe.slice(1)) as VibeKey
+    : null;
+
   const loadCollections = useCallback(async () => {
     setLoading(true);
     const timeSlot = getTimeSlot();
-    const vibeOrder = getVibeOrder();
+    const baseOrder = getVibeOrder();
+
+    // Pin selected vibe first; remove it from the rest to avoid duplicates
+    const vibeOrder: VibeKey[] = pinnedKey && VIBES.some(v => v.key === pinnedKey)
+      ? [pinnedKey, ...baseOrder.filter(k => k !== pinnedKey)]
+      : baseOrder;
+
     const orderedVibes = vibeOrder.map(k => VIBES.find(v => v.key === k)!);
     const results = [];
 
@@ -222,7 +235,7 @@ export const HomePage: React.FC = () => {
 
     setSections(results);
     setLoading(false);
-  }, []);
+  }, [pinnedKey]);
 
   useEffect(() => { loadCollections(); }, [loadCollections]);
 
