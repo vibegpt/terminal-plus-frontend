@@ -1,20 +1,24 @@
 // src/pages/HomePage.tsx
-// MVP Vibe Feed — photo cards, deduplicated by name, no price display on cards
+// Collections feed — 7 vibes, each showing named collection cards
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, ChevronRight, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import {
+  getCollectionsForVibe,
+  getTimeSlot,
+} from '../services/VibeCollectionsService';
 
 // ── Vibe Configuration ─────────────────────────────────────────────
 const VIBES = [
-  { key: 'Comfort',  icon: '🛏️', label: 'Comfort',  desc: 'Rest & recharge'      },
-  { key: 'Chill',    icon: '😌', label: 'Chill',    desc: 'Peaceful spots'        },
-  { key: 'Refuel',   icon: '🍜', label: 'Refuel',   desc: 'Food & drinks'         },
-  { key: 'Explore',  icon: '🧭', label: 'Explore',  desc: 'Discover Changi'       },
-  { key: 'Work',     icon: '💻', label: 'Work',     desc: 'Get things done'       },
-  { key: 'Shop',     icon: '🛍️', label: 'Shop',     desc: 'Retail & duty free'    },
-  { key: 'Quick',    icon: '⚡', label: 'Quick',    desc: 'Fast & essential'      },
+  { key: 'Comfort',  serviceKey: 'comfort',  icon: '🛏️', label: 'Comfort',  desc: 'Rest & recharge'   },
+  { key: 'Chill',    serviceKey: 'chill',    icon: '😌', label: 'Chill',    desc: 'Peaceful spots'     },
+  { key: 'Refuel',   serviceKey: 'refuel',   icon: '🍜', label: 'Refuel',   desc: 'Food & drinks'      },
+  { key: 'Explore',  serviceKey: 'discover', icon: '🧭', label: 'Explore',  desc: 'Discover Changi'    },
+  { key: 'Work',     serviceKey: 'work',     icon: '💻', label: 'Work',     desc: 'Get things done'    },
+  { key: 'Shop',     serviceKey: 'shop',     icon: '🛍️', label: 'Shop',     desc: 'Retail & duty free' },
+  { key: 'Quick',    serviceKey: 'quick',    icon: '⚡', label: 'Quick',    desc: 'Fast & essential'   },
 ] as const;
 
 type VibeKey = typeof VIBES[number]['key'];
@@ -37,44 +41,13 @@ function getTimeLabel(): string {
   return 'Late night picks';
 }
 
-function isOpenNow(hours: string): boolean {
-  if (!hours || hours === '24/7') return true;
-  const m = hours.match(/(\d{1,2}):(\d{2})\s*[-–]\s*(\d{1,2}):(\d{2})/);
-  if (!m) return true;
-  const [, oH, oM, cH, cM] = m.map(Number);
-  const now = new Date().getHours() * 60 + new Date().getMinutes();
-  const open = oH * 60 + oM;
-  let close = cH * 60 + cM;
-  if (close <= open) {
-    close += 1440;
-    if (now < open) return now + 1440 < close;
-  }
-  return now >= open && now < close;
-}
-
-// ── Deduplication ──────────────────────────────────────────────────
-// Remove duplicates by normalised name (handles "Zara" at T2 + T4)
-// Keeps the first occurrence (open ones sorted first, so open wins)
-function deduplicateByName(amenities: Amenity[]): Amenity[] {
-  const seen = new Set<string>();
-  return amenities.filter(a => {
-    const key = a.name.toLowerCase().trim();
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-}
-
 // ── Types ──────────────────────────────────────────────────────────
-interface Amenity {
-  id: number;
-  amenity_slug: string;
+interface Collection {
+  collection_id: string;
   name: string;
-  description: string;
-  vibe_tags: string;
-  terminal_code: string;
-  opening_hours: string;
-  logo_url: string;
+  hero_image_url?: string;
+  amenity_count?: number;
+  is_dynamic?: boolean;
 }
 
 const TERMINAL_SHORT: Record<string, string> = {
@@ -92,16 +65,15 @@ const VIBE_FALLBACK: Record<string, string> = {
   Quick:    'linear-gradient(160deg, #78350F 0%, #D97706 100%)',
 };
 
-// ── AmenityCard ────────────────────────────────────────────────────
-const AmenityCard: React.FC<{
-  amenity: Amenity;
+// ── CollectionCard ─────────────────────────────────────────────────
+const CollectionCard: React.FC<{
+  collection: Collection;
   vibeKey: string;
   onClick: () => void;
-}> = ({ amenity, vibeKey, onClick }) => {
+}> = ({ collection, vibeKey, onClick }) => {
   const [imgError, setImgError] = useState(false);
-  const open = isOpenNow(amenity.opening_hours);
-  const term = TERMINAL_SHORT[amenity.terminal_code] || amenity.terminal_code;
-  const hasPhoto = !!amenity.logo_url && !imgError;
+  const hasPhoto = !!collection.hero_image_url && !imgError;
+  const count = collection.amenity_count ?? 7;
 
   return (
     <button onClick={onClick} className="flex-shrink-0 text-left" style={{ width: 176 }}>
@@ -113,11 +85,10 @@ const AmenityCard: React.FC<{
           background: hasPhoto ? undefined : VIBE_FALLBACK[vibeKey],
         }}
       >
-        {/* Hero photo */}
         {hasPhoto && (
           <img
-            src={amenity.logo_url}
-            alt={amenity.name}
+            src={collection.hero_image_url!}
+            alt={collection.name}
             onError={() => setImgError(true)}
             className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
@@ -132,29 +103,26 @@ const AmenityCard: React.FC<{
           }}
         />
 
-        {/* Top: terminal badge + closed indicator */}
-        <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-          <span
-            className="text-[10px] font-semibold text-white px-2 py-0.5 rounded-full"
-            style={{ background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(8px)' }}
-          >
-            {term}
-          </span>
-          {!open && (
+        {/* Dynamic/featured badge */}
+        {collection.is_dynamic && (
+          <div className="absolute top-3 left-3">
             <span
-              className="text-[10px] font-medium text-white/75 px-2 py-0.5 rounded-full"
-              style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)' }}
+              className="text-[10px] font-semibold text-white px-2 py-0.5 rounded-full"
+              style={{ background: 'rgba(255,220,0,0.28)', backdropFilter: 'blur(8px)' }}
             >
-              Closed
+              Featured
             </span>
-          )}
-        </div>
+          </div>
+        )}
 
-        {/* Bottom: name only */}
+        {/* Bottom: name + count */}
         <div className="absolute bottom-0 left-0 right-0 p-3.5">
           <h3 className="font-semibold text-white text-[13px] leading-snug line-clamp-2">
-            {amenity.name}
+            {collection.name}
           </h3>
+          <p className="text-[11px] mt-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            {count} spots
+          </p>
         </div>
       </div>
     </button>
@@ -164,11 +132,11 @@ const AmenityCard: React.FC<{
 // ── VibeSection ────────────────────────────────────────────────────
 const VibeSection: React.FC<{
   vibe: typeof VIBES[number];
-  amenities: Amenity[];
-  onAmenityClick: (slug: string) => void;
+  collections: Collection[];
+  onCollectionClick: (collectionId: string) => void;
   onSeeAll: () => void;
-}> = ({ vibe, amenities, onAmenityClick, onSeeAll }) => {
-  if (amenities.length === 0) return null;
+}> = ({ vibe, collections, onCollectionClick, onSeeAll }) => {
+  if (collections.length === 0) return null;
 
   return (
     <section className="py-4">
@@ -194,17 +162,17 @@ const VibeSection: React.FC<{
           className="flex gap-3 overflow-x-auto px-4 pb-1 scrollbar-hide"
           style={{ WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory' }}
         >
-          {amenities.map(amenity => (
-            <div key={amenity.id} style={{ scrollSnapAlign: 'start' }}>
-              <AmenityCard
-                amenity={amenity}
+          {collections.map(collection => (
+            <div key={collection.collection_id} style={{ scrollSnapAlign: 'start' }}>
+              <CollectionCard
+                collection={collection}
                 vibeKey={vibe.key}
-                onClick={() => onAmenityClick(amenity.amenity_slug)}
+                onClick={() => onCollectionClick(collection.collection_id)}
               />
             </div>
           ))}
         </div>
-        {/* Scroll fade indicator */}
+        {/* Scroll fade */}
         <div
           className="absolute right-0 top-0 bottom-1 w-10 pointer-events-none"
           style={{ background: 'linear-gradient(to left, #0a0a0f, transparent)' }}
@@ -217,45 +185,46 @@ const VibeSection: React.FC<{
 // ── HomePage ───────────────────────────────────────────────────────
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
-  const [sections, setSections] = useState<{ vibe: typeof VIBES[number]; amenities: Amenity[] }[]>([]);
+  const [sections, setSections] = useState<{ vibe: typeof VIBES[number]; collections: Collection[] }[]>([]);
   const [loading, setLoading] = useState(true);
   const [terminal, setTerminal] = useState('all');
   const [showPicker, setShowPicker] = useState(false);
 
-  const loadVibes = useCallback(async () => {
+  const loadCollections = useCallback(async () => {
     setLoading(true);
+    const timeSlot = getTimeSlot();
     const vibeOrder = getVibeOrder();
     const orderedVibes = vibeOrder.map(k => VIBES.find(v => v.key === k)!);
     const results = [];
 
     for (const vibe of orderedVibes) {
-      let q = supabase
-        .from('amenity_detail')
-        // No price_level in select — not needed on card
-        .select('id, amenity_slug, name, description, vibe_tags, terminal_code, opening_hours, logo_url')
-        .eq('airport_code', 'SIN')
-        .ilike('vibe_tags', `%${vibe.key}%`)
-        .limit(40); // Fetch more to survive deduplication
+      const mappings = getCollectionsForVibe(vibe.serviceKey, timeSlot);
+      const slugs = mappings.map(m => m.collection_slug);
 
-      if (terminal !== 'all') q = q.eq('terminal_code', terminal);
+      const { data } = await supabase
+        .from('collections')
+        .select('collection_id, name, hero_image_url, amenity_count')
+        .in('collection_id', slugs);
 
-      const { data } = await q;
+      const collections: Collection[] = mappings.map(mapping => {
+        const db = data?.find(c => c.collection_id === mapping.collection_slug);
+        return {
+          collection_id: mapping.collection_slug,
+          name: db?.name || mapping.collection_name,
+          hero_image_url: db?.hero_image_url ?? undefined,
+          amenity_count: db?.amenity_count ?? 7,
+          is_dynamic: mapping.isDynamic,
+        };
+      });
 
-      const shuffled = (data || []).sort(() => Math.random() - 0.5);
-      const open   = shuffled.filter(a => isOpenNow(a.opening_hours));
-      const closed = shuffled.filter(a => !isOpenNow(a.opening_hours));
-
-      // Dedup AFTER sort so open wins over closed duplicate
-      const deduped = deduplicateByName([...open, ...closed]);
-
-      results.push({ vibe, amenities: deduped.slice(0, 9) });
+      results.push({ vibe, collections });
     }
 
     setSections(results);
     setLoading(false);
-  }, [terminal]);
+  }, []);
 
-  useEffect(() => { loadVibes(); }, [loadVibes]);
+  useEffect(() => { loadCollections(); }, [loadCollections]);
 
   const termLabel = terminal === 'all' ? 'All Terminals' : (TERMINAL_SHORT[terminal] || terminal);
 
@@ -352,13 +321,13 @@ export const HomePage: React.FC = () => {
       </header>
 
       <div className="pt-2">
-        {sections.map(({ vibe, amenities }) => (
+        {sections.map(({ vibe, collections }) => (
           <VibeSection
             key={vibe.key}
             vibe={vibe}
-            amenities={amenities}
-            onAmenityClick={slug => navigate(`/amenity/${slug}`)}
-            onSeeAll={() => navigate(`/vibe/${vibe.key.toLowerCase()}`)}
+            collections={collections}
+            onCollectionClick={id => navigate(`/collection/${vibe.serviceKey}/${id}`)}
+            onSeeAll={() => navigate(`/vibe/${vibe.serviceKey}`)}
           />
         ))}
       </div>
