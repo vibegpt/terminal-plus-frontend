@@ -107,7 +107,11 @@ const JourneyContext = createContext<JourneyContextType>({
 });
 
 export function JourneyProvider({ children }: { children: React.ReactNode }) {
-  const [journey, setJourneyState] = useState<JourneyData | null>(loadFromStorage);
+  const [journey, setJourneyState] = useState<JourneyData | null>(() => {
+    const data = loadFromStorage();
+    console.log('[Journey] isComplete:', !!data);
+    return data;
+  });
 
   // Sync to session on mount and whenever journey changes
   useEffect(() => {

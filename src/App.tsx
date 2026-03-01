@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState } from "react";
+import React, { lazy, Suspense, useState, useCallback } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ChatBubble from './components/ChatBubble';
 import { FlightProvider } from './components/FlightStatusBar';
@@ -25,20 +25,27 @@ const Loading = () => (
 );
 
 function AppInner() {
-  const { isComplete, resetJourney } = useJourney();
-  // captureVisible: true on first visit (no journey), or when user clicks "Change"
-  const [captureVisible, setCaptureVisible] = useState(!isComplete);
+  const { resetJourney } = useJourney();
 
-  const handleCaptureComplete = () => {
-    // Suppress the legacy OnboardingFlow (its sessionStorage gate)
+  // Read localStorage directly in the initializer — avoids context propagation
+  // timing edge cases. This is the single source of truth for the gate.
+  const [captureVisible, setCaptureVisible] = useState(() => {
+    const stored = localStorage.getItem('tp_journey_context');
+    const hasContext = !!stored;
+    console.log('[Journey] Gate check — tp_journey_context:', hasContext ? 'FOUND (skip capture)' : 'EMPTY (show capture)');
+    return !hasContext;
+  });
+
+  // useCallback so Step3's useEffect[onComplete] doesn't restart on every render
+  const handleCaptureComplete = useCallback(() => {
     sessionStorage.setItem('tp_onboarded', '1');
     setCaptureVisible(false);
-  };
+  }, []);
 
-  const handleEditFlight = () => {
+  const handleEditFlight = useCallback(() => {
     resetJourney();
     setCaptureVisible(true);
-  };
+  }, [resetJourney]);
 
   if (captureVisible) {
     return <FlightContextCapture onComplete={handleCaptureComplete} />;
