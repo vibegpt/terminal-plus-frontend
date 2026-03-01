@@ -204,53 +204,38 @@ function Step1({ onTerminal, onSkip }: Step1Props) {
       onTerminal(result.terminal, num.toUpperCase());
     } else {
       setLookupState('error');
-      // After brief error, drop into terminal picker (clean state)
       setTimeout(() => { setMode('terminal'); setLookupState('idle'); }, 1500);
     }
   };
 
-  const heading = (
-    <div style={{ marginBottom: 24 }}>
-      <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>
-        Step 1 of 2
-      </p>
-      <h2 style={{ fontSize: 24, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>
-        Where are you right now?
-      </h2>
-      <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 6, lineHeight: 1.5 }}>
-        We'll personalise your recommendations based on your location.
-      </p>
-    </div>
-  );
+  const tabActive   = { flex: 1, padding: '9px 0', borderRadius: 8, border: 'none', fontFamily: 'inherit', fontSize: 13, fontWeight: 600, cursor: 'pointer', background: 'rgba(124,109,250,0.2)', color: '#a78bfa' } as const;
+  const tabInactive = { flex: 1, padding: '9px 0', borderRadius: 8, border: 'none', fontFamily: 'inherit', fontSize: 13, fontWeight: 600, cursor: 'pointer', background: 'transparent', color: 'rgba(255,255,255,0.4)' } as const;
 
-  const modeToggle = (
-    <div style={{ display: 'flex', background: 'rgba(37,37,53,0.5)', borderRadius: 10, padding: 3, marginBottom: 20 }}>
-      {(['flight', 'terminal'] as const).map(m => (
-        <button
-          key={m}
-          type="button"
-          onClick={() => setMode(m)}
-          style={{
-            flex: 1, padding: '9px 0', borderRadius: 8, border: 'none',
-            fontFamily: 'inherit', fontSize: 13, fontWeight: 600, cursor: 'pointer',
-            transition: 'all 0.15s',
-            background: mode === m ? 'rgba(124,109,250,0.2)' : 'transparent',
-            color: mode === m ? '#a78bfa' : 'rgba(255,255,255,0.4)',
-          }}
-        >
-          {m === 'flight' ? '✈️ Arriving flight' : '📍 Pick terminal'}
+  // Single return — no early returns, no JSX variables, explicit conditional blocks
+  return (
+    <div style={{ padding: '28px 24px 24px' }}>
+
+      {/* Heading */}
+      <div style={{ marginBottom: 24 }}>
+        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>Step 1 of 2</p>
+        <h2 style={{ fontSize: 24, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>Where are you right now?</h2>
+        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 6, lineHeight: 1.5 }}>We'll personalise your recommendations based on your location.</p>
+      </div>
+
+      {/* Mode toggle — two explicit buttons, no .map(), no shared variable */}
+      <div style={{ display: 'flex', background: 'rgba(37,37,53,0.5)', borderRadius: 10, padding: 3, marginBottom: 20 }}>
+        <button type="button" style={mode === 'flight' ? tabActive : tabInactive}
+          onClick={() => setMode('flight')}>
+          ✈️ Arriving flight
         </button>
-      ))}
-    </div>
-  );
+        <button type="button" style={mode === 'terminal' ? tabActive : tabInactive}
+          onClick={() => setMode('terminal')}>
+          📍 Pick terminal
+        </button>
+      </div>
 
-  // ── BLOCK A: flight lookup — contains autoFocus input, NO terminal buttons ──
-  if (mode === 'flight') {
-    return (
-      <div style={{ padding: '28px 24px 24px' }}>
-        {heading}
-        {modeToggle}
-
+      {/* Flight lookup block — only mounts when mode is 'flight' */}
+      {mode === 'flight' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ position: 'relative' }}>
             <Plane size={15} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)', pointerEvents: 'none' }} />
@@ -264,58 +249,32 @@ function Step1({ onTerminal, onSkip }: Step1Props) {
               autoFocus
             />
           </div>
-
           {lookupState === 'error' && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#f87171' }}>
-              <AlertCircle size={13} />
-              Couldn't find that flight — switching to terminal picker…
+              <AlertCircle size={13} />Couldn't find that flight — switching to terminal picker…
             </div>
           )}
-
-          <button
-            type="button"
-            onClick={handleFlightLookup}
+          <button type="button" onClick={handleFlightLookup}
             disabled={!flightInput.trim() || lookupState === 'loading'}
-            style={{ ...S.btn, opacity: flightInput.trim() ? 1 : 0.4, cursor: flightInput.trim() ? 'pointer' : 'not-allowed' }}
-          >
-            {lookupState === 'loading' ? (
-              <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Finding your terminal…</>
-            ) : (
-              <>Find my terminal <ArrowRight size={16} /></>
-            )}
+            style={{ ...S.btn, opacity: flightInput.trim() ? 1 : 0.4, cursor: flightInput.trim() ? 'pointer' : 'not-allowed' }}>
+            {lookupState === 'loading'
+              ? <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Finding your terminal…</>
+              : <>Find my terminal <ArrowRight size={16} /></>}
+          </button>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        </div>
+      )}
+
+      {/* Terminal picker block — only mounts when mode is 'terminal', no inputs anywhere */}
+      {mode === 'terminal' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <TerminalPicker value={selectedTerminal} onChange={setSelectedTerminal} />
+          <button type="button" style={S.btn}
+            onClick={() => onTerminal(selectedTerminal)}>
+            I'm at {TERMINALS.find(t => t.code === selectedTerminal)?.label} <ArrowRight size={16} />
           </button>
         </div>
-
-        <div style={S.skip} onClick={onSkip}>Skip — browse all terminals →</div>
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-      </div>
-    );
-  }
-
-  // ── BLOCK B: terminal picker — NO input, NO autoFocus anywhere ──
-  console.log('[Step1] Block B rendering — onTerminal type:', typeof onTerminal, 'selectedTerminal:', selectedTerminal);
-  return (
-    <div style={{ padding: '28px 24px 24px' }}>
-      {heading}
-      {modeToggle}
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-        <TerminalPicker value={selectedTerminal} onChange={setSelectedTerminal} />
-        <button
-          type="button"
-          onClick={() => {
-            console.log('[Step1] CONFIRM CLICKED — onTerminal type:', typeof onTerminal, 'terminal:', selectedTerminal);
-            if (typeof onTerminal === 'function') {
-              onTerminal(selectedTerminal);
-            } else {
-              console.error('[Step1] onTerminal is not a function!', onTerminal);
-            }
-          }}
-          style={S.btn}
-        >
-          I'm at {TERMINALS.find(t => t.code === selectedTerminal)?.label} <ArrowRight size={16} />
-        </button>
-      </div>
+      )}
 
       <div style={S.skip} onClick={onSkip}>Skip — browse all terminals →</div>
     </div>
