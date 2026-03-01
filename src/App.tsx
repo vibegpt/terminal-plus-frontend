@@ -3,7 +3,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import ChatBubble from './components/ChatBubble';
 import { FlightProvider } from './components/FlightStatusBar';
 import { AppShell } from './components/AppShell';
-import { OnboardingFlow, useOnboarding } from './components/OnboardingFlow';
+import { JourneyProvider, useJourney } from './context/JourneyContext';
+import { FlightContextCapture } from './pages/FlightContextCapture';
 
 // MVP routes — lazy loaded
 const HomePage = lazy(() => import("@/pages/HomePage"));
@@ -18,26 +19,33 @@ const GuideView = lazy(() => import("@/pages/guide-view"));
 const MyJourneys = lazy(() => import("@/pages/my-journeys"));
 
 const Loading = () => (
-  <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-    <div className="animate-spin rounded-full h-8 w-8 border-2 border-gray-300 border-t-gray-600" />
+  <div className="min-h-screen flex items-center justify-center" style={{ background: '#0a0a0f' }}>
+    <div className="animate-spin rounded-full h-8 w-8 border-2 border-purple-700 border-t-purple-400" />
   </div>
 );
 
 function AppInner() {
-  const { showOnboarding } = useOnboarding();
-  const [onboardingDone, setOnboardingDone] = useState(!showOnboarding);
-  const [showFlightEdit, setShowFlightEdit] = useState(false);
+  const { isComplete, resetJourney } = useJourney();
+  // captureVisible: true on first visit (no journey), or when user clicks "Change"
+  const [captureVisible, setCaptureVisible] = useState(!isComplete);
 
-  if (!onboardingDone) {
-    return (
-      <OnboardingFlow
-        onComplete={() => setOnboardingDone(true)}
-      />
-    );
+  const handleCaptureComplete = () => {
+    // Suppress the legacy OnboardingFlow (its sessionStorage gate)
+    sessionStorage.setItem('tp_onboarded', '1');
+    setCaptureVisible(false);
+  };
+
+  const handleEditFlight = () => {
+    resetJourney();
+    setCaptureVisible(true);
+  };
+
+  if (captureVisible) {
+    return <FlightContextCapture onComplete={handleCaptureComplete} />;
   }
 
   return (
-    <AppShell onEditFlight={() => setShowFlightEdit(true)}>
+    <AppShell onEditFlight={handleEditFlight}>
       <Suspense fallback={<Loading />}>
         <Routes>
           {/* Core MVP flow */}
@@ -62,12 +70,6 @@ function AppInner() {
       </Suspense>
 
       <ChatBubble />
-
-      {showFlightEdit && (
-        <OnboardingFlow
-          onComplete={() => setShowFlightEdit(false)}
-        />
-      )}
     </AppShell>
   );
 }
@@ -75,7 +77,9 @@ function AppInner() {
 export default function App() {
   return (
     <FlightProvider>
-      <AppInner />
+      <JourneyProvider>
+        <AppInner />
+      </JourneyProvider>
     </FlightProvider>
   );
 }

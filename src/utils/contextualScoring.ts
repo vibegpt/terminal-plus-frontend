@@ -135,24 +135,41 @@ function isOpenNow(hours: string): boolean {
 // Reads all available context from sessionStorage — no React dependency
 
 export function getUserContext(overrides?: Partial<UserContext>): UserContext {
-  const terminal = sessionStorage.getItem('tp_user_terminal') || 'SIN-T3';
-
+  let terminal = 'SIN-T3';
   let minutesToBoarding = -1;
   let circadianState: UserContext['circadianState'];
   let journeyPhase: UserContext['journeyPhase'];
 
+  // Prefer the rich JourneyContext data from localStorage (set by JourneyContext.tsx)
   try {
-    const stored = sessionStorage.getItem('terminal_plus_flight');
-    if (stored) {
-      const fc = JSON.parse(stored);
-      if (typeof fc.minutesUntilBoarding === 'number' && fc.minutesUntilBoarding > 0) {
-        minutesToBoarding = fc.minutesUntilBoarding;
+    const raw = localStorage.getItem('tp_journey_context');
+    if (raw) {
+      const jc = JSON.parse(raw);
+      if (jc.currentTerminal) terminal = jc.currentTerminal;
+      if (jc.boardingTime) {
+        const mins = Math.floor((new Date(jc.boardingTime).getTime() - Date.now()) / 60000);
+        if (mins > 0) minutesToBoarding = mins;
       }
-      if (fc.circadianState) circadianState = fc.circadianState;
-      if (fc.journeyPhase) journeyPhase = fc.journeyPhase;
+      journeyPhase = 'departure';
     }
-  } catch {
-    // ignore parse errors
+  } catch { /* ignore */ }
+
+  // Fall back to session-synced values (written by JourneyContext syncToSession)
+  if (minutesToBoarding < 0) {
+    try {
+      const termSS = sessionStorage.getItem('tp_user_terminal');
+      if (termSS) terminal = termSS;
+
+      const stored = sessionStorage.getItem('terminal_plus_flight');
+      if (stored) {
+        const fc = JSON.parse(stored);
+        if (typeof fc.minutesUntilBoarding === 'number' && fc.minutesUntilBoarding > 0) {
+          minutesToBoarding = fc.minutesUntilBoarding;
+        }
+        if (fc.circadianState) circadianState = fc.circadianState;
+        if (fc.journeyPhase) journeyPhase = fc.journeyPhase;
+      }
+    } catch { /* ignore */ }
   }
 
   return {
