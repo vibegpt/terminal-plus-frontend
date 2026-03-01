@@ -3,8 +3,7 @@
 // Runs on first launch. Skipped for returning users (localStorage-gated).
 // Step 3 auto-navigates after 2 seconds.
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 import { Plane, ArrowRight, Check, AlertCircle, Loader2, Clock } from 'lucide-react';
 import {
   useJourney,
@@ -191,11 +190,10 @@ interface Step1Props {
 }
 
 function Step1({ onTerminal, onSkip }: Step1Props) {
-  const [tab, setTab] = useState<'flight' | 'terminal'>('flight');
+  const [mode, setMode] = useState<'flight' | 'terminal'>('flight');
   const [flightInput, setFlightInput] = useState('');
   const [lookupState, setLookupState] = useState<'idle' | 'loading' | 'error'>('idle');
   const [selectedTerminal, setSelectedTerminal] = useState('SIN-T3');
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFlightLookup = async () => {
     const num = flightInput.trim();
@@ -203,74 +201,64 @@ function Step1({ onTerminal, onSkip }: Step1Props) {
     setLookupState('loading');
     const result = await lookupFlight(num, 'arrival');
     if (result?.terminal) {
-      setLookupState('idle');
       onTerminal(result.terminal, num.toUpperCase());
     } else {
       setLookupState('error');
-      // Auto-switch to manual picker after brief error display
-      setTimeout(() => { setTab('terminal'); setLookupState('idle'); }, 1800);
+      // After brief error, drop into terminal picker (clean state)
+      setTimeout(() => { setMode('terminal'); setLookupState('idle'); }, 1500);
     }
   };
 
-  return (
-    <div style={{ padding: '28px 24px 24px' }}>
-      {/* Question */}
-      <div style={{ marginBottom: 24 }}>
-        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>
-          Step 1 of 2
-        </p>
-        <h2 style={{ fontSize: 24, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>
-          Where are you right now?
-        </h2>
-        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 6, lineHeight: 1.5 }}>
-          We'll personalise your recommendations based on your location.
-        </p>
-      </div>
+  const heading = (
+    <div style={{ marginBottom: 24 }}>
+      <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>
+        Step 1 of 2
+      </p>
+      <h2 style={{ fontSize: 24, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>
+        Where are you right now?
+      </h2>
+      <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 6, lineHeight: 1.5 }}>
+        We'll personalise your recommendations based on your location.
+      </p>
+    </div>
+  );
 
-      {/* Tab switcher */}
-      <div style={{
-        display: 'flex',
-        background: 'rgba(37,37,53,0.5)',
-        borderRadius: 10,
-        padding: 3,
-        marginBottom: 20,
-      }}>
-        {(['flight', 'terminal'] as const).map(t => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            style={{
-              flex: 1,
-              padding: '9px 0',
-              borderRadius: 8,
-              border: 'none',
-              fontFamily: 'inherit',
-              fontSize: 13,
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.15s',
-              background: tab === t ? 'rgba(124,109,250,0.2)' : 'transparent',
-              color: tab === t ? '#a78bfa' : 'rgba(255,255,255,0.4)',
-            }}
-          >
-            {t === 'flight' ? '✈️ Arriving flight' : '📍 Pick terminal'}
-          </button>
-        ))}
-      </div>
+  const modeToggle = (
+    <div style={{ display: 'flex', background: 'rgba(37,37,53,0.5)', borderRadius: 10, padding: 3, marginBottom: 20 }}>
+      {(['flight', 'terminal'] as const).map(m => (
+        <button
+          key={m}
+          type="button"
+          onClick={() => setMode(m)}
+          style={{
+            flex: 1, padding: '9px 0', borderRadius: 8, border: 'none',
+            fontFamily: 'inherit', fontSize: 13, fontWeight: 600, cursor: 'pointer',
+            transition: 'all 0.15s',
+            background: mode === m ? 'rgba(124,109,250,0.2)' : 'transparent',
+            color: mode === m ? '#a78bfa' : 'rgba(255,255,255,0.4)',
+          }}
+        >
+          {m === 'flight' ? '✈️ Arriving flight' : '📍 Pick terminal'}
+        </button>
+      ))}
+    </div>
+  );
 
-      {tab === 'flight' ? (
+  // ── BLOCK A: flight lookup — contains autoFocus input, NO terminal buttons ──
+  if (mode === 'flight') {
+    return (
+      <div style={{ padding: '28px 24px 24px' }}>
+        {heading}
+        {modeToggle}
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ position: 'relative' }}>
-            <Plane
-              size={15}
-              style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)', pointerEvents: 'none' }}
-            />
+            <Plane size={15} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)', pointerEvents: 'none' }} />
             <input
-              ref={inputRef}
               style={{ ...S.input, paddingLeft: 40 }}
               placeholder="e.g. QF1, BA15"
               value={flightInput}
-              onChange={e => { setFlightInput(e.target.value); setLookupState('idle'); }}
+              onChange={e => setFlightInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleFlightLookup()}
               autoComplete="off"
               autoFocus
@@ -280,18 +268,15 @@ function Step1({ onTerminal, onSkip }: Step1Props) {
           {lookupState === 'error' && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#f87171' }}>
               <AlertCircle size={13} />
-              Couldn't find that flight — switching to manual picker…
+              Couldn't find that flight — switching to terminal picker…
             </div>
           )}
 
           <button
+            type="button"
             onClick={handleFlightLookup}
             disabled={!flightInput.trim() || lookupState === 'loading'}
-            style={{
-              ...S.btn,
-              opacity: flightInput.trim() ? 1 : 0.4,
-              cursor: flightInput.trim() ? 'pointer' : 'not-allowed',
-            }}
+            style={{ ...S.btn, opacity: flightInput.trim() ? 1 : 0.4, cursor: flightInput.trim() ? 'pointer' : 'not-allowed' }}
           >
             {lookupState === 'loading' ? (
               <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Finding your terminal…</>
@@ -300,25 +285,80 @@ function Step1({ onTerminal, onSkip }: Step1Props) {
             )}
           </button>
         </div>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <TerminalPicker value={selectedTerminal} onChange={setSelectedTerminal} />
-          <button
-            onClick={() => onTerminal(selectedTerminal)}
-            style={S.btn}
-          >
-            I'm at {TERMINALS.find(t => t.code === selectedTerminal)?.label} <ArrowRight size={16} />
-          </button>
-        </div>
-      )}
 
-      <div style={S.skip} onClick={onSkip}>
-        Skip — browse all terminals →
+        <div style={S.skip} onClick={onSkip}>Skip — browse all terminals →</div>
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
+  }
+
+  // ── BLOCK B: terminal picker — NO input, NO autoFocus anywhere ──
+  console.log('[Step1] Block B rendering — onTerminal type:', typeof onTerminal, 'selectedTerminal:', selectedTerminal);
+  return (
+    <div style={{ padding: '28px 24px 24px' }}>
+      {heading}
+      {modeToggle}
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <TerminalPicker value={selectedTerminal} onChange={setSelectedTerminal} />
+        <button
+          type="button"
+          onClick={() => {
+            console.log('[Step1] CONFIRM CLICKED — onTerminal type:', typeof onTerminal, 'terminal:', selectedTerminal);
+            if (typeof onTerminal === 'function') {
+              onTerminal(selectedTerminal);
+            } else {
+              console.error('[Step1] onTerminal is not a function!', onTerminal);
+            }
+          }}
+          style={S.btn}
+        >
+          I'm at {TERMINALS.find(t => t.code === selectedTerminal)?.label} <ArrowRight size={16} />
+        </button>
       </div>
 
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      <div style={S.skip} onClick={onSkip}>Skip — browse all terminals →</div>
     </div>
   );
+}
+
+// ── Helpers (pre-declared so Step2 can reference them) ─────────────
+
+function buildManualBoardingTime(hour: string, min: string): string | null {
+  const h = parseInt(hour, 10);
+  const m = parseInt(min, 10);
+  if (isNaN(h) || isNaN(m) || h < 0 || h > 23 || m < 0 || m > 59) return null;
+
+  // Build ISO string explicitly in Singapore timezone (UTC+8)
+  // so it's correct regardless of the user's device timezone.
+  const nowSin = new Date(Date.now() + 8 * 60 * 60 * 1000); // shift to SIN
+  const yyyy = nowSin.getUTCFullYear();
+  const MM   = String(nowSin.getUTCMonth() + 1).padStart(2, '0');
+  const dd   = String(nowSin.getUTCDate()).padStart(2, '0');
+  const hh   = String(h).padStart(2, '0');
+  const mm   = String(m).padStart(2, '0');
+
+  let iso = `${yyyy}-${MM}-${dd}T${hh}:${mm}:00+08:00`;
+
+  // If in the past, roll to tomorrow (Singapore date)
+  if (new Date(iso).getTime() <= Date.now()) {
+    const tomorrowSin = new Date(nowSin.getTime() + 24 * 60 * 60 * 1000);
+    const ddT  = String(tomorrowSin.getUTCDate()).padStart(2, '0');
+    const MMT  = String(tomorrowSin.getUTCMonth() + 1).padStart(2, '0');
+    iso = `${tomorrowSin.getUTCFullYear()}-${MMT}-${ddT}T${hh}:${mm}:00+08:00`;
+  }
+
+  return iso;
+}
+
+// Default boarding time: Singapore now + 2 h, rounded up to nearest 5 min
+function getDefaultBoardingTime(): { h: string; m: string } {
+  const sinMs = Date.now() + (8 + 2) * 60 * 60 * 1000; // UTC+8 +2h ahead
+  const d = new Date(sinMs);
+  let h = d.getUTCHours();
+  let m = Math.ceil(d.getUTCMinutes() / 5) * 5;
+  if (m >= 60) { h = (h + 1) % 24; m = 0; }
+  return { h: String(h).padStart(2, '0'), m: String(m).padStart(2, '0') };
 }
 
 // ── STEP 2: Departing flight ──────────────────────────────────────
@@ -334,10 +374,10 @@ function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
   const [lookupState, setLookupState] = useState<'idle' | 'loading' | 'found' | 'error'>('idle');
   const [result, setResult] = useState<FlightResult | null>(null);
 
-  // Manual fallback state
+  // Manual fallback state — pre-fill time so button is usable immediately
   const [manualTerminal, setManualTerminal] = useState(currentTerminal);
-  const [manualHour, setManualHour] = useState('');
-  const [manualMin, setManualMin] = useState('');
+  const [manualHour, setManualHour] = useState(() => getDefaultBoardingTime().h);
+  const [manualMin, setManualMin] = useState(() => getDefaultBoardingTime().m);
 
   const handleLookup = async () => {
     const num = flightInput.trim();
@@ -366,8 +406,11 @@ function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
   };
 
   const handleConfirmManual = () => {
+    console.log('[Step2] handleConfirmManual called', { flightInput, manualTerminal, manualHour, manualMin, canSubmitManual });
     const bt = buildManualBoardingTime(manualHour, manualMin);
-    if (!bt || !flightInput.trim()) return;
+    console.log('[Step2] boardingTime built:', bt);
+    if (!bt) { console.warn('[Step2] BLOCKED — invalid time'); return; }
+    if (!flightInput.trim()) { console.warn('[Step2] BLOCKED — no flight number'); return; }
     onConfirm({
       flightNumber: flightInput.trim().toUpperCase(),
       departureTerminal: manualTerminal,
@@ -385,7 +428,10 @@ function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
   const termLabel = (code: string) =>
     TERMINALS.find(t => t.code === code)?.label ?? code.replace('SIN-', '');
 
-  const canSubmitManual = flightInput.trim().length >= 2 && manualHour && manualMin;
+  const canSubmitManual =
+    flightInput.trim().length >= 2 &&
+    manualHour.length > 0 &&
+    manualMin.length > 0;
 
   return (
     <div style={{ padding: '28px 24px 24px' }}>
@@ -401,8 +447,8 @@ function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
         </p>
       </div>
 
-      {/* Flight number input */}
-      {lookupState !== 'found' && (
+      {/* ── State: idle / loading — show flight input + lookup button ── */}
+      {(lookupState === 'idle' || lookupState === 'loading') && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ position: 'relative' }}>
             <Plane size={15} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)', pointerEvents: 'none' }} />
@@ -410,81 +456,102 @@ function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
               style={{ ...S.input, paddingLeft: 40 }}
               placeholder="e.g. SQ123, EK432"
               value={flightInput}
-              onChange={e => { setFlightInput(e.target.value); setLookupState('idle'); }}
+              onChange={e => setFlightInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleLookup()}
               autoComplete="off"
               autoFocus
             />
           </div>
+          <button
+            type="button"
+            onClick={handleLookup}
+            disabled={!flightInput.trim() || lookupState === 'loading'}
+            style={{ ...S.btn, opacity: flightInput.trim() ? 1 : 0.4 }}
+          >
+            {lookupState === 'loading' ? (
+              <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Looking up flight…</>
+            ) : (
+              <>Look up flight <ArrowRight size={16} /></>
+            )}
+          </button>
+        </div>
+      )}
 
-          {lookupState !== 'error' ? (
-            <button
-              onClick={handleLookup}
-              disabled={!flightInput.trim() || lookupState === 'loading'}
-              style={{ ...S.btn, opacity: flightInput.trim() ? 1 : 0.4 }}
-            >
-              {lookupState === 'loading' ? (
-                <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Looking up flight…</>
-              ) : (
-                <>Look up flight <ArrowRight size={16} /></>
-              )}
-            </button>
-          ) : (
-            /* API failed — show manual fallback */
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#fb923c', padding: '8px 0' }}>
-                <AlertCircle size={13} />
-                Couldn't find that flight — enter details manually
-              </div>
-
-              {/* Terminal picker */}
-              <div>
-                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>
-                  Departure terminal
-                </p>
-                <TerminalPicker value={manualTerminal} onChange={setManualTerminal} />
-              </div>
-
-              {/* Boarding time */}
-              <div>
-                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>
-                  Boarding time
-                </p>
-                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                  <div style={{ position: 'relative', flex: 1 }}>
-                    <Clock size={13} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)', pointerEvents: 'none' }} />
-                    <input
-                      style={{ ...S.input, paddingLeft: 32, textAlign: 'center', textTransform: 'none' }}
-                      placeholder="14"
-                      maxLength={2}
-                      value={manualHour}
-                      onChange={e => setManualHour(e.target.value.replace(/\D/g, '').slice(0, 2))}
-                      type="text"
-                      inputMode="numeric"
-                    />
-                  </div>
-                  <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: 20, fontWeight: 700 }}>:</span>
-                  <input
-                    style={{ ...S.input, flex: 1, textAlign: 'center', textTransform: 'none' }}
-                    placeholder="45"
-                    maxLength={2}
-                    value={manualMin}
-                    onChange={e => setManualMin(e.target.value.replace(/\D/g, '').slice(0, 2))}
-                    type="text"
-                    inputMode="numeric"
-                  />
-                </div>
-              </div>
-
-              <button
-                onClick={handleConfirmManual}
-                disabled={!canSubmitManual}
-                style={{ ...S.btn, opacity: canSubmitManual ? 1 : 0.4 }}
-              >
-                Confirm <Check size={16} />
-              </button>
+      {/* ── State: error — manual fallback, NO flight input rendered ── */}
+      {lookupState === 'error' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* Flight pill + change link */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Plane size={14} color="#a78bfa" />
+              <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '0.05em' }}>
+                {flightInput.trim().toUpperCase()}
+              </span>
             </div>
-          )}
+            <button
+              type="button"
+              onClick={() => setLookupState('idle')}
+              style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.35)', fontSize: 12, cursor: 'pointer', fontFamily: 'inherit', padding: '4px 0' }}
+            >
+              Change
+            </button>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#fb923c' }}>
+            <AlertCircle size={13} />
+            Couldn't find that flight — enter details manually
+          </div>
+
+          {/* Terminal picker */}
+          <div>
+            <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>
+              Departure terminal
+            </p>
+            <TerminalPicker value={manualTerminal} onChange={setManualTerminal} />
+          </div>
+
+          {/* Boarding time */}
+          <div>
+            <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>
+              Boarding time (24h)
+            </p>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <div style={{ position: 'relative', flex: 1 }}>
+                <Clock size={13} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)', pointerEvents: 'none' }} />
+                <input
+                  style={{ ...S.input, paddingLeft: 32, textAlign: 'center', textTransform: 'none' }}
+                  placeholder="14"
+                  maxLength={2}
+                  value={manualHour}
+                  onChange={e => setManualHour(e.target.value.replace(/\D/g, '').slice(0, 2))}
+                  type="text"
+                  inputMode="numeric"
+                />
+              </div>
+              <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: 20, fontWeight: 700 }}>:</span>
+              <input
+                style={{ ...S.input, flex: 1, textAlign: 'center', textTransform: 'none' }}
+                placeholder="45"
+                maxLength={2}
+                value={manualMin}
+                onChange={e => setManualMin(e.target.value.replace(/\D/g, '').slice(0, 2))}
+                type="text"
+                inputMode="numeric"
+              />
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => {
+              console.log('CONFIRM CLICKED', { flightInput, manualHour, manualMin, manualTerminal, canSubmitManual });
+              handleConfirmManual();
+            }}
+            disabled={!canSubmitManual}
+            style={{ ...S.btn, opacity: canSubmitManual ? 1 : 0.4 }}
+          >
+            Confirm <Check size={16} />
+          </button>
         </div>
       )}
 
@@ -704,9 +771,11 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
   const [pendingJourney, setPendingJourney] = useState<JourneyData | null>(null);
 
   const handleStep1 = (terminal: string, flight?: string) => {
+    console.log('[FlightCapture] handleStep1 called — terminal:', terminal, 'flight:', flight);
     setCurrentTerminal(terminal);
     setArrivingFlight(flight);
     setStep(2);
+    console.log('[FlightCapture] setStep(2) called');
   };
 
   const handleStep1Skip = () => {
@@ -760,11 +829,7 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
     setStep(3);
   }
 
-  const variants = {
-    enter:  { opacity: 0, x: 40 },
-    center: { opacity: 1, x: 0 },
-    exit:   { opacity: 0, x: -40 },
-  };
+  console.log('[FlightCapture] render — step:', step, 'currentTerminal:', currentTerminal);
 
   return (
     <div style={S.screen}>
@@ -775,51 +840,33 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
 
       <StepDots current={step} />
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={step}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-          style={S.card}
-        >
-          {step === 1 && (
-            <Step1
-              onTerminal={handleStep1}
-              onSkip={handleStep1Skip}
-            />
-          )}
-          {step === 2 && (
-            <Step2
-              currentTerminal={currentTerminal}
-              onConfirm={handleStep2}
-              onSkip={handleStep2Skip}
-            />
-          )}
-          {step === 3 && pendingJourney && (
-            <Step3
-              journey={pendingJourney}
-              onComplete={onComplete}
-            />
-          )}
-        </motion.div>
-      </AnimatePresence>
+      {/* Plain keyed div — no AnimatePresence, no pointer-events interference */}
+      <div key={step} style={{ ...S.card, animation: 'tp-fadein 0.18s ease-out' }}>
+        {step === 1 && (
+          <Step1
+            onTerminal={handleStep1}
+            onSkip={handleStep1Skip}
+          />
+        )}
+        {step === 2 && (
+          <Step2
+            currentTerminal={currentTerminal}
+            onConfirm={handleStep2}
+            onSkip={handleStep2Skip}
+          />
+        )}
+        {step === 3 && pendingJourney && (
+          <Step3
+            journey={pendingJourney}
+            onComplete={onComplete}
+          />
+        )}
+      </div>
+
+      <style>{`@keyframes tp-fadein { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }`}</style>
     </div>
   );
 }
 
 export default FlightContextCapture;
 
-// ── Helpers ────────────────────────────────────────────────────────
-
-function buildManualBoardingTime(hour: string, min: string): string | null {
-  const h = parseInt(hour, 10);
-  const m = parseInt(min, 10);
-  if (isNaN(h) || isNaN(m) || h < 0 || h > 23 || m < 0 || m > 59) return null;
-  const t = new Date();
-  t.setHours(h, m, 0, 0);
-  if (t.getTime() < Date.now()) t.setDate(t.getDate() + 1);
-  return t.toISOString();
-}
