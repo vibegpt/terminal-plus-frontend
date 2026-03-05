@@ -10,6 +10,7 @@ import {
   getTimeSlot,
 } from '../services/VibeCollectionsService';
 import { getUserContext, scoreCollection } from '../utils/contextualScoring';
+import { useJourney } from '../context/JourneyContext';
 
 // ── Vibe Configuration ─────────────────────────────────────────────
 const VIBES = [
@@ -60,6 +61,65 @@ const VIBE_FALLBACK: Record<string, string> = {
   Work:     'linear-gradient(160deg, #1E293B 0%, #475569 100%)',
   Shop:     'linear-gradient(160deg, #831843 0%, #DB2777 100%)',
   Quick:    'linear-gradient(160deg, #78350F 0%, #D97706 100%)',
+};
+
+// ── Boarding Context Strip ─────────────────────────────────────────
+
+const TERMINAL_LABEL: Record<string, string> = {
+  'SIN-T1': 'T1', 'SIN-T2': 'T2', 'SIN-T3': 'T3',
+  'SIN-T4': 'T4', 'SIN-JEWEL': 'Jewel',
+};
+
+function getBoardingMessage(minutes: number, terminal: string | null): string {
+  const term = terminal ? ` · ${TERMINAL_LABEL[terminal] ?? terminal} · Sorted for you` : '';
+  if (minutes < 30)  return `Boarding in ${minutes} min · Quick options only ⚡`;
+  if (minutes < 60)  return `Time for one stop · Make it count${term}`;
+  if (minutes < 120) return `You've got an hour · Settle in somewhere${term}`;
+  if (minutes < 180) return `Plenty of time · Explore at your pace${term}`;
+  const hrs = Math.floor(minutes / 60);
+  return `You have ${hrs} hrs to board${term} ✦`;
+}
+
+const BoardingContextStrip: React.FC = () => {
+  const { journey } = useJourney();
+  const [minutes, setMinutes] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    if (!journey) return;
+    const calc = () => {
+      const mins = Math.floor((new Date(journey.boardingTime).getTime() - Date.now()) / 60000);
+      setMinutes(Math.max(0, mins));
+    };
+    calc();
+    const id = setInterval(calc, 60_000);
+    return () => clearInterval(id);
+  }, [journey]);
+
+  if (!journey || minutes === null) return null;
+
+  const msg = getBoardingMessage(minutes, journey.currentTerminal ?? null);
+  const urgent = minutes < 30;
+
+  return (
+    <div
+      style={{
+        margin: '0 16px 4px',
+        padding: '7px 14px',
+        borderRadius: 20,
+        background: urgent ? 'rgba(239,68,68,0.08)' : 'rgba(255,255,255,0.04)',
+        border: `1px solid ${urgent ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.07)'}`,
+        fontSize: 11,
+        color: urgent ? 'rgba(239,100,100,0.9)' : 'rgba(255,255,255,0.38)',
+        letterSpacing: '0.01em',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        lineHeight: '1',
+      }}
+    >
+      {msg}
+    </div>
+  );
 };
 
 // ── CollectionCard ─────────────────────────────────────────────────
@@ -288,6 +348,7 @@ export const HomePage: React.FC = () => {
       </header>
 
       <div className="pt-2">
+        <BoardingContextStrip />
         {sections.map(({ vibe, collections }) => (
           <VibeSection
             key={vibe.key}
