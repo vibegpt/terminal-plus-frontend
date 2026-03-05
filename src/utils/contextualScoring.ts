@@ -273,12 +273,29 @@ export function scoreCollection(
   const trPeriod = toTimeRelevancePeriod(period);
   const available = getAvailableMinutes(context);
 
+  const nameL = collection.name.toLowerCase();
+  const isQuickCollection =
+    nameL.includes('quick') || nameL.includes('2-minute') ||
+    nameL.includes('grab') || nameL.includes('essential') || nameL.includes('gate');
+
+  // ── URGENT (< 30 min): hard override ───────────────────────────
+  // Quick collections get massive bonus; everything else capped at 25
+  if (available > 0 && available < 30) {
+    if (isQuickCollection) return 90 + 40; // +40 Quick bonus
+    return 25; // Non-Quick hard capped
+  }
+
+  // ── ONE STOP (30-60 min): walk penalty, single-venue boost ─────
+  // Walk time > 10 min gets -30 penalty (Jewel, T4 transfers)
+  const isJewelCollection = nameL.includes('jewel');
+  const walkPenalty = (available >= 30 && available < 60 && isJewelCollection) ? -30 : 0;
+
   // Factor 1: time-of-day — use service's time_relevance if available
   let timeOfDay: number;
   if (collection.time_relevance) {
     timeOfDay = Math.min(100, (collection.time_relevance[trPeriod] ?? 5) * 10);
   } else {
-    const text = collection.name.toLowerCase();
+    const text = nameL;
     const pos = PERIOD_POSITIVE[period].filter(k => text.includes(k)).length;
     const neg = PERIOD_NEGATIVE[period].filter(k => text.includes(k)).length;
     timeOfDay = Math.min(100, Math.max(10, 50 + pos * 15 - neg * 20));
@@ -287,21 +304,17 @@ export function scoreCollection(
   // Factor 2: body clock (same logic)
   const bodyClockOffset = factorBodyClock(context, period);
 
-  // Factor 3: time available — use collection name as proxy
-  const nameL = collection.name.toLowerCase();
-  const isQuickCollection =
-    nameL.includes('quick') || nameL.includes('2-minute') ||
-    nameL.includes('grab') || nameL.includes('essential') || nameL.includes('gate');
+  // Factor 3: time available
   let timeAvailable: number;
-  if (available < 30)       timeAvailable = isQuickCollection ? 90 : 40;
-  else if (available < 60)  timeAvailable = isQuickCollection ? 80 : 65;
+  if (available < 60)       timeAvailable = isQuickCollection ? 80 : 65;
   else if (available < 120) timeAvailable = 80;
   else                      timeAvailable = isQuickCollection ? 65 : 90;
 
   // Factor 4: proximity — neutral for collections (span multiple terminals)
   const proximity = 50;
 
-  return timeOfDay * 0.35 + bodyClockOffset * 0.20 + timeAvailable * 0.25 + proximity * 0.20;
+  const base = timeOfDay * 0.35 + bodyClockOffset * 0.20 + timeAvailable * 0.25 + proximity * 0.20;
+  return Math.max(0, base + walkPenalty);
 }
 
 // ── selectScoredAmenities ───────────────────────────────────────────

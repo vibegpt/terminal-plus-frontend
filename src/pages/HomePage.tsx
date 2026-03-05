@@ -25,7 +25,26 @@ const VIBES = [
 
 type VibeKey = typeof VIBES[number]['key'];
 
-function getVibeOrder(): VibeKey[] {
+type TimeBucket = 'urgent' | 'oneStop' | 'settled' | 'explore' | 'unknown';
+
+function getTimeBucket(minutesToBoarding: number): TimeBucket {
+  if (minutesToBoarding < 0)   return 'unknown';
+  if (minutesToBoarding < 30)  return 'urgent';
+  if (minutesToBoarding < 60)  return 'oneStop';
+  if (minutesToBoarding < 120) return 'settled';
+  return 'explore';
+}
+
+function getVibeOrder(minutesToBoarding: number): VibeKey[] {
+  // < 30 min: urgency overrides everything
+  if (minutesToBoarding >= 0 && minutesToBoarding < 30) {
+    return ['Quick','Refuel','Comfort','Chill','Work','Shop','Explore'];
+  }
+  // 30-60 min: Quick promoted
+  if (minutesToBoarding >= 30 && minutesToBoarding < 60) {
+    return ['Quick','Refuel','Comfort','Chill','Work','Shop','Explore'];
+  }
+  // Otherwise: time-of-day ordering
   const h = new Date().getHours();
   if (h >= 5  && h < 9)  return ['Comfort','Refuel','Quick','Chill','Work','Explore','Shop'];
   if (h >= 9  && h < 12) return ['Refuel','Work','Quick','Explore','Shop','Chill','Comfort'];
@@ -243,8 +262,33 @@ const VibeSection: React.FC<{
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { journey } = useJourney();
   const [sections, setSections] = useState<{ vibe: typeof VIBES[number]; collections: Collection[] }[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Compute current time bucket — re-evaluated every 60s
+  const computeMinutes = useCallback(() => {
+    if (!journey?.boardingTime) return -1;
+    return Math.max(0, Math.floor((new Date(journey.boardingTime).getTime() - Date.now()) / 60000));
+  }, [journey]);
+
+  const [minutesToBoarding, setMinutesToBoarding] = useState(computeMinutes);
+  const [timeBucket, setTimeBucket] = useState(() => getTimeBucket(computeMinutes()));
+
+  // Re-check every 60s; only trigger re-sort when bucket actually changes
+  useEffect(() => {
+    const tick = () => {
+      const mins = computeMinutes();
+      setMinutesToBoarding(mins);
+      setTimeBucket(prev => {
+        const next = getTimeBucket(mins);
+        return next !== prev ? next : prev;
+      });
+    };
+    tick();
+    const id = setInterval(tick, 60_000);
+    return () => clearInterval(id);
+  }, [computeMinutes]);
 
   // ?vibe=refuel → 'Refuel' (capitalize to match VIBES key)
   const urlVibe = searchParams.get('vibe');
@@ -255,12 +299,13 @@ export const HomePage: React.FC = () => {
   const loadCollections = useCallback(async () => {
     setLoading(true);
     const timeSlot = getTimeSlot();
-    const baseOrder = getVibeOrder();
+    const baseOrder = getVibeOrder(minutesToBoarding);
 
-    // Pin selected vibe first; remove it from the rest to avoid duplicates
-    const vibeOrder: VibeKey[] = pinnedKey && VIBES.some(v => v.key === pinnedKey)
-      ? [pinnedKey, ...baseOrder.filter(k => k !== pinnedKey)]
-      : baseOrder;
+    // Pin selected vibe first UNLESS < 30 min (urgency overrides preference)
+    const vibeOrder: VibeKey[] =
+      pinnedKey && VIBES.some(v => v.key === pinnedKey) && timeBucket !== 'urgent'
+        ? [pinnedKey, ...baseOrder.filter(k => k !== pinnedKey)]
+        : baseOrder;
 
     const orderedVibes = vibeOrder.map(k => VIBES.find(v => v.key === k)!);
     const results = [];
@@ -286,16 +331,28 @@ export const HomePage: React.FC = () => {
         };
       });
 
-      // Sort collections within each vibe by contextual score
+      // Sort collections within each vibe by contextual score (reads fresh minutesToBoarding)
       const ctx = getUserContext({ selectedVibe: vibe.serviceKey });
-      collections.sort((a, b) => scoreCollection(b, ctx) - scoreCollection(a, ctx));
+
+      if (import.meta.env.DEV) {
+        console.log(`[Scoring] Vibe=${vibe.key} bucket=${timeBucket} mins=${minutesToBoarding}`);
+      }
+
+      collections.sort((a, b) => {
+        const scoreA = scoreCollection(a, ctx);
+        const scoreB = scoreCollection(b, ctx);
+        if (import.meta.env.DEV) {
+          console.log(`  ${a.name}: ${Math.round(scoreA)} | ${b.name}: ${Math.round(scoreB)}`);
+        }
+        return scoreB - scoreA;
+      });
 
       results.push({ vibe, collections });
     }
 
     setSections(results);
     setLoading(false);
-  }, [pinnedKey]);
+  }, [pinnedKey, timeBucket, minutesToBoarding]);
 
   useEffect(() => { loadCollections(); }, [loadCollections]);
 
