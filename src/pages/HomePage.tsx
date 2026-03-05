@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { MapPin, ChevronRight, Search } from 'lucide-react';
+import { ChevronRight, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import {
   getCollectionsForVibe,
@@ -51,11 +51,6 @@ interface Collection {
   is_dynamic?: boolean;
   time_relevance?: { morning: number; afternoon: number; evening: number; lateNight: number };
 }
-
-const TERMINAL_SHORT: Record<string, string> = {
-  'SIN-T1': 'T1', 'SIN-T2': 'T2', 'SIN-T3': 'T3',
-  'SIN-T4': 'T4', 'SIN-JEWEL': 'Jewel',
-};
 
 const VIBE_FALLBACK: Record<string, string> = {
   Comfort:  'linear-gradient(160deg, #4C1D95 0%, #7C3AED 100%)',
@@ -190,8 +185,6 @@ export const HomePage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [sections, setSections] = useState<{ vibe: typeof VIBES[number]; collections: Collection[] }[]>([]);
   const [loading, setLoading] = useState(true);
-  const [terminal, setTerminal] = useState('all');
-  const [showPicker, setShowPicker] = useState(false);
 
   // ?vibe=refuel → 'Refuel' (capitalize to match VIBES key)
   const urlVibe = searchParams.get('vibe');
@@ -246,8 +239,6 @@ export const HomePage: React.FC = () => {
 
   useEffect(() => { loadCollections(); }, [loadCollections]);
 
-  const termLabel = terminal === 'all' ? 'All Terminals' : (TERMINAL_SHORT[terminal] || terminal);
-
   if (loading) {
     return (
       <div className="min-h-screen pb-24" style={{ background: '#0a0a0f' }}>
@@ -286,57 +277,13 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => navigate('/search')}
-              className="p-2 rounded-full"
-              style={{ background: 'rgba(255,255,255,0.08)' }}
-            >
-              <Search className="w-4 h-4 text-white/70" />
-            </button>
-
-            <div className="relative">
-              <button
-                onClick={() => setShowPicker(!showPicker)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium text-white/80"
-                style={{ background: 'rgba(255,255,255,0.08)' }}
-              >
-                <MapPin className="w-3 h-3 text-white/60" />
-                {termLabel}
-              </button>
-
-              {showPicker && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowPicker(false)} />
-                  <div
-                    className="absolute right-0 top-full mt-2 z-50 rounded-xl py-1 min-w-[168px]"
-                    style={{ background: '#1a1a25', border: '1px solid rgba(255,255,255,0.08)' }}
-                  >
-                    {[
-                      { value: 'all',       label: 'All Terminals' },
-                      { value: 'SIN-T1',    label: 'Terminal 1' },
-                      { value: 'SIN-T2',    label: 'Terminal 2' },
-                      { value: 'SIN-T3',    label: 'Terminal 3' },
-                      { value: 'SIN-T4',    label: 'Terminal 4' },
-                      { value: 'SIN-JEWEL', label: 'Jewel' },
-                    ].map(opt => (
-                      <button
-                        key={opt.value}
-                        onClick={() => { setTerminal(opt.value); setShowPicker(false); }}
-                        className="w-full text-left px-4 py-2.5 text-[13px] transition-colors"
-                        style={{
-                          color: terminal === opt.value ? '#a78bfa' : 'rgba(255,255,255,0.7)',
-                          background: terminal === opt.value ? 'rgba(167,139,250,0.08)' : undefined,
-                        }}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
+          <button
+            onClick={() => navigate('/search')}
+            className="p-2 rounded-full"
+            style={{ background: 'rgba(255,255,255,0.08)' }}
+          >
+            <Search className="w-4 h-4 text-white/70" />
+          </button>
         </div>
       </header>
 
