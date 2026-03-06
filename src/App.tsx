@@ -12,6 +12,8 @@ const VibePage = lazy(() => import("@/pages/VibePage"));
 const CollectionDetailPage = lazy(() => import("@/pages/CollectionDetailPage"));
 const AmenityDetailPage = lazy(() => import("@/pages/AmenityDetailPage"));
 const SearchPage = lazy(() => import("@/pages/SearchPage"));
+const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
+const MapPage = lazy(() => import("@/pages/MapPage"));
 
 // Legacy routes — gated behind DEV
 const ExploreTerminal = lazy(() => import("@/pages/explore-terminal"));
@@ -61,6 +63,8 @@ function AppInner() {
           <Route path="/vibe/:vibeId" element={<VibePage />} />
           <Route path="/collection/:vibeSlug/:collectionId" element={<CollectionDetailPage />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/map" element={<MapPage />} />
           <Route path="/amenity/:terminalCode/:slug" element={<AmenityDetailPage />} />
           <Route path="/amenity/:slug" element={<AmenityDetailPage />} />
           <Route path="/sin" element={<Navigate to="/" replace />} />
