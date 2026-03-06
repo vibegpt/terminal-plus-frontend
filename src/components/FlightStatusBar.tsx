@@ -39,28 +39,52 @@ export const FlightContext = createContext<FlightContextValue>({
 
 export const useFlightContext = () => useContext(FlightContext);
 
-export function FlightProvider({ children }: { children: React.ReactNode }) {
-  const [flight, setFlightState] = useState<FlightData | null>(() => {
-    try {
-      const stored = sessionStorage.getItem('tp_flight');
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        parsed.boardingTime = new Date(parsed.boardingTime);
-        return parsed;
-      }
-    } catch {}
+function readJourneyAsFlightData(): FlightData | null {
+  try {
+    const raw = localStorage.getItem('tp_journey_context');
+    if (!raw) return null;
+    const jc = JSON.parse(raw);
+    if (!jc.boardingTime) return null;
+    return {
+      flightNumber: jc.departingFlight || jc.arrivingFlight || '—',
+      origin: 'SIN',
+      destination: '—',
+      gate: '—',
+      terminal: (jc.departureTerminal || jc.currentTerminal || '').replace('SIN-', '') || '—',
+      boardingTime: new Date(jc.boardingTime),
+      status: 'on-time',
+    };
+  } catch {
     return null;
-  });
+  }
+}
+
+export function FlightProvider({ children }: { children: React.ReactNode }) {
+  const [flight, setFlightState] = useState<FlightData | null>(readJourneyAsFlightData);
+  const [minutesToBoarding, setMinutesToBoarding] = useState<number | null>(null);
+
+  // Re-read journey context when localStorage changes (e.g. after onboarding)
+  useEffect(() => {
+    const onStorage = () => setFlightState(readJourneyAsFlightData());
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
+
+  // Recalculate minutesToBoarding every 60s
+  useEffect(() => {
+    if (!flight) { setMinutesToBoarding(null); return; }
+    const calc = () => {
+      const mins = Math.round((flight.boardingTime.getTime() - Date.now()) / 60000);
+      setMinutesToBoarding(mins);
+    };
+    calc();
+    const id = setInterval(calc, 60_000);
+    return () => clearInterval(id);
+  }, [flight]);
 
   const setFlight = (f: FlightData | null) => {
     setFlightState(f);
-    if (f) sessionStorage.setItem('tp_flight', JSON.stringify(f));
-    else sessionStorage.removeItem('tp_flight');
   };
-
-  const minutesToBoarding = flight
-    ? Math.round((flight.boardingTime.getTime() - Date.now()) / 60000)
-    : null;
 
   const urgency: UrgencyLevel =
     minutesToBoarding === null ? 'relaxed'
