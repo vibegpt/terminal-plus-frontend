@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Clock, MapPin, DollarSign, Globe, ExternalLink, ChevronRight, Bookmark, Share2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { useBookmark } from '../hooks/useBookmarks';
 
 // ── Types ──────────────────────────────────────────────────────────
 interface AmenityData {
@@ -125,7 +126,7 @@ export default function AmenityDetailPage() {
   const [error, setError] = useState(false);
   const [similarAmenities, setSimilarAmenities] = useState<AmenityData[]>([]);
   const [imgError, setImgError] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const { saved, toggle: toggleSaved } = useBookmark(slug ?? '');
 
   useEffect(() => {
     let mounted = true;
@@ -257,7 +258,12 @@ export default function AmenityDetailPage() {
         {/* Save + Share — overlaid top right */}
         <div className="absolute top-4 right-4 flex gap-2">
           <button
-            onClick={() => setSaved(s => !s)}
+            onClick={() => amenity && toggleSaved({
+              amenitySlug: amenity.amenity_slug,
+              name: amenity.name,
+              terminalCode: amenity.terminal_code,
+              vibeTag: (amenity.vibe_tags || '').split(',')[0]?.trim() || '',
+            })}
             className="p-2 bg-black/40 backdrop-blur-sm rounded-full border border-white/10"
           >
             <Bookmark className={`w-4 h-4 ${saved ? 'text-amber-400 fill-amber-400' : 'text-white'}`} />
