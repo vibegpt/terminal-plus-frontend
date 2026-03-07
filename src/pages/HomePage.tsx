@@ -11,6 +11,7 @@ import {
 } from '../services/VibeCollectionsService';
 import { getUserContext, scoreCollection } from '../utils/contextualScoring';
 import { useJourney } from '../context/JourneyContext';
+import { AmenityImage } from '../components/AmenityImage';
 
 // ── Vibe Configuration ─────────────────────────────────────────────
 const VIBES = [
@@ -146,42 +147,27 @@ const CollectionCard: React.FC<{
   collection: Collection;
   vibeKey: string;
   onClick: () => void;
-}> = ({ collection, vibeKey, onClick }) => {
-  const [imgError, setImgError] = useState(false);
-  const hasPhoto = !!collection.hero_image_url && !imgError;
+  priority?: boolean;
+}> = ({ collection, vibeKey, onClick, priority }) => {
   const count = collection.amenity_count ?? 7;
 
   return (
     <button onClick={onClick} className="flex-shrink-0 text-left" style={{ width: 176 }}>
       <div
         className="relative rounded-2xl overflow-hidden active:scale-[0.97] transition-transform duration-150"
-        style={{
-          width: 176,
-          height: 224,
-          background: hasPhoto ? undefined : VIBE_FALLBACK[vibeKey],
-        }}
+        style={{ width: 176, height: 224 }}
       >
-        {hasPhoto && (
-          <img
-            src={collection.hero_image_url!}
-            alt={collection.name}
-            onError={() => setImgError(true)}
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="lazy"
-          />
-        )}
-
-        {/* Cinematic overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 35%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0.92) 100%)',
-          }}
+        <AmenityImage
+          src={collection.hero_image_url}
+          alt={collection.name}
+          fallbackGradient={VIBE_FALLBACK[vibeKey]}
+          className="absolute inset-0 w-full h-full"
+          priority={priority}
         />
 
         {/* Dynamic/featured badge */}
         {collection.is_dynamic && (
-          <div className="absolute top-3 left-3">
+          <div className="absolute top-3 left-3 z-10">
             <span
               className="text-[10px] font-semibold text-white px-2 py-0.5 rounded-full"
               style={{ background: 'rgba(255,220,0,0.28)', backdropFilter: 'blur(8px)' }}
@@ -192,7 +178,7 @@ const CollectionCard: React.FC<{
         )}
 
         {/* Bottom: name + count */}
-        <div className="absolute bottom-0 left-0 right-0 p-3.5">
+        <div className="absolute bottom-0 left-0 right-0 p-3.5 z-10">
           <h3 className="font-semibold text-white text-[13px] leading-snug line-clamp-2">
             {collection.name}
           </h3>
@@ -238,12 +224,13 @@ const VibeSection: React.FC<{
           className="flex gap-3 overflow-x-auto px-4 pb-1 scrollbar-hide"
           style={{ WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory' }}
         >
-          {collections.map(collection => (
+          {collections.map((collection, idx) => (
             <div key={collection.collection_id} style={{ scrollSnapAlign: 'start' }}>
               <CollectionCard
                 collection={collection}
                 vibeKey={vibe.key}
                 onClick={() => onCollectionClick(collection.collection_id)}
+                priority={idx === 0}
               />
             </div>
           ))}

@@ -7,6 +7,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, MapPin, Clock, Search, Filter, ChevronDown, ChevronRight, DollarSign } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { getUserContext, selectScoredAmenities, type ScoredAmenity } from '@/utils/contextualScoring';
+import { AmenityImage } from '@/components/AmenityImage';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 const TERMINAL_SHORT: Record<string, string> = {
@@ -45,6 +46,24 @@ function isOpenNow(hours: string): { open: boolean; label: string } {
   }
   return { open: false, label: `Closed · Opens ${String(openH).padStart(2,'0')}:${String(openM).padStart(2,'0')}` };
 }
+
+const VIBE_GRADIENT: Record<string, string> = {
+  comfort:  'linear-gradient(160deg, #4C1D95 0%, #7C3AED 100%)',
+  chill:    'linear-gradient(160deg, #0C4A6E 0%, #0284C7 100%)',
+  refuel:   'linear-gradient(160deg, #7C2D12 0%, #EA580C 100%)',
+  discover: 'linear-gradient(160deg, #064E3B 0%, #059669 100%)',
+  explore:  'linear-gradient(160deg, #064E3B 0%, #059669 100%)',
+  work:     'linear-gradient(160deg, #1E293B 0%, #475569 100%)',
+  shop:     'linear-gradient(160deg, #831843 0%, #DB2777 100%)',
+  quick:    'linear-gradient(160deg, #78350F 0%, #D97706 100%)',
+};
+
+const CATEGORY_EMOJI: Record<string, string> = {
+  'Food & Dining': '🍽️', 'Electronics': '📱', 'Fashion': '👗',
+  'Wellness': '🧘', 'Lounge': '🛋️', 'Hotel': '🏨',
+  'Entertainment': '🎮', 'Services': '🛎️', 'Shopping': '🛍️',
+  'Beauty': '💆', 'Art': '🎨', 'Finance': '💱',
+};
 
 // ── Component ──────────────────────────────────────────────────────
 export const CollectionDetailPage: React.FC = () => {
@@ -308,6 +327,23 @@ export const CollectionDetailPage: React.FC = () => {
         </div>
       </header>
 
+      {/* Hero Image */}
+      {collection.hero_image_url && (
+        <div className="relative h-48">
+          <AmenityImage
+            src={collection.hero_image_url}
+            alt={collection.name}
+            fallbackGradient={VIBE_GRADIENT[vibeSlug?.toLowerCase() || ''] || VIBE_GRADIENT.explore}
+            className="w-full h-full"
+            priority
+          />
+          <div className="absolute bottom-0 left-0 right-0 px-4 pb-3 z-10">
+            <h2 className="text-lg font-bold text-white">{collection.name}</h2>
+            <p className="text-xs text-white/50">{amenities.length} spots</p>
+          </div>
+        </div>
+      )}
+
       {/* Amenity List */}
       <div className="px-4 pt-4 space-y-2">
         {filteredAndSortedAmenities.length > 0 ? (
@@ -322,28 +358,27 @@ export const CollectionDetailPage: React.FC = () => {
               <button
                 key={amenity.id}
                 onClick={() => amenity.amenity_slug && navigate(`/amenity/${amenity.amenity_slug}`, { state: { vibe: vibeSlug } })}
-                className={`w-full flex items-center gap-3 p-3.5 bg-[#13131a] rounded-xl text-left transition-colors hover:bg-white/5 active:bg-white/10 ${
+                className={`w-full bg-[#13131a] rounded-xl text-left overflow-hidden transition-colors hover:bg-white/5 active:bg-white/10 ${
                   !openStatus.open ? 'opacity-60' : ''
                 }`}
               >
-                {amenity.logo_url ? (
-                  <img
-                    src={amenity.logo_url}
-                    alt={amenity.name}
-                    className="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-white/10"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-gray-500" />
-                  </div>
-                )}
-                <div className="flex-1 min-w-0">
+                {/* Amenity image */}
+                <AmenityImage
+                  src={amenity.logo_url}
+                  alt={amenity.name}
+                  fallbackGradient={VIBE_GRADIENT[vibeSlug?.toLowerCase() || ''] || 'linear-gradient(160deg, #1a1a25 0%, #0a0a0f 100%)'}
+                  fallbackEmoji={CATEGORY_EMOJI[amenity.category || ''] || '📍'}
+                  className="w-full h-28 rounded-t-xl"
+                  overlay={false}
+                />
+
+                {/* Info below image */}
+                <div className="p-3">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <p className="text-sm font-semibold text-white truncate">{amenity.name}</p>
-                  {devScore && (
-                    <span className="text-[10px] text-yellow-400/70 font-mono">{devScore}</span>
-                  )}
+                    <p className="text-sm font-semibold text-white truncate flex-1">{amenity.name}</p>
+                    {devScore && (
+                      <span className="text-[10px] text-yellow-400/70 font-mono">{devScore}</span>
+                    )}
                     {!openStatus.open && (
                       <span className="text-[10px] text-red-400 font-medium bg-red-500/15 px-1.5 py-0.5 rounded flex-shrink-0">
                         Closed
@@ -369,7 +404,6 @@ export const CollectionDetailPage: React.FC = () => {
                     )}
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-500 flex-shrink-0" />
               </button>
             );
           })

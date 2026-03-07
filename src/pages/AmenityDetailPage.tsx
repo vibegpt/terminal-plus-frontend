@@ -6,6 +6,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Clock, MapPin, DollarSign, Globe, ExternalLink, ChevronRight, Bookmark, Share2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useBookmark } from '../hooks/useBookmarks';
+import { AmenityImage } from '../components/AmenityImage';
 
 // ── Types ──────────────────────────────────────────────────────────
 interface AmenityData {
@@ -125,7 +126,6 @@ export default function AmenityDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [similarAmenities, setSimilarAmenities] = useState<AmenityData[]>([]);
-  const [imgError, setImgError] = useState(false);
   const { saved, toggle: toggleSaved } = useBookmark(slug ?? '');
 
   useEffect(() => {
@@ -135,8 +135,6 @@ export default function AmenityDetailPage() {
       if (!slug) { setError(true); setLoading(false); return; }
       setLoading(true);
       setError(false);
-      setImgError(false);
-
       const { data, error: fetchError } = await supabase
         .from('amenity_detail')
         .select('*')
@@ -230,19 +228,15 @@ export default function AmenityDetailPage() {
     <div className="min-h-screen bg-[#0a0a0f] pb-24">
 
       {/* ── Hero Image — full bleed, tall, with gradient overlay ── */}
-      <div className="relative w-full h-72 bg-[#13131a]">
-        {amenity.logo_url && !imgError ? (
-          <img
-            src={amenity.logo_url}
-            alt={amenity.name}
-            className="w-full h-full object-cover"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <span className="text-6xl opacity-20">{categoryEmoji}</span>
-          </div>
-        )}
+      <div className="relative w-full h-72">
+        <AmenityImage
+          src={amenity.logo_url}
+          alt={amenity.name}
+          fallbackEmoji={categoryEmoji}
+          className="w-full h-full"
+          priority
+          overlay={false}
+        />
 
         {/* Dark gradient so header controls stay readable */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80" />

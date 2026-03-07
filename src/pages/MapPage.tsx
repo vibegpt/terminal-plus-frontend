@@ -3,8 +3,16 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin } from 'lucide-react';
+import { ArrowLeft, MapPin, Compass, ExternalLink } from 'lucide-react';
 import { useJourney } from '../context/JourneyContext';
+
+const TERMINAL_MAPS: Record<string, { url: string; imageUrl?: string }> = {
+  'SIN-T1':    { url: 'https://www.changiairport.com/en/airport-guide/terminal-guides/terminal-1.html' },
+  'SIN-T2':    { url: 'https://www.changiairport.com/en/airport-guide/terminal-guides/terminal-2.html' },
+  'SIN-T3':    { url: 'https://www.changiairport.com/en/airport-guide/terminal-guides/terminal-3.html' },
+  'SIN-T4':    { url: 'https://www.changiairport.com/en/airport-guide/terminal-guides/terminal-4.html' },
+  'SIN-JEWEL': { url: 'https://www.jewelchangiairport.com/en/directory.html' },
+};
 
 const TERMINALS = [
   { code: 'SIN-T1', short: 'T1', name: 'Terminal 1' },
@@ -99,20 +107,48 @@ export default function MapPage() {
               WebkitOverflowScrolling: 'touch',
             }}
           >
-            {/* Placeholder — replace with <img> when map images are available */}
-            <div
-              className="flex flex-col items-center justify-center text-center px-6"
-              style={{ aspectRatio: '4/3', minHeight: 280 }}
-            >
-              <MapPin className="w-8 h-8 mb-3" style={{ color: 'rgba(255,255,255,0.15)' }} />
-              <p className="text-[15px] font-semibold text-white/60">{terminal.name}</p>
-              <p className="text-[11px] mt-1.5" style={{ color: 'rgba(255,255,255,0.25)' }}>
-                Map coming soon
-              </p>
-              <p className="text-[10px] mt-3 max-w-[240px]" style={{ color: 'rgba(255,255,255,0.15)' }}>
-                Pinch-to-zoom will be enabled when terminal map images are added
-              </p>
-            </div>
+            {(() => {
+              const mapData = TERMINAL_MAPS[selected];
+              if (mapData?.imageUrl) {
+                return (
+                  <img
+                    src={mapData.imageUrl}
+                    alt={`${terminal.name} map`}
+                    className="w-full h-auto"
+                    style={{ minHeight: 280 }}
+                  />
+                );
+              }
+              return (
+                <div
+                  className="flex flex-col items-center justify-center text-center px-6"
+                  style={{ aspectRatio: '4/3', minHeight: 280 }}
+                >
+                  <a
+                    href={mapData?.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-3 group"
+                  >
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                      style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
+                    >
+                      <Compass className="w-6 h-6" style={{ color: 'rgba(255,255,255,0.35)' }} />
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[15px] font-medium text-white/80 group-hover:text-white transition-colors">
+                        View {terminal.name} Map
+                      </span>
+                      <ExternalLink className="w-3.5 h-3.5 text-white/40 group-hover:text-white/60 transition-colors" />
+                    </div>
+                    <p className="text-[11px]" style={{ color: 'rgba(255,255,255,0.2)' }}>
+                      Opens {selected === 'SIN-JEWEL' ? 'jewelchangiairport.com' : 'changiairport.com'}
+                    </p>
+                  </a>
+                </div>
+              );
+            })()}
           </div>
         </div>
 
