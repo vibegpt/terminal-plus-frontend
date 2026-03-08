@@ -45,14 +45,20 @@ function readJourneyAsFlightData(): FlightData | null {
     if (!raw) return null;
     const jc = JSON.parse(raw);
     if (!jc.boardingTime) return null;
+
+    // Determine status from journey context
+    let status: FlightData['status'] = 'on-time';
+    if (jc.status?.toLowerCase().includes('cancelled')) status = 'gate-closed';
+    else if (jc.status?.toLowerCase().includes('delay')) status = 'delayed';
+
     return {
       flightNumber: jc.departingFlight || jc.arrivingFlight || '—',
       origin: 'SIN',
-      destination: '—',
-      gate: '—',
+      destination: jc.destination || '—',
+      gate: jc.gate || '—',
       terminal: (jc.departureTerminal || jc.currentTerminal || '').replace('SIN-', '') || '—',
       boardingTime: new Date(jc.boardingTime),
-      status: 'on-time',
+      status,
     };
   } catch {
     return null;

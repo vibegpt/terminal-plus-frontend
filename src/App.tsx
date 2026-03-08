@@ -1,10 +1,12 @@
-import React, { lazy, Suspense, useState, useCallback } from "react";
+import React, { lazy, Suspense, useState, useCallback, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ChatBubble from './components/ChatBubble';
 import { FlightProvider } from './components/FlightStatusBar';
 import { AppShell } from './components/AppShell';
 import { JourneyProvider, useJourney } from './context/JourneyContext';
 import { FlightContextCapture } from './pages/FlightContextCapture';
+import { useFlightUpdates, setFlightToastHandler } from './hooks/useFlightUpdates';
+import SimpleToast from './components/ui/SimpleToast';
 
 // MVP routes — lazy loaded
 const HomePage = lazy(() => import("@/pages/HomePage"));
@@ -30,6 +32,20 @@ const Loading = () => (
 
 function AppInner() {
   const { resetJourney } = useJourney();
+
+  // Background flight polling
+  useFlightUpdates();
+
+  // Toast for flight updates
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+  useEffect(() => {
+    setFlightToastHandler((info) => {
+      setToast({
+        message: info.message,
+        type: info.type === 'cancelled' ? 'error' : 'success',
+      });
+    });
+  }, []);
 
   // Read localStorage directly in the initializer — avoids context propagation
   // timing edge cases. This is the single source of truth for the gate.
@@ -85,6 +101,14 @@ function AppInner() {
       </Suspense>
 
       <ChatBubble />
+      {toast && (
+        <SimpleToast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+          duration={5000}
+        />
+      )}
     </AppShell>
   );
 }

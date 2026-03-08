@@ -11,6 +11,10 @@ import {
   calcUsableWindow,
   type JourneyData,
 } from '../context/JourneyContext';
+import {
+  lookupFlight as lookupFlightService,
+  type FlightData as ServiceFlightData,
+} from '../services/flightService';
 
 // ── Constants ──────────────────────────────────────────────────────
 
@@ -29,21 +33,31 @@ type FlightResult = {
   boardingTime: string | null;
   gate: string | null;
   status: string;
+  // Enriched fields from AeroDataBox
+  airline?: string | null;
+  destination?: string | null;
+  revisedTime?: string | null;
 };
 
 // ── API helper ──────────────────────────────────────────────────────
 
 async function lookupFlight(
   number: string,
-  type: 'departure' | 'arrival' = 'departure'
+  _type: 'departure' | 'arrival' = 'departure'
 ): Promise<FlightResult | null> {
-  try {
-    const r = await fetch(`/api/flight?number=${encodeURIComponent(number)}&type=${type}`);
-    if (!r.ok) return null;
-    return await r.json();
-  } catch {
-    return null;
-  }
+  const data = await lookupFlightService(number);
+  if (!data) return null;
+  return {
+    flightNumber: data.flightNumber,
+    terminal: data.terminal,
+    scheduledTime: data.scheduledTime,
+    boardingTime: data.estimatedBoardingTime,
+    gate: data.gate,
+    status: data.status,
+    airline: data.airline,
+    destination: data.destination,
+    revisedTime: data.revisedTime,
+  };
 }
 
 // ── Shared styles ──────────────────────────────────────────────────
@@ -324,7 +338,7 @@ function getDefaultBoardingTime(): { h: string; m: string } {
 
 interface Step2Props {
   currentTerminal: string;
-  onConfirm: (result: { flightNumber: string; departureTerminal: string; boardingTime: string; gate: string | null }) => void;
+  onConfirm: (result: { flightNumber: string; departureTerminal: string; boardingTime: string; gate: string | null; airline?: string | null; destination?: string | null; status?: string; scheduledDeparture?: string }) => void;
   onSkip: () => void;
 }
 
@@ -361,6 +375,10 @@ function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
       departureTerminal: terminal,
       boardingTime,
       gate: result.gate,
+      airline: result.airline,
+      destination: result.destination,
+      status: result.status,
+      scheduledDeparture: result.scheduledTime || undefined,
     });
   };
 
@@ -541,6 +559,7 @@ function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
                   {result.terminal ? `Terminal ${termLabel(result.terminal)}` : 'Terminal TBC'}
                   {result.gate ? ` · Gate ${result.gate}` : ''}
                   {result.boardingTime ? ` · Boards ${formatTime(result.boardingTime)}` : ''}
+                  {result.destination ? ` → ${result.destination}` : ''}
                 </p>
               </div>
             </div>
@@ -740,32 +759,42 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
   const handleStep1Skip = () => {
     // Skipped → defaults to SIN-T3, no personalisation
     setCurrentTerminal('SIN-T3');
-    buildAndComplete('SQ000', 'SIN-T3', new Date(Date.now() + 180 * 60_000).toISOString(), null);
+    buildAndComplete('SQ000', 'SIN-T3', new Date(Date.now() + 180 * 60_000).toISOString(), null, undefined);
   };
 
   const handleStep2 = ({
     flightNumber,
     departureTerminal,
     boardingTime,
+    gate,
+    airline,
+    destination,
+    status,
+    scheduledDeparture,
   }: {
     flightNumber: string;
     departureTerminal: string;
     boardingTime: string;
     gate: string | null;
+    airline?: string | null;
+    destination?: string | null;
+    status?: string;
+    scheduledDeparture?: string;
   }) => {
-    buildAndComplete(flightNumber, departureTerminal, boardingTime, null);
+    buildAndComplete(flightNumber, departureTerminal, boardingTime, gate, { airline, destination, status, scheduledDeparture });
   };
 
   const handleStep2Skip = () => {
     // No departure info → assume 3h window from current terminal
-    buildAndComplete('UNKNOWN', currentTerminal, new Date(Date.now() + 180 * 60_000).toISOString(), null);
+    buildAndComplete('UNKNOWN', currentTerminal, new Date(Date.now() + 180 * 60_000).toISOString(), null, undefined);
   };
 
   function buildAndComplete(
     flightNumber: string,
     departureTerminal: string,
     boardingTime: string,
-    _gate: string | null
+    gate: string | null,
+    enrichment?: { airline?: string | null; destination?: string | null; status?: string; scheduledDeparture?: string }
   ) {
     const walkMinutes = getWalkTime(currentTerminal, departureTerminal);
     const usableWindowMinutes = calcUsableWindow(boardingTime, walkMinutes);
@@ -781,6 +810,12 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
       usableWindowMinutes,
       jewelViable,
       capturedAt: new Date().toISOString(),
+      gate: gate || null,
+      airline: enrichment?.airline || null,
+      destination: enrichment?.destination || null,
+      status: enrichment?.status,
+      scheduledDeparture: enrichment?.scheduledDeparture,
+      lastUpdated: new Date().toISOString(),
     };
 
     setJourney(data);

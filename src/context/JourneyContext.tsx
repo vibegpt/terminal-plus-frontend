@@ -18,6 +18,13 @@ export interface JourneyData {
   usableWindowMinutes: number;   // time to boarding minus walk
   jewelViable: boolean;          // usable > 90 min
   capturedAt: string;            // ISO-8601 — when context was captured
+  // AeroDataBox enrichment (optional — existing localStorage data won't break)
+  gate?: string | null;
+  airline?: string | null;
+  destination?: string | null;
+  scheduledDeparture?: string;
+  status?: string;
+  lastUpdated?: string;
 }
 
 interface JourneyContextType {

@@ -162,6 +162,14 @@ function SectionLabel({ children, className = '' }: { children: React.ReactNode;
   );
 }
 
+function formatLastUpdated(iso: string): string {
+  const mins = Math.floor((Date.now() - new Date(iso).getTime()) / 60_000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  return `${hrs}h ago`;
+}
+
 function JourneyCard({ journey }: { journey: JourneyData }) {
   const terminal = TERMINAL_FRIENDLY[journey.departureTerminal] ?? journey.departureTerminal;
   const { label: boardingLabel, state: boardingState } = getBoardingDisplay(journey.boardingTime);
@@ -180,11 +188,19 @@ function JourneyCard({ journey }: { journey: JourneyData }) {
         <p className="text-[22px] font-bold text-white tracking-tight">
           {journey.departingFlight || '—'}
         </p>
+        {journey.airline && (
+          <p className="text-[12px] mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            {journey.airline}
+          </p>
+        )}
       </div>
 
       {/* Details rows */}
       <Row icon={<MapPin className="w-3.5 h-3.5" />} label="Terminal" value={terminal} />
-      <Row icon={<Plane className="w-3.5 h-3.5" />} label="Gate" value="Gate TBD" />
+      <Row icon={<Plane className="w-3.5 h-3.5" />} label="Gate" value={journey.gate || 'Gate TBD'} />
+      {journey.destination && (
+        <Row icon={<MapPin className="w-3.5 h-3.5" />} label="To" value={journey.destination} />
+      )}
       <div
         className="flex items-center gap-3 px-5 py-3"
       >
@@ -203,6 +219,14 @@ function JourneyCard({ journey }: { journey: JourneyData }) {
           {boardingLabel}
         </span>
       </div>
+
+      {journey.lastUpdated && (
+        <div className="px-5 py-2" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.2)' }}>
+            Updated {formatLastUpdated(journey.lastUpdated)}
+          </p>
+        </div>
+      )}
 
       <style>{`
         @keyframes tp-pulse-profile {
