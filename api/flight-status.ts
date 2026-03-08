@@ -1,5 +1,5 @@
 // api/flight-status.ts
-// Vercel serverless function: proxies flight lookup to AeroDataBox (RapidAPI).
+// Vercel serverless function: proxies flight lookup to AeroDataBox via api.market.
 // GET /api/flight-status?number=SQ321&date=2026-03-07
 //
 // Returns enriched flight data with gate, terminal, destination, boarding time.
@@ -7,7 +7,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 const API_KEY = process.env.AERODATABOX_API_KEY || '';
-const API_HOST = 'aerodatabox.p.rapidapi.com';
+const API_BASE = 'https://prod.api.market/api/v1/aedbx/aerodatabox';
 
 function mapTerminal(raw: string | null | undefined): string | null {
   if (!raw) return null;
@@ -46,12 +46,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           .slice(0, 10);
 
   try {
-    const url = `https://aerodatabox.p.rapidapi.com/flights/number/${encodeURIComponent(flightNumber)}/${dateStr}`;
+    const url = `${API_BASE}/flights/number/${encodeURIComponent(flightNumber)}/${dateStr}`;
 
     const response = await fetch(url, {
       headers: {
-        'x-rapidapi-key': API_KEY,
-        'x-rapidapi-host': API_HOST,
+        'x-api-market-key': API_KEY,
+        'Accept': 'application/json',
       },
     });
 
