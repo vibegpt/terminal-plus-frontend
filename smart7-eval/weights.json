@@ -1,0 +1,54 @@
+{
+  "selectionWeights": {
+    "timeRelevance": 0.35,
+    "proximity": 0.25,
+    "preference": 0.25,
+    "diversity": 0.15
+  },
+  "scoringFactors": {
+    "vibeMatch": 10,
+    "priceMatch": 5,
+    "accessibilityMatch": 3,
+    "openingHoursPresent": 2,
+    "sameTerminal": 8,
+    "adjacentTerminal": 4,
+    "flagshipBonus": 1,
+    "brandFamilyPenalty": -5
+  },
+  "diversityRules": {
+    "maxSameTerminal": 3,
+    "maxSamePriceLevel": 3,
+    "maxSameCategory": 2,
+    "maxJewelItems": 1,
+    "maxJewelItemsLongLayover": 3,
+    "longLayoverMinutes": 150,
+    "balanceCategories": true
+  },
+  "timingThresholds": {
+    "urgentDepartureMins": 45,
+    "approachingDepartureMins": 90,
+    "comfortableDepartureMins": 180,
+    "transitCutoffHours": 2,
+    "jewelBannerMinutes": 240
+  },
+  "boardingTimeMultipliers": {
+    "comfortable": 1.0,
+    "approaching": 0.85,
+    "urgent": 0.5
+  },
+  "terminalProximity": {
+    "sameTerminalBoost": 1.0,
+    "adjacentTerminalBoost": 0.6,
+    "remoteTerminalBoost": 0.3,
+    "jewelFromTransit": 0.4,
+    "adjacencyMap": {
+      "SIN-T1": ["SIN-T2", "SIN-T3", "SIN-JEWEL"],
+      "SIN-T2": ["SIN-T1", "SIN-T3", "SIN-JEWEL"],
+      "SIN-T3": ["SIN-T1", "SIN-T2", "SIN-JEWEL"],
+      "SIN-T4": ["SIN-JEWEL"],
+      "SIN-JEWEL": ["SIN-T1", "SIN-T2", "SIN-T3", "SIN-T4"]
+    }
+  },
+  "selectionCount": 7,
+  "candidatePoolSize": 999
+}
