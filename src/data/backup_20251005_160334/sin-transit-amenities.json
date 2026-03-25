@@ -1,0 +1,2536 @@
+[
+  {
+    "id": "1",
+    "name": "apple-store",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "2",
+    "name": "cabin-bar-dfs",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "3",
+    "name": "caffe-nero-t3-departures",
+    "category": "General",
+    "description": "Ever since we opened our first coffee house in 1997, Caffè Nero has been dedicated to two things: creating the very finest handcrafted Italian coffee and providing a warm and relaxing atmosphere in which to enjoy it.",
+    "location": "",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "As every second counts when you're flying",
+    "name": "Quick},false,false,,,LHR-T3,LHR,",
+    "category": "General",
+    "description": "",
+    "location": "",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "4",
+    "name": "caffe-nero-t3-gate-b36",
+    "category": "General",
+    "description": "Ever since we opened our first coffee house in 1997, Caffè Nero has been dedicated to two things: creating the very finest handcrafted Italian coffee and providing a warm and relaxing atmosphere in which to enjoy it.",
+    "location": "",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "As every second counts when you're flying",
+    "name": "Quick},false,false,,05:00-22:30,LHR-T3,LHR,",
+    "category": "General",
+    "description": "",
+    "location": "",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "5",
+    "name": "caffe-nero-t4-gate-16",
+    "category": "General",
+    "description": "Ever since we opened our first coffee house in 1997, Caffè Nero has been dedicated to two things: creating the very finest handcrafted Italian coffee and providing a warm and relaxing atmosphere in which to enjoy it.",
+    "location": "",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "As every second counts when you're flying",
+    "name": "Quick},false,false,,05:30-22:30,LHR-T4,LHR,",
+    "category": "General",
+    "description": "",
+    "location": "",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "6",
+    "name": "caffe-nero-t5-arrivals",
+    "category": "General",
+    "description": "Ever since we opened our first coffee house in 1997, Caffè Nero has been dedicated to two things: creating the very finest handcrafted Italian coffee and providing a warm and relaxing atmosphere in which to enjoy it.",
+    "location": "",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "As every second counts when you're flying",
+    "name": "Quick},false,false,,00:00-24:00,LHR-T5,LHR,",
+    "category": "General",
+    "description": "",
+    "location": "",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "7",
+    "name": "caffe-nero-t5-check-in",
+    "category": "General",
+    "description": "Ever since we opened our first coffee house in 1997, Caffè Nero has been dedicated to two things: creating the very finest handcrafted Italian coffee and providing a warm and relaxing atmosphere in which to enjoy it.",
+    "location": "",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "As every second counts when you're flying",
+    "name": "Quick},false,false,,05:00-23:30,LHR-T5,LHR,",
+    "category": "General",
+    "description": "",
+    "location": "",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "8",
+    "name": "chandelier",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "9",
+    "name": "charles-keith",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "10",
+    "name": "coach",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "11",
+    "name": "electronics-computers-sprint-cass-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "12",
+    "name": "electronics-computers-sprint-cass-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "13",
+    "name": "eu-yan-sang",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "14",
+    "name": "fila-jewel",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-JEWEL",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "15",
+    "name": "fila-t4",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "16",
+    "name": "fila-kids-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "17",
+    "name": "fragrance-bak-kwa-t3",
+    "category": "Shop",
+    "description": "Shopping amenity in SIN-T3",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "18",
+    "name": "fragrance-bak-kwa-t1",
+    "category": "Shop",
+    "description": "Shopping amenity in SIN-T1",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "19",
+    "name": "fragrance-bak-kwa-t2",
+    "category": "Shop",
+    "description": "Shopping amenity in SIN-T2",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "20",
+    "name": "furla-jewel",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-JEWEL",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "21",
+    "name": "furla-t3",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "22",
+    "name": "garrett-popcorn-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "23",
+    "name": "garrett-popcorn-t4",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "24",
+    "name": "gassan-watches-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "25",
+    "name": "gassan-watches-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "26",
+    "name": "giordano-sin-t1",
+    "category": "Shop",
+    "description": "Shopping amenity in SIN-T1",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "27",
+    "name": "guardian-health-beauty-sin-t1-16",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop",
+      "Quick"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "28",
+    "name": "guardian-health-beauty-sin-t1-69",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop",
+      "Quick"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "29",
+    "name": "guardian-health-beauty-sin-t2-13",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop",
+      "Quick"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "30",
+    "name": "guardian-health-beauty-sin-t2-155",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop",
+      "Quick"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "31",
+    "name": "guardian-health-beauty-sin-t3-basement-24",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop",
+      "Quick"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "32",
+    "name": "guardian-health-beauty-sin-t3-66",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop",
+      "Quick"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "33",
+    "name": "guardian-health-beauty-sin-t3-29",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop",
+      "Quick"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "34",
+    "name": "gucci-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "35",
+    "name": "gucci-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "36",
+    "name": "gucci-t3",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "37",
+    "name": "heritage-zone",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "38",
+    "name": "hermes-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "39",
+    "name": "hermes-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "40",
+    "name": "hermes-t3",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "41",
+    "name": "immersive-wall",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "42",
+    "name": "irvins-salted-egg-jewel",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-JEWEL",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "43",
+    "name": "irvins-salted-egg-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "44",
+    "name": "irvins-salted-egg-t4",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "45",
+    "name": "istudio",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "46",
+    "name": "kaboom-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "47",
+    "name": "kaboom-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "48",
+    "name": "kaboom-t3",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "49",
+    "name": "kashkha",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "50",
+    "name": "kering-eyewear-lagardere",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "51",
+    "name": "lacoste",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "52",
+    "name": "lego-airport-store",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "53",
+    "name": "lindt",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "54",
+    "name": "longchamp-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "55",
+    "name": "longchamp-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "56",
+    "name": "longchamp-t3",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "57",
+    "name": "lotte-duty-free-wines-spirits-t1-level-1-10",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "58",
+    "name": "lotte-duty-free-wines-spirits-t1-level-1-23",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "59",
+    "name": "lotte-duty-free-wines-spirits-t1-level-2-53",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "60",
+    "name": "lotte-duty-free-wines-spirits-t1-level-2-68",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "06:00 - 00:00"
+  },
+  {
+    "id": "61",
+    "name": "lotte-duty-free-wines-spirits-t1-level-2-22",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "62",
+    "name": "lotte-duty-free-wines-spirits-t1-level-2-46",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "63",
+    "name": "lotte-duty-free-wines-spirits-t2-level-1-176",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "64",
+    "name": "lotte-duty-free-wines-spirits-t2-level-2-91",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "65",
+    "name": "lotte-duty-free-wines-spirits-t2-level-1-151",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "66",
+    "name": "lotte-duty-free-wines-spirits-t2-level-2-401",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "67",
+    "name": "lotte-duty-free-wines-spirits-t2-level-3-189",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "68",
+    "name": "lotte-duty-free-wines-spirits-t2-level-2-197",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "06:00 - 01:00"
+  },
+  {
+    "id": "69",
+    "name": "lotte-duty-free-wines-spirits-t3-level-1-19",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "70",
+    "name": "lotte-duty-free-wines-spirits-t3-level-1-29",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "71",
+    "name": "lotte-duty-free-wines-spirits-t3-level-2-10",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "06:00 - 01:00"
+  },
+  {
+    "id": "72",
+    "name": "lotte-duty-free-wines-spirits-t3-level-2-65",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "06:00 - 01:00"
+  },
+  {
+    "id": "73",
+    "name": "lotte-duty-free-wines-spirits-t3-level-2-37",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "74",
+    "name": "lotte-duty-free-wines-spirits-t3-level-3-7",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "75",
+    "name": "lotte-duty-free-wines-spirits-t4-level-1-12",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "76",
+    "name": "lotte-duty-free-wines-spirits-t4-level-2-25",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "77",
+    "name": "lotte-duty-free-wines-spirits-t4-level-2-57",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "1d"
+  },
+  {
+    "id": "78",
+    "name": "louis-vuitton-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "79",
+    "name": "louis-vuitton-t3",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "80",
+    "name": "lululemon",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "81",
+    "name": "memory-of-lived-space",
+    "category": "Explore",
+    "description": "",
+    "location": "SYD-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SYD",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "82",
+    "name": "michael-kors",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "83",
+    "name": "montblanc",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "84",
+    "name": "mother-and-child",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "85",
+    "name": "petalclouds",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "86",
+    "name": "plaza-premium-lounge-syd",
+    "category": "Chill",
+    "description": "Relax in a quiet setting with snacks and drinks.",
+    "location": "SYD-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SYD",
+    "context": "transit",
+    "vibeTags": [
+      "Chill",
+      "Comfort"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "$$",
+    "openingHours": "09:00 - 23:00"
+  },
+  {
+    "id": "87",
+    "name": "plaza-premium-lounge-lhr",
+    "category": "Chill",
+    "description": "Relax in a quiet setting with snacks and drinks.",
+    "location": "LHR-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "LHR",
+    "context": "transit",
+    "vibeTags": [
+      "Chill",
+      "Comfort"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "$$",
+    "openingHours": "09:00 - 23:00"
+  },
+  {
+    "id": "88",
+    "name": "qantas-business-lounge",
+    "category": "Work",
+    "description": "Spacious lounge with business amenities and hot meals.",
+    "location": "SYD-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SYD",
+    "context": "transit",
+    "vibeTags": [
+      "Work",
+      "Chill",
+      "Comfort",
+      "Refuel"
+    ],
+    "bookingRequired": true,
+    "priceLevel": "$$$",
+    "openingHours": "1d"
+  },
+  {
+    "id": "89",
+    "name": "rhythm-of-nature",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-JEWEL",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "90",
+    "name": "rituals",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "91",
+    "name": "saga-seed",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "92",
+    "name": "spirit-of-man",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "93",
+    "name": "steel-in-bloom",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "94",
+    "name": "sunglass-hut-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "95",
+    "name": "sunglass-hut-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "96",
+    "name": "sunglass-hut-t3",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "97",
+    "name": "swarovski-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "98",
+    "name": "swarovski-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "99",
+    "name": "taste-singapore",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "100",
+    "name": "the-cocoa-trees",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "101",
+    "name": "the-digital-gadgets-jewel",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-JEWEL",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "102",
+    "name": "the-digital-gadgets-t4",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "103",
+    "name": "the-fashion-place",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "104",
+    "name": "tiffany-co",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "105",
+    "name": "timberland",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "106",
+    "name": "times-travel",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "107",
+    "name": "tods",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "108",
+    "name": "tommy-hilfiger",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "109",
+    "name": "tory-burch-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "110",
+    "name": "tory-burch-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "111",
+    "name": "travelex-money-changer-t1",
+    "category": "Quick",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Quick",
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "112",
+    "name": "travelex-money-changer-t2",
+    "category": "Quick",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Quick",
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "113",
+    "name": "travelex-money-changer-t3",
+    "category": "Quick",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Quick",
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "114",
+    "name": "travelling-family",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "115",
+    "name": "tumi",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "116",
+    "name": "twg-tea-boutique-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "117",
+    "name": "twg-tea-boutique-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "118",
+    "name": "twg-tea-boutique-t3",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "119",
+    "name": "uniqlo-jewel",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-JEWEL",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "120",
+    "name": "uniqlo-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "121",
+    "name": "unity",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop",
+      "Quick"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "122",
+    "name": "uob-gold",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "123",
+    "name": "vessel",
+    "category": "Explore",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Explore"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "124",
+    "name": "victorias-secret-beauty-accessories-t1",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "125",
+    "name": "victorias-secret-beauty-accessories-t2",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "126",
+    "name": "watches-of-switzerland",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "127",
+    "name": "whsmith-t1-level-1-84",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "07:00 - 23:00"
+  },
+  {
+    "id": "128",
+    "name": "whsmith-t1-level-2-67",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "129",
+    "name": "whsmith-t1-level-2-41",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T1",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "130",
+    "name": "whsmith-t2-level-1-26",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": false,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "06:00 - 01:00"
+  },
+  {
+    "id": "131",
+    "name": "whsmith-t2-level-2-207",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "06:00 - 01:00"
+  },
+  {
+    "id": "132",
+    "name": "whsmith-t3-level-2-43",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "133",
+    "name": "whsmith-t3-level-2-7",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T3",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "134",
+    "name": "whsmith-t4-level-2-59",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": "06:00 - 00:00"
+  },
+  {
+    "id": "135",
+    "name": "zakkasg",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T4",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  },
+  {
+    "id": "136",
+    "name": "zegna",
+    "category": "Shop",
+    "description": "",
+    "location": "SIN-T2",
+    "rating": 4,
+    "timeRequired": "15 min",
+    "isTransitAvailable": true,
+    "airport": "SIN",
+    "context": "transit",
+    "vibeTags": [
+      "Shop"
+    ],
+    "bookingRequired": false,
+    "priceLevel": "",
+    "openingHours": ""
+  }
+]

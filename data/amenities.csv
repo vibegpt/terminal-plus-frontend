@@ -1,0 +1,7 @@
+"name","terminal_code","category","amenity_type","price_tier","location_description","opening_hours","lat","lng","image_url"
+"Boost Juice","SYD-T1","beverage","food","$$","Fresh juice and smoothies, free WiFi available","06:00-22:00","","","/assets/amenities/SYD/boost-juice.jpg"
+"Starbucks Coffee","SYD-T1","cafe","food","$","Near Gate 5, offering free WiFi","06:00-22:00","","","/assets/amenities/SYD/starbucks-coffee.jpg"
+"Duty Free Shop","SYD-T1","duty_free","retail","$$$","International departures area","24/7","","","/assets/amenities/SYD/duty-free-shop.jpg"
+"Business Lounge","SYD-T2","business","lounge","$$$","Complimentary refreshments and WiFi","06:00-23:00","","","/assets/amenities/SYD/business-lounge.jpg"
+"Express Convenience Store","SYD-T1","convenience","retail","$$","Quick snacks and essentials","05:00-24:00","","","/assets/amenities/SYD/express-convenience-store.jpg"
+"Meditation Garden","SYD-T2","garden","wellness","Free","Quiet space for relaxation","24/7","","","/assets/amenities/SYD/meditation-garden.jpg"

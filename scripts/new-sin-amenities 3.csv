@@ -1,0 +1,150 @@
+id,created_at,amenity_slug,description,website_url,logo_url,vibe_tags,booking_required,available_in_tr,price_level,opening_hours,terminal_code,airport_code,name
+1455,209,canopy-park,"Indoor park with nets, mazes and slides",,,,,,,,SIN-JEWEL,SIN,Canopy Park
+1461,209,foggy-bowls,Mist-filled play areas for children,,,,,,,24 hours,SIN-JEWEL,SIN,Foggy Bowls
+1459,209,hedge-maze,Singapore's largest hedge maze,,,,,,,24 hours,SIN-JEWEL,SIN,Hedge Maze
+1458,209,manulife-sky-nets,Walking and bouncing nets suspended in the air,,,,,,,24 hours,SIN-JEWEL,SIN,Manulife Sky Nets
+1460,209,mirror-maze,Immersive mirror maze experience,,,,,,,24 hours,SIN-JEWEL,SIN,Mirror Maze
+1452,209,rain-vortex,The world's tallest indoor waterfall,,,,,,,24 hours,SIN-JEWEL,SIN,Rain Vortex
+1457,209,the-slide-t3,World's tallest slide in an airport,,,,,,,24 hours,SIN-T3,SIN,The Slide@T3
+1453,209,shiseido-forest-valley,Lush indoor forest with walking trails,,,,,,,24 hours,SIN-JEWEL,SIN,Shiseido Forest Valley
+1454,209,changi-experience-studio,Interactive digital attraction about Changi Airport,,,,,,,24 hours,SIN-JEWEL,SIN,Changi Experience Studio
+1456,209,social-tree,Interactive installation for photo sharing,,,,,,,24 hours,SIN-JEWEL,SIN,Social Tree
+1437,209,bengawan-solo,Traditional Singaporean cakes and kueh,,,,,,,24 hours,SIN-JEWEL,SIN,Bengawan Solo
+1440,209,tiger-street-lab,Craft beer and local fare,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Tiger Street Lab
+1439,209,din-tai-fung,Renowned Taiwanese restaurant famous for xiaolongbao,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Din Tai Fung
+1441,209,koi-the,Premium Taiwanese bubble tea,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Koi Thé
+1438,209,song-fa-bak-kut-teh,Award-winning pork rib soup,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Song Fa Bak Kut Teh
+1449,209,travelex,Global foreign exchange services,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Travelex
+1450,209,uob-currency-exchange,Competitive rates for currency exchange,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,UOB Currency Exchange
+1451,209,telecommunications-kiosk,SIM cards and mobile services,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Telecommunications Kiosk
+1448,209,trs-tax-refund,Tourist refund scheme counter,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,TRS Tax Refund
+1447,209,spa-express,Quick massage and spa treatments,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Spa Express
+1442,209,kinokuniya,Comprehensive Japanese bookstore,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Kinokuniya
+1444,209,zara,Spanish fast fashion retailer,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Zara
+1446,209,irvins-salted-egg,Popular salted egg fish skin and chips,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Irvins Salted Egg
+1443,209,eu-yan-sang,Traditional Chinese medicine,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Eu Yan Sang
+1445,209,muji,Minimalist Japanese home goods,,,,,,,6:00 AM - 11:00 PM,SIN-JEWEL,SIN,Muji
+1342,205,manulife-sky-nets-t1,Walking and bouncing nets suspended in the air,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Manulife Sky Nets
+1343,205,mirror-maze-t1,Immersive mirror maze experience,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Mirror Maze
+1340,205,rain-vortex-t1,The world's tallest indoor waterfall,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Rain Vortex
+1341,205,shiseido-forest-valley-t1,Lush indoor forest with walking trails,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Shiseido Forest Valley
+1336,205,entertainment-deck,Games and entertainment zone,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Entertainment Deck
+1339,205,butterfly-garden,Tropical butterfly habitat with flowering plants,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Butterfly Garden
+1335,205,cactus-garden,Outdoor roof garden with over 100 species of cacti,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Cactus Garden
+1337,205,koi-pond,Tranquil pond with Japanese koi fish,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Koi Pond
+1338,205,sunflower-garden,Rooftop garden with viewing gallery,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Sunflower Garden
+1318,205,tiger-street-lab-t1,Craft beer and local fare,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Tiger Street Lab
+1315,205,din-tai-fung-t1,Renowned Taiwanese restaurant famous for xiaolongbao,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Din Tai Fung
+1314,205,paradise-dynasty,Known for signature colorful xiaolongbao,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Paradise Dynasty
+1319,205,bee-cheng-hiang,Famous for its barbecued pork jerky,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Bee Cheng Hiang
+1317,205,koi-the-t1,Premium Taiwanese bubble tea,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Koi Thé
+1316,205,sushi-tei,Premium sushi and Japanese cuisine,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Sushi Tei
+1313,205,song-fa-bak-kut-teh-t1,Award-winning pork rib soup,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Song Fa Bak Kut Teh
+1329,205,crowne-plaza-changi-airport,Luxury hotel connected to Terminal 3,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Crowne Plaza Changi Airport
+1330,205,ambassador-transit-hotel,In-terminal hotel for transiting passengers,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Ambassador Transit Hotel
+1326,205,singapore-airlines-silverkris-lounge,Premium lounge for Singapore Airlines first and business class passengers,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Singapore Airlines SilverKris Lounge
+1328,205,sats-premier-lounge,Comfortable lounge with shower facilities,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,SATS Premier Lounge
+1327,205,dnata-lounge,Modern lounge with extensive food options,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,dnata Lounge
+1334,205,uob-currency-exchange-t1,Competitive rates for currency exchange,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,UOB Currency Exchange
+1331,205,telecommunications-kiosk-t1,SIM cards and mobile services,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Telecommunications Kiosk
+1333,205,trs-tax-refund-t1,Tourist refund scheme counter,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,TRS Tax Refund
+1332,205,spa-express-t1,Quick massage and spa treatments,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Spa Express
+1323,205,lotte-duty-free-t1,Korean duty-free retailer,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Lotte Duty Free
+1321,205,uniqlo-t1,Japanese casual wear designer,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Uniqlo
+1325,205,zara-t1,Spanish fast fashion retailer,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Zara
+1322,205,eu-yan-sang-t1,Traditional Chinese medicine,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Eu Yan Sang
+1320,205,muji-t1,Minimalist Japanese home goods,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Muji
+1324,205,tokyu-hands,Japanese lifestyle store,,,,,,,6:00 AM - 11:00 PM,SIN-T1,SIN,Tokyu Hands
+1373,206,canopy-park-t2,"Indoor park with nets, mazes and slides",,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Canopy Park
+1372,206,foggy-bowls-t2,Mist-filled play areas for children,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Foggy Bowls
+1374,206,mirror-maze-t2,Immersive mirror maze experience,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Mirror Maze
+1371,206,rain-vortex-t2,The world's tallest indoor waterfall,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Rain Vortex
+1369,206,entertainment-deck-t2,Games and entertainment zone,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Entertainment Deck
+1368,206,butterfly-garden-t2,Tropical butterfly habitat with flowering plants,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Butterfly Garden
+1366,206,cactus-garden-t2,Outdoor roof garden with over 100 species of cacti,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Cactus Garden
+1370,206,koi-pond-t2,Tranquil pond with Japanese koi fish,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Koi Pond
+1367,206,sunflower-garden-t2,Rooftop garden with viewing gallery,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Sunflower Garden
+1346,206,bengawan-solo-t2,Traditional Singaporean cakes and kueh,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Bengawan Solo
+1348,206,tiger-street-lab-t2,Craft beer and local fare,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Tiger Street Lab
+1347,206,din-tai-fung-t2,Renowned Taiwanese restaurant famous for xiaolongbao,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Din Tai Fung
+1344,206,paradise-dynasty-t2,Known for signature colorful xiaolongbao,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Paradise Dynasty
+1349,206,koi-the-t2,Premium Taiwanese bubble tea,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Koi Thé
+1350,206,old-chang-kee,Local curry puffs and fried snacks,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Old Chang Kee
+1345,206,song-fa-bak-kut-teh-t2,Award-winning pork rib soup,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Song Fa Bak Kut Teh
+1361,206,aerotel-singapore,Airport transit hotel with swimming pool,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Aerotel Singapore
+1360,206,yotelair-singapore-changi,Modern capsule-style transit hotel inside the terminal,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,YOTELAIR Singapore Changi
+1358,206,cathay-pacific-lounge,Elegant lounge for Cathay Pacific passengers,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Cathay Pacific Lounge
+1359,206,singapore-airlines-silverkris-lounge-t2,Premium lounge for Singapore Airlines first and business class passengers,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Singapore Airlines SilverKris Lounge
+1357,206,dnata-lounge-t2,Modern lounge with extensive food options,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,dnata Lounge
+1362,206,travelex-t2,Global foreign exchange services,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Travelex
+1363,206,uob-currency-exchange-t2,Competitive rates for currency exchange,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,UOB Currency Exchange
+1364,206,telecommunications-kiosk-t2,SIM cards and mobile services,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Telecommunications Kiosk
+1365,206,trs-tax-refund-t2,Tourist refund scheme counter,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,TRS Tax Refund
+1355,206,kinokuniya-t2,Comprehensive Japanese bookstore,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Kinokuniya
+1356,206,uniqlo-t2,Japanese casual wear designer,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Uniqlo
+1352,206,zara-t2,Spanish fast fashion retailer,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Zara
+1353,206,irvins-salted-egg-t2,Popular salted egg fish skin and chips,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Irvins Salted Egg
+1351,206,eu-yan-sang-t2,Traditional Chinese medicine,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Eu Yan Sang
+1354,206,muji-t2,Minimalist Japanese home goods,,,,,,,6:00 AM - 11:00 PM,SIN-T2,SIN,Muji
+1404,207,canopy-park-t3,"Indoor park with nets, mazes and slides",,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Canopy Park
+1402,207,foggy-bowls-t3,Mist-filled play areas for children,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Foggy Bowls
+1403,207,the-slide-t3,World's tallest slide in an airport,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,The Slide@T3
+1405,207,changi-experience-studio-t3,Interactive digital attraction about Changi Airport,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Changi Experience Studio
+1401,207,entertainment-deck-t3,Games and entertainment zone,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Entertainment Deck
+1397,207,butterfly-garden-t3,Tropical butterfly habitat with flowering plants,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Butterfly Garden
+1400,207,cactus-garden-t3,Outdoor roof garden with over 100 species of cacti,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Cactus Garden
+1399,207,koi-pond-t3,Tranquil pond with Japanese koi fish,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Koi Pond
+1398,207,sunflower-garden-t3,Rooftop garden with viewing gallery,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Sunflower Garden
+1380,207,bengawan-solo-t3,Traditional Singaporean cakes and kueh,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Bengawan Solo
+1376,207,tiger-street-lab-t3,Craft beer and local fare,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Tiger Street Lab
+1378,207,din-tai-fung-t3,Renowned Taiwanese restaurant famous for xiaolongbao,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Din Tai Fung
+1381,207,paradise-dynasty-t3,Known for signature colorful xiaolongbao,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Paradise Dynasty
+1379,207,bee-cheng-hiang-t3,Famous for its barbecued pork jerky,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Bee Cheng Hiang
+1377,207,ya-kun-kaya-toast,Traditional Singaporean breakfast sets,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Ya Kun Kaya Toast
+1375,207,sushi-tei-t3,Premium sushi and Japanese cuisine,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Sushi Tei
+1391,207,aerotel-singapore-t3,Airport transit hotel with swimming pool,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Aerotel Singapore
+1392,207,yotelair-singapore-changi-t3,Modern capsule-style transit hotel inside the terminal,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,YOTELAIR Singapore Changi
+1390,207,cathay-pacific-lounge-t3,Elegant lounge for Cathay Pacific passengers,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Cathay Pacific Lounge
+1388,207,sats-premier-lounge-t3,Comfortable lounge with shower facilities,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,SATS Premier Lounge
+1389,207,dnata-lounge-t3,Modern lounge with extensive food options,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,dnata Lounge
+1394,207,uob-currency-exchange-t3,Competitive rates for currency exchange,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,UOB Currency Exchange
+1393,207,telecommunications-kiosk-t3,SIM cards and mobile services,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Telecommunications Kiosk
+1396,207,trs-tax-refund-t3,Tourist refund scheme counter,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,TRS Tax Refund
+1395,207,spa-express-t3,Quick massage and spa treatments,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Spa Express
+1382,207,kinokuniya-t3,Comprehensive Japanese bookstore,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Kinokuniya
+1383,207,lotte-duty-free-t3,Korean duty-free retailer,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Lotte Duty Free
+1384,207,uniqlo-t3,Japanese casual wear designer,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Uniqlo
+1387,207,irvins-salted-egg-t3,Popular salted egg fish skin and chips,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Irvins Salted Egg
+1385,207,muji-t3,Minimalist Japanese home goods,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Muji
+1386,207,tokyu-hands-t3,Japanese lifestyle store,,,,,,,6:00 AM - 11:00 PM,SIN-T3,SIN,Tokyu Hands
+1436,208,canopy-park-t4,"Indoor park with nets, mazes and slides",,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Canopy Park
+1433,208,manulife-sky-nets-t4,Walking and bouncing nets suspended in the air,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Manulife Sky Nets
+1434,208,mirror-maze-t4,Immersive mirror maze experience,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Mirror Maze
+1435,208,changi-experience-studio-t4,Interactive digital attraction about Changi Airport,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Changi Experience Studio
+1431,208,entertainment-deck-t4,Games and entertainment zone,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Entertainment Deck
+1432,208,butterfly-garden-t4,Tropical butterfly habitat with flowering plants,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Butterfly Garden
+1430,208,cactus-garden-t4,Outdoor roof garden with over 100 species of cacti,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Cactus Garden
+1428,208,koi-pond-t4,Tranquil pond with Japanese koi fish,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Koi Pond
+1429,208,sunflower-garden-t4,Rooftop garden with viewing gallery,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Sunflower Garden
+1409,208,tiger-street-lab-t4,Craft beer and local fare,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Tiger Street Lab
+1408,208,din-tai-fung-t4,Renowned Taiwanese restaurant famous for xiaolongbao,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Din Tai Fung
+1411,208,paradise-dynasty-t4,Known for signature colorful xiaolongbao,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Paradise Dynasty
+1410,208,koi-the-t4,Premium Taiwanese bubble tea,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Koi Thé
+1407,208,ya-kun-kaya-toast-t4,Traditional Singaporean breakfast sets,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Ya Kun Kaya Toast
+1406,208,sushi-tei-t4,Premium sushi and Japanese cuisine,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Sushi Tei
+1412,208,song-fa-bak-kut-teh-t4,Award-winning pork rib soup,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Song Fa Bak Kut Teh
+1423,208,ambassador-transit-hotel-t4,In-terminal hotel for transiting passengers,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Ambassador Transit Hotel
+1422,208,yotelair-singapore-changi-t4,Modern capsule-style transit hotel inside the terminal,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,YOTELAIR Singapore Changi
+1419,208,singapore-airlines-silverkris-lounge-t4,Premium lounge for Singapore Airlines first and business class passengers,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Singapore Airlines SilverKris Lounge
+1421,208,plaza-premium-lounge-t4,Award-winning independent airport lounge,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Plaza Premium Lounge
+1420,208,sats-premier-lounge-t4,Comfortable lounge with shower facilities,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,SATS Premier Lounge
+1427,208,uob-currency-exchange-t4,Competitive rates for currency exchange,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,UOB Currency Exchange
+1424,208,telecommunications-kiosk-t4,SIM cards and mobile services,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Telecommunications Kiosk
+1425,208,trs-tax-refund-t4,Tourist refund scheme counter,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,TRS Tax Refund
+1426,208,spa-express-t4,Quick massage and spa treatments,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Spa Express
+1418,208,lotte-duty-free-t4,Korean duty-free retailer,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Lotte Duty Free
+1415,208,charles-keith,Singaporean footwear and accessories brand,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Charles & Keith
+1413,208,zara-t4,Spanish fast fashion retailer,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Zara
+1414,208,irvins-salted-egg-t4,Popular salted egg fish skin and chips,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Irvins Salted Egg
+1416,208,twg-tea,Luxury tea brand,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,TWG Tea
+1417,208,tokyu-hands-t4,Japanese lifestyle store,,,,,,,6:00 AM - 11:00 PM,SIN-T4,SIN,Tokyu Hands 

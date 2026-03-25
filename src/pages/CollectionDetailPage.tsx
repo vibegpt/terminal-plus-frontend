@@ -6,7 +6,8 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, MapPin, Clock, Search, Filter, ChevronDown, ChevronRight, DollarSign } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import NearbySurprise from '@/components/NearbySurprise';
+import { getUserContext, selectScoredAmenities, type ScoredAmenity } from '@/utils/contextualScoring';
+import { AmenityImage } from '@/components/AmenityImage';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 const TERMINAL_SHORT: Record<string, string> = {
@@ -46,29 +47,36 @@ function isOpenNow(hours: string): { open: boolean; label: string } {
   return { open: false, label: `Closed · Opens ${String(openH).padStart(2,'0')}:${String(openM).padStart(2,'0')}` };
 }
 
+const VIBE_GRADIENT: Record<string, string> = {
+  comfort:  'linear-gradient(160deg, #4C1D95 0%, #7C3AED 100%)',
+  chill:    'linear-gradient(160deg, #0C4A6E 0%, #0284C7 100%)',
+  refuel:   'linear-gradient(160deg, #7C2D12 0%, #EA580C 100%)',
+  discover: 'linear-gradient(160deg, #064E3B 0%, #059669 100%)',
+  explore:  'linear-gradient(160deg, #064E3B 0%, #059669 100%)',
+  work:     'linear-gradient(160deg, #1E293B 0%, #475569 100%)',
+  shop:     'linear-gradient(160deg, #831843 0%, #DB2777 100%)',
+  quick:    'linear-gradient(160deg, #78350F 0%, #D97706 100%)',
+};
+
+const CATEGORY_EMOJI: Record<string, string> = {
+  'Food & Dining': '🍽️', 'Electronics': '📱', 'Fashion': '👗',
+  'Wellness': '🧘', 'Lounge': '🛋️', 'Hotel': '🏨',
+  'Entertainment': '🎮', 'Services': '🛎️', 'Shopping': '🛍️',
+  'Beauty': '💆', 'Art': '🎨', 'Finance': '💱',
+};
+
 // ── Component ──────────────────────────────────────────────────────
 export const CollectionDetailPage: React.FC = () => {
   const { collectionId, vibeSlug } = useParams();
   const navigate = useNavigate();
   const [collection, setCollection] = useState<any>(null);
   const [amenities, setAmenities] = useState<any[]>([]);
+  const [scoredMeta, setScoredMeta] = useState<ScoredAmenity[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState<'distance' | 'rating' | 'name' | 'price'>('name');
+  const [sortBy, setSortBy] = useState<'relevance' | 'distance' | 'name' | 'price'>('relevance');
   const [filterBy, setFilterBy] = useState<'all' | 'open' | 'nearby'>('all');
   const [showFilters, setShowFilters] = useState(false);
-
-  // Get user terminal from session for NearbySurprise
-  const [userTerminal, setUserTerminal] = useState<string | null>(null);
-  useEffect(() => {
-    try {
-      const journey = sessionStorage.getItem('tempJourneyData');
-      if (journey) {
-        const parsed = JSON.parse(journey);
-        setUserTerminal(parsed.terminal || null);
-      }
-    } catch { /* ignore */ }
-  }, []);
 
   // Map vibe slugs to DB vibe_tags values
   const VIBE_DB_TAG: Record<string, string> = {
@@ -104,7 +112,11 @@ export const CollectionDetailPage: React.FC = () => {
             .eq('collection_id', collectionData.id)
             .order('priority', { ascending: true });
 
-          rawAmenities = amenityData?.map(item => item.amenity_detail) || [];
+          const mappedAmenities = amenityData?.map(item => item.amenity_detail) || [];
+          const ctx = getUserContext({ selectedVibe: vibeSlug || '' });
+          const scored = selectScoredAmenities(mappedAmenities, ctx, 7);
+          rawAmenities = scored.map(s => s.amenity);
+          if (mounted) setScoredMeta(scored);
         }
 
         // Fallback: if no junction data, query amenity_detail by vibe
@@ -116,16 +128,15 @@ export const CollectionDetailPage: React.FC = () => {
             .eq('airport_code', 'SIN')
             .ilike('vibe_tags', `%${vibeTag}%`)
             .order('name')
-            .limit(21);
+            .limit(50);
 
-          // Shuffle and take up to 12 for a collection-like experience
-          rawAmenities = (vibeAmenities || [])
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 12);
+          const ctx = getUserContext({ selectedVibe: vibeSlug || '' });
+          const scored = selectScoredAmenities(vibeAmenities || [], ctx, 7);
+          rawAmenities = scored.map(s => s.amenity);
+          if (mounted) setScoredMeta(scored);
         }
 
         if (mounted) {
-          // Use DB collection or create a synthetic one from the slug
           setCollection(collectionData || {
             name: collectionId?.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
             description: `${VIBE_DB_TAG[vibeSlug?.toLowerCase() || ''] || vibeSlug} spots at Changi`,
@@ -168,33 +179,36 @@ export const CollectionDetailPage: React.FC = () => {
     }
 
     // Sort
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case 'distance':
-          return (a.terminal_code || '').localeCompare(b.terminal_code || '');
-        case 'name':
-          return (a.name || '').localeCompare(b.name || '');
-        case 'price': {
-          const priceOrder: Record<string, number> = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 };
-          return (priceOrder[a.price_level] || 2) - (priceOrder[b.price_level] || 2);
+    if (sortBy !== 'relevance') {
+      filtered.sort((a, b) => {
+        switch (sortBy) {
+          case 'distance':
+            return (a.terminal_code || '').localeCompare(b.terminal_code || '');
+          case 'name':
+            return (a.name || '').localeCompare(b.name || '');
+          case 'price': {
+            const priceOrder: Record<string, number> = { '$': 1, '$$': 2, '$$$': 3, '$$$$': 4 };
+            return (priceOrder[a.price_level] || 2) - (priceOrder[b.price_level] || 2);
+          }
+          default:
+            return 0;
         }
-        default:
-          return 0;
-      }
-    });
+      });
+    }
+    // 'relevance': preserve contextual score order from selectScoredAmenities
 
     return filtered;
   }, [amenities, searchQuery, sortBy, filterBy]);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-[#0a0a0f]">
         <div className="px-4 pt-4">
-          <div className="h-6 w-20 bg-gray-200 rounded animate-pulse mb-4" />
-          <div className="h-8 w-3/4 bg-gray-200 rounded animate-pulse mb-2" />
-          <div className="h-4 w-1/2 bg-gray-100 rounded animate-pulse mb-6" />
+          <div className="h-6 w-20 bg-white/10 rounded animate-pulse mb-4" />
+          <div className="h-8 w-3/4 bg-white/10 rounded animate-pulse mb-2" />
+          <div className="h-4 w-1/2 bg-white/5 rounded animate-pulse mb-6" />
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="h-20 bg-white rounded-xl animate-pulse mb-2" />
+            <div key={i} className="h-20 bg-[#13131a] rounded-xl animate-pulse mb-2" />
           ))}
         </div>
       </div>
@@ -203,14 +217,14 @@ export const CollectionDetailPage: React.FC = () => {
 
   if (!collection) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0a0f]">
         <div className="text-center">
           <p className="text-4xl mb-4">📦</p>
-          <h2 className="text-xl font-bold mb-2">Collection not found</h2>
-          <p className="text-gray-500 text-sm mb-4">This collection may have been moved or removed.</p>
+          <h2 className="text-xl font-bold text-white mb-2">Collection not found</h2>
+          <p className="text-gray-400 text-sm mb-4">This collection may have been moved or removed.</p>
           <button
             onClick={() => navigate('/')}
-            className="px-6 py-2.5 bg-gray-900 text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"
+            className="px-6 py-2.5 bg-white text-[#0a0a0f] rounded-full text-sm font-medium hover:bg-gray-200 transition-colors"
           >
             Back to Home
           </button>
@@ -220,49 +234,49 @@ export const CollectionDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-[#0a0a0f] pb-20">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <header className="bg-[#13131a] border-b border-white/10 sticky top-0 z-40">
         <div className="px-4 py-3">
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate(-1)}
-              className="p-1.5 -ml-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-1.5 -ml-1.5 hover:bg-white/5 rounded-lg transition-colors"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-5 h-5 text-gray-200" />
             </button>
             <div className="flex-1 min-w-0">
-              <h1 className="text-lg font-bold text-gray-900 truncate">{collection.name}</h1>
+              <h1 className="text-lg font-bold text-white truncate">{collection.name}</h1>
               {collection.description && (
-                <p className="text-xs text-gray-500 truncate">{collection.description}</p>
+                <p className="text-xs text-gray-400 truncate">{collection.description}</p>
               )}
             </div>
           </div>
         </div>
 
         {/* Search Bar */}
-        <div className="px-4 py-2 border-t border-gray-100">
+        <div className="px-4 py-2 border-t border-white/10">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
             <input
               type="text"
               placeholder="Search amenities..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
         </div>
 
         {/* Filters & Sort */}
-        <div className="px-4 py-2 bg-gray-50 border-t border-gray-100">
+        <div className="px-4 py-2 bg-[#0a0a0f] border-t border-white/10">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 text-sm text-gray-600">
+            <div className="flex items-center gap-3 text-sm text-gray-400">
               <span>{filteredAndSortedAmenities.length} of {amenities.length} spots</span>
             </div>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-1 px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+              className="flex items-center gap-1 px-3 py-1 text-sm text-blue-400 hover:bg-white/5 rounded-lg transition-colors"
             >
               <Filter className="w-4 h-4" />
               <span>Filter</span>
@@ -271,15 +285,16 @@ export const CollectionDetailPage: React.FC = () => {
           </div>
 
           {showFilters && (
-            <div className="mt-3 pt-3 border-t border-gray-200">
+            <div className="mt-3 pt-3 border-t border-white/10">
               <div className="flex flex-wrap gap-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-medium text-gray-500">SORT:</span>
                   <select
                     value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as any)}
-                    className="text-xs border border-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    onChange={(e) => setSortBy(e.target.value as 'relevance' | 'distance' | 'name' | 'price')}
+                    className="text-xs bg-white/5 border border-white/10 text-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   >
+                    <option value="relevance">For You</option>
                     <option value="name">Name</option>
                     <option value="distance">Terminal</option>
                     <option value="price">Price</option>
@@ -297,8 +312,8 @@ export const CollectionDetailPage: React.FC = () => {
                         onClick={() => setFilterBy(option.value)}
                         className={`px-2 py-1 text-xs rounded transition-colors ${
                           filterBy === option.value
-                            ? 'bg-blue-100 text-blue-700 border border-blue-200'
-                            : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                            ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                            : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/5'
                         }`}
                       >
                         {option.label}
@@ -312,43 +327,65 @@ export const CollectionDetailPage: React.FC = () => {
         </div>
       </header>
 
+      {/* Hero Image */}
+      {collection.hero_image_url && (
+        <div className="relative h-48">
+          <AmenityImage
+            src={collection.hero_image_url}
+            alt={collection.name}
+            fallbackGradient={VIBE_GRADIENT[vibeSlug?.toLowerCase() || ''] || VIBE_GRADIENT.explore}
+            className="w-full h-full"
+            priority
+          />
+          <div className="absolute bottom-0 left-0 right-0 px-4 pb-3 z-10">
+            <h2 className="text-lg font-bold text-white">{collection.name}</h2>
+            <p className="text-xs text-white/50">{amenities.length} spots</p>
+          </div>
+        </div>
+      )}
+
       {/* Amenity List */}
       <div className="px-4 pt-4 space-y-2">
         {filteredAndSortedAmenities.length > 0 ? (
           filteredAndSortedAmenities.map(amenity => {
             const openStatus = isOpenNow(amenity.opening_hours);
             const termShort = TERMINAL_SHORT[amenity.terminal_code] || amenity.terminal_code;
+            const devScore = import.meta.env.DEV
+              ? scoredMeta.find(s => s.amenity.id === amenity.id)?.debugLabel
+              : undefined;
 
             return (
               <button
                 key={amenity.id}
-                onClick={() => navigate(`/amenity/${amenity.amenity_slug}`)}
-                className={`w-full flex items-center gap-3 p-3.5 bg-white rounded-xl text-left transition-colors hover:bg-gray-50 active:bg-gray-100 ${
+                onClick={() => amenity.amenity_slug && navigate(`/amenity/${amenity.amenity_slug}`, { state: { vibe: vibeSlug } })}
+                className={`w-full bg-[#13131a] rounded-xl text-left overflow-hidden transition-colors hover:bg-white/5 active:bg-white/10 ${
                   !openStatus.open ? 'opacity-60' : ''
                 }`}
               >
-                {amenity.logo_url ? (
-                  <img
-                    src={amenity.logo_url}
-                    alt={amenity.name}
-                    className="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-gray-100"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-gray-300" />
-                  </div>
-                )}
-                <div className="flex-1 min-w-0">
+                {/* Amenity image */}
+                <AmenityImage
+                  src={amenity.logo_url}
+                  alt={amenity.name}
+                  fallbackGradient={VIBE_GRADIENT[vibeSlug?.toLowerCase() || ''] || 'linear-gradient(160deg, #1a1a25 0%, #0a0a0f 100%)'}
+                  fallbackEmoji={CATEGORY_EMOJI[amenity.category || ''] || '📍'}
+                  className="w-full h-28 rounded-t-xl"
+                  overlay={false}
+                />
+
+                {/* Info below image */}
+                <div className="p-3">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <p className="text-sm font-semibold text-gray-900 truncate">{amenity.name}</p>
+                    <p className="text-sm font-semibold text-white truncate flex-1">{amenity.name}</p>
+                    {devScore && (
+                      <span className="text-[10px] text-yellow-400/70 font-mono">{devScore}</span>
+                    )}
                     {!openStatus.open && (
-                      <span className="text-[10px] text-red-500 font-medium bg-red-50 px-1.5 py-0.5 rounded flex-shrink-0">
+                      <span className="text-[10px] text-red-400 font-medium bg-red-500/15 px-1.5 py-0.5 rounded flex-shrink-0">
                         Closed
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-gray-500">
+                  <div className="flex items-center gap-3 text-xs text-gray-400">
                     <span className="flex items-center gap-1">
                       <MapPin className="w-3 h-3" />
                       {termShort}
@@ -367,38 +404,27 @@ export const CollectionDetailPage: React.FC = () => {
                     )}
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-300 flex-shrink-0" />
               </button>
             );
           })
         ) : searchQuery.trim() ? (
-          <div className="p-8 text-center text-gray-500">
-            <Search className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-            <h3 className="text-lg font-medium mb-1">No results found</h3>
+          <div className="p-8 text-center text-gray-400">
+            <Search className="w-12 h-12 mx-auto mb-3 text-gray-500" />
+            <h3 className="text-lg font-medium text-white mb-1">No results found</h3>
             <p className="text-sm">Try adjusting your search or filters</p>
             <button
               onClick={() => { setSearchQuery(''); setFilterBy('all'); }}
-              className="mt-3 px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+              className="mt-3 px-4 py-2 text-sm text-blue-400 hover:bg-white/5 rounded-lg transition-colors"
             >
               Clear search
             </button>
           </div>
         ) : (
-          <div className="p-8 text-center text-gray-500">
-            <MapPin className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-            <h3 className="text-lg font-medium mb-1">No amenities yet</h3>
+          <div className="p-8 text-center text-gray-400">
+            <MapPin className="w-12 h-12 mx-auto mb-3 text-gray-500" />
+            <h3 className="text-lg font-medium text-white mb-1">No amenities yet</h3>
             <p className="text-sm">This collection is being curated</p>
           </div>
-        )}
-
-        {/* Nearby Surprise nudge */}
-        {userTerminal && collectionId && (
-          <NearbySurprise
-            currentCollectionId={collectionId}
-            userTerminal={userTerminal}
-            onDismiss={() => {}}
-            onTap={(slug) => navigate(`/amenity/${slug}`)}
-          />
         )}
       </div>
     </div>

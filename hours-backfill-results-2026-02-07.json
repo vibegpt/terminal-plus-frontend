@@ -1,0 +1,4079 @@
+{
+  "found": [
+    {
+      "id": 10009,
+      "name": "Bengawan Solo",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "Bengawan Solo @ Jewel",
+      "googlePlaceId": "ChIJ_xrA5O892jERxvzYw5zOIks"
+    },
+    {
+      "id": 100229,
+      "name": "Birds of Paradise",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "10:00-22:00",
+      "newHours": "11:00-22:00",
+      "googleName": "Birds of Paradise Gelato Boutique - Jewel",
+      "googlePlaceId": "ChIJRd6s17o92jER5aaVrEnqyRY"
+    },
+    {
+      "id": 10000,
+      "name": "Canopy Park",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24:00\"}",
+      "newHours": "10:00-21:00",
+      "googleName": "Canopy Park - Jewel Changi",
+      "googlePlaceId": "ChIJU2IUIgo92jER1AyAECzXyB0"
+    },
+    {
+      "id": 10007,
+      "name": "Changi Experience Studio",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24:00\"}",
+      "newHours": "Mon-Fri 11:00-20:00, Sat-Sun 10:00-20:00",
+      "googleName": "Changi Experience Studio",
+      "googlePlaceId": "ChIJn5ftpj492jERrwnVj-P2bKY"
+    },
+    {
+      "id": 10011,
+      "name": "Din Tai Fung",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:00-21:00",
+      "googleName": "Din Tai Fung @ Jewel",
+      "googlePlaceId": "ChIJA4wnJ7c92jER5EKYkvcSu4w"
+    },
+    {
+      "id": 10022,
+      "name": "Eu Yan Sang",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "Eu Yan Sang",
+      "googlePlaceId": "ChIJj-OX9Ik82jERqlazMcV32Dw"
+    },
+    {
+      "id": 14,
+      "name": "Fila",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "10:00-22:00",
+      "newHours": "10:00-22:00",
+      "googleName": "FILA FLAGSHIP Store (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJy5mcR7s92jEREnkv6MqxScY"
+    },
+    {
+      "id": 50001,
+      "name": "FILA",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "FILA FLAGSHIP Store (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJy5mcR7s92jEREnkv6MqxScY"
+    },
+    {
+      "id": 50002,
+      "name": "Furla",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "10:30-21:30",
+      "googleName": "Furla",
+      "googlePlaceId": "ChIJd9siqOY92jERsPtf67-6wWs"
+    },
+    {
+      "id": 10002,
+      "name": "Hedge Maze",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24:00\"}",
+      "newHours": "10:00-21:00",
+      "googleName": "Hedge Maze @ Jewel",
+      "googlePlaceId": "ChIJk0YbmUY92jERh9dWfclivSA"
+    },
+    {
+      "id": 10021,
+      "name": "IRVINS Salted Egg",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "IRVINS at Jewel Changi Airport",
+      "googlePlaceId": "ChIJIZDXfXA92jERDz_9Auz-yJA"
+    },
+    {
+      "id": 10012,
+      "name": "Koi Thé",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:30-21:30",
+      "googleName": "KOI Thé Express (Jewel Basement)",
+      "googlePlaceId": "ChIJAQAA3I082jERRrXAhn5b3xo"
+    },
+    {
+      "id": 10004,
+      "name": "Mirror Maze",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24:00\"}",
+      "newHours": "10:00-21:00",
+      "googleName": "Mirror Maze",
+      "googlePlaceId": "ChIJGxxcvyw92jEReo7BweL2HJk"
+    },
+    {
+      "id": 100226,
+      "name": "Mr Coconut",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "10:00-22:00",
+      "newHours": "10:30-21:15",
+      "googleName": "Mr Coconut (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJzT7ULk092jERlsTTp_8lBdA"
+    },
+    {
+      "id": 10023,
+      "name": "Muji",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "MUJI (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJ290C5pU92jERMQsZqYuyvq0"
+    },
+    {
+      "id": 10005,
+      "name": "Rain Vortex",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "Jewel Rain Vortex",
+      "googlePlaceId": "ChIJiyPzSU092jERyO9c-c91new"
+    },
+    {
+      "id": 50000,
+      "name": "Rhythm of Nature",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "09:00-22:30",
+      "googleName": "Natureland Changi Jewel",
+      "googlePlaceId": "ChIJdaEU4OU92jERbYh83cHwUeY"
+    },
+    {
+      "id": 10006,
+      "name": "Shiseido Forest Valley",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24:00\"}",
+      "newHours": "24/7",
+      "googleName": "Shiseido Forest Valley @ Jewel Changi Airport",
+      "googlePlaceId": "ChIJgXYmrfA92jERISg2xdI-1YI"
+    },
+    {
+      "id": 10013,
+      "name": "Song Fa Bak Kut Teh",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "09:00-21:30",
+      "googleName": "Song Fa Bak Kut Teh (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJB2IzMIY92jER74wO7tX47DI"
+    },
+    {
+      "id": 50004,
+      "name": "The Digital Gadgets",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "The Digital Gadgets (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJy6fzqWE92jERvnRCpaRkliM"
+    },
+    {
+      "id": 50010,
+      "name": "the-digital-gadgets-jewel",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{}",
+      "newHours": "10:00-22:00",
+      "googleName": "The Digital Gadgets (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJy6fzqWE92jERvnRCpaRkliM"
+    },
+    {
+      "id": 100227,
+      "name": "The Golden Duck",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "10:00-22:00",
+      "newHours": "11:00-15:00",
+      "googleName": "Imperial Treasure Super Peking Duck",
+      "googlePlaceId": "ChIJu_jWDo492jERw3mMzZcNV34"
+    },
+    {
+      "id": 10014,
+      "name": "Travelex",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "Travelex Changi Airport T1 Arrival Hall East",
+      "googlePlaceId": "ChIJofz8tH892jERAd42ZPDIZpA"
+    },
+    {
+      "id": 50005,
+      "name": "Uniqlo",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "UNIQLO Jewel Changi Airport (Same Day Click & Collect)",
+      "googlePlaceId": "ChIJ3wC4U1c92jERC0kD0EWDcdI"
+    },
+    {
+      "id": 50011,
+      "name": "uniqlo-jewel",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{}",
+      "newHours": "10:00-22:00",
+      "googleName": "UNIQLO Jewel Changi Airport (Same Day Click & Collect)",
+      "googlePlaceId": "ChIJ3wC4U1c92jERC0kD0EWDcdI"
+    },
+    {
+      "id": 100228,
+      "name": "Wang Cafe",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "07:00-22:00",
+      "newHours": "24/7",
+      "googleName": "Heavenly Wang @ Changi Airport Terminal 1 Departure",
+      "googlePlaceId": "ChIJ5WkSFXs92jERlhM5zvlmAE8"
+    },
+    {
+      "id": 10020,
+      "name": "Zara",
+      "terminal": "SIN-JEWEL",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "ZARA",
+      "googlePlaceId": "ChIJS5hPF4082jERMOXuzkmfgD4"
+    },
+    {
+      "id": 200100,
+      "name": "Andes by Astons",
+      "terminal": "SIN-T1",
+      "oldHours": "24/7",
+      "newHours": "10:30-21:45",
+      "googleName": "Andes by Astons @ Changi Airport T1",
+      "googlePlaceId": "ChIJC5rrhWA92jERtvCkrolkXtA"
+    },
+    {
+      "id": 10036,
+      "name": "Bee Cheng Hiang",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Bee Cheng Hiang (Changi Airport T1 Departure/Transit Lounge East)",
+      "googlePlaceId": "ChIJVVVVhbg82jERNk9w3Ba6kFw"
+    },
+    {
+      "id": 200101,
+      "name": "Burger King",
+      "terminal": "SIN-T1",
+      "oldHours": "24/7",
+      "newHours": "24/7",
+      "googleName": "Burger King Terminal 1 Departure",
+      "googlePlaceId": "ChIJPXXojok82jERDYaIf0yUBKA"
+    },
+    {
+      "id": 200098,
+      "name": "Crystal Jade Go",
+      "terminal": "SIN-T1",
+      "oldHours": "24/7",
+      "newHours": "06:00-23:30",
+      "googleName": "Crystal Jade La Mian Xiao Long Bao - T1 (AIRSIDE)",
+      "googlePlaceId": "ChIJw8ER8ok82jERXI4IDmEOzNY"
+    },
+    {
+      "id": 10034,
+      "name": "Din Tai Fung",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:00-21:00",
+      "googleName": "Din Tai Fung @ Jewel",
+      "googlePlaceId": "ChIJA4wnJ7c92jER5EKYkvcSu4w"
+    },
+    {
+      "id": 10044,
+      "name": "dnata Lounge",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "marhaba Lounge",
+      "googlePlaceId": "ChIJv5fXkok82jERA5nM7tUvoa8"
+    },
+    {
+      "id": 10052,
+      "name": "Eu Yan Sang",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:30-21:00",
+      "googleName": "Eu Yan Sang Retail Store Changi Airport T3",
+      "googlePlaceId": "ChIJkViOQ4082jERdAtwxrMJJhA"
+    },
+    {
+      "id": 100008,
+      "name": "Fish Spa",
+      "terminal": "SIN-T1",
+      "oldHours": "10:00-22:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Be Relax Spa",
+      "googlePlaceId": "ChIJddx1U4w82jERC_MjRVt01DA"
+    },
+    {
+      "id": 50040,
+      "name": "Fragrance Bak Kwa",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Fragrance Bakkwa",
+      "googlePlaceId": "ChIJpaBnzJU92jERg71H0_Ph5-Y"
+    },
+    {
+      "id": 18,
+      "name": "Fragrance Bak Kwa",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Fragrance Bakkwa",
+      "googlePlaceId": "ChIJpaBnzJU92jERg71H0_Ph5-Y"
+    },
+    {
+      "id": 22,
+      "name": "Garrett Popcorn",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Garrett Popcorn Shops® - Changi Airport T1",
+      "googlePlaceId": "ChIJXWDMZCU92jERezLxFBTnFz4"
+    },
+    {
+      "id": 50041,
+      "name": "Garrett Popcorn Shops®",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Garrett Popcorn Shops® - Changi Airport T1",
+      "googlePlaceId": "ChIJXWDMZCU92jERezLxFBTnFz4"
+    },
+    {
+      "id": 24,
+      "name": "Gassan Watches",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Gassan Watch Changi Airport Terminal 1 -",
+      "googlePlaceId": "ChIJvw1ojIk82jERI7CFRY-0CO4"
+    },
+    {
+      "id": 50042,
+      "name": "Gassan Watches",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Gassan Watch Changi Airport Terminal 1 -",
+      "googlePlaceId": "ChIJvw1ojIk82jERI7CFRY-0CO4"
+    },
+    {
+      "id": 50075,
+      "name": "gassan-watches-t1",
+      "terminal": "SIN-T1",
+      "oldHours": "{}",
+      "newHours": "11:00-21:00",
+      "googleName": "Gassan Watches - T1 Central",
+      "googlePlaceId": "ChIJBYer0o082jERialEFLnk2yI"
+    },
+    {
+      "id": 27,
+      "name": "Guardian Health & Beauty",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 1 Transit West",
+      "googlePlaceId": "ChIJI-FRrH492jERoDlgMSZk3I0"
+    },
+    {
+      "id": 28,
+      "name": "Guardian Health & Beauty",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 1 Transit West",
+      "googlePlaceId": "ChIJI-FRrH492jERoDlgMSZk3I0"
+    },
+    {
+      "id": 50044,
+      "name": "Guardian Health & Beauty - Level 2 Shop 16",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 1 Transit West",
+      "googlePlaceId": "ChIJI-FRrH492jERoDlgMSZk3I0"
+    },
+    {
+      "id": 50045,
+      "name": "Guardian Health & Beauty - Level 2 Shop 69",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\":\"06:00-00:00\"}",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 1 Transit West",
+      "googlePlaceId": "ChIJI-FRrH492jERoDlgMSZk3I0"
+    },
+    {
+      "id": 34,
+      "name": "Gucci",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Gucci Changi Airport T1",
+      "googlePlaceId": "ChIJlzB_Mdo92jER8EZ-Oj7yGfU"
+    },
+    {
+      "id": 50046,
+      "name": "Gucci",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Gucci Changi Airport T1",
+      "googlePlaceId": "ChIJlzB_Mdo92jER8EZ-Oj7yGfU"
+    },
+    {
+      "id": 50049,
+      "name": "Kaboom",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Kaboom",
+      "googlePlaceId": "ChIJ__ukuI082jERfT0ELYEyy_c"
+    },
+    {
+      "id": 46,
+      "name": "Kaboom",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Kaboom",
+      "googlePlaceId": "ChIJ__ukuI082jERfT0ELYEyy_c"
+    },
+    {
+      "id": 10037,
+      "name": "Koi Thé",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:00-21:00",
+      "googleName": "KOI Thé (Changi Airport T3 Public)",
+      "googlePlaceId": "ChIJzWxMDI082jERGjxSbFHOvrw"
+    },
+    {
+      "id": 200095,
+      "name": "Kopitiam",
+      "terminal": "SIN-T1",
+      "oldHours": "24/7",
+      "newHours": "24/7",
+      "googleName": "Kopitiam @ T3 Public",
+      "googlePlaceId": "ChIJkUm6XI082jERcXC62vfGHAQ"
+    },
+    {
+      "id": 50083,
+      "name": "lindt",
+      "terminal": "SIN-T1",
+      "oldHours": "{}",
+      "newHours": "06:00-00:00",
+      "googleName": "Lindt Terminal 1",
+      "googlePlaceId": "ChIJGUutJwA92jER5TIAWRKK-cE"
+    },
+    {
+      "id": 53,
+      "name": "Lindt",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Lindt Terminal 1",
+      "googlePlaceId": "ChIJGUutJwA92jER5TIAWRKK-cE"
+    },
+    {
+      "id": 50050,
+      "name": "Lindt",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Lindt Terminal 1",
+      "googlePlaceId": "ChIJGUutJwA92jER5TIAWRKK-cE"
+    },
+    {
+      "id": 54,
+      "name": "Longchamp",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Longchamp T1",
+      "googlePlaceId": "ChIJucjD4T8Q2jERv0BHuEkbHEE"
+    },
+    {
+      "id": 50051,
+      "name": "Longchamp",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Longchamp T1",
+      "googlePlaceId": "ChIJucjD4T8Q2jERv0BHuEkbHEE"
+    },
+    {
+      "id": 50084,
+      "name": "longchamp-t1",
+      "terminal": "SIN-T1",
+      "oldHours": "{}",
+      "newHours": "06:00-00:00",
+      "googleName": "Longchamp T1",
+      "googlePlaceId": "ChIJucjD4T8Q2jERv0BHuEkbHEE"
+    },
+    {
+      "id": 50058,
+      "name": "Louis Vuitton",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Louis Vuitton Singapore Changi Airport T1",
+      "googlePlaceId": "ChIJS7jxlDE92jERzWsL2swlKIs"
+    },
+    {
+      "id": 78,
+      "name": "Louis Vuitton",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Louis Vuitton Singapore Changi Airport T1",
+      "googlePlaceId": "ChIJS7jxlDE92jERzWsL2swlKIs"
+    },
+    {
+      "id": 50059,
+      "name": "lululemon",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "lululemon, Changi Airport T1",
+      "googlePlaceId": "ChIJSVRy1Mo92jERWKtYk6UPTOY"
+    },
+    {
+      "id": 80,
+      "name": "Lululemon",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "lululemon, Changi Airport T1",
+      "googlePlaceId": "ChIJSVRy1Mo92jERWKtYk6UPTOY"
+    },
+    {
+      "id": 10025,
+      "name": "Mirror Maze",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-21:00",
+      "googleName": "Mirror Maze",
+      "googlePlaceId": "ChIJGxxcvyw92jEReo7BweL2HJk"
+    },
+    {
+      "id": 10053,
+      "name": "Muji",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "MUJI (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJ290C5pU92jERMQsZqYuyvq0"
+    },
+    {
+      "id": 200099,
+      "name": "Old Town White Coffee",
+      "terminal": "SIN-T1",
+      "oldHours": "24/7",
+      "newHours": "08:00-22:00",
+      "googleName": "Old Town Express @ Changi Airport T3",
+      "googlePlaceId": "ChIJcUF2Khw92jERlu8V6RBQ_SM"
+    },
+    {
+      "id": 10035,
+      "name": "Paradise Dynasty",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:30-23:00",
+      "googleName": "Paradise Dynasty 樂天皇朝 at Changi Airport T3",
+      "googlePlaceId": "ChIJk_uOqo082jERe1YOjm4ipU0"
+    },
+    {
+      "id": 10026,
+      "name": "Rain Vortex",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "Jewel Rain Vortex",
+      "googlePlaceId": "ChIJiyPzSU092jERyO9c-c91new"
+    },
+    {
+      "id": 50094,
+      "name": "saga-seed",
+      "terminal": "SIN-T1",
+      "oldHours": "{}",
+      "newHours": "24/7",
+      "googleName": "The Saga Seed",
+      "googlePlaceId": "ChIJ2QvAUIw82jERG0qlW-as5C0"
+    },
+    {
+      "id": 10027,
+      "name": "Shiseido Forest Valley",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "Shiseido Forest Valley @ Jewel Changi Airport",
+      "googlePlaceId": "ChIJgXYmrfA92jERISg2xdI-1YI"
+    },
+    {
+      "id": 10042,
+      "name": "Singapore Airlines SilverKris Lounge",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "SilverKris Lounge - Terminal 3",
+      "googlePlaceId": "ChIJmSWWF4082jERIWnmIGTljBQ"
+    },
+    {
+      "id": 100007,
+      "name": "Snooze Lounge",
+      "terminal": "SIN-T1",
+      "oldHours": "24/7",
+      "newHours": "24/7",
+      "googleName": "Snooze Lounge Terminal 1",
+      "googlePlaceId": "ChIJs8cMYgA92jERYiIS9K6NoiE"
+    },
+    {
+      "id": 10039,
+      "name": "Song Fa Bak Kut Teh",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "09:00-21:30",
+      "googleName": "Song Fa Bak Kut Teh (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJB2IzMIY92jER74wO7tX47DI"
+    },
+    {
+      "id": 10048,
+      "name": "Spa Express",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Be Relax Spa",
+      "googlePlaceId": "ChIJddx1U4w82jERC_MjRVt01DA"
+    },
+    {
+      "id": 200102,
+      "name": "Subway",
+      "terminal": "SIN-T1",
+      "oldHours": "24/7",
+      "newHours": "24/7",
+      "googleName": "Subway",
+      "googlePlaceId": "ChIJacaG-ao92jERwT0Z2Tu-eT8"
+    },
+    {
+      "id": 50060,
+      "name": "Sunglass Hut",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Sunglass Hut Changi Airport T1 (Transit)",
+      "googlePlaceId": "ChIJLeq8ook82jERUl4GsbUUYqs"
+    },
+    {
+      "id": 94,
+      "name": "Sunglass Hut",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Sunglass Hut Changi Airport T1 (Transit)",
+      "googlePlaceId": "ChIJLeq8ook82jERUl4GsbUUYqs"
+    },
+    {
+      "id": 10038,
+      "name": "Sushi Tei",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:30-22:00",
+      "googleName": "SUSHI TEI",
+      "googlePlaceId": "ChIJBSVWN1492jERe0p11C04s1c"
+    },
+    {
+      "id": 50061,
+      "name": "Swarovski",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Swarovski - Airport T1",
+      "googlePlaceId": "ChIJXcLkdqc92jERRqP4iWNSd6E"
+    },
+    {
+      "id": 97,
+      "name": "Swarovski",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Swarovski - Airport T1",
+      "googlePlaceId": "ChIJXcLkdqc92jERRqP4iWNSd6E"
+    },
+    {
+      "id": 200097,
+      "name": "Toast Box",
+      "terminal": "SIN-T1",
+      "oldHours": "24/7",
+      "newHours": "07:30-22:00",
+      "googleName": "Toast Box (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJN6is-pg92jEROwnQqUOT7Fs"
+    },
+    {
+      "id": 109,
+      "name": "Tory Burch",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Tory Burch",
+      "googlePlaceId": "ChIJmeYQU8c92jER3hYOWRNe2Uw"
+    },
+    {
+      "id": 50064,
+      "name": "Tory Burch",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Tory Burch",
+      "googlePlaceId": "ChIJmeYQU8c92jER3hYOWRNe2Uw"
+    },
+    {
+      "id": 50065,
+      "name": "Travelex Money Changer",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "Travelex Changi Airport T1 Arrival Hall East",
+      "googlePlaceId": "ChIJofz8tH892jERAd42ZPDIZpA"
+    },
+    {
+      "id": 111,
+      "name": "Travelex Money Changer",
+      "terminal": "SIN-T1",
+      "oldHours": "24/7",
+      "newHours": "24/7",
+      "googleName": "Travelex Changi Airport T1 Arrival Hall East",
+      "googlePlaceId": "ChIJofz8tH892jERAd42ZPDIZpA"
+    },
+    {
+      "id": 116,
+      "name": "TWG Tea Boutique",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "24/7",
+      "googleName": "TWG Tea Boutique T1",
+      "googlePlaceId": "ChIJxyVHzK892jERDlwUTCQkduE"
+    },
+    {
+      "id": 50066,
+      "name": "TWG Tea Boutique",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "TWG Tea Boutique T1",
+      "googlePlaceId": "ChIJxyVHzK892jERDlwUTCQkduE"
+    },
+    {
+      "id": 50102,
+      "name": "twg-tea-boutique-t1",
+      "terminal": "SIN-T1",
+      "oldHours": "{}",
+      "newHours": "24/7",
+      "googleName": "TWG Tea Boutique T1",
+      "googlePlaceId": "ChIJxyVHzK892jERDlwUTCQkduE"
+    },
+    {
+      "id": 120,
+      "name": "Uniqlo",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "UNIQLO Changi Airport Terminal 1 Transit",
+      "googlePlaceId": "ChIJIc5I7Ik82jERVYcXtDUttSw"
+    },
+    {
+      "id": 10050,
+      "name": "Uniqlo",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "UNIQLO Changi Airport Terminal 1 Transit",
+      "googlePlaceId": "ChIJIc5I7Ik82jERVYcXtDUttSw"
+    },
+    {
+      "id": 50068,
+      "name": "Victoria's Secret Beauty & Accessories",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Victoria's Secret",
+      "googlePlaceId": "ChIJkWWBzo082jERpXtKpQPDrEY"
+    },
+    {
+      "id": 124,
+      "name": "Victorias Secret Beauty Accessories",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Victoria's Secret",
+      "googlePlaceId": "ChIJkWWBzo082jERpXtKpQPDrEY"
+    },
+    {
+      "id": 127,
+      "name": "WHSmith",
+      "terminal": "SIN-T1",
+      "oldHours": "07:00 - 23:00",
+      "newHours": "24/7",
+      "googleName": "WHSmith - Terminal 1",
+      "googlePlaceId": "ChIJeajrCwY92jERPYvQOEDClwg"
+    },
+    {
+      "id": 128,
+      "name": "WHSmith",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "24/7",
+      "googleName": "WHSmith - Terminal 1",
+      "googlePlaceId": "ChIJeajrCwY92jERPYvQOEDClwg"
+    },
+    {
+      "id": 129,
+      "name": "WHSmith",
+      "terminal": "SIN-T1",
+      "oldHours": "06:00-00:00",
+      "newHours": "24/7",
+      "googleName": "WHSmith - Terminal 1",
+      "googlePlaceId": "ChIJeajrCwY92jERPYvQOEDClwg"
+    },
+    {
+      "id": 50069,
+      "name": "WH Smith - Before Security Level 1 Shop 84",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\":\"07:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "WHSmith - Terminal 1",
+      "googlePlaceId": "ChIJeajrCwY92jERPYvQOEDClwg"
+    },
+    {
+      "id": 50071,
+      "name": "WH Smith - Level 2 Shop 41",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "WHSmith - Terminal 1",
+      "googlePlaceId": "ChIJeajrCwY92jERPYvQOEDClwg"
+    },
+    {
+      "id": 50070,
+      "name": "WH Smith - Level 2 Shop 67",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "WHSmith - Terminal 1",
+      "googlePlaceId": "ChIJeajrCwY92jERPYvQOEDClwg"
+    },
+    {
+      "id": 10051,
+      "name": "Zara",
+      "terminal": "SIN-T1",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "ZARA",
+      "googlePlaceId": "ChIJS5hPF4082jERMOXuzkmfgD4"
+    },
+    {
+      "id": 10071,
+      "name": "Aerotel Singapore",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "Aerotel Singapore",
+      "googlePlaceId": "ChIJRd5Z9Ik82jERFFekB2dZXI4"
+    },
+    {
+      "id": 10064,
+      "name": "Bengawan Solo",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Bengawan Solo Changi Airport Terminal 2",
+      "googlePlaceId": "ChIJ__ukuI082jERzhhhD7u-aT4"
+    },
+    {
+      "id": 10055,
+      "name": "Canopy Park",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-21:00",
+      "googleName": "Canopy Park - Jewel Changi",
+      "googlePlaceId": "ChIJU2IUIgo92jER1AyAECzXyB0"
+    },
+    {
+      "id": 10073,
+      "name": "Cathay Pacific Lounge",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "07:00-01:25",
+      "googleName": "Cathay Pacific Lounge",
+      "googlePlaceId": "ChIJU78vq7g82jERxnJO-V3SqBA"
+    },
+    {
+      "id": 10066,
+      "name": "Din Tai Fung",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:00-21:00",
+      "googleName": "Din Tai Fung @ Jewel",
+      "googlePlaceId": "ChIJA4wnJ7c92jER5EKYkvcSu4w"
+    },
+    {
+      "id": 10075,
+      "name": "dnata Lounge",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "marhaba Lounge",
+      "googlePlaceId": "ChIJv5fXkok82jERA5nM7tUvoa8"
+    },
+    {
+      "id": 50174,
+      "name": "eu-yan-sang",
+      "terminal": "SIN-T2",
+      "oldHours": "{}",
+      "newHours": "07:00-23:00",
+      "googleName": "Eu Yan Sang Retail Store Changi Airport Terminal 2 (Land)",
+      "googlePlaceId": "ChIJ-cDQ2o082jERBMhQXUr_cyY"
+    },
+    {
+      "id": 10084,
+      "name": "Eu Yan Sang",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "07:00-23:00",
+      "googleName": "Eu Yan Sang Retail Store Changi Airport Terminal 2 (Land)",
+      "googlePlaceId": "ChIJ-cDQ2o082jERBMhQXUr_cyY"
+    },
+    {
+      "id": 13,
+      "name": "Eu Yan Sang",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "07:00-23:00",
+      "googleName": "Eu Yan Sang Retail Store Changi Airport Terminal 2 (Land)",
+      "googlePlaceId": "ChIJ-cDQ2o082jERBMhQXUr_cyY"
+    },
+    {
+      "id": 50142,
+      "name": "Eu Yan Sang ",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "07:00-23:00",
+      "googleName": "Eu Yan Sang Retail Store Changi Airport Terminal 2 (Land)",
+      "googlePlaceId": "ChIJ-cDQ2o082jERBMhQXUr_cyY"
+    },
+    {
+      "id": 16,
+      "name": "Fila Kids",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "11:00-21:00",
+      "googleName": "FILA KIDS",
+      "googlePlaceId": "ChIJ8wes61k92jERJ8972KZkhYg"
+    },
+    {
+      "id": 19,
+      "name": "Fragrance Bak Kwa",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "08:00-21:00",
+      "googleName": "Fragrance",
+      "googlePlaceId": "ChIJq6qqGo082jER7Kb1jNEeRH0"
+    },
+    {
+      "id": 50143,
+      "name": "Fragrance Bak Kwa",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "08:00-21:00",
+      "googleName": "Fragrance",
+      "googlePlaceId": "ChIJq6qqGo082jER7Kb1jNEeRH0"
+    },
+    {
+      "id": 50144,
+      "name": "Gassan Watches",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Gassan Watch Changi Airport Terminal 2 - Official Rolex Retailer",
+      "googlePlaceId": "ChIJ__ukuI082jERXf-i-WLBYCs"
+    },
+    {
+      "id": 25,
+      "name": "Gassan Watches",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Gassan Watch Changi Airport Terminal 2 - Official Rolex Retailer",
+      "googlePlaceId": "ChIJ__ukuI082jERXf-i-WLBYCs"
+    },
+    {
+      "id": 30,
+      "name": "Guardian Health & Beauty",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy - T2 Departure",
+      "googlePlaceId": "ChIJcykdpo482jER4RI0bkCN1Zw"
+    },
+    {
+      "id": 29,
+      "name": "Guardian Health & Beauty",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy - T2 Departure",
+      "googlePlaceId": "ChIJcykdpo482jER4RI0bkCN1Zw"
+    },
+    {
+      "id": 50145,
+      "name": "Guardian Health & Beauty - Before Security Level 2 Shop 13",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\":\"07:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy - T2 Departure",
+      "googlePlaceId": "ChIJcykdpo482jER4RI0bkCN1Zw"
+    },
+    {
+      "id": 50146,
+      "name": "Guardian Health & Beauty - Level 2 Shop 155",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 2 Transit North",
+      "googlePlaceId": "ChIJlU3S8h092jERzW1X0HejvbY"
+    },
+    {
+      "id": 35,
+      "name": "Gucci",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Gucci Changi Airport T2",
+      "googlePlaceId": "ChIJV8XBQ8A82jERlJO9Y9SsJyg"
+    },
+    {
+      "id": 50147,
+      "name": "Gucci",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Gucci Changi Airport T2",
+      "googlePlaceId": "ChIJV8XBQ8A82jERlJO9Y9SsJyg"
+    },
+    {
+      "id": 39,
+      "name": "Hermès",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Hermès Singapore Changi Airport T2",
+      "googlePlaceId": "ChIJv1TZU5I82jER9vXlqj6qJ3M"
+    },
+    {
+      "id": 50148,
+      "name": "HERMÈS",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Hermès Singapore Changi Airport T2",
+      "googlePlaceId": "ChIJv1TZU5I82jER9vXlqj6qJ3M"
+    },
+    {
+      "id": 10083,
+      "name": "IRVINS Salted Egg",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "IRVINS at Changi Airport Terminal 2",
+      "googlePlaceId": "ChIJO4qdEQI92jERd328ZePhakM"
+    },
+    {
+      "id": 50150,
+      "name": "Kaboom",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Kaboom",
+      "googlePlaceId": "ChIJ__ukuI082jERfT0ELYEyy_c"
+    },
+    {
+      "id": 47,
+      "name": "Kaboom",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Kaboom",
+      "googlePlaceId": "ChIJ__ukuI082jERfT0ELYEyy_c"
+    },
+    {
+      "id": 10068,
+      "name": "Koi Thé",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:00-21:00",
+      "googleName": "KOI Thé (Changi Airport T3 Public)",
+      "googlePlaceId": "ChIJzWxMDI082jERGjxSbFHOvrw"
+    },
+    {
+      "id": 65,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T2",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 66,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T2",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 67,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T2",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 68,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00 - 01:00",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 64,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T2",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 63,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T2",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 50156,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 151",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 50153,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 176",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 50158,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 197",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\":\"06:00-01:00\"}",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 50154,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 401",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 50155,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 91",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 50157,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 3 Shop 189",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 10057,
+      "name": "Mirror Maze",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-21:00",
+      "googleName": "Mirror Maze",
+      "googlePlaceId": "ChIJGxxcvyw92jEReo7BweL2HJk"
+    },
+    {
+      "id": 10085,
+      "name": "Muji",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "MUJI (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJ290C5pU92jERMQsZqYuyvq0"
+    },
+    {
+      "id": 10069,
+      "name": "Old Chang Kee",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "08:00-21:00",
+      "googleName": "Old Chang Kee @ Changi Airport T2",
+      "googlePlaceId": "ChIJu4uidY482jER_OOTmpbh09I"
+    },
+    {
+      "id": 10067,
+      "name": "Paradise Dynasty",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:30-23:00",
+      "googleName": "Paradise Dynasty 樂天皇朝 at Changi Airport T3",
+      "googlePlaceId": "ChIJk_uOqo082jERe1YOjm4ipU0"
+    },
+    {
+      "id": 10058,
+      "name": "Rain Vortex",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "Jewel Rain Vortex",
+      "googlePlaceId": "ChIJiyPzSU092jERyO9c-c91new"
+    },
+    {
+      "id": 10074,
+      "name": "Singapore Airlines SilverKris Lounge",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "SilverKris Lounge Business Class - Terminal 2",
+      "googlePlaceId": "ChIJUbcS3o082jER7Shic9CZ7Ks"
+    },
+    {
+      "id": 10070,
+      "name": "Song Fa Bak Kut Teh",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "09:00-21:30",
+      "googleName": "Song Fa Bak Kut Teh (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJB2IzMIY92jER74wO7tX47DI"
+    },
+    {
+      "id": 50159,
+      "name": "Sunglass Hut",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Sunglass Hut Changi Airport T2 (Transit)",
+      "googlePlaceId": "ChIJ__ukuI082jERUoXktt7Ucc8"
+    },
+    {
+      "id": 95,
+      "name": "Sunglass Hut",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Sunglass Hut Changi Airport T2 (Transit)",
+      "googlePlaceId": "ChIJ__ukuI082jERUoXktt7Ucc8"
+    },
+    {
+      "id": 98,
+      "name": "Swarovski",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "SWAROVSKI",
+      "googlePlaceId": "ChIJL3o-04082jERZL6SyKuJrO8"
+    },
+    {
+      "id": 50160,
+      "name": "Swarovski",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "SWAROVSKI",
+      "googlePlaceId": "ChIJL3o-04082jERZL6SyKuJrO8"
+    },
+    {
+      "id": 50161,
+      "name": "The Digital Gadgets",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "The Digital Gadgets (Terminal 2)",
+      "googlePlaceId": "ChIJxwuVfag92jERfmdwPO37BtA"
+    },
+    {
+      "id": 50164,
+      "name": "Tory Burch",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Tory Burch",
+      "googlePlaceId": "ChIJmeYQU8c92jER3hYOWRNe2Uw"
+    },
+    {
+      "id": 110,
+      "name": "Tory Burch",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Tory Burch",
+      "googlePlaceId": "ChIJmeYQU8c92jER3hYOWRNe2Uw"
+    },
+    {
+      "id": 10076,
+      "name": "Travelex",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "Travelex Changi Airport T2 Departure",
+      "googlePlaceId": "ChIJHVpvxqc92jERgVUZMPeuMiE"
+    },
+    {
+      "id": 112,
+      "name": "Travelex Money Changer",
+      "terminal": "SIN-T2",
+      "oldHours": "24/7",
+      "newHours": "24/7",
+      "googleName": "Travelex Changi Airport T2 Departure",
+      "googlePlaceId": "ChIJHVpvxqc92jERgVUZMPeuMiE"
+    },
+    {
+      "id": 50165,
+      "name": "Travelex Money Changer",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "Travelex Changi Airport T2 Departure",
+      "googlePlaceId": "ChIJHVpvxqc92jERgVUZMPeuMiE"
+    },
+    {
+      "id": 50167,
+      "name": "TWG Tea Boutique",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "TWG Tea at Changi T2",
+      "googlePlaceId": "ChIJ9QA21Vs92jERi1wubo5ysyg"
+    },
+    {
+      "id": 117,
+      "name": "TWG Tea Boutique",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "TWG Tea at Changi T2",
+      "googlePlaceId": "ChIJ9QA21Vs92jERi1wubo5ysyg"
+    },
+    {
+      "id": 10081,
+      "name": "Uniqlo",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "UNIQLO Changi Airport Terminal 1 Transit",
+      "googlePlaceId": "ChIJIc5I7Ik82jERVYcXtDUttSw"
+    },
+    {
+      "id": 50199,
+      "name": "unity",
+      "terminal": "SIN-T2",
+      "oldHours": "{}",
+      "newHours": "05:00-01:00",
+      "googleName": "Unity Changi Airport Terminal 2",
+      "googlePlaceId": "ChIJTxQd0WQ92jERh9iUyupDEfk"
+    },
+    {
+      "id": 121,
+      "name": "Unity",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "05:00-01:00",
+      "googleName": "Unity Changi Airport Terminal 2",
+      "googlePlaceId": "ChIJTxQd0WQ92jERh9iUyupDEfk"
+    },
+    {
+      "id": 50168,
+      "name": "Unity",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "05:00-01:00",
+      "googleName": "Unity Changi Airport Terminal 2",
+      "googlePlaceId": "ChIJTxQd0WQ92jERh9iUyupDEfk"
+    },
+    {
+      "id": 10077,
+      "name": "UOB Currency Exchange",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "UOB ATM UOB Changi Airport Terminal 2 - Departure Transit South",
+      "googlePlaceId": "ChIJE06_Obc92jER71EWklrr_qM"
+    },
+    {
+      "id": 122,
+      "name": "Uob Gold",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "24/7",
+      "googleName": "UOB ATM UOB Changi Airport Terminal 2 - Departure Transit South",
+      "googlePlaceId": "ChIJE06_Obc92jER71EWklrr_qM"
+    },
+    {
+      "id": 50169,
+      "name": "UOB Gold",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "UOB ATM UOB Changi Airport Terminal 2 - Departure Transit South",
+      "googlePlaceId": "ChIJE06_Obc92jER71EWklrr_qM"
+    },
+    {
+      "id": 50170,
+      "name": "Victoria's Secret Beauty & Accessories",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Victoria's Secret",
+      "googlePlaceId": "ChIJkWWBzo082jERpXtKpQPDrEY"
+    },
+    {
+      "id": 125,
+      "name": "Victorias Secret Beauty Accessories",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Victoria's Secret",
+      "googlePlaceId": "ChIJkWWBzo082jERpXtKpQPDrEY"
+    },
+    {
+      "id": 131,
+      "name": "WHSmith",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00 - 01:00",
+      "newHours": "07:00-23:00",
+      "googleName": "WH Smith T2 Check-In",
+      "googlePlaceId": "ChIJW98Qtso92jERBFEHL7Yx8O0"
+    },
+    {
+      "id": 130,
+      "name": "WHSmith",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00 - 01:00",
+      "newHours": "07:00-23:00",
+      "googleName": "WH Smith T2 Check-In",
+      "googlePlaceId": "ChIJW98Qtso92jERBFEHL7Yx8O0"
+    },
+    {
+      "id": 50171,
+      "name": "WH Smith - Before Security Level 1 Shop 26",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\":\"07:00-23:00\"}",
+      "newHours": "07:00-23:00",
+      "googleName": "WH Smith T2 Check-In",
+      "googlePlaceId": "ChIJW98Qtso92jERBFEHL7Yx8O0"
+    },
+    {
+      "id": 50172,
+      "name": "WH Smith - Level 2 Shop 207",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\":\"06:00-01:00\"}",
+      "newHours": "07:00-23:00",
+      "googleName": "WH Smith T2 Check-In",
+      "googlePlaceId": "ChIJW98Qtso92jERBFEHL7Yx8O0"
+    },
+    {
+      "id": 10082,
+      "name": "Zara",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "ZARA",
+      "googlePlaceId": "ChIJS5hPF4082jERMOXuzkmfgD4"
+    },
+    {
+      "id": 50204,
+      "name": "zegna",
+      "terminal": "SIN-T2",
+      "oldHours": "{}",
+      "newHours": "06:00-01:00",
+      "googleName": "Zegna Changi Airport Terminal 2",
+      "googlePlaceId": "ChIJ8YXYYXc92jERWd4ixgh6vsE"
+    },
+    {
+      "id": 136,
+      "name": "Zegna",
+      "terminal": "SIN-T2",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Zegna Changi Airport Terminal 2",
+      "googlePlaceId": "ChIJ8YXYYXc92jERWd4ixgh6vsE"
+    },
+    {
+      "id": 50173,
+      "name": "ZEGNA",
+      "terminal": "SIN-T2",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Zegna Changi Airport Terminal 2",
+      "googlePlaceId": "ChIJ8YXYYXc92jERWd4ixgh6vsE"
+    },
+    {
+      "id": 10102,
+      "name": "Aerotel Singapore",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "Aerotel Singapore",
+      "googlePlaceId": "ChIJRd5Z9Ik82jERFFekB2dZXI4"
+    },
+    {
+      "id": 10095,
+      "name": "Bengawan Solo",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "07:00-00:00",
+      "googleName": "Bengawan Solo Changi Airport Terminal 3",
+      "googlePlaceId": "ChIJkUm6XI082jER6Ec5Jc0WO8E"
+    },
+    {
+      "id": 2,
+      "name": "Cabin Bar Dfs",
+      "terminal": "SIN-T3",
+      "oldHours": "10:00-22:00",
+      "newHours": "24/7",
+      "googleName": "DFS Duty Free",
+      "googlePlaceId": "ChIJzeg8BpI82jERcQz7djAJVqY"
+    },
+    {
+      "id": 10086,
+      "name": "Canopy Park",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-21:00",
+      "googleName": "Canopy Park - Jewel Changi",
+      "googlePlaceId": "ChIJU2IUIgo92jER1AyAECzXyB0"
+    },
+    {
+      "id": 10104,
+      "name": "Cathay Pacific Lounge",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "07:00-01:25",
+      "googleName": "Cathay Pacific Lounge",
+      "googlePlaceId": "ChIJU78vq7g82jERxnJO-V3SqBA"
+    },
+    {
+      "id": 10089,
+      "name": "Changi Experience Studio",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "Mon-Fri 11:00-20:00, Sat-Sun 10:00-20:00",
+      "googleName": "Changi Experience Studio",
+      "googlePlaceId": "ChIJn5ftpj492jERrwnVj-P2bKY"
+    },
+    {
+      "id": 50269,
+      "name": "charles-keith",
+      "terminal": "SIN-T3",
+      "oldHours": "{}",
+      "newHours": "06:00-01:00",
+      "googleName": "CHARLES & KEITH",
+      "googlePlaceId": "ChIJheOnlXM92jERQxjw9Mr8_X4"
+    },
+    {
+      "id": 9,
+      "name": "Charles Keith",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "CHARLES & KEITH",
+      "googlePlaceId": "ChIJheOnlXM92jERQxjw9Mr8_X4"
+    },
+    {
+      "id": 50270,
+      "name": "coach",
+      "terminal": "SIN-T3",
+      "oldHours": "{}",
+      "newHours": "10:00-23:00",
+      "googleName": "Coach Jewel Changi",
+      "googlePlaceId": "ChIJf2021Is82jER65VBy7ZrrG4"
+    },
+    {
+      "id": 10,
+      "name": "Coach",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "10:00-23:00",
+      "googleName": "Coach Jewel Changi",
+      "googlePlaceId": "ChIJf2021Is82jER65VBy7ZrrG4"
+    },
+    {
+      "id": 10097,
+      "name": "Din Tai Fung",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:00-21:00",
+      "googleName": "Din Tai Fung @ Jewel",
+      "googlePlaceId": "ChIJA4wnJ7c92jER5EKYkvcSu4w"
+    },
+    {
+      "id": 10106,
+      "name": "dnata Lounge",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "marhaba Lounge",
+      "googlePlaceId": "ChIJv5fXkok82jERA5nM7tUvoa8"
+    },
+    {
+      "id": 50239,
+      "name": "Eu Yan Sang",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "10:30-21:00",
+      "googleName": "Eu Yan Sang Retail Store Changi Airport T3",
+      "googlePlaceId": "ChIJkViOQ4082jERdAtwxrMJJhA"
+    },
+    {
+      "id": 50240,
+      "name": "Fragrance Bak Kwa",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "08:00-21:00",
+      "googleName": "Fragrance",
+      "googlePlaceId": "ChIJq6qqGo082jER7Kb1jNEeRH0"
+    },
+    {
+      "id": 17,
+      "name": "Fragrance Bak Kwa",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "08:00-21:00",
+      "googleName": "Fragrance",
+      "googlePlaceId": "ChIJq6qqGo082jER7Kb1jNEeRH0"
+    },
+    {
+      "id": 21,
+      "name": "Furla",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "10:30-21:30",
+      "googleName": "Furla",
+      "googlePlaceId": "ChIJd9siqOY92jERsPtf67-6wWs"
+    },
+    {
+      "id": 50241,
+      "name": "Furla",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "10:30-21:30",
+      "googleName": "Furla",
+      "googlePlaceId": "ChIJd9siqOY92jERsPtf67-6wWs"
+    },
+    {
+      "id": 50242,
+      "name": "Goldheart",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Goldheart Jewelry, Changi Airport Terminal 3 Departure Hall",
+      "googlePlaceId": "ChIJ2b2FTpk92jER1xsIu5eX4eE"
+    },
+    {
+      "id": 31,
+      "name": "Guardian Health & Beauty",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 3 Transit South",
+      "googlePlaceId": "ChIJTWv9wZob2jER3vCgkpJ-rRg"
+    },
+    {
+      "id": 33,
+      "name": "Guardian Health & Beauty",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 3 Transit South",
+      "googlePlaceId": "ChIJTWv9wZob2jER3vCgkpJ-rRg"
+    },
+    {
+      "id": 32,
+      "name": "Guardian Health & Beauty",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 3 Transit South",
+      "googlePlaceId": "ChIJTWv9wZob2jER3vCgkpJ-rRg"
+    },
+    {
+      "id": 50243,
+      "name": "Guardian Health & Beauty - Before Security Basement Shop 24",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"10:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "Guardian Health & Beauty",
+      "googlePlaceId": "ChIJcdFOCl492jERgppW1U6yFmo"
+    },
+    {
+      "id": 50245,
+      "name": "Guardian Health & Beauty - Level 2 Shop 29",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 3 Transit South",
+      "googlePlaceId": "ChIJTWv9wZob2jER3vCgkpJ-rRg"
+    },
+    {
+      "id": 50244,
+      "name": "Guardian Health & Beauty - Level 2 Shop 66",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"06:00-01:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 3 Transit North",
+      "googlePlaceId": "ChIJ3_SMPE4X2jERvoBhI7FgOQ0"
+    },
+    {
+      "id": 36,
+      "name": "Gucci",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Gucci Changi Airport T3",
+      "googlePlaceId": "ChIJfbwk44w82jERPALhesqeCx8"
+    },
+    {
+      "id": 50279,
+      "name": "istudio",
+      "terminal": "SIN-T3",
+      "oldHours": "{}",
+      "newHours": "06:00-01:00",
+      "googleName": "iStudio Changi Airport Terminal 3",
+      "googlePlaceId": "ChIJHyEM9ow82jERJhh2i83UFy8"
+    },
+    {
+      "id": 45,
+      "name": "iStudio",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "iStudio Changi Airport Terminal 3",
+      "googlePlaceId": "ChIJHyEM9ow82jERJhh2i83UFy8"
+    },
+    {
+      "id": 48,
+      "name": "Kaboom",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Kaboom @T3",
+      "googlePlaceId": "ChIJg4OWjIw82jERM9WKt9Xixu8"
+    },
+    {
+      "id": 50248,
+      "name": "Kaboom",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Kaboom @T3",
+      "googlePlaceId": "ChIJg4OWjIw82jERM9WKt9Xixu8"
+    },
+    {
+      "id": 50280,
+      "name": "kaboom-t3",
+      "terminal": "SIN-T3",
+      "oldHours": "{}",
+      "newHours": "06:00-01:00",
+      "googleName": "Kaboom @T3",
+      "googlePlaceId": "ChIJg4OWjIw82jERM9WKt9Xixu8"
+    },
+    {
+      "id": 50250,
+      "name": "LEGO® Airport Store",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "LEGO Airport Store - T3",
+      "googlePlaceId": "ChIJ47wYMAA92jERIx3Y94t9jq0"
+    },
+    {
+      "id": 10112,
+      "name": "Lotte Duty Free",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Departure)",
+      "googlePlaceId": "ChIJnyHaIwA92jERvFN7vYdoSMI"
+    },
+    {
+      "id": 73,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T3",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 72,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00 - 01:00",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 71,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00 - 01:00",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 69,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T3",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 70,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T3",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 74,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T3",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 50253,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 19",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 50252,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 29",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 50255,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 10",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"06:00-01:00\"}",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 50256,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 37",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 50254,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 65",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"06:00-01:00\"}",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 50257,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 3 Shop 7",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 79,
+      "name": "Louis Vuitton",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Louis Vuitton Singapore Changi Airport T3",
+      "googlePlaceId": "ChIJpRA6M5c82jER1XvGDiejHCY"
+    },
+    {
+      "id": 50258,
+      "name": "Louis Vuitton",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Louis Vuitton Singapore Changi Airport T3",
+      "googlePlaceId": "ChIJpRA6M5c82jER1XvGDiejHCY"
+    },
+    {
+      "id": 50290,
+      "name": "michael-kors",
+      "terminal": "SIN-T3",
+      "oldHours": "{}",
+      "newHours": "06:00-01:00",
+      "googleName": "Michael Kors Changi Airport T3",
+      "googlePlaceId": "ChIJccl8Vs092jERMmD-YUjc-00"
+    },
+    {
+      "id": 82,
+      "name": "Michael Kors",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Michael Kors Changi Airport T3",
+      "googlePlaceId": "ChIJccl8Vs092jERMmD-YUjc-00"
+    },
+    {
+      "id": 10115,
+      "name": "Muji",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "MUJI (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJ290C5pU92jERMQsZqYuyvq0"
+    },
+    {
+      "id": 10098,
+      "name": "Paradise Dynasty",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:30-23:00",
+      "googleName": "Paradise Dynasty 樂天皇朝 at Changi Airport T3",
+      "googlePlaceId": "ChIJk_uOqo082jERe1YOjm4ipU0"
+    },
+    {
+      "id": 10105,
+      "name": "SATS Premier Lounge",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "SATS Premier Lounge Terminal 3",
+      "googlePlaceId": "ChIJdcuxGY082jER9mdXbUWi1Sc"
+    },
+    {
+      "id": 10110,
+      "name": "Spa Express",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Be Relax Spa",
+      "googlePlaceId": "ChIJddx1U4w82jERC_MjRVt01DA"
+    },
+    {
+      "id": 50259,
+      "name": "Sunglass Hut",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "07:30-23:00",
+      "googleName": "Sunglass Hut Changi Airport T3 (Transit)",
+      "googlePlaceId": "ChIJ_-4P-ow82jERfGjP7RUXijI"
+    },
+    {
+      "id": 10101,
+      "name": "Sushi Tei",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:30-22:00",
+      "googleName": "SUSHI TEI",
+      "googlePlaceId": "ChIJBSVWN1492jERe0p11C04s1c"
+    },
+    {
+      "id": 50260,
+      "name": "Swarovski",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "SWAROVSKI",
+      "googlePlaceId": "ChIJL3o-04082jERZL6SyKuJrO8"
+    },
+    {
+      "id": 50293,
+      "name": "the-cocoa-trees",
+      "terminal": "SIN-T3",
+      "oldHours": "{}",
+      "newHours": "24/7",
+      "googleName": "The Cocoa Trees - Changi Airport Terminal 3 North",
+      "googlePlaceId": "ChIJcxr5iKw92jER1zZytZQedPk"
+    },
+    {
+      "id": 100,
+      "name": "The Cocoa Trees",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "24/7",
+      "googleName": "The Cocoa Trees - Changi Airport Terminal 3 North",
+      "googlePlaceId": "ChIJcxr5iKw92jER1zZytZQedPk"
+    },
+    {
+      "id": 50294,
+      "name": "timberland",
+      "terminal": "SIN-T3",
+      "oldHours": "{}",
+      "newHours": "10:00-22:00",
+      "googleName": "Timberland",
+      "googlePlaceId": "ChIJr0lLVYs82jEREJWc2j8oBPg"
+    },
+    {
+      "id": 105,
+      "name": "Timberland",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "10:00-22:00",
+      "googleName": "Timberland",
+      "googlePlaceId": "ChIJr0lLVYs82jEREJWc2j8oBPg"
+    },
+    {
+      "id": 50262,
+      "name": "Time Emporium",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Time Emporium Terminal 3 South",
+      "googlePlaceId": "ChIJc76y5UQ92jERAjKaXTWqixw"
+    },
+    {
+      "id": 50263,
+      "name": "Travelex Money Changer",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "07:30-22:00",
+      "googleName": "Travelex",
+      "googlePlaceId": "ChIJexQCnLg92jERApKrOIloJsQ"
+    },
+    {
+      "id": 50264,
+      "name": "TWG Tea Boutique",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "TWG Tea at Changi T3",
+      "googlePlaceId": "ChIJ-xMQHI082jERYYImDFX6-r0"
+    },
+    {
+      "id": 10113,
+      "name": "Uniqlo",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "UNIQLO Changi Airport Terminal 1 Transit",
+      "googlePlaceId": "ChIJIc5I7Ik82jERVYcXtDUttSw"
+    },
+    {
+      "id": 50296,
+      "name": "watches-of-switzerland",
+      "terminal": "SIN-T3",
+      "oldHours": "{}",
+      "newHours": "10:00-22:00",
+      "googleName": "CAPSULE by Watches of Switzerland",
+      "googlePlaceId": "ChIJW5B-TRk92jERfJZ2r7mHggg"
+    },
+    {
+      "id": 126,
+      "name": "Watches Of Switzerland",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "10:00-22:00",
+      "googleName": "CAPSULE by Watches of Switzerland",
+      "googlePlaceId": "ChIJW5B-TRk92jERfJZ2r7mHggg"
+    },
+    {
+      "id": 133,
+      "name": "WHSmith",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "WH Smith Travel - Changi Airport Terminal 3-North",
+      "googlePlaceId": "ChIJV8XBQ8A82jERVqtyfdTbfn8"
+    },
+    {
+      "id": 132,
+      "name": "WHSmith",
+      "terminal": "SIN-T3",
+      "oldHours": "06:00-01:00",
+      "newHours": "06:00-01:00",
+      "googleName": "WH Smith Travel - Changi Airport Terminal 3-North",
+      "googlePlaceId": "ChIJV8XBQ8A82jERVqtyfdTbfn8"
+    },
+    {
+      "id": 50265,
+      "name": "WH Smith - Level 2 Shop 43",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"06:00-01:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "WH Smith Travel - Changi Airport Terminal 3-North",
+      "googlePlaceId": "ChIJV8XBQ8A82jERVqtyfdTbfn8"
+    },
+    {
+      "id": 50266,
+      "name": "WH Smith - Level 2 Shop 7",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "WH Smith Travel - Changi Airport Terminal 3-North",
+      "googlePlaceId": "ChIJV8XBQ8A82jERVqtyfdTbfn8"
+    },
+    {
+      "id": 10100,
+      "name": "Ya Kun Kaya Toast",
+      "terminal": "SIN-T3",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "07:30-23:00",
+      "googleName": "Ya Kun Kaya Toast",
+      "googlePlaceId": "ChIJ_-4P-ow82jERn1z2d3p_n_M"
+    },
+    {
+      "id": 10117,
+      "name": "Canopy Park",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-21:00",
+      "googleName": "Canopy Park - Jewel Changi",
+      "googlePlaceId": "ChIJU2IUIgo92jER1AyAECzXyB0"
+    },
+    {
+      "id": 10120,
+      "name": "Changi Experience Studio",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "Mon-Fri 11:00-20:00, Sat-Sun 10:00-20:00",
+      "googleName": "Changi Experience Studio",
+      "googlePlaceId": "ChIJn5ftpj492jERrwnVj-P2bKY"
+    },
+    {
+      "id": 10143,
+      "name": "Charles & Keith",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "CHARLES & KEITH - Terminal 4",
+      "googlePlaceId": "ChIJRV1RZ8c82jERuXhGjwjMXKs"
+    },
+    {
+      "id": 10127,
+      "name": "Din Tai Fung",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:00-21:00",
+      "googleName": "Din Tai Fung @ Jewel",
+      "googlePlaceId": "ChIJA4wnJ7c92jER5EKYkvcSu4w"
+    },
+    {
+      "id": 10121,
+      "name": "Entertainment Deck",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "Entertainment Corner T4",
+      "googlePlaceId": "ChIJ6xw62F892jERcE9QFZ4YTKI"
+    },
+    {
+      "id": 15,
+      "name": "Fila",
+      "terminal": "SIN-T4",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-01:00",
+      "googleName": "FILA (Airside T4)",
+      "googlePlaceId": "ChIJQ5SHU2g92jERh-cBva5TbLI"
+    },
+    {
+      "id": 23,
+      "name": "Garrett Popcorn",
+      "terminal": "SIN-T4",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "GARRETT Popcorn Changi Terminal 4 Depature",
+      "googlePlaceId": "ChIJdxAa3go92jERJwlsHxkjVMc"
+    },
+    {
+      "id": 50338,
+      "name": "Garrett Popcorn Shops®",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Garrett Popcorn Shops® - Changi Airport T4",
+      "googlePlaceId": "ChIJ3TWG2pI92jER0-yj4BF-tRc"
+    },
+    {
+      "id": 50356,
+      "name": "heritage-zone",
+      "terminal": "SIN-T4",
+      "oldHours": "{}",
+      "newHours": "24/7",
+      "googleName": "Heritage Zone",
+      "googlePlaceId": "ChIJoc-sjpQ92jERyeVL9oXML3k"
+    },
+    {
+      "id": 50359,
+      "name": "kashkha",
+      "terminal": "SIN-T4",
+      "oldHours": "{}",
+      "newHours": "06:00-00:00",
+      "googleName": "Kashkha",
+      "googlePlaceId": "ChIJZ6DWAZc92jERXAq13ShM_GE"
+    },
+    {
+      "id": 49,
+      "name": "Kashkha",
+      "terminal": "SIN-T4",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Kashkha",
+      "googlePlaceId": "ChIJZ6DWAZc92jERXAq13ShM_GE"
+    },
+    {
+      "id": 50340,
+      "name": "KASHKHA",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Kashkha",
+      "googlePlaceId": "ChIJZ6DWAZc92jERXAq13ShM_GE"
+    },
+    {
+      "id": 10129,
+      "name": "Koi Thé",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:00-21:00",
+      "googleName": "KOI Thé (Changi Airport T3 Public)",
+      "googlePlaceId": "ChIJzWxMDI082jERGjxSbFHOvrw"
+    },
+    {
+      "id": 50360,
+      "name": "lego-airport-store",
+      "terminal": "SIN-T4",
+      "oldHours": "{}",
+      "newHours": "24/7",
+      "googleName": "LEGO Airport Store - T3",
+      "googlePlaceId": "ChIJ47wYMAA92jERIx3Y94t9jq0"
+    },
+    {
+      "id": 52,
+      "name": "Lego Airport Store",
+      "terminal": "SIN-T4",
+      "oldHours": "06:00-00:00",
+      "newHours": "24/7",
+      "googleName": "LEGO Airport Store - T3",
+      "googlePlaceId": "ChIJ47wYMAA92jERIx3Y94t9jq0"
+    },
+    {
+      "id": 50341,
+      "name": "LEGO® Airport Store",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "LEGO Airport Store - T3",
+      "googlePlaceId": "ChIJ47wYMAA92jERIx3Y94t9jq0"
+    },
+    {
+      "id": 10142,
+      "name": "Lotte Duty Free",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 76,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T4",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 77,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T4",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 75,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T4",
+      "oldHours": "1d",
+      "newHours": "24/7",
+      "googleName": "Lotte Duty Free (T3 Arrival)",
+      "googlePlaceId": "ChIJ14xCeBc92jERqpDvzI3la70"
+    },
+    {
+      "id": 50342,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 25",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 50344,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 57",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\":\"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "LOTTE DUTY FREE Changi Airport Store (T2 Departure)",
+      "googlePlaceId": "ChIJd4Plepo92jERdIPV_2Gya5M"
+    },
+    {
+      "id": 10119,
+      "name": "Mirror Maze",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-21:00",
+      "googleName": "Mirror Maze",
+      "googlePlaceId": "ChIJGxxcvyw92jEReo7BweL2HJk"
+    },
+    {
+      "id": 10128,
+      "name": "Paradise Dynasty",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:30-23:00",
+      "googleName": "Paradise Dynasty 樂天皇朝 at Changi Airport T3",
+      "googlePlaceId": "ChIJk_uOqo082jERe1YOjm4ipU0"
+    },
+    {
+      "id": 10136,
+      "name": "Plaza Premium Lounge",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "Plaza Premium Lounge",
+      "googlePlaceId": "ChIJkVsTTmI82jERH5FIfCJVqvw"
+    },
+    {
+      "id": 10137,
+      "name": "SATS Premier Lounge",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "SATS Premier Lounge Terminal 3",
+      "googlePlaceId": "ChIJdcuxGY082jER9mdXbUWi1Sc"
+    },
+    {
+      "id": 10135,
+      "name": "Singapore Airlines SilverKris Lounge",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "24/7",
+      "googleName": "SilverKris Lounge Business Class - Terminal 2",
+      "googlePlaceId": "ChIJUbcS3o082jER7Shic9CZ7Ks"
+    },
+    {
+      "id": 10132,
+      "name": "Song Fa Bak Kut Teh",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "09:00-21:30",
+      "googleName": "Song Fa Bak Kut Teh (Jewel Changi Airport)",
+      "googlePlaceId": "ChIJB2IzMIY92jER74wO7tX47DI"
+    },
+    {
+      "id": 10141,
+      "name": "Spa Express",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Be Relax Spa",
+      "googlePlaceId": "ChIJddx1U4w82jERC_MjRVt01DA"
+    },
+    {
+      "id": 50345,
+      "name": "Sunglass Hut",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "Sunglass Hut Changi T4 (Transit)",
+      "googlePlaceId": "ChIJQdctYcc82jERLoU0wcVFHj4"
+    },
+    {
+      "id": 96,
+      "name": "Sunglass Hut",
+      "terminal": "SIN-T4",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-01:00",
+      "googleName": "Sunglass Hut Changi T4 (Transit)",
+      "googlePlaceId": "ChIJQdctYcc82jERLoU0wcVFHj4"
+    },
+    {
+      "id": 10131,
+      "name": "Sushi Tei",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "11:30-22:00",
+      "googleName": "SUSHI TEI",
+      "googlePlaceId": "ChIJBSVWN1492jERe0p11C04s1c"
+    },
+    {
+      "id": 50367,
+      "name": "taste-singapore",
+      "terminal": "SIN-T4",
+      "oldHours": "{}",
+      "newHours": "06:00-00:00",
+      "googleName": "Taste Singapore",
+      "googlePlaceId": "ChIJQdctYcc82jERP5J0Xs46cUI"
+    },
+    {
+      "id": 99,
+      "name": "Taste Singapore",
+      "terminal": "SIN-T4",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-00:00",
+      "googleName": "Taste Singapore",
+      "googlePlaceId": "ChIJQdctYcc82jERP5J0Xs46cUI"
+    },
+    {
+      "id": 50346,
+      "name": "Taste Singapore",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-00:00",
+      "googleName": "Taste Singapore",
+      "googlePlaceId": "ChIJQdctYcc82jERP5J0Xs46cUI"
+    },
+    {
+      "id": 102,
+      "name": "The Digital Gadgets",
+      "terminal": "SIN-T4",
+      "oldHours": "06:00-00:00",
+      "newHours": "07:00-23:00",
+      "googleName": "The Digital Gadgets (Changi Airport Terminal 4)",
+      "googlePlaceId": "ChIJdy2CFAA92jERBgfVNP1KKuI"
+    },
+    {
+      "id": 50347,
+      "name": "The Digital Gadgets",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "07:00-23:00",
+      "googleName": "The Digital Gadgets (Changi Airport Terminal 4)",
+      "googlePlaceId": "ChIJdy2CFAA92jERBgfVNP1KKuI"
+    },
+    {
+      "id": 50349,
+      "name": "Travelex Money Changer",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "24/7",
+      "googleName": "Travelex Changi Airport T2 Departure",
+      "googlePlaceId": "ChIJHVpvxqc92jERgVUZMPeuMiE"
+    },
+    {
+      "id": 113,
+      "name": "Travelex Money Changer",
+      "terminal": "SIN-T4",
+      "oldHours": "24/7",
+      "newHours": "24/7",
+      "googleName": "Travelex Changi Airport T2 Departure",
+      "googlePlaceId": "ChIJHVpvxqc92jERgVUZMPeuMiE"
+    },
+    {
+      "id": 50371,
+      "name": "travelling-family",
+      "terminal": "SIN-T4",
+      "oldHours": "{}",
+      "newHours": "24/7",
+      "googleName": "Travelling Family Sculpture",
+      "googlePlaceId": "ChIJE2eEQDI92jER2yN2xb4LWss"
+    },
+    {
+      "id": 114,
+      "name": "Travelling Family",
+      "terminal": "SIN-T4",
+      "oldHours": "24/7",
+      "newHours": "24/7",
+      "googleName": "Travelling Family Sculpture",
+      "googlePlaceId": "ChIJE2eEQDI92jER2yN2xb4LWss"
+    },
+    {
+      "id": 10146,
+      "name": "TWG Tea",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "TWG Tea at Changi T4",
+      "googlePlaceId": "ChIJaxs0QUY92jERWqrWS87Y_eg"
+    },
+    {
+      "id": 118,
+      "name": "TWG Tea Boutique",
+      "terminal": "SIN-T4",
+      "oldHours": "06:00-00:00",
+      "newHours": "06:00-01:00",
+      "googleName": "TWG Tea at Changi T4",
+      "googlePlaceId": "ChIJaxs0QUY92jERWqrWS87Y_eg"
+    },
+    {
+      "id": 50350,
+      "name": "TWG Tea Boutique",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"24/7\"}",
+      "newHours": "06:00-01:00",
+      "googleName": "TWG Tea at Changi T4",
+      "googlePlaceId": "ChIJaxs0QUY92jERWqrWS87Y_eg"
+    },
+    {
+      "id": 134,
+      "name": "WHSmith",
+      "terminal": "SIN-T4",
+      "oldHours": "06:00 - 00:00",
+      "newHours": "24/7",
+      "googleName": "WHSmith - Terminal 1",
+      "googlePlaceId": "ChIJeajrCwY92jERPYvQOEDClwg"
+    },
+    {
+      "id": 50351,
+      "name": "WH Smith - Level 2 Shop 59",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\":\"06:00-00:00\"}",
+      "newHours": "24/7",
+      "googleName": "WH Smith Pte Ltd",
+      "googlePlaceId": "ChIJr7JPJ5M82jERJtmixTyF6t8"
+    },
+    {
+      "id": 10130,
+      "name": "Ya Kun Kaya Toast",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "07:30-23:00",
+      "googleName": "Ya Kun Kaya Toast",
+      "googlePlaceId": "ChIJ_-4P-ow82jERn1z2d3p_n_M"
+    },
+    {
+      "id": 10144,
+      "name": "Zara",
+      "terminal": "SIN-T4",
+      "oldHours": "{\"Monday-Sunday\": \"06:00-23:00\"}",
+      "newHours": "10:00-22:00",
+      "googleName": "ZARA",
+      "googlePlaceId": "ChIJS5hPF4082jERMOXuzkmfgD4"
+    }
+  ],
+  "notFound": [
+    {
+      "id": 100231,
+      "name": "Awfully Chocolate",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 200164,
+      "name": "A&W Restaurants",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: A&W Jewel Changi Airport"
+    },
+    {
+      "id": 100213,
+      "name": "Beyond The Vines",
+      "terminal": "SIN-JEWEL",
+      "reason": "no hours"
+    },
+    {
+      "id": 100217,
+      "name": "Bynd Artisan",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Gift by Changi Airport"
+    },
+    {
+      "id": 100233,
+      "name": "Champion Bolo Bun",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 100218,
+      "name": "Crane",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 100230,
+      "name": "Creamier",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Creamie Sippies (Jewel)"
+    },
+    {
+      "id": 100220,
+      "name": "Faculty",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 10001,
+      "name": "Foggy Bowls",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Canopy Park - Jewel Changi"
+    },
+    {
+      "id": 100225,
+      "name": "Fossa Chocolate",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Läderach"
+    },
+    {
+      "id": 100235,
+      "name": "Grain Traders",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 100215,
+      "name": "In Good Company",
+      "terminal": "SIN-JEWEL",
+      "reason": "no hours"
+    },
+    {
+      "id": 50008,
+      "name": "irvins-salted-egg-jewel",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: IRVINS at Jewel Changi Airport"
+    },
+    {
+      "id": 100234,
+      "name": "Kélé",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Kele Singapore"
+    },
+    {
+      "id": 10019,
+      "name": "Kinokuniya",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 100232,
+      "name": "Leckerbaer",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: The Backyard Bakers (Jewel Singapore)"
+    },
+    {
+      "id": 100224,
+      "name": "Lemuel Chocolate",
+      "terminal": "SIN-JEWEL",
+      "reason": "no hours"
+    },
+    {
+      "id": 10003,
+      "name": "Manulife Sky Nets",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Canopy Park - Jewel Changi"
+    },
+    {
+      "id": 100216,
+      "name": "Ong Shunmugam",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 100222,
+      "name": "Pew Pew Patches",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 50009,
+      "name": "rhythm-of-nature",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Natureland Changi Jewel"
+    },
+    {
+      "id": 100221,
+      "name": "SabrinaGoh",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Gift by Changi Airport"
+    },
+    {
+      "id": 10008,
+      "name": "Social Tree",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Sanook Kitchen (Jewel Changi Airport)"
+    },
+    {
+      "id": 10018,
+      "name": "Spa Express",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Natureland Changi Jewel"
+    },
+    {
+      "id": 100223,
+      "name": "SunnyHills",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 10016,
+      "name": "Telecommunications Kiosk",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: The Digital Gadgets (Jewel Changi Airport)"
+    },
+    {
+      "id": 100212,
+      "name": "The Editor's Market",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 100211,
+      "name": "The Farm Store",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: FairPrice Finest (Jewel Changi Airport)"
+    },
+    {
+      "id": 100219,
+      "name": "The Little Dröm Store",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: Mdm Ling Bakery @ Jewel Changi Airport"
+    },
+    {
+      "id": 100236,
+      "name": "The Singapore Mint",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 10017,
+      "name": "TRS Tax Refund",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 10015,
+      "name": "UOB Currency Exchange",
+      "terminal": "SIN-JEWEL",
+      "reason": "name mismatch: United Overseas Bank Limited Co."
+    },
+    {
+      "id": 100214,
+      "name": "Weekend Sundries",
+      "terminal": "SIN-JEWEL",
+      "reason": "not found"
+    },
+    {
+      "id": 10041,
+      "name": "Ambassador Transit Hotel",
+      "terminal": "SIN-T1",
+      "reason": "no hours"
+    },
+    {
+      "id": 10040,
+      "name": "Crowne Plaza Changi Airport",
+      "terminal": "SIN-T1",
+      "reason": "no hours"
+    },
+    {
+      "id": 50039,
+      "name": "Electronics Computers by Sprint-Cass",
+      "terminal": "SIN-T1",
+      "reason": "no hours"
+    },
+    {
+      "id": 11,
+      "name": "Electronics Computers Sprint Cass",
+      "terminal": "SIN-T1",
+      "reason": "no hours"
+    },
+    {
+      "id": 50072,
+      "name": "electronics-computers-sprint-cass-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Sprint-Cass Changi Airport Electronics Retail"
+    },
+    {
+      "id": 10028,
+      "name": "Entertainment Deck",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Changi T1 Viewing Mall L3"
+    },
+    {
+      "id": 50073,
+      "name": "fragrance-bak-kwa-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Fragrance Bakkwa"
+    },
+    {
+      "id": 50074,
+      "name": "garrett-popcorn-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Garrett Popcorn Shops® - Changi Airport T1"
+    },
+    {
+      "id": 50043,
+      "name": "Giordano",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 26,
+      "name": "Giordano",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50076,
+      "name": "giordano-sin-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Giordano"
+    },
+    {
+      "id": 50077,
+      "name": "guardian-health-beauty-sin-t1-16",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 1 Transit West"
+    },
+    {
+      "id": 50078,
+      "name": "guardian-health-beauty-sin-t1-69",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 1 Transit West"
+    },
+    {
+      "id": 50079,
+      "name": "gucci-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Gucci Changi Airport T1"
+    },
+    {
+      "id": 38,
+      "name": "Hermès",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Hermes"
+    },
+    {
+      "id": 50047,
+      "name": "HERMÈS",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Hermes"
+    },
+    {
+      "id": 50080,
+      "name": "hermes-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Hermes"
+    },
+    {
+      "id": 43,
+      "name": "IRVINS Salted Egg",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50048,
+      "name": "IRVINS Salted Egg",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50081,
+      "name": "irvins-salted-egg-t1",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50082,
+      "name": "kaboom-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Kaboom"
+    },
+    {
+      "id": 10031,
+      "name": "Koi Pond",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 10049,
+      "name": "Lotte Duty Free",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 60,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 61,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 57,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 62,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 58,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 59,
+      "name": "Lotte Duty Free Wines & Spirits",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50052,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 10",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50053,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 23",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50056,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 22",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50057,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 46",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50054,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 53",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50055,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 68",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50085,
+      "name": "lotte-duty-free-wines-spirits-t1-level-1-10",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50086,
+      "name": "lotte-duty-free-wines-spirits-t1-level-1-23",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50089,
+      "name": "lotte-duty-free-wines-spirits-t1-level-2-22",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50090,
+      "name": "lotte-duty-free-wines-spirits-t1-level-2-46",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50087,
+      "name": "lotte-duty-free-wines-spirits-t1-level-2-53",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50088,
+      "name": "lotte-duty-free-wines-spirits-t1-level-2-68",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50091,
+      "name": "louis-vuitton-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Louis Vuitton Singapore Changi Airport T1"
+    },
+    {
+      "id": 10024,
+      "name": "Manulife Sky Nets",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50093,
+      "name": "mother-and-child",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Mother & Child"
+    },
+    {
+      "id": 50036,
+      "name": "Mother and Child",
+      "terminal": "SIN-T1",
+      "reason": "no hours"
+    },
+    {
+      "id": 84,
+      "name": "Mother And Child",
+      "terminal": "SIN-T1",
+      "reason": "no hours"
+    },
+    {
+      "id": 10043,
+      "name": "SATS Premier Lounge",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50095,
+      "name": "spirit-of-man",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50096,
+      "name": "sunglass-hut-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Sunglass Hut Changi Airport T1 (Transit)"
+    },
+    {
+      "id": 50097,
+      "name": "swarovski-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Swarovski - Airport T1"
+    },
+    {
+      "id": 10046,
+      "name": "Telecommunications Kiosk",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Ma Mum To-Go"
+    },
+    {
+      "id": 99999,
+      "name": "Test Amenity",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Snooze Lounge Terminal 1"
+    },
+    {
+      "id": 50098,
+      "name": "tiffany-co",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 104,
+      "name": "Tiffany & Co",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50062,
+      "name": "Tiffany & Co.",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50099,
+      "name": "times-travel",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 106,
+      "name": "Times Travel",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50063,
+      "name": "Times Travel",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 10054,
+      "name": "Tokyu Hands",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50100,
+      "name": "tory-burch-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Tory Burch"
+    },
+    {
+      "id": 50101,
+      "name": "travelex-money-changer-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Travelex Changi Airport T1 Arrival Hall East"
+    },
+    {
+      "id": 50038,
+      "name": "Travelling Family",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 10047,
+      "name": "TRS Tax Refund",
+      "terminal": "SIN-T1",
+      "reason": "not found"
+    },
+    {
+      "id": 50103,
+      "name": "uniqlo-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: UNIQLO Changi Airport Terminal 1 Transit"
+    },
+    {
+      "id": 10045,
+      "name": "UOB Currency Exchange",
+      "terminal": "SIN-T1",
+      "reason": "no hours"
+    },
+    {
+      "id": 50104,
+      "name": "victorias-secret-beauty-accessories-t1",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: Victoria's Secret"
+    },
+    {
+      "id": 50105,
+      "name": "whsmith-t1-level-1-84",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: WHSmith - Terminal 1"
+    },
+    {
+      "id": 50107,
+      "name": "whsmith-t1-level-2-41",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: WHSmith - Terminal 1"
+    },
+    {
+      "id": 50106,
+      "name": "whsmith-t1-level-2-67",
+      "terminal": "SIN-T1",
+      "reason": "name mismatch: WHSmith - Terminal 1"
+    },
+    {
+      "id": 200096,
+      "name": "Ya Kun Kaya Toast",
+      "terminal": "SIN-T1",
+      "reason": "no hours"
+    },
+    {
+      "id": 10059,
+      "name": "Entertainment Deck",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Enchanted Garden, T2, Changi Airport"
+    },
+    {
+      "id": 50175,
+      "name": "fila-kids-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Fila Kids"
+    },
+    {
+      "id": 10056,
+      "name": "Foggy Bowls",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Canopy Park - Jewel Changi"
+    },
+    {
+      "id": 50176,
+      "name": "fragrance-bak-kwa-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Fragrance Bakkwa"
+    },
+    {
+      "id": 50177,
+      "name": "gassan-watches-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Gassan Watch Changi Airport Terminal 2 - Official Rolex Retailer"
+    },
+    {
+      "id": 50178,
+      "name": "guardian-health-beauty-sin-t2-13",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Guardian Health & Beauty"
+    },
+    {
+      "id": 50179,
+      "name": "guardian-health-beauty-sin-t2-155",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 2 Transit North"
+    },
+    {
+      "id": 50180,
+      "name": "gucci-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Gucci Changi Airport T2"
+    },
+    {
+      "id": 50181,
+      "name": "hermes-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Hermès Singapore Changi Airport T2"
+    },
+    {
+      "id": 50182,
+      "name": "kaboom-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Kaboom"
+    },
+    {
+      "id": 50183,
+      "name": "kering-eyewear-lagardere",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Cheers Changi T2 Departure Hall"
+    },
+    {
+      "id": 50,
+      "name": "Kering Eyewear Lagardere",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Cheers Changi T2 Departure Hall"
+    },
+    {
+      "id": 50151,
+      "name": "Kering Eyewear x Lagardere",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Cheers Changi T2 Departure Hall"
+    },
+    {
+      "id": 10080,
+      "name": "Kinokuniya",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: LiHO TEA @ Changi Airport T2"
+    },
+    {
+      "id": 10062,
+      "name": "Koi Pond",
+      "terminal": "SIN-T2",
+      "reason": "not found"
+    },
+    {
+      "id": 55,
+      "name": "Longchamp",
+      "terminal": "SIN-T2",
+      "reason": "no hours"
+    },
+    {
+      "id": 50152,
+      "name": "Longchamp",
+      "terminal": "SIN-T2",
+      "reason": "no hours"
+    },
+    {
+      "id": 50184,
+      "name": "longchamp-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Longchamp T3"
+    },
+    {
+      "id": 50187,
+      "name": "lotte-duty-free-wines-spirits-t2-level-1-151",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: LOTTE DUTY FREE Changi Airport Store (T2 Departure)"
+    },
+    {
+      "id": 50185,
+      "name": "lotte-duty-free-wines-spirits-t2-level-1-176",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: LOTTE DUTY FREE Changi Airport Store (T2 Departure)"
+    },
+    {
+      "id": 50190,
+      "name": "lotte-duty-free-wines-spirits-t2-level-2-197",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: LOTTE DUTY FREE Changi Airport Store (T2 Departure)"
+    },
+    {
+      "id": 50188,
+      "name": "lotte-duty-free-wines-spirits-t2-level-2-401",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: LOTTE DUTY FREE Changi Airport Store (T2 Departure)"
+    },
+    {
+      "id": 50186,
+      "name": "lotte-duty-free-wines-spirits-t2-level-2-91",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: LOTTE DUTY FREE Changi Airport Store (T2 Departure)"
+    },
+    {
+      "id": 50189,
+      "name": "lotte-duty-free-wines-spirits-t2-level-3-189",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: LOTTE DUTY FREE Changi Airport Store (T2 Departure)"
+    },
+    {
+      "id": 50191,
+      "name": "sunglass-hut-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Sunglass Hut Changi Airport T2 (Transit)"
+    },
+    {
+      "id": 50192,
+      "name": "swarovski-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: SWAROVSKI"
+    },
+    {
+      "id": 200103,
+      "name": "T2 Food Gallery",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Changi Airport Terminal 2 Kopitiam"
+    },
+    {
+      "id": 10078,
+      "name": "Telecommunications Kiosk",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Cheers Changi T2 Departure Hall"
+    },
+    {
+      "id": 50140,
+      "name": "The Memory of Lived Space",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Dreamscape"
+    },
+    {
+      "id": 50193,
+      "name": "tods",
+      "terminal": "SIN-T2",
+      "reason": "not found"
+    },
+    {
+      "id": 50162,
+      "name": "Tod's",
+      "terminal": "SIN-T2",
+      "reason": "not found"
+    },
+    {
+      "id": 107,
+      "name": "Tods",
+      "terminal": "SIN-T2",
+      "reason": "not found"
+    },
+    {
+      "id": 50194,
+      "name": "tommy-hilfiger",
+      "terminal": "SIN-T2",
+      "reason": "no hours"
+    },
+    {
+      "id": 108,
+      "name": "Tommy Hilfiger",
+      "terminal": "SIN-T2",
+      "reason": "no hours"
+    },
+    {
+      "id": 50163,
+      "name": "Tommy Hilfiger",
+      "terminal": "SIN-T2",
+      "reason": "no hours"
+    },
+    {
+      "id": 50195,
+      "name": "tory-burch-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Tory Burch"
+    },
+    {
+      "id": 50196,
+      "name": "travelex-money-changer-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Travelex Changi Airport T2 Departure"
+    },
+    {
+      "id": 10079,
+      "name": "TRS Tax Refund",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Singapore Changi Airport"
+    },
+    {
+      "id": 50197,
+      "name": "tumi",
+      "terminal": "SIN-T2",
+      "reason": "not found"
+    },
+    {
+      "id": 115,
+      "name": "Tumi",
+      "terminal": "SIN-T2",
+      "reason": "not found"
+    },
+    {
+      "id": 50166,
+      "name": "TUMI",
+      "terminal": "SIN-T2",
+      "reason": "not found"
+    },
+    {
+      "id": 50198,
+      "name": "twg-tea-boutique-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: TWG Tea at Changi T2"
+    },
+    {
+      "id": 50200,
+      "name": "uob-gold",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: UOB ATM UOB Changi Airport Terminal 2 - Departure Transit South"
+    },
+    {
+      "id": 50141,
+      "name": "Vessel",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Cheers Changi T2 Departure Hall"
+    },
+    {
+      "id": 50201,
+      "name": "victorias-secret-beauty-accessories-t2",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: Victoria's Secret"
+    },
+    {
+      "id": 50202,
+      "name": "whsmith-t2-level-1-26",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: WH Smith T2 Check-In"
+    },
+    {
+      "id": 50203,
+      "name": "whsmith-t2-level-2-207",
+      "terminal": "SIN-T2",
+      "reason": "name mismatch: WH Smith T2 Check-In"
+    },
+    {
+      "id": 10072,
+      "name": "YOTELAIR Singapore Changi",
+      "terminal": "SIN-T2",
+      "reason": "no hours"
+    },
+    {
+      "id": 50267,
+      "name": "apple-store",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: iStudio Changi Airport Terminal 3"
+    },
+    {
+      "id": 1,
+      "name": "Apple Store",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: iStudio Changi Airport Terminal 3"
+    },
+    {
+      "id": 100009,
+      "name": "A&W Root Beer",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: A&W Jewel Changi Airport"
+    },
+    {
+      "id": 10099,
+      "name": "Bee Cheng Hiang",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 50236,
+      "name": "Birds in Flight",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Butterfly Garden"
+    },
+    {
+      "id": 50268,
+      "name": "cabin-bar-dfs",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: DFS Duty Free"
+    },
+    {
+      "id": 50237,
+      "name": "Coming Home",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Kopitiam @ T3 Public"
+    },
+    {
+      "id": 50238,
+      "name": "Electronics Computers by Sprint-Cass",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 12,
+      "name": "Electronics Computers Sprint Cass",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 50271,
+      "name": "electronics-computers-sprint-cass-t2",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Sprint-Cass Changi Airport Electronics Retail"
+    },
+    {
+      "id": 10090,
+      "name": "Entertainment Deck",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Changi T1 Viewing Mall L3"
+    },
+    {
+      "id": 10087,
+      "name": "Foggy Bowls",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Canopy Park - Jewel Changi"
+    },
+    {
+      "id": 50272,
+      "name": "fragrance-bak-kwa-t3",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Fragrance Bak Kwa @ Changi Airport Terminal 3 (Transit Area) 香味肉干 @ 樟宜机场3号航站楼（禁区）"
+    },
+    {
+      "id": 50273,
+      "name": "furla-t3",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Furla"
+    },
+    {
+      "id": 50276,
+      "name": "guardian-health-beauty-sin-t3-29",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 3 Transit North"
+    },
+    {
+      "id": 50275,
+      "name": "guardian-health-beauty-sin-t3-66",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 3 Transit North"
+    },
+    {
+      "id": 50274,
+      "name": "guardian-health-beauty-sin-t3-basement-24",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Guardian Health & Beauty + Pharmacy – Changi Airport Terminal 3 Transit North"
+    },
+    {
+      "id": 50277,
+      "name": "gucci-t3",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Gucci Changi Airport T3"
+    },
+    {
+      "id": 40,
+      "name": "Hermès",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Hermes"
+    },
+    {
+      "id": 50246,
+      "name": "HERMÈS",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Hermes"
+    },
+    {
+      "id": 50278,
+      "name": "hermes-t3",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Hermes"
+    },
+    {
+      "id": 10114,
+      "name": "IRVINS Salted Egg",
+      "terminal": "SIN-T3",
+      "reason": "not found"
+    },
+    {
+      "id": 100002,
+      "name": "Jewel Waterfall Viewpoint",
+      "terminal": "SIN-T3",
+      "reason": "not found"
+    },
+    {
+      "id": 10111,
+      "name": "Kinokuniya",
+      "terminal": "SIN-T3",
+      "reason": "not found"
+    },
+    {
+      "id": 10093,
+      "name": "Koi Pond",
+      "terminal": "SIN-T3",
+      "reason": "not found"
+    },
+    {
+      "id": 50249,
+      "name": "Kunthaville",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Ya Kun Kaya Toast"
+    },
+    {
+      "id": 50281,
+      "name": "lacoste",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 51,
+      "name": "Lacoste",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 56,
+      "name": "Longchamp",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 50251,
+      "name": "Longchamp",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 50282,
+      "name": "longchamp-t3",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 50283,
+      "name": "lotte-duty-free-wines-spirits-t3-level-1-19",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Lotte Duty Free (T3 Arrival)"
+    },
+    {
+      "id": 50284,
+      "name": "lotte-duty-free-wines-spirits-t3-level-1-29",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Lotte Duty Free (T3 Arrival)"
+    },
+    {
+      "id": 50300,
+      "name": "lotte-duty-free-wines-spirits-t3-level-2-10",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Lotte Duty Free (T3 Arrival)"
+    },
+    {
+      "id": 50287,
+      "name": "lotte-duty-free-wines-spirits-t3-level-2-37",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Lotte Duty Free (T3 Arrival)"
+    },
+    {
+      "id": 50285,
+      "name": "lotte-duty-free-wines-spirits-t3-level-2-65",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Lotte Duty Free (T3 Arrival)"
+    },
+    {
+      "id": 50288,
+      "name": "lotte-duty-free-wines-spirits-t3-level-3-7",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Lotte Duty Free (T3 Arrival)"
+    },
+    {
+      "id": 50289,
+      "name": "louis-vuitton-t3",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Louis Vuitton Singapore Changi Airport T3"
+    },
+    {
+      "id": 50299,
+      "name": "memory-of-lived-space",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Changi T1 Viewing Mall L3"
+    },
+    {
+      "id": 81,
+      "name": "Memory Of Lived Space",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Changi T1 Viewing Mall L3"
+    },
+    {
+      "id": 50291,
+      "name": "montblanc",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Lotte Duty Free (T3 Departure)"
+    },
+    {
+      "id": 83,
+      "name": "Montblanc",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Lotte Duty Free (T3 Departure)"
+    },
+    {
+      "id": 100003,
+      "name": "Movie Theatre",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 50292,
+      "name": "rituals",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: The Shilla Duty Free Cosmetic"
+    },
+    {
+      "id": 90,
+      "name": "Rituals",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: The Shilla Duty Free Cosmetic"
+    },
+    {
+      "id": 10108,
+      "name": "Telecommunications Kiosk",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: Cheers Changi T2 Departure Hall"
+    },
+    {
+      "id": 100001,
+      "name": "The Slide @ T3",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 10088,
+      "name": "The Slide@T3",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 50261,
+      "name": "Tiffany & Co.",
+      "terminal": "SIN-T3",
+      "reason": "not found"
+    },
+    {
+      "id": 10116,
+      "name": "Tokyu Hands",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 10109,
+      "name": "TRS Tax Refund",
+      "terminal": "SIN-T3",
+      "reason": "not found"
+    },
+    {
+      "id": 10107,
+      "name": "UOB Currency Exchange",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: United Overseas Bank Limited Co."
+    },
+    {
+      "id": 50295,
+      "name": "vessel",
+      "terminal": "SIN-T3",
+      "reason": "not found"
+    },
+    {
+      "id": 123,
+      "name": "Vessel",
+      "terminal": "SIN-T3",
+      "reason": "not found"
+    },
+    {
+      "id": 50297,
+      "name": "whsmith-t3-level-2-43",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: WH Smith Travel - Changi Airport Terminal 3-North"
+    },
+    {
+      "id": 50298,
+      "name": "whsmith-t3-level-2-7",
+      "terminal": "SIN-T3",
+      "reason": "name mismatch: WH Smith Travel - Changi Airport Terminal 3-North"
+    },
+    {
+      "id": 10103,
+      "name": "YOTELAIR Singapore Changi",
+      "terminal": "SIN-T3",
+      "reason": "no hours"
+    },
+    {
+      "id": 10133,
+      "name": "Ambassador Transit Hotel",
+      "terminal": "SIN-T4",
+      "reason": "no hours"
+    },
+    {
+      "id": 50354,
+      "name": "fila-t4",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: FILA (Airside T4)"
+    },
+    {
+      "id": 50355,
+      "name": "garrett-popcorn-t4",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: Garrett Popcorn Shops® - Changi Airport T4"
+    },
+    {
+      "id": 50357,
+      "name": "immersive-wall",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: The Wonderfall"
+    },
+    {
+      "id": 44,
+      "name": "IRVINS Salted Egg",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 10145,
+      "name": "IRVINS Salted Egg",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 50358,
+      "name": "irvins-salted-egg-t4",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: IRVINS"
+    },
+    {
+      "id": 10124,
+      "name": "Koi Pond",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 50343,
+      "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 12",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 50361,
+      "name": "lotte-duty-free-wines-spirits-t4-level-1-12",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: Lotte Duty Free (T3 Arrival)"
+    },
+    {
+      "id": 50362,
+      "name": "lotte-duty-free-wines-spirits-t4-level-2-25",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: Lotte Duty Free (T3 Arrival)"
+    },
+    {
+      "id": 50363,
+      "name": "lotte-duty-free-wines-spirits-t4-level-2-57",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: Lotte Duty Free (T3 Arrival)"
+    },
+    {
+      "id": 10118,
+      "name": "Manulife Sky Nets",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 50364,
+      "name": "petalclouds",
+      "terminal": "SIN-T4",
+      "reason": "no hours"
+    },
+    {
+      "id": 85,
+      "name": "Petalclouds",
+      "terminal": "SIN-T4",
+      "reason": "no hours"
+    },
+    {
+      "id": 50336,
+      "name": "Petalclouds",
+      "terminal": "SIN-T4",
+      "reason": "no hours"
+    },
+    {
+      "id": 50365,
+      "name": "steel-in-bloom",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 50366,
+      "name": "sunglass-hut-t3",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: Sunglass Hut Changi Airport T3 (Transit)"
+    },
+    {
+      "id": 10139,
+      "name": "Telecommunications Kiosk",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: Cheers Changi T2 Departure Hall"
+    },
+    {
+      "id": 50368,
+      "name": "the-digital-gadgets-t4",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: The Digital Gadgets (Changi Airport Terminal 4)"
+    },
+    {
+      "id": 50369,
+      "name": "the-fashion-place",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 50348,
+      "name": "The Fashion Place",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 103,
+      "name": "The Fashion Place",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 10147,
+      "name": "Tokyu Hands",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 50404,
+      "name": "Tokyu Hands ",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 50370,
+      "name": "travelex-money-changer-t3",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: Travelex Changi Airport T3 Departure Hall"
+    },
+    {
+      "id": 10140,
+      "name": "TRS Tax Refund",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: Singapore Changi Airport"
+    },
+    {
+      "id": 50372,
+      "name": "twg-tea-boutique-t3",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: TWG Tea at Changi T4"
+    },
+    {
+      "id": 10138,
+      "name": "UOB Currency Exchange",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: United Overseas Bank Limited Co."
+    },
+    {
+      "id": 50373,
+      "name": "whsmith-t4-level-2-59",
+      "terminal": "SIN-T4",
+      "reason": "name mismatch: WH Smith Pte Ltd"
+    },
+    {
+      "id": 10134,
+      "name": "YOTELAIR Singapore Changi",
+      "terminal": "SIN-T4",
+      "reason": "no hours"
+    },
+    {
+      "id": 50374,
+      "name": "zakkasg",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 135,
+      "name": "Zakkasg",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    },
+    {
+      "id": 50352,
+      "name": "ZAKKASG",
+      "terminal": "SIN-T4",
+      "reason": "not found"
+    }
+  ],
+  "errors": [],
+  "skipped": 28
+}

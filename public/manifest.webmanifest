@@ -1,0 +1,58 @@
+{
+  "name": "Terminal Plus - Airport Companion",
+  "short_name": "Terminal+",
+  "description": "Smart airport amenity discovery for travelers",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A0E27",
+  "theme_color": "#667eea",
+  "orientation": "portrait",
+  "categories": ["travel", "navigation", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "Home screen showing vibe collections"
+    },
+    {
+      "src": "/screenshot-2.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "Amenity details and navigation"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Quick Bite",
+      "short_name": "Food",
+      "description": "Find food options quickly",
+      "url": "/vibe/refuel",
+      "icons": [{ "src": "/icon-food.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Relax",
+      "short_name": "Chill",
+      "description": "Find quiet spaces",
+      "url": "/vibe/chill",
+      "icons": [{ "src": "/icon-chill.png", "sizes": "96x96" }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": []
+}

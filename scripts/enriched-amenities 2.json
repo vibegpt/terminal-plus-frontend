@@ -1,0 +1,96 @@
+[
+  {
+    "name": "Boost Juice",
+    "terminal_code": "SYD-T1",
+    "amenity_type": "food",
+    "category": "beverage",
+    "location_description": "Fresh juice and smoothies, free WiFi available",
+    "price_tier": "$$",
+    "opening_hours": "06:00-22:00",
+    "slug": "boost-juice",
+    "image_url": "/assets/amenities/SYD/boost-juice.jpg",
+    "vibe_tags": [
+      "Refuel"
+    ],
+    "has_free_perk": true
+  },
+  {
+    "name": "Starbucks Coffee",
+    "terminal_code": "SYD-T1",
+    "amenity_type": "food",
+    "category": "cafe",
+    "location_description": "Near Gate 5, offering free WiFi",
+    "price_tier": "$",
+    "opening_hours": "06:00-22:00",
+    "slug": "starbucks-coffee",
+    "image_url": "/assets/amenities/SYD/starbucks-coffee.jpg",
+    "vibe_tags": [
+      "Refuel"
+    ],
+    "has_free_perk": true
+  },
+  {
+    "name": "Duty Free Shop",
+    "terminal_code": "SYD-T1",
+    "amenity_type": "retail",
+    "category": "duty_free",
+    "location_description": "International departures area",
+    "price_tier": "$$$",
+    "opening_hours": "24/7",
+    "slug": "duty-free-shop",
+    "image_url": "/assets/amenities/SYD/duty-free-shop.jpg",
+    "vibe_tags": [
+      "Explore",
+      "Shop"
+    ],
+    "has_free_perk": false
+  },
+  {
+    "name": "Business Lounge",
+    "terminal_code": "SYD-T2",
+    "amenity_type": "lounge",
+    "category": "business",
+    "location_description": "Complimentary refreshments and WiFi",
+    "price_tier": "$$$",
+    "opening_hours": "06:00-23:00",
+    "slug": "business-lounge",
+    "image_url": "/assets/amenities/SYD/business-lounge.jpg",
+    "vibe_tags": [
+      "Comfort",
+      "Work"
+    ],
+    "has_free_perk": true
+  },
+  {
+    "name": "Express Convenience Store",
+    "terminal_code": "SYD-T1",
+    "amenity_type": "retail",
+    "category": "convenience",
+    "location_description": "Quick snacks and essentials",
+    "price_tier": "$$",
+    "opening_hours": "05:00-24:00",
+    "slug": "express-convenience-store",
+    "image_url": "/assets/amenities/SYD/express-convenience-store.jpg",
+    "vibe_tags": [
+      "Explore",
+      "Quick",
+      "Shop"
+    ],
+    "has_free_perk": false
+  },
+  {
+    "name": "Meditation Garden",
+    "terminal_code": "SYD-T2",
+    "amenity_type": "wellness",
+    "category": "garden",
+    "location_description": "Quiet space for relaxation",
+    "price_tier": "Free",
+    "opening_hours": "24/7",
+    "slug": "meditation-garden",
+    "image_url": "/assets/amenities/SYD/meditation-garden.jpg",
+    "vibe_tags": [
+      "Chill"
+    ],
+    "has_free_perk": false
+  }
+]

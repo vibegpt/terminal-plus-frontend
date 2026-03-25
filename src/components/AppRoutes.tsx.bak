@@ -1,0 +1,52 @@
+import React, { lazy, Suspense } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import LoadingSpinner from './LoadingSpinner';
+
+// Lazy load ALL pages except HomePage (most visited)
+const HomePage = lazy(() => import('../pages/HomePage'));
+const TerminalNetflixHome = lazy(() => import('../pages/TerminalNetflixHome'));
+const VibePage = lazy(() => import('../pages/VibePage'));
+const CollectionDetailPage = lazy(() => import('../pages/CollectionDetailPage'));
+const AmenityDetailPage = lazy(() => import('../pages/AmenityDetailPage'));
+const Smart7CollectionPage = lazy(() => import('../pages/Smart7CollectionPage'));
+const JourneySummaryPage = lazy(() => import('../pages/JourneySummaryPage'));
+const SettingsPage = lazy(() => import('../pages/SettingsPage'));
+const VirtualAmenitiesPage = lazy(() => import('../pages/VirtualAmenitiesPage'));
+const ErrorHandlingDemo = lazy(() => import('../pages/ErrorHandlingDemo'));
+const PWADemo = lazy(() => import('../pages/PWADemo'));
+const MobileDemo = lazy(() => import('../pages/MobileDemo'));
+const ZustandDemo = lazy(() => import('../components/ZustandDemo'));
+
+const AppRoutes: React.FC = () => {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/netflix" element={<TerminalNetflixHome />} />
+        <Route path="/vibe/:vibeId" element={<VibePage />} />
+        <Route path="/collection/:id" element={<CollectionDetailPage />} />
+        <Route path="/collection/smart7/:id" element={<Smart7CollectionPage />} />
+        <Route path="/amenity/:slug" element={<AmenityDetailPage />} />
+        <Route path="/journey" element={<JourneySummaryPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/virtual-amenities" element={<VirtualAmenitiesPage />} />
+        <Route path="/error-demo" element={<ErrorHandlingDemo />} />
+        <Route path="/pwa-demo" element={<PWADemo />} />
+        <Route path="/mobile-demo" element={<MobileDemo />} />
+        <Route path="/zustand-demo" element={<ZustandDemo />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
+  );
+};
+
+// Wrap with error boundary for route-level errors
+const AppRoutesWithErrorBoundary: React.FC = () => {
+  return (
+    <div>
+      <AppRoutes />
+    </div>
+  );
+};
+
+export default AppRoutesWithErrorBoundary;

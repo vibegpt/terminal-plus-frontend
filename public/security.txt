@@ -1,0 +1,4 @@
+Contact: security@terminal-plus.com
+Expires: 2026-09-18T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://terminal-plus.com/.well-known/security.txt

@@ -1,0 +1,1526 @@
+[
+  {
+    "name": "Spirit of Man (Success and Achievement)",
+    "category": "Attraction",
+    "type": null,
+    "vibe_tags": [
+      "Explore"
+    ],
+    "slug": "spirit-of-man",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": false
+  },
+  {
+    "name": "The Memory of Lived Space",
+    "category": "Attraction",
+    "type": null,
+    "vibe_tags": [
+      "Explore"
+    ],
+    "slug": "memory-of-lived-space",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": false
+  },
+  {
+    "name": "Vessel",
+    "category": "Attraction",
+    "type": null,
+    "vibe_tags": [
+      "Explore"
+    ],
+    "slug": "vessel",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Eu Yan Sang ",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "eu-yan-sang",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": false
+  },
+  {
+    "name": "Fragrance Bak Kwa",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "fragrance-bak-kwa",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Gassan Watches",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "gassan-watches",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Guardian Health & Beauty - Before Security Level 2 Shop 13",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "slug": "guardian-health-beauty-before-security-level-2-shop-13",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": false,
+    "location_description": "Before Security, Level 2, Shop 13",
+    "opening_hours": {
+      "Monday-Sunday": "07:00-23:00"
+    }
+  },
+  {
+    "name": "Guardian Health & Beauty - Level 2 Shop 155",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "slug": "guardian-health-beauty-level-2-shop-155",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true,
+    "location_description": "Level 2, Shop 155",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    }
+  },
+  {
+    "name": "Gucci",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "gucci",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "HERMÈS",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "hermes",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Irvins Salted Egg",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "irvins-salted-egg",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Kaboom",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "kaboom",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Kering Eyewear x Lagardere",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "kering-eyewear-lagardere",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Longchamp",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "longchamp",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 176",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "lotte-duty-free-wines-spirits-level-1-shop-176",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true,
+    "location_description": "Level 1, Shop 176",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    }
+  },
+  {
+    "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 401",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "lotte-duty-free-wines-spirits-level-2-shop-401",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true,
+    "location_description": "Level 2, Shop 401",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    }
+  },
+  {
+    "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 91",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "lotte-duty-free-wines-spirits-level-2-shop-91",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true,
+    "location_description": "Level 2, Shop 91",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    }
+  },
+  {
+    "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 1 Shop 151",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "lotte-duty-free-wines-spirits-level-1-shop-151",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true,
+    "location_description": "Level 1, Shop 151",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    }
+  },
+  {
+    "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 3 Shop 189",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "lotte-duty-free-wines-spirits-level-3-shop-189",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true,
+    "location_description": "Level 3, Shop 189",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    }
+  },
+  {
+    "name": "LOTTE DUTY FREE WINES & SPIRITS - Level 2 Shop 197",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "lotte-duty-free-wines-spirits-level-2-shop-197",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true,
+    "location_description": "Level 2, Shop 197",
+    "opening_hours": {
+      "Monday-Sunday": "06:00-01:00"
+    }
+  },
+  {
+    "name": "Sunglass Hut",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "sunglass-hut",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Swarovski",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "swarovski",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "The Digital Gadgets",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "the-digital-gadgets",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Tod's",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "tods",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Tommy Hilfiger",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "tommy-hilfiger",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Tory Burch",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "tory-burch",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Travelex Money Changer",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "slug": "travelex-money-changer",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": false
+  },
+  {
+    "name": "TUMI",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "tumi",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "TWG Tea Boutique",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "twg-tea-boutique",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Unity",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "slug": "unity",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "UOB Gold",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "uob-gold",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "Victoria's Secret Beauty & Accessories",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "victorias-secret-beauty-accessories",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "WH Smith - Before Security Level 1 Shop 26",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "wh-smith-before-security-level-1-shop-26",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": false,
+    "location_description": "Before Security, Level 1, Shop 26",
+    "opening_hours": {
+      "Monday-Sunday": "07:00-23:00"
+    }
+  },
+  {
+    "name": "WH Smith - Level 2 Shop 207",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "wh-smith-level-2-shop-207",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true,
+    "location_description": "Level 2, Shop 207",
+    "opening_hours": {
+      "Monday-Sunday": "06:00-01:00"
+    }
+  },
+  {
+    "name": "ZEGNA",
+    "category": "Shopping",
+    "type": null,
+    "vibe_tags": [
+      "Shop"
+    ],
+    "slug": "zegna",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true
+  },
+  {
+    "name": "eu-yan-sang",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Traditional Medicine",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "fila-kids-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Accessories",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "fragrance-bak-kwa-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Food & Gifts",
+    "description": "Shopping amenity in SIN-T2",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "gassan-watches-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Watches & Jewelry",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "guardian-health-beauty-sin-t2-13",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Pharmacy",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "guardian-health-beauty-sin-t2-155",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Pharmacy",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "gucci-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Accessories",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "hermes-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Accessories",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "kaboom-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Electronics",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "kering-eyewear-lagardere",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Eyewear",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "longchamp-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Accessories",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "lotte-duty-free-wines-spirits-t2-level-1-176",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Duty-Free Store",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "lotte-duty-free-wines-spirits-t2-level-2-91",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Duty-Free Store",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "lotte-duty-free-wines-spirits-t2-level-1-151",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Duty-Free Store",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "lotte-duty-free-wines-spirits-t2-level-2-401",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Duty-Free Store",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "lotte-duty-free-wines-spirits-t2-level-3-189",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Duty-Free Store",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "lotte-duty-free-wines-spirits-t2-level-2-197",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Duty-Free Store",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "sunglass-hut-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "swarovski-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Accessories",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "tods",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "tommy-hilfiger",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Accessories",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "tory-burch-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Accessories",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "travelex-money-changer-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Services",
+    "amenity_type": "Currency Exchange",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "tumi",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "twg-tea-boutique-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Tea Boutique",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "unity",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "uob-gold",
+    "terminal_code": "SIN-T2",
+    "category": "Services",
+    "amenity_type": "Banking",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "victorias-secret-beauty-accessories-t2",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Beauty",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "whsmith-t2-level-1-26",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Books & Convenience",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "whsmith-t2-level-2-207",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Books & Convenience",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "zegna",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": true
+  },
+  {
+    "name": "Foggy Bowls",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Mist-filled play areas for children",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Mirror Maze",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Immersive mirror maze experience",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Rain Vortex",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "The world's tallest indoor waterfall",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Entertainment Deck",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Games and entertainment zone",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Butterfly Garden",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Tropical butterfly habitat with flowering plants",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Cactus Garden",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Outdoor roof garden with over 100 species of cacti",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Koi Pond",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Tranquil pond with Japanese koi fish",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Sunflower Garden",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Rooftop garden with viewing gallery",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Bengawan Solo",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Traditional Singaporean cakes and kueh",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Tiger Street Lab",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Craft beer and local fare",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Din Tai Fung",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Renowned Taiwanese restaurant famous for xiaolongbao",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Paradise Dynasty",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Known for signature colorful xiaolongbao",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Koi Thé",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Premium Taiwanese bubble tea",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Old Chang Kee",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Local curry puffs and fried snacks",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Song Fa Bak Kut Teh",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Award-winning pork rib soup",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Aerotel Singapore",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Airport transit hotel with swimming pool",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "YOTELAIR Singapore Changi",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Modern capsule-style transit hotel inside the terminal",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Cathay Pacific Lounge",
+    "terminal_code": "SIN-T2",
+    "category": "Services",
+    "amenity_type": "Lounge",
+    "description": "Elegant lounge for Cathay Pacific passengers",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Singapore Airlines SilverKris Lounge",
+    "terminal_code": "SIN-T2",
+    "category": "Services",
+    "amenity_type": "Lounge",
+    "description": "Premium lounge for Singapore Airlines first and business class passengers",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "dnata Lounge",
+    "terminal_code": "SIN-T2",
+    "category": "Services",
+    "amenity_type": "Lounge",
+    "description": "Modern lounge with extensive food options",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Travelex",
+    "terminal_code": "SIN-T2",
+    "category": "Services",
+    "amenity_type": "Currency Exchange",
+    "description": "Global foreign exchange services",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "UOB Currency Exchange",
+    "terminal_code": "SIN-T2",
+    "category": "Services",
+    "amenity_type": "Banking",
+    "description": "Competitive rates for currency exchange",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Telecommunications Kiosk",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "SIM cards and mobile services",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "TRS Tax Refund",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Tourist refund scheme counter",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Kinokuniya",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Comprehensive Japanese bookstore",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Uniqlo",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Fashion & Accessories",
+    "description": "Japanese casual wear designer",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Zara",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Spanish fast fashion retailer",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Irvins Salted Egg",
+    "terminal_code": "SIN-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Snacks",
+    "description": "Popular salted egg fish skin and chips",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Eu Yan Sang",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Traditional Chinese medicine",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Muji",
+    "terminal_code": "SIN-T2",
+    "category": "Shopping",
+    "amenity_type": "Retail",
+    "description": "Minimalist Japanese home goods",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SIN",
+    "coordinates": {},
+    "price_tier": "",
+    "available_in_transit": false
+  },
+  {
+    "name": "Canopy Park",
+    "category": "Attraction",
+    "type": null,
+    "vibe_tags": [
+      "Chill",
+      "Explore"
+    ],
+    "slug": "canopy-park-t2",
+    "terminal_code": "SIN-T2",
+    "airport_code": "SIN",
+    "available_in_transit": true,
+    "description": "Indoor park with nets, mazes and slides",
+    "image_url": "",
+    "opening_hours": {},
+    "price_tier": "$$",
+    "coordinates": {}
+  }
+]

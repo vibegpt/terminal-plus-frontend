@@ -1,0 +1,15 @@
+{
+  "totalAmenities": 141,
+  "transitAmenities": 141,
+  "availabilityPercentage": "100.0",
+  "filteredOut": 0,
+  "categories": [
+    "Shop",
+    "Explore",
+    "General",
+    "Chill",
+    "Work",
+    "Quick"
+  ],
+  "syncTimestamp": "2025-08-07T19:12:03.989Z"
+}

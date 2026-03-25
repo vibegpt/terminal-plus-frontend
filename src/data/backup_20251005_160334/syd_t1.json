@@ -1,0 +1,2726 @@
+
+    "opening_hours": {},
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "newslink-t1-after-security-towards-gates-50-63"
+  },
+  {
+    "name": "Newslink T1 Before Security Near Check In D",
+    "terminal_code": "SYD-T1",
+    "category": "Misc",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",[
+  {
+    "name": "Newslink T1 After Security Near Gate 8",
+    "terminal_code": "SYD-T1",
+    "category": "books and news",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "newslink-t1-after-security-near-gate-8"
+  },
+  {
+    "name": "Qantas Business Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Comfort",
+    "amenity_type": "Lounge",
+    "description": "",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Work",
+      "Chill",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/qantas-lounge.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.945711,
+      "lng": 151.177622
+    },
+    "price_tier": "$$$",
+    "access": "",
+    "tags": [],
+    "slug": "qantas-business-lounge"
+  },
+  {
+    "name": "Betty's Burgers",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/bettys-burgers.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$",
+    "slug": "betty-s-burgers"
+  },
+  {
+    "name": "Campos Coffee",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "description": "",
+    "location_description": "After Security, near Gate 24",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/campos-coffee.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9462,
+      "lng": 151.1773
+    },
+    "price_tier": "$$",
+    "slug": "campos-coffee"
+  },
+  {
+    "name": "Starbucks Coffee",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick",
+      "Chill"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/starbucks.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.945911,
+      "lng": 151.177422
+    },
+    "price_tier": "$$",
+    "access": "",
+    "tags": [],
+    "slug": "starbucks-coffee"
+  },
+  {
+    "name": "Air New Zealand Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "description": "",
+    "location_description": "Level 3, near Gate 59",
+    "opening_hours": {
+      "Monday-Sunday": "06:00 – 21:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "",
+    "slug": "air-new-zealand-lounge"
+  },
+  {
+    "name": "Emirates Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "description": "",
+    "location_description": "Level 1, near Gate 58",
+    "opening_hours": {
+      "Monday-Sunday": "04:00 – 07:20 and 16:10 – 20:40"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "",
+    "slug": "emirates-lounge"
+  },
+  {
+    "name": "Plaza Premium Lounge (Departures)",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Independent Lounge",
+    "description": "",
+    "location_description": "Level 2, near Gates 25–26",
+    "opening_hours": {
+      "Monday-Sunday": "05:30 – 22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "",
+    "slug": "plaza-premium-lounge-departures"
+  },
+  {
+    "name": "Qantas International Business Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Airline Lounge",
+    "description": "",
+    "location_description": "Mezzanine Level, after Customs",
+    "opening_hours": {
+      "Monday-Sunday": "05:00 – 22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "",
+    "slug": "qantas-international-business-lounge"
+  },
+  {
+    "name": "The Centurion Lounge (American Express)",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Credit Card Lounge",
+    "description": "",
+    "location_description": "Departures Level, near Gates 50–63",
+    "opening_hours": {
+      "Monday-Sunday": "06:00 – 21:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": 0,
+      "lng": 0
+    },
+    "price_tier": "",
+    "slug": "the-centurion-lounge-american-express"
+  },
+  {
+    "name": "Amcal Pharmacy",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Pharmacy",
+    "description": "",
+    "location_description": "After Security, towards Gates 24-25",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/amcal-pharmacy.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9482,
+      "lng": 151.1793
+    },
+    "price_tier": "$$",
+    "slug": "amcal-pharmacy"
+  },
+  {
+    "name": "Global Exchange",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Currency Exchange",
+    "description": "",
+    "location_description": "Multiple locations before and after security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Quick",
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/global-exchange.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9484,
+      "lng": 151.1795
+    },
+    "price_tier": "$$",
+    "slug": "global-exchange"
+  },
+  {
+    "name": "Gucci",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Luxury Fashion",
+    "description": "",
+    "location_description": "After Security, towards Gates 50-63",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/gucci.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9475,
+      "lng": 151.1786
+    },
+    "price_tier": "$$$$",
+    "slug": "gucci"
+  },
+  {
+    "name": "Heinemann Tax & Duty Free",
+    "terminal_code": "SYD-T1",
+    "category": "Retail",
+    "amenity_type": "Duty-Free Store",
+    "description": "",
+    "location_description": "After Security, multiple locations including near Gates 31-33",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/heinemann-duty-free.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9473,
+      "lng": 151.1784
+    },
+    "price_tier": "$$$",
+    "slug": "heinemann-tax-duty-free"
+  },
+  {
+    "name": "A Little Something",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/29Y5driIMPDK8cty4buRHN/4795de534d8306c17df07be2cd472c63/A_little_something.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "a-little-something"
+  },
+  {
+    "name": "Amcal Pharmacy After Security Towards Gates 24 25",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5sZZBkKp8WO2MgsI2iWq0e/26dbae791bc4acb657e8c467f655af72/AmcalPharmacy_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "amcal-pharmacy-after-security-towards-gates-24-25"
+  },
+  {
+    "name": "Amcal Pharmacy T1 After Security Towards Gates 50 63",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5sZZBkKp8WO2MgsI2iWq0e/26dbae791bc4acb657e8c467f655af72/AmcalPharmacy_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "amcal-pharmacy-t1-after-security-towards-gates-50-63"
+  },
+  {
+    "name": "Amcal Pharmacy Before Security Near Check In Counters H And J",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5sZZBkKp8WO2MgsI2iWq0e/26dbae791bc4acb657e8c467f655af72/AmcalPharmacy_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "amcal-pharmacy-before-security-near-check-in-counters-h-and-j"
+  },
+  {
+    "name": "Australian Way",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/17TcXoTJrIA2GqY6ueuCKK/3e676a2bd8ead85343b979759f3cc380/STORE_THUMBNAIL_-_Australian_Way_-_T3_Qantas_-_660x552px.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "australian-way"
+  },
+  {
+    "name": "Baggage Storage By Smarte Carte",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/4zuWbkjq9iCm2OAca0gCCM/c9aef7bef335c7928021ec328ca5aa0b/Baggage_Storage_web_tile.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "baggage-storage-by-smarte-carte"
+  },
+  {
+    "name": "Balenciaga",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/4hE43coTdDWDzxMfwOkV9p/aabe9d7de69a31016aca6d4a347650c2/Balenciaga_Campaign_660_x_552_pixels.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "balenciaga"
+  },
+  {
+    "name": "Blooming Trails",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/62jdquRgf6UsaUUAamEKCS/a143382976b2790af1647b3851d33446/BloomingTrails_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "blooming-trails"
+  },
+  {
+    "name": "Bottega Veneta",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3GT6i305wwhrBcnnB1Vcv8/4ab14c9089e5123580f03ae832357bd7/TILE_-_660px_x_552px.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "bottega-veneta"
+  },
+  {
+    "name": "Burberry",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1IxC2RaNrCGcOyAgUEIYiC/7726ca8fcca871eec5f805223c708dd7/Burberry_Store_Brand_Tile-4-.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "burberry"
+  },
+  {
+    "name": "Bvlgari",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3w5m1Vyc8JkUbLHnCo4JJv/473648a995a1b94fef8d5fb620fb6fc5/1_AU_21_76072_151235_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "bvlgari"
+  },
+  {
+    "name": "Cartier",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5SqCQNDc3MT4FGzR6yzgYU/9c2f7aa90764fdcbaf19a2a4a2e3db38/Cartier_Airport_Facade-_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "cartier"
+  },
+  {
+    "name": "Celine",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/kYXvNm1mJMPgm0l04TL8E/d80e6eec181b68e3e9f6593cf183e4a4/Tile_660x552_background.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "celine"
+  },
+  {
+    "name": "Dior",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3Y8bgLVnQyvdUBCrypZNRh/b76f4b9b0c6f195a500453d1941e3d36/Tile.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "dior"
+  },
+  {
+    "name": "Flight Centre",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5TRUk60U3C2cQEme4kc8Ue/a24e94cb8f05ea936db9ed7febf873ff/FlightCentre_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "flight-centre"
+  },
+  {
+    "name": "Gentle Monster",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/49Sq0jwiTjmdmbALvHTwuy/da5f90dab3ab3030aa461175505665a9/GM_BOLD_TITLE_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "gentle-monster"
+  },
+  {
+    "name": "Global Exchange After Security Pier C Food Court Gate 51",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "global-exchange-after-security-pier-c-food-court-gate-51"
+  },
+  {
+    "name": "Global Exchange Before Security Near Check In E",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "global-exchange-before-security-near-check-in-e"
+  },
+  {
+    "name": "Global Exchange T1 After Security Near Australian Way",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "global-exchange-t1-after-security-near-australian-way"
+  },
+  {
+    "name": "Global Exchange T1 After Security Near Qantas Club",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "global-exchange-t1-after-security-near-qantas-club"
+  },
+  {
+    "name": "Global Exchange T1 Arrivals Exit A",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "global-exchange-t1-arrivals-exit-a"
+  },
+  {
+    "name": "Global Exchange T1 Before Security Arrivals Exit B",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6irWegX1dRkZdQwG1E2Ypa/fdf5c0c99179210e0d07c1ffeafec6cf/exchnagetile.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "global-exchange-t1-before-security-arrivals-exit-b"
+  },
+  {
+    "name": "Heinemann T1 After Security Mega B",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1bPsDLwr65UA9DyYENjUph/7e153eae99041386233330d47c90366b/MegaB.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "heinemann-t1-after-security-mega-b"
+  },
+  {
+    "name": "Heinemann Pier B North Airside",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3E0piOWoguRjlT82XGIB0r/5b388f00279c4fe091ab29b21f9daa12/Pier_B_North.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "heinemann-pier-b-north-airside"
+  },
+  {
+    "name": "Heinemann Open Stores",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16nv3R0iGFkbTjVDO2jkl3/5d5a81ab27234114d35c7d4ad8e1d91f/T1_Gatestore.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "heinemann-open-stores"
+  },
+  {
+    "name": "Heinemann Pier C Airside Departures",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5W2Bw58D3WacY6A2ssYI4G/53e813a86c624c4ac11413a9486c8f94/Pier_C.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "heinemann-pier-c-airside-departures"
+  },
+  {
+    "name": "Heinemann Tax And Duty Free Arrivals A",
+    "terminal_code": "SYD-T1",
+    "category": "Misc",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3n0K8zP9F6cwaYSmWgoQkA/e7602e1c31169ec02c11451f2d65a6f2/Arrivals_A.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "heinemann-tax-and-duty-free-arrivals-a"
+  },
+  {
+    "name": "Heinemann Tax And Duty Free Arrivals B",
+    "terminal_code": "SYD-T1",
+    "category": "Misc",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/P65i69Nq4gM8CgSMEQeM4/302096e22c071720d2d3257692e5c83d/Arrivals_B.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "heinemann-tax-and-duty-free-arrivals-b"
+  },
+  {
+    "name": "Hermes",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/m6Qk8gL5gT1K1wD5eN0B2/28bdf71c1106a72e737c0eb83e786b3e/2019-NO-LOCATION-Hermes-Sydney-International-Airport-Store-1111-1200x800.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "hermes"
+  },
+  {
+    "name": "Lost Property",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5cWnJ4aI5tO3yPqL8P5020/226d7010467a21f7d4c82b130f1d07c0/Lost_property_2.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "lost-property"
+  },
+  {
+    "name": "Moncler",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/18gL5iWf0I8j3e5hW36o4y/6e08dd1075c324424dd47290132c321b/Moncler_SYD_Airport__660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "moncler"
+  },
+  {
+    "name": "Newslink T1 After Security Towards Gates 50 63",
+    "terminal_code": "SYD-T1",
+    "category": "Misc",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "newslink-t1-after-security-towards-gates-50-63"
+  },
+  {
+    "name": "Newslink T1 Before Security Near Check In D",
+    "terminal_code": "SYD-T1",
+    "category": "Misc",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "newslink-t1-before-security-near-check-in-d"
+  },
+  {
+    "name": "Newslink T1 Arrivals Exit B",
+    "terminal_code": "SYD-T1",
+    "category": "Misc",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "newslink-t1-arrivals-exit-b"
+  },
+  {
+    "name": "Omega",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/KkI9GgE0SCAYSCm8eWcI4/36495b6cbb03756d10c73b0631c34913/Omega_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "omega"
+  },
+  {
+    "name": "Optus",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1Tq3j1P9qAc4aW0g4mAy8e/4a6730cd90680d2208a3d13b2de488dd/Optus_webtile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "optus"
+  },
+  {
+    "name": "Optus T1 Arrivals",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1Tq3j1P9qAc4aW0g4mAy8e/4a6730cd90680d2208a3d13b2de488dd/Optus_webtile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "optus-t1-arrivals"
+  },
+  {
+    "name": "Prada",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6oY14p8sV2O8EU4e6E8k8G/fd2709e99a8037b5a5b51c140c83a79d/Prada_Store_Tiles.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "prada"
+  },
+  {
+    "name": "Saint Laurent",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2T0R43O7tP0d2n54dM2M7U/e54e4c2dd7767acfd553f18e5b6028fa/SAINT_LAURENT_SYDNEY_INT._AIRPORT.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "saint-laurent"
+  },
+  {
+    "name": "Sunglass Hut T1 After Security Towards Gates 50 63",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1K0mP9f448uyU4Gggk08O2/0593416972412e690f0ca30e54d39fec/SGH_Generic_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "sunglass-hut-t1-after-security-towards-gates-50-63"
+  },
+  {
+    "name": "Tiffany And Co",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5W2h2F4XqQOKw0mUqQoSWg/c42289c89f2a96a066601b3b27670404/Tiffany-store-shot.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "tiffany-and-co"
+  },
+  {
+    "name": "Travelex",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex"
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 8",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-after-security-near-gate-8"
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 24",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-after-security-near-gate-24"
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 30",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-after-security-near-gate-30"
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 53",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-after-security-near-gate-53"
+  },
+  {
+    "name": "Travelex T1 Before Security Near Check In K",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-before-security-near-check-in-k"
+  },
+  {
+    "name": "Travelex T1 Arrivals Exit A",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-arrivals-exit-a"
+  },
+  {
+    "name": "Versace",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/sU0c0r55uNlMv7K1561fF/b6245138f32ac9105ca592d3f6d7abac/Sydney_International_Airport_Medusa_Biggie_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "versace"
+  },
+  {
+    "name": "Vodafone",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6Yv3l98b3G4kG2cggSKqU6/50529d38561141c2c31c9a633fa790b8/Vodafone_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "vodafone"
+  },
+  {
+    "name": "Vodafone T1 Arrivals",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6Yv3l98b3G4kG2cggSKqU6/50529d38561141c2c31c9a633fa790b8/Vodafone_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "vodafone-t1-arrivals"
+  },
+  {
+    "name": "A Little Something",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/29Y5driIMPDK8cty4buRHN/4795de534d8306c17df07be2cd472c63/A_little_something.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "a-little-something"
+  },
+  {
+    "name": "Amcal Pharmacy After Security Towards Gates 24 25",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5sZZBkKp8WO2MgsI2iWq0e/26dbae791bc4acb657e8c467f655af72/AmcalPharmacy_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "amcal-pharmacy-after-security-towards-gates-24-25"
+  },
+  {
+    "name": "Amcal Pharmacy T1 After Security Towards Gates 50 63",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5sZZBkKp8WO2MgsI2iWq0e/26dbae791bc4acb657e8c467f655af72/AmcalPharmacy_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "amcal-pharmacy-t1-after-security-towards-gates-50-63"
+  },
+  {
+    "name": "Amcal Pharmacy Before Security Near Check In Counters H And J",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5sZZBkKp8WO2MgsI2iWq0e/26dbae791bc4acb657e8c467f655af72/AmcalPharmacy_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "amcal-pharmacy-before-security-near-check-in-counters-h-and-j"
+  },
+  {
+    "name": "Australian Way",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/17TcXoTJrIA2GqY6ueuCKK/3e676a2bd8ead85343b979759f3cc380/STORE_THUMBNAIL_-_Australian_Way_-_T3_Qantas_-_660x552px.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "australian-way"
+  },
+  {
+    "name": "Balenciaga",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/4hE43coTdDWDzxMfwOkV9p/aabe9d7de69a31016aca6d4a347650c2/Balenciaga_Campaign_660_x_552_pixels.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "balenciaga"
+  },
+  {
+    "name": "Bottega Veneta",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3GT6i305wwhrBcnnB1Vcv8/4ab14c9089e5123580f03ae832357bd7/TILE_-_660px_x_552px.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "bottega-veneta"
+  },
+  {
+    "name": "Burberry",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1IxC2RaNrCGcOyAgUEIYiC/7726ca8fcca871eec5f805223c708dd7/Burberry_Store_Brand_Tile-4-.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "burberry"
+  },
+  {
+    "name": "Bvlgari",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3w5m1Vyc8JkUbLHnCo4JJv/473648a995a1b94fef8d5fb620fb6fc5/1_AU_21_76072_151235_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "bvlgari"
+  },
+  {
+    "name": "Cartier",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5SqCQNDc3MT4FGzR6yzgYU/9c2f7aa90764fdcbaf19a2a4a2e3db38/Cartier_Airport_Facade-_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "cartier"
+  },
+  {
+    "name": "Celine",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/kYXvNm1mJMPgm0l04TL8E/d80e6eec181b68e3e9f6593cf183e4a4/Tile_660x552_background.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "celine"
+  },
+  {
+    "name": "Dior",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3Y8bgLVnQyvdUBCrypZNRh/b76f4b9b0c6f195a500453d1941e3d36/Tile.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "dior"
+  },
+  {
+    "name": "Gentle Monster",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/49Sq0jwiTjmdmbALvHTwuy/da5f90dab3ab3030aa461175505665a9/GM_BOLD_TITLE_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "gentle-monster"
+  },
+  {
+    "name": "Heinemann T1 After Security Mega B",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1bPsDLwr65UA9DyYENjUph/7e153eae99041386233330d47c90366b/MegaB.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "heinemann-t1-after-security-mega-b"
+  },
+  {
+    "name": "Heinemann Pier B North Airside",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/3E0piOWoguRjlT82XGIB0r/5b388f00279c4fe091ab29b21f9daa12/Pier_B_North.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "heinemann-pier-b-north-airside"
+  },
+  {
+    "name": "Heinemann Open Stores",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16nv3R0iGFkbTjVDO2jkl3/5d5a81ab27234114d35c7d4ad8e1d91f/T1_Gatestore.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "heinemann-open-stores"
+  },
+  {
+    "name": "Heinemann Pier C Airside Departures",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5W2Bw58D3WacY6A2ssYI4G/53e813a86c624c4ac11413a9486c8f94/Pier_C.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "heinemann-pier-c-airside-departures"
+  },
+  {
+    "name": "Hermes",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/m6Qk8gL5gT1K1wD5eN0B2/28bdf71c1106a72e737c0eb83e786b3e/2019-NO-LOCATION-Hermes-Sydney-International-Airport-Store-1111-1200x800.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "hermes"
+  },
+  {
+    "name": "Moncler",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/18gL5iWf0I8j3e5hW36o4y/6e08dd1075c324424dd47290132c321b/Moncler_SYD_Airport__660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "moncler"
+  },
+  {
+    "name": "Newslink T1 After Security Towards Gates 50 63",
+    "terminal_code": "SYD-T1",
+    "category": "Misc",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "newslink-t1-before-security-near-check-in-d"
+  },
+  {
+    "name": "Newslink T1 Arrivals Exit B",
+    "terminal_code": "SYD-T1",
+    "category": "Misc",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Explore"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "newslink-t1-arrivals-exit-b"
+  },
+  {
+    "name": "Omega",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/KkI9GgE0SCAYSCm8eWcI4/36495b6cbb03756d10c73b0631c34913/Omega_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "omega"
+  },
+  {
+    "name": "Optus",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1Tq3j1P9qAc4aW0g4mAy8e/4a6730cd90680d2208a3d13b2de488dd/Optus_webtile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "optus"
+  },
+  {
+    "name": "Optus T1 Arrivals",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1Tq3j1P9qAc4aW0g4mAy8e/4a6730cd90680d2208a3d13b2de488dd/Optus_webtile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "optus-t1-arrivals"
+  },
+  {
+    "name": "Prada",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6oY14p8sV2O8EU4e6E8k8G/fd2709e99a8037b5a5b51c140c83a79d/Prada_Store_Tiles.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "prada"
+  },
+  {
+    "name": "Saint Laurent",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2T0R43O7tP0d2n54dM2M7U/e54e4c2dd7767acfd553f18e5b6028fa/SAINT_LAURENT_SYDNEY_INT._AIRPORT.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "saint-laurent"
+  },
+  {
+    "name": "Sunglass Hut T1 After Security Towards Gates 50 63",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/1K0mP9f448uyU4Gggk08O2/0593416972412e690f0ca30e54d39fec/SGH_Generic_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "sunglass-hut-t1-after-security-towards-gates-50-63"
+  },
+  {
+    "name": "Tiffany And Co",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/5W2h2F4XqQOKw0mUqQoSWg/c42289c89f2a96a066601b3b27670404/Tiffany-store-shot.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "tiffany-and-co"
+  },
+  {
+    "name": "Travelex",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex"
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 8",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-after-security-near-gate-8"
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 24",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-after-security-near-gate-24"
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 30",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-after-security-near-gate-30"
+  },
+  {
+    "name": "Travelex T1 After Security Near Gate 53",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-after-security-near-gate-53"
+  },
+  {
+    "name": "Travelex T1 Before Security Near Check In K",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-before-security-near-check-in-k"
+  },
+  {
+    "name": "Travelex T1 Arrivals Exit A",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/2sN91N7T5O8oYIuG4mI8mI/d47225c2765365313988229b4344cd27/Travelex_tile_660x552.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "travelex-t1-arrivals-exit-a"
+  },
+  {
+    "name": "Versace",
+    "terminal_code": "SYD-T1",
+    "category": "Shop",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/sU0c0r55uNlMv7K1561fF/b6245138f32ac9105ca592d3f6d7abac/Sydney_International_Airport_Medusa_Biggie_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "versace"
+  },
+  {
+    "name": "Vodafone",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6Yv3l98b3G4kG2cggSKqU6/50529d38561141c2c31c9a633fa790b8/Vodafone_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "vodafone"
+  },
+  {
+    "name": "Vodafone T1 Arrivals",
+    "terminal_code": "SYD-T1",
+    "category": "Quick",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/6Yv3l98b3G4kG2cggSKqU6/50529d38561141c2c31c9a633fa790b8/Vodafone_tile_660x552.jpg?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "vodafone-t1-arrivals"
+  },
+  {
+    "name": "plaza-premium-lounge-syd",
+    "terminal_code": "SYD-T1",
+    "category": "Services",
+    "amenity_type": "Lounge",
+    "description": "Relax in a quiet setting with snacks and drinks.",
+    "location_description": "After Security, Level 2",
+    "opening_hours": {
+      "Monday-Sunday": "06:00-22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "https://yourbucket.supabase.co/storage/plaza-logo.png",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9460,
+      "lng": 151.1770
+    },
+    "price_tier": "$$",
+    "slug": "plaza-premium-lounge-syd"
+  },
+  {
+    "name": "qantas-business-lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Services",
+    "amenity_type": "Lounge",
+    "description": "Spacious lounge with business amenities and hot meals.",
+    "location_description": "After Security, Level 3",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-22:00"
+    },
+    "vibe_tags": [
+      "Work",
+      "Chill",
+      "Comfort",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "https://yourbucket.supabase.co/storage/qantas-logo.png",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.9461,
+      "lng": 151.1771
+    },
+    "price_tier": "$$$",
+    "slug": "qantas-business-lounge"
+  },
+  {
+    "name": "Qantas First Lounge",
+    "slug": "qantas-first-lounge-syd",
+    "terminal_code": "SYD-T1",
+    "category": "Lounge",
+    "amenity_type": "Premium Lounge",
+    "description": "Premium lounge with spa, dining, and work facilities",
+    "location_description": "Terminal 1, International Departures",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-23:00"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Work",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "airport_name": "Sydney Kingsford Smith",
+    "city": "Sydney",
+    "country": "Australia",
+    "area": "Oceania",
+    "id": "syd-t1-qantas-first",
+    "coordinates": {
+      "lat": -33.9461,
+      "lng": 151.1772
+    },
+    "price_tier": "$$$$"
+  },
+  {
+    "name": "Sydney Harbour Bar",
+    "slug": "sydney-harbour-bar",
+    "terminal_code": "SYD-T1",
+    "category": "Food & Beverage",
+    "amenity_type": "Bar",
+    "description": "Bar with harbour views and local Australian wines",
+    "location_description": "Terminal 1, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "06:00-22:00"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Chill"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "airport_name": "Sydney Kingsford Smith",
+    "city": "Sydney",
+    "country": "Australia",
+    "area": "Oceania",
+    "id": "syd-t1-harbour-bar",
+    "coordinates": {
+      "lat": -33.9462,
+      "lng": 151.1773
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Atrium",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "Modern dining space with varied menu options",
+    "location_description": "After Security, T1 International",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 10pm"
+    },
+    "vibe_tags": ["Refuel", "Chill"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "atrium-syd-t1"
+  },
+  {
+    "name": "BARista",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café Bar",
+    "description": "Coffee bar with alcoholic beverages",
+    "location_description": "After Security, Near Gate 31",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 10pm"
+    },
+    "vibe_tags": ["Refuel", "Chill", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "barista-syd-t1"
+  },
+  {
+    "name": "EARL",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "Contemporary dining experience",
+    "location_description": "Before Security, T1 International",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 10pm"
+    },
+    "vibe_tags": ["Refuel"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "earl-syd-t1"
+  },
+  {
+    "name": "East x West",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Asian Fusion",
+    "description": "Asian fusion cuisine",
+    "location_description": "Before Security, Near Check In Counter H",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 10pm"
+    },
+    "vibe_tags": ["Refuel", "Explore"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "east-x-west-syd-t1"
+  },
+  {
+    "name": "Grand Cru",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Wine Bar",
+    "description": "Wine bar with light meals",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Chill"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$$",
+    "slug": "grand-cru-syd-t1"
+  },
+  {
+    "name": "Gusto Pasta Bar",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Italian",
+    "description": "Fresh pasta and Italian dishes",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 10pm"
+    },
+    "vibe_tags": ["Refuel"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "gusto-pasta-bar-syd-t1"
+  },
+  {
+    "name": "Heineken House",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Bar",
+    "description": "Dutch beer house with bar food",
+    "location_description": "After Security, near Gate 10",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Chill"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "heineken-house-syd-t1"
+  },
+  {
+    "name": "Hero Sushi",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Japanese",
+    "description": "Fresh sushi and Japanese quick eats",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "hero-sushi-syd-t1"
+  },
+  {
+    "name": "Hikari Ramen",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Japanese",
+    "description": "Authentic Japanese ramen",
+    "location_description": "After Security, Located next to Gate 10",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 9pm"
+    },
+    "vibe_tags": ["Refuel", "Comfort"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "hikari-ramen-syd-t1"
+  },
+  {
+    "name": "Hudsons Coffee - T1 Post Security Near Gate 10",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "description": "Coffee and light snacks",
+    "location_description": "After Security, Arrivals B",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick", "Chill"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "hudsons-coffee-t1-gate-10"
+  },
+  {
+    "name": "Hungry Jack's - T1 International",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Fast Food",
+    "description": "Burgers and fast food",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "hungry-jacks-t1"
+  },
+  {
+    "name": "KFC - T1 International",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Fast Food",
+    "description": "Fried chicken and fast food",
+    "location_description": "After Security, Near Gate 24",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 9pm"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "kfc-t1"
+  },
+  {
+    "name": "Kitchen by Mike",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Australian",
+    "description": "Modern Australian cuisine",
+    "location_description": "After Security, Near Gate 30",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Explore"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$$",
+    "slug": "kitchen-by-mike-syd-t1"
+  },
+  {
+    "name": "Lilong by Taste of Shanghai",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Chinese",
+    "description": "Shanghainese dumplings and noodles",
+    "location_description": "After Security, Near Gate 56",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Explore"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "lilong-syd-t1"
+  },
+  {
+    "name": "Lumos Cafe",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "description": "Café with light meals",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 10pm"
+    },
+    "vibe_tags": ["Refuel", "Chill", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "lumos-cafe-syd-t1"
+  },
+  {
+    "name": "Mach2",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "Casual dining and bar",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Chill"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "mach2-syd-t1"
+  },
+  {
+    "name": "Mad Mex - T1 International",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Mexican",
+    "description": "Fresh Mexican food",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 8pm"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "mad-mex-t1"
+  },
+  {
+    "name": "McDonald's - T1 Before Security Arrivals A",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Fast Food",
+    "description": "Fast food restaurant",
+    "location_description": "Before Security, arrivals Exit A",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "mcdonalds-t1-arrivals-a"
+  },
+  {
+    "name": "McDonald's T1 After Security near Gate 50",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Fast Food",
+    "description": "Fast food restaurant",
+    "location_description": "After Security, near Gate 50",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "mcdonalds-t1-gate-50"
+  },
+  {
+    "name": "McDonald's T1 After Security near Gate 24",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Fast Food",
+    "description": "Fast food restaurant",
+    "location_description": "After Security, near Gate 24",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "mcdonalds-t1-gate-24"
+  },
+  {
+    "name": "Mochi Donuts",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Dessert",
+    "description": "Japanese-style mochi donuts",
+    "location_description": "Before Security, opposite Hungry Jack's",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 8pm"
+    },
+    "vibe_tags": ["Refuel", "Quick", "Explore"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "mochi-donuts-syd-t1"
+  },
+  {
+    "name": "Ooosh Oregano Bakery",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Bakery",
+    "description": "Lebanese baked goods",
+    "location_description": "Before Security, arrivals Exit A",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "ooosh-oregano-bakery-syd-t1"
+  },
+  {
+    "name": "Oporto T1 International",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Portuguese",
+    "description": "Portuguese-style chicken",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 8pm"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "oporto-t1"
+  },
+  {
+    "name": "PappaRich",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Malaysian",
+    "description": "Malaysian street food",
+    "location_description": "After Security, T1 International",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 10pm"
+    },
+    "vibe_tags": ["Refuel", "Explore"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "papparich-syd-t1"
+  },
+  {
+    "name": "Peroni Bar",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Bar",
+    "description": "Italian bar with aperitivo",
+    "location_description": "After Security, Near Gate 56",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Chill"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$$",
+    "slug": "peroni-bar-syd-t1"
+  },
+  {
+    "name": "Sahara Grill - T1 International",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Middle Eastern",
+    "description": "Middle Eastern cuisine",
+    "location_description": "After Security, Near Gate 10",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "sahara-grill-t1"
+  },
+  {
+    "name": "Subway",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Fast Food",
+    "description": "Custom sandwiches and salads",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "subway-syd-t1"
+  },
+  {
+    "name": "SumoSalad Green on Green",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Healthy",
+    "description": "Fresh salads and healthy options",
+    "location_description": "After Security, Near Gate 24",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "sumosalad-green-syd-t1"
+  },
+  {
+    "name": "Sushia",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Japanese",
+    "description": "Sushi and Japanese cuisine",
+    "location_description": "After Security, near Gate 30",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "sushia-syd-t1"
+  },
+  {
+    "name": "Sydney Coffee Trader",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "description": "Local coffee trader",
+    "location_description": "Before Security, Near Gate B",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 10pm"
+    },
+    "vibe_tags": ["Refuel", "Chill", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "sydney-coffee-trader-syd-t1"
+  },
+  {
+    "name": "Taste of Thai",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Thai",
+    "description": "Authentic Thai cuisine",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Explore"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "taste-of-thai-syd-t1"
+  },
+  {
+    "name": "The Bistro by Wolfgang Puck",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Fine Dining",
+    "description": "Celebrity chef restaurant",
+    "location_description": "After Security, near Gate 10",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Explore"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$$$",
+    "slug": "bistro-wolfgang-puck-syd-t1"
+  },
+  {
+    "name": "Tobys Estate - T1 Before Security",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "description": "Artisan coffee roaster",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Chill", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "tobys-estate-t1-before-security"
+  },
+  {
+    "name": "Tobys Estate T1 After Security",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "description": "Artisan coffee roaster",
+    "location_description": "After Security, Towards gates 50-63",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Chill", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "tobys-estate-t1-after-security"
+  },
+  {
+    "name": "Top Juice",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Juice Bar",
+    "description": "Fresh juices and smoothies",
+    "location_description": "Before Security",
+    "opening_hours": {
+      "Monday-Sunday": "Open until 8pm"
+    },
+    "vibe_tags": ["Refuel", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$",
+    "slug": "top-juice-syd-t1"
+  },
+  {
+    "name": "Veloce Espresso - T1 International",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Café",
+    "description": "Italian-style espresso bar",
+    "location_description": "Before Security, arrivals Exit A",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": ["Refuel", "Chill", "Quick"],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "$$",
+    "slug": "veloce-espresso-t1"
+  }
+]

@@ -6,7 +6,6 @@ import { TimelineBlock } from '@/components/TransitTimeline';
 import { generateTransitPlan } from '@/utils/generateTransitPlan_withAmenities_T1';
 import { fetchFlightInfo } from '@/services/flightData';
 import { getFlightDuration } from '@/utils/getFlightDuration';
-import { lookupFlight, flightToJourneyContext, saveJourneyContext, type FlightData } from '@/services/flightService';
 
 const steps = [
   "Flight Info",
@@ -141,57 +140,8 @@ export default function OptimizedJourneyStepper() {
   });
   
   const [showSuccess, setShowSuccess] = useState(false);
-  const [flightLookupStatus, setFlightLookupStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [flightResult, setFlightResult] = useState<FlightData | null>(null);
-  const [flightError, setFlightError] = useState<string | null>(null);
   const isDarkMode = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   const navigate = useNavigate();
-
-  // Auto-lookup flight when flight number is entered
-  const flightLookupTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(() => {
-    const fn = journeyData.flightNumber?.trim();
-    if (!fn || fn.length < 3) {
-      setFlightLookupStatus('idle');
-      setFlightResult(null);
-      setFlightError(null);
-      return;
-    }
-
-    setFlightLookupStatus('loading');
-    setFlightError(null);
-
-    if (flightLookupTimeout.current) clearTimeout(flightLookupTimeout.current);
-    flightLookupTimeout.current = setTimeout(async () => {
-      const result = await lookupFlight(fn, journeyData.flightDate || undefined);
-      if (result) {
-        if (!result.isDepartingFromSIN && !result.origin) {
-          setFlightLookupStatus('error');
-          setFlightError("This flight doesn't appear to serve Changi Airport");
-          setFlightResult(null);
-        } else {
-          setFlightLookupStatus('success');
-          setFlightResult(result);
-          setFlightError(null);
-          // Auto-fill terminal into journey data
-          if (result.terminalCode) {
-            setJourneyData(prev => ({ ...prev, terminal: result.terminalCode }));
-          }
-          // Save enriched context for rest of app
-          const ctx = flightToJourneyContext(result);
-          saveJourneyContext(ctx);
-        }
-      } else {
-        setFlightLookupStatus('error');
-        setFlightError("Couldn't find flight details. You can enter manually.");
-        setFlightResult(null);
-      }
-    }, 800); // debounce 800ms
-
-    return () => {
-      if (flightLookupTimeout.current) clearTimeout(flightLookupTimeout.current);
-    };
-  }, [journeyData.flightNumber, journeyData.flightDate]);
 
   const handleNext = async () => {
     // Add SIN transit plan for SYD-LHR using dynamic layover calculation
@@ -395,29 +345,6 @@ export default function OptimizedJourneyStepper() {
                   />
                 </div>
               </div>
-
-              {/* Flight lookup status */}
-              {flightLookupStatus === 'loading' && (
-                <div className="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
-                  <span className="animate-spin">⏳</span> Looking up flight...
-                </div>
-              )}
-              {flightLookupStatus === 'success' && flightResult && (
-                <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-3 py-2 rounded-lg">
-                  <span>✓</span>
-                  <span className="font-medium">
-                    {flightResult.flightNumber}
-                    {flightResult.terminal ? ` · Terminal ${flightResult.terminal}` : ''}
-                    {flightResult.gate ? ` · Gate ${flightResult.gate}` : ''}
-                    {flightResult.scheduledTime ? ` · Departing ${new Date(flightResult.scheduledTime).toLocaleTimeString('en-SG', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Singapore' })}` : ''}
-                  </span>
-                </div>
-              )}
-              {flightLookupStatus === 'error' && flightError && (
-                <div className="text-sm text-amber-600 dark:text-amber-400">
-                  ⚠️ {flightError}
-                </div>
-              )}
             </details>
           </motion.div>
         );

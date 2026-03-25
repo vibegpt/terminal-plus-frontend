@@ -1,0 +1,8 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="14.073212">
+<testsuite name="pwa.spec.ts" timestamp="2025-09-18T12:37:34.777Z" hostname="chromium" tests="2" failures="0" skipped="0" time="1.742" errors="0">
+<testcase name="PWA Features › should have PWA manifest" classname="pwa.spec.ts" time="0.844">
+</testcase>
+<testcase name="PWA Features › should register service worker" classname="pwa.spec.ts" time="0.898">
+</testcase>
+</testsuite>
+</testsuites>

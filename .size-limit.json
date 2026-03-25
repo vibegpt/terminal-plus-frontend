@@ -1,0 +1,51 @@
+[
+  {
+    "path": "dist/assets/index-*.js",
+    "limit": "50 KB",
+    "name": "Main Bundle",
+    "gzip": true,
+    "brotli": true
+  },
+  {
+    "path": "dist/assets/react-vendor-*.js",
+    "limit": "200 KB",
+    "name": "React Vendor",
+    "gzip": true,
+    "brotli": true
+  },
+  {
+    "path": "dist/assets/analytics-*.js",
+    "limit": "300 KB",
+    "name": "Analytics Bundle",
+    "gzip": true,
+    "brotli": true
+  },
+  {
+    "path": "dist/assets/animation-*.js",
+    "limit": "150 KB",
+    "name": "Animation Bundle",
+    "gzip": true,
+    "brotli": true
+  },
+  {
+    "path": "dist/assets/supabase-*.js",
+    "limit": "150 KB",
+    "name": "Supabase Bundle",
+    "gzip": true,
+    "brotli": true
+  },
+  {
+    "path": "dist/**/*.js",
+    "limit": "1 MB",
+    "name": "Total JavaScript",
+    "gzip": true,
+    "brotli": true
+  },
+  {
+    "path": "dist/**/*.css",
+    "limit": "250 KB",
+    "name": "Total CSS",
+    "gzip": true,
+    "brotli": true
+  }
+]

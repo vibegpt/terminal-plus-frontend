@@ -1,0 +1,118 @@
+[
+  {
+    "name": "Ca'puccino",
+    "terminal_code": "LHR-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Cafe",
+    "description": "Italian-style coffee and pastries.",
+    "location_description": "Airside, Departure Lounge",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-21:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4704,
+      "lng": -0.4524
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "Joe & The Juice",
+    "terminal_code": "LHR-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Juice Bar",
+    "description": "Health-focused juices, smoothies, and sandwiches.",
+    "location_description": "Near Gate A15",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-21:00"
+    },
+    "vibe_tags": [
+      "Quick",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4706,
+      "lng": -0.4526
+    },
+    "price_tier": "$$"
+  },
+  {
+    "name": "The Perfectionists' Café by Heston Blumenthal",
+    "terminal_code": "LHR-T2",
+    "category": "Food & Beverage",
+    "amenity_type": "Upscale Restaurant",
+    "description": "Innovative British cuisine by celebrity chef Heston Blumenthal.",
+    "location_description": "Airside, near the central concourse",
+    "opening_hours": {
+      "Monday-Sunday": "05:00-22:00"
+    },
+    "vibe_tags": [
+      "Explore",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4699,
+      "lng": -0.4522
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "Plaza Premium Lounge",
+    "terminal_code": "LHR-T2",
+    "category": "Services",
+    "amenity_type": "Lounge",
+    "description": "Independent premium lounge with food, drinks, and showers.",
+    "location_description": "Airside, Level 4 after security",
+    "opening_hours": {
+      "Monday-Sunday": "06:00-22:00"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Work",
+      "Chill"
+    ],
+    "status": "active",
+    "image_url": "",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4702,
+      "lng": -0.4528
+    },
+    "price_tier": "$$$"
+  },
+  {
+    "name": "plaza-premium-lounge-lhr",
+    "terminal_code": "LHR-T2",
+    "category": "Services",
+    "amenity_type": "Lounge",
+    "description": "Relax in a quiet setting with snacks and drinks.",
+    "location_description": "Airside, Level 4 after security",
+    "opening_hours": {
+      "Monday-Sunday": "06:00-22:00"
+    },
+    "vibe_tags": [
+      "Chill",
+      "Comfort"
+    ],
+    "status": "active",
+    "image_url": "https://yourbucket.supabase.co/storage/plaza-logo.png",
+    "airport_code": "LHR",
+    "coordinates": {
+      "lat": 51.4705,
+      "lng": -0.4525
+    },
+    "price_tier": "$$"
+  }
+]

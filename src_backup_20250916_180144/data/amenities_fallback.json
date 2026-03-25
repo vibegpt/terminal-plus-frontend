@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Newslink T1 After Security Near Gate 8",
+    "terminal_code": "SYD-T1",
+    "category": "books and news",
+    "amenity_type": "",
+    "description": "",
+    "location_description": "",
+    "opening_hours": {},
+    "vibe_tags": [
+      "Shop",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://images.ctfassets.net/v228i5y5k0x4/16j2Yx07vOaykweYeCg6SS/f08e56213702e86b976d33301a2d488e/newslink_Generic_Image_660_x_552_pixels.png?h=210",
+    "airport_code": "SYD",
+    "coordinates": {},
+    "price_tier": "",
+    "slug": "newslink-t1-after-security-near-gate-8"
+  },
+  {
+    "name": "Qantas Business Lounge",
+    "terminal_code": "SYD-T1",
+    "category": "Comfort",
+    "amenity_type": "Lounge",
+    "description": "",
+    "location_description": "Departures, After Security",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Comfort",
+      "Work",
+      "Chill",
+      "Refuel"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/qantas-lounge.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.945711,
+      "lng": 151.177622
+    },
+    "price_tier": "$$$",
+    "access": "",
+    "tags": [],
+    "slug": "qantas-business-lounge"
+  },
+  {
+    "name": "Betty's Burgers",
+    "terminal_code": "SYD-T1",
+    "category": "Dining",
+    "amenity_type": "Casual Dining",
+    "description": "",
+    "location_description": "Before Security, Food Court",
+    "opening_hours": {
+      "Monday-Sunday": "24/7"
+    },
+    "vibe_tags": [
+      "Refuel",
+      "Quick"
+    ],
+    "status": "active",
+    "image_url": "https://cdn.terminal.plus/images/amenities/bettys-burgers.jpg",
+    "airport_code": "SYD",
+    "coordinates": {
+      "lat": -33.946111,
+      "lng": 151.177222
+    },
+    "price_tier": "$$",
+    "slug": "betty-s-burgers"
+  }
+] 

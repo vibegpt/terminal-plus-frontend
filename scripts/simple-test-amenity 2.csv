@@ -1,0 +1,2 @@
+id,created_at,amenity_slug,description,website_url,logo_url,vibe_tags,booking_required,available_in_tr,price_level,opening_hours,terminal_code,airport_code,name
+1,2025-08-03T20:10:40.535Z,test-amenity-sin-t1,Test amenity for Supabase import,https://example.com,https://yourbucket.supabase.co/storage/test-logo.png,"{Shop,Quick}",false,true,$$,,SIN-T1,SIN,Test Amenity 

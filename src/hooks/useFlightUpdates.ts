@@ -1,134 +1,121 @@
-import { useEffect, useRef } from 'react';
-import {
-  lookupFlight,
-  flightToJourneyContext,
-  saveJourneyContext,
-  getJourneyContext,
-} from '../services/flightService';
+// src/hooks/useFlightUpdates.ts
+// Background polling for gate/delay updates via AeroDataBox
 
-// Toast import for notifications
-import { useToast } from './use-toast';
+import { useEffect, useRef, useCallback } from 'react';
+import { useJourney } from '../context/JourneyContext';
+import { lookupFlight } from '../services/flightService';
 
-const POLL_INTERVAL_NORMAL = 30 * 60 * 1000; // 30 minutes
-const POLL_INTERVAL_URGENT = 10 * 60 * 1000; // 10 minutes
-const MAX_HOURS_AHEAD = 6;
+type ToastInfo = { message: string; type: 'gate' | 'delay' | 'cancelled' };
 
-const TERMINAL_STATUSES = ['Departed', 'Arrived', 'Cancelled', 'Landed'];
+let showToastCallback: ((info: ToastInfo) => void) | null = null;
+
+export function setFlightToastHandler(cb: (info: ToastInfo) => void) {
+  showToastCallback = cb;
+}
+
+function getPollingInterval(boardingTimeIso: string): number | null {
+  const minsToBoarding = Math.floor(
+    (new Date(boardingTimeIso).getTime() - Date.now()) / 60_000
+  );
+
+  // Don't poll if > 6h away or flight is in the past
+  if (minsToBoarding > 360 || minsToBoarding < -30) return null;
+
+  // < 2h → poll every 10 min
+  if (minsToBoarding <= 120) return 10 * 60_000;
+
+  // 2h – 6h → poll every 30 min
+  return 30 * 60_000;
+}
 
 export function useFlightUpdates() {
-  const { toast } = useToast();
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const { journey, setJourney } = useJourney();
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const poll = useCallback(async () => {
+    if (!journey?.departingFlight || journey.departingFlight === 'UNKNOWN' || journey.departingFlight === 'SQ000') {
+      return;
+    }
+
+    // Skip if tab is hidden
+    if (document.visibilityState !== 'visible') return;
+
+    const data = await lookupFlight(journey.departingFlight);
+    if (!data) return;
+
+    let updated = false;
+    const updates: Partial<typeof journey> = {};
+
+    // Gate change
+    if (data.gate && data.gate !== journey.gate) {
+      updates.gate = data.gate;
+      updated = true;
+      showToastCallback?.({
+        message: journey.gate ? `Gate changed: ${data.gate}` : `Gate assigned: ${data.gate}`,
+        type: 'gate',
+      });
+    }
+
+    // Delay / revised time
+    if (data.revisedTime && data.revisedTime !== journey.scheduledDeparture) {
+      updates.status = 'Delayed';
+      updated = true;
+      showToastCallback?.({
+        message: `Flight delayed — new time available`,
+        type: 'delay',
+      });
+    }
+
+    // Boarding time update
+    if (data.estimatedBoardingTime && data.estimatedBoardingTime !== journey.boardingTime) {
+      updates.boardingTime = data.estimatedBoardingTime;
+      updated = true;
+    }
+
+    // Destination (if we didn't have it)
+    if (data.destination && !journey.destination) {
+      updates.destination = data.destination;
+      updated = true;
+    }
+
+    // Cancelled
+    if (data.status?.toLowerCase().includes('cancelled')) {
+      updates.status = 'Cancelled';
+      updated = true;
+      showToastCallback?.({
+        message: `Flight ${journey.departingFlight} CANCELLED`,
+        type: 'cancelled',
+      });
+    }
+
+    if (updated) {
+      const newJourney = {
+        ...journey,
+        ...updates,
+        lastUpdated: new Date().toISOString(),
+      };
+      setJourney(newJourney);
+    }
+  }, [journey, setJourney]);
 
   useEffect(() => {
-    function shouldPoll(): boolean {
-      // Don't poll if page is hidden
-      if (document.visibilityState !== 'visible') return false;
+    if (!journey?.boardingTime) return;
 
-      const ctx = getJourneyContext();
-      if (!ctx || !ctx.flightNumber) return false;
+    const interval = getPollingInterval(journey.boardingTime);
+    if (!interval) return;
 
-      // Stop polling for terminal statuses
-      if (TERMINAL_STATUSES.some(s => ctx.status?.toLowerCase().includes(s.toLowerCase()))) {
-        return false;
-      }
-
-      // Don't poll if boarding is > 6 hours away
-      if (ctx.boardingTime) {
-        const boarding = new Date(ctx.boardingTime);
-        const hoursAway = (boarding.getTime() - Date.now()) / (3600 * 1000);
-        if (hoursAway > MAX_HOURS_AHEAD) return false;
-      }
-
-      return true;
-    }
-
-    function getInterval(): number {
-      const ctx = getJourneyContext();
-      if (!ctx?.scheduledDeparture) return POLL_INTERVAL_NORMAL;
-
-      const dep = new Date(ctx.scheduledDeparture);
-      const hoursUntilDeparture = (dep.getTime() - Date.now()) / (3600 * 1000);
-
-      return hoursUntilDeparture < 2 ? POLL_INTERVAL_URGENT : POLL_INTERVAL_NORMAL;
-    }
-
-    async function poll() {
-      if (!shouldPoll()) return;
-
-      const ctx = getJourneyContext();
-      if (!ctx) return;
-
-      const result = await lookupFlight(ctx.flightNumber);
-      if (!result) return;
-
-      const newCtx = flightToJourneyContext(result);
-      const oldGate = ctx.gate;
-      const oldScheduled = ctx.scheduledDeparture;
-      const oldStatus = ctx.status;
-
-      // Save updated context
-      saveJourneyContext(newCtx);
-
-      // Notify on gate assignment
-      if (!oldGate && newCtx.gate) {
-        toast({
-          title: '🚪 Gate assigned',
-          description: `Your gate is ${newCtx.gate}`,
-        });
-      } else if (oldGate && newCtx.gate && oldGate !== newCtx.gate) {
-        toast({
-          title: '🚪 Gate changed',
-          description: `Gate changed from ${oldGate} to ${newCtx.gate}`,
-        });
-      }
-
-      // Notify on delay
-      if (oldScheduled && newCtx.scheduledDeparture && oldScheduled !== newCtx.scheduledDeparture) {
-        const newTime = new Date(newCtx.scheduledDeparture);
-        const timeStr = newTime.toLocaleTimeString('en-SG', {
-          hour: '2-digit',
-          minute: '2-digit',
-          timeZone: 'Asia/Singapore',
-        });
-        toast({
-          title: '⏰ Departure time updated',
-          description: `New departure time: ${timeStr}`,
-        });
-      }
-
-      // Notify on cancellation
-      if (oldStatus !== 'Cancelled' && newCtx.status?.toLowerCase().includes('cancel')) {
-        toast({
-          title: '⚠️ Flight cancelled',
-          description: `${ctx.flightNumber} appears to be cancelled. Contact your airline.`,
-          variant: 'destructive',
-        });
-      }
-    }
-
-    // Initial poll after short delay
-    const initialTimeout = setTimeout(poll, 5000);
-
-    // Set up interval
-    function startPolling() {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      intervalRef.current = setInterval(poll, getInterval());
-    }
-    startPolling();
-
-    // Re-evaluate interval when visibility changes
-    function handleVisibilityChange() {
-      if (document.visibilityState === 'visible') {
-        poll(); // poll immediately on return
-        startPolling(); // restart interval
-      }
-    }
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    // Initial poll after 5s
+    timerRef.current = setTimeout(() => {
+      poll();
+      // Then regular interval
+      timerRef.current = setInterval(poll, interval) as any;
+    }, 5_000);
 
     return () => {
-      clearTimeout(initialTimeout);
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        clearInterval(timerRef.current);
+      }
     };
-  }, [toast]);
+  }, [journey?.boardingTime, journey?.departingFlight, poll]);
 }

@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default supabase;
 
@@ -24,5 +24,7 @@ export interface AmenityDetail {
   available_in_tr: boolean | null;
   latitude: number | null;
   longitude: number | null;
+  walking_time_minutes?: number | null;
+  category?: string | null;
   [key: string]: unknown;
 }
