@@ -6,6 +6,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, MapPin, Clock, Search, Filter, ChevronDown, ChevronRight, DollarSign } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import NearbySurprise from '@/components/NearbySurprise';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 const TERMINAL_SHORT: Record<string, string> = {
@@ -56,6 +57,18 @@ export const CollectionDetailPage: React.FC = () => {
   const [sortBy, setSortBy] = useState<'distance' | 'rating' | 'name' | 'price'>('name');
   const [filterBy, setFilterBy] = useState<'all' | 'open' | 'nearby'>('all');
   const [showFilters, setShowFilters] = useState(false);
+
+  // Get user terminal from session for NearbySurprise
+  const [userTerminal, setUserTerminal] = useState<string | null>(null);
+  useEffect(() => {
+    try {
+      const journey = sessionStorage.getItem('tempJourneyData');
+      if (journey) {
+        const parsed = JSON.parse(journey);
+        setUserTerminal(parsed.terminal || null);
+      }
+    } catch { /* ignore */ }
+  }, []);
 
   // Map vibe slugs to DB vibe_tags values
   const VIBE_DB_TAG: Record<string, string> = {
@@ -376,6 +389,16 @@ export const CollectionDetailPage: React.FC = () => {
             <h3 className="text-lg font-medium mb-1">No amenities yet</h3>
             <p className="text-sm">This collection is being curated</p>
           </div>
+        )}
+
+        {/* Nearby Surprise nudge */}
+        {userTerminal && collectionId && (
+          <NearbySurprise
+            currentCollectionId={collectionId}
+            userTerminal={userTerminal}
+            onDismiss={() => {}}
+            onTap={(slug) => navigate(`/amenity/${slug}`)}
+          />
         )}
       </div>
     </div>

@@ -10,6 +10,10 @@ import CategoryFilter from "@/components/CategoryFilter";
 import CategoryCarousels from "@/components/CategoryCarousels";
 import { useVibe } from '@/context/VibeContext';
 import { useTheme } from '@/hooks/useTheme';
+import TimeConfidenceBar from '@/components/TimeConfidenceBar';
+import { getFreeMinutes } from '@/utils/getFreeTime';
+import { getVibeMicroCopy } from '@/utils/getVibeMicroCopy';
+import { getTimeOfDay } from '@/utils/getOptimalVibeOrder';
 
 function slugify(str: string) {
   return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
@@ -181,14 +185,29 @@ export default function GuideView() {
 
   const navigate = useNavigate();
 
+  // Extract gate from journey data for TimeConfidenceBar
+  const gateNumber = journeyData?.gate || searchParams.get("gate") || null;
+
   return (
     <div className="px-4 py-6">
+      <TimeConfidenceBar
+        minutesToBoarding={minsToBoard < 999 ? minsToBoard : null}
+        terminalCode={terminal || null}
+        gateNumber={gateNumber}
+      />
       {minsToBoard <= 30 && (
         <div className="mb-4 text-sm text-yellow-600 dark:text-yellow-300">
           ✈️ Showing only nearby options — boarding soon!
         </div>
       )}
-      <h1 className="text-xl font-bold mb-4">Explore {terminal}</h1>
+      <h1 className="text-xl font-bold mb-1">Explore {terminal}</h1>
+      {(() => {
+        const freeMin = getFreeMinutes(minsToBoard < 999 ? minsToBoard : null, terminal || null);
+        const copy = getVibeMicroCopy({ vibe, freeMinutes: freeMin, timeOfDay: getTimeOfDay() });
+        return copy ? (
+          <p className="text-xs text-white/50 italic mb-4 truncate">{copy}</p>
+        ) : <div className="mb-4" />;
+      })()}
       {sinTransitPlan.length > 0 && (
         <div className="mb-8 mt-6 border-t pt-6">
           <h2 className="text-xl font-bold mb-4 text-slate-700">Your SIN Transit Timeline</h2>

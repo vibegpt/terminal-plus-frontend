@@ -11,23 +11,32 @@ export interface ChatMessage {
   timestamp: number;
 }
 
+export interface AgentContext {
+  terminal: string | null;
+  gate: string | null;
+  boardingTime: string | null;
+  flightNumber: string | null;
+  destination: string | null;
+  selectedVibe: string | null;
+}
+
 export interface ChatRequest {
-  query: string;
-  context?: {
-    terminal?: string;
-    isTransit?: boolean;
-  };
-  conversationHistory?: Array<{ role: 'user' | 'assistant'; content: string }>;
+  message: string;
+  context: AgentContext;
+  history: Array<{ role: 'user' | 'assistant'; content: string }>;
+  mode?: 'conversational' | 'structured';
 }
 
 export interface ChatResponse {
   message: string;
   amenities: AmenityDetail[];
   followUp: string | null;
+  structured?: Record<string, unknown>;
   context: {
     terminal?: string;
     isTransit: boolean;
     totalResults: number;
+    timeUntilBoarding?: number | null;
   };
 }
 
@@ -35,10 +44,20 @@ export interface ChatResponse {
 
 const API_URL = '/api/chat';
 
-export async function askConcierge(request: ChatRequest): Promise<ChatResponse> {
+export async function askConcierge(
+  request: ChatRequest,
+  sessionId?: string,
+): Promise<ChatResponse> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  if (sessionId) {
+    headers['x-session-id'] = sessionId;
+  }
+
   const res = await fetch(API_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify(request),
   });
 
