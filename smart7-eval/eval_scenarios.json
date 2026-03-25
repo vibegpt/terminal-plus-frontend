@@ -1,0 +1,359 @@
+[
+  {
+    "id": "s01_t1_short_layover_refuel",
+    "description": "Traveler at T1, departing T1, 45min to boarding, wants Refuel",
+    "context": {
+      "userTerminal": "SIN-T1",
+      "departureTerminal": "SIN-T1",
+      "minutesToBoarding": 45,
+      "timeOfDay": "morning",
+      "selectedVibe": "Refuel",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["same_terminal_priority"],
+      "mustExclude": ["jewel_items"],
+      "maxFromJewel": 0,
+      "minSameTerminal": 5,
+      "quickServeFriendly": true
+    }
+  },
+  {
+    "id": "s02_t3_long_layover_explore",
+    "description": "Traveler at T3, departing T3, 5hrs to boarding, wants Explore",
+    "context": {
+      "userTerminal": "SIN-T3",
+      "departureTerminal": "SIN-T3",
+      "minutesToBoarding": 300,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "Explore",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["jewel_items", "terminal_diversity"],
+      "maxFromJewel": 3,
+      "minSameTerminal": 2,
+      "shouldIncludeFlagship": true
+    }
+  },
+  {
+    "id": "s03_t4_isolated_comfort",
+    "description": "Traveler at T4 (isolated), 2hrs, wants Comfort — limited options",
+    "context": {
+      "userTerminal": "SIN-T4",
+      "departureTerminal": "SIN-T4",
+      "minutesToBoarding": 120,
+      "timeOfDay": "evening",
+      "selectedVibe": "Comfort",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["t4_lounges_if_available"],
+      "maxFromJewel": 1,
+      "minSameTerminal": 3,
+      "notes": "T4 has fewer amenities; algorithm should still return 7 by pulling from Jewel and adjacent"
+    }
+  },
+  {
+    "id": "s04_jewel_destination_chill",
+    "description": "Traveler deliberately at Jewel, 4hrs, wants Chill — Jewel should dominate",
+    "context": {
+      "userTerminal": "SIN-JEWEL",
+      "departureTerminal": "SIN-T2",
+      "minutesToBoarding": 240,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "Chill",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["jewel_heavy"],
+      "maxFromJewel": 5,
+      "minSameTerminal": 3,
+      "notes": "User is AT Jewel — should see mostly Jewel amenities"
+    }
+  },
+  {
+    "id": "s05_t2_to_t1_transition",
+    "description": "At T2 now, departing T1, 3hrs — should blend both terminals",
+    "context": {
+      "userTerminal": "SIN-T2",
+      "departureTerminal": "SIN-T1",
+      "minutesToBoarding": 180,
+      "timeOfDay": "morning",
+      "selectedVibe": "Refuel",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["terminal_blend"],
+      "maxFromJewel": 1,
+      "minFromCurrentTerminal": 2,
+      "minFromDepartureTerminal": 2,
+      "notes": "Should see T2 (where they are) + T1 (where they're going) + maybe 1 Jewel"
+    }
+  },
+  {
+    "id": "s06_budget_conscious_shop",
+    "description": "Budget traveler at T1, 2hrs, wants Shop, prefers $ price level",
+    "context": {
+      "userTerminal": "SIN-T1",
+      "departureTerminal": "SIN-T1",
+      "minutesToBoarding": 120,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "Shop",
+      "pricePreference": "$"
+    },
+    "expected": {
+      "mustInclude": ["price_filter_respected"],
+      "maxExpensiveItems": 1,
+      "minBudgetItems": 4,
+      "notes": "Budget preference should strongly filter results"
+    }
+  },
+  {
+    "id": "s07_premium_comfort_lounge",
+    "description": "Premium traveler at T3, 4hrs, wants Comfort, prefers $$$ — lounges prioritized",
+    "context": {
+      "userTerminal": "SIN-T3",
+      "departureTerminal": "SIN-T3",
+      "minutesToBoarding": 240,
+      "timeOfDay": "evening",
+      "selectedVibe": "Comfort",
+      "pricePreference": "$$$"
+    },
+    "expected": {
+      "mustInclude": ["lounges_prioritized", "flagship_lounges"],
+      "minPremiumItems": 4,
+      "shouldIncludeFlagship": true
+    }
+  },
+  {
+    "id": "s08_late_night_quick",
+    "description": "Late night arrival, T1, 1hr to next flight, Quick vibe",
+    "context": {
+      "userTerminal": "SIN-T1",
+      "departureTerminal": "SIN-T1",
+      "minutesToBoarding": 60,
+      "timeOfDay": "night",
+      "selectedVibe": "Quick",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["open_late", "same_terminal"],
+      "maxFromJewel": 0,
+      "minSameTerminal": 5,
+      "notes": "Late night limits options; only show what's actually open"
+    }
+  },
+  {
+    "id": "s09_work_vibe_t2_morning",
+    "description": "Business traveler at T2, 3hrs, morning, Work vibe",
+    "context": {
+      "userTerminal": "SIN-T2",
+      "departureTerminal": "SIN-T2",
+      "minutesToBoarding": 180,
+      "timeOfDay": "morning",
+      "selectedVibe": "Work",
+      "pricePreference": "$$"
+    },
+    "expected": {
+      "mustInclude": ["wifi_power_outlets", "quiet_spaces"],
+      "minWorkFriendly": 5,
+      "shouldIncludeFlagship": false,
+      "notes": "Work vibe should surface lounges with wifi, cafes with power, business centers"
+    }
+  },
+  {
+    "id": "s10_family_explore_jewel",
+    "description": "Family at T3, 6hrs, Explore vibe — Jewel attractions should feature",
+    "context": {
+      "userTerminal": "SIN-T3",
+      "departureTerminal": "SIN-T3",
+      "minutesToBoarding": 360,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "Explore",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["jewel_attractions", "family_friendly"],
+      "maxFromJewel": 4,
+      "minSameTerminal": 1,
+      "shouldIncludeFlagship": true,
+      "notes": "6hrs = plenty of time for Jewel waterfall, gardens, etc."
+    }
+  },
+  {
+    "id": "s11_urgent_t3_any_vibe",
+    "description": "Urgent: 20min to boarding at T3, any vibe — survival mode",
+    "context": {
+      "userTerminal": "SIN-T3",
+      "departureTerminal": "SIN-T3",
+      "minutesToBoarding": 20,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "Quick",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["same_terminal_only", "quick_serve"],
+      "maxFromJewel": 0,
+      "minSameTerminal": 7,
+      "notes": "20min = gate area only, no time for anything else"
+    }
+  },
+  {
+    "id": "s12_brand_dedup_refuel_t1",
+    "description": "Refuel at T1 — should not show 3 Starbucks variants",
+    "context": {
+      "userTerminal": "SIN-T1",
+      "departureTerminal": "SIN-T1",
+      "minutesToBoarding": 150,
+      "timeOfDay": "morning",
+      "selectedVibe": "Refuel",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["brand_diversity"],
+      "maxSameBrandFamily": 1,
+      "notes": "Brand family dedup: max 1 per brand family (e.g., 1 Starbucks, not 3)"
+    }
+  },
+  {
+    "id": "s13_t1_to_t3_approaching",
+    "description": "At T1, departing T3, 80min — should shift toward T3",
+    "context": {
+      "userTerminal": "SIN-T1",
+      "departureTerminal": "SIN-T3",
+      "minutesToBoarding": 80,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "Refuel",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["departure_terminal_shift"],
+      "minFromDepartureTerminal": 3,
+      "maxFromJewel": 1,
+      "notes": "80min approaching boarding — should heavily favor T3 (departure) over T1 (current)"
+    }
+  },
+  {
+    "id": "s14_early_morning_refuel",
+    "description": "5am arrival at T2, 4hrs to next flight, Refuel — breakfast options",
+    "context": {
+      "userTerminal": "SIN-T2",
+      "departureTerminal": "SIN-T2",
+      "minutesToBoarding": 240,
+      "timeOfDay": "early_morning",
+      "selectedVibe": "Refuel",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["breakfast_options", "early_openers"],
+      "notes": "5am = many places closed. Should only show what's open or opens soon"
+    }
+  },
+  {
+    "id": "s15_diversity_check_shop_t3",
+    "description": "Shop vibe at T3, 3hrs — should show variety not all luxury",
+    "context": {
+      "userTerminal": "SIN-T3",
+      "departureTerminal": "SIN-T3",
+      "minutesToBoarding": 180,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "Shop",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["price_diversity", "category_diversity"],
+      "maxSamePriceLevel": 3,
+      "maxSameCategory": 2,
+      "notes": "Mix of duty-free, souvenirs, luxury, convenience"
+    }
+  },
+  {
+    "id": "s16_t4_to_t1_long_transfer",
+    "description": "At T4, departing T1, 5hrs — long cross-terminal journey",
+    "context": {
+      "userTerminal": "SIN-T4",
+      "departureTerminal": "SIN-T1",
+      "minutesToBoarding": 300,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "Explore",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["jewel_as_waypoint", "terminal_diversity"],
+      "maxFromJewel": 3,
+      "notes": "T4→T1 naturally passes through Jewel. Should recommend Jewel stops en route"
+    }
+  },
+  {
+    "id": "s17_chill_evening_t2",
+    "description": "Evening chill at T2, 3hrs, just wants to relax",
+    "context": {
+      "userTerminal": "SIN-T2",
+      "departureTerminal": "SIN-T2",
+      "minutesToBoarding": 180,
+      "timeOfDay": "evening",
+      "selectedVibe": "Chill",
+      "pricePreference": "$$"
+    },
+    "expected": {
+      "mustInclude": ["relaxation_focused"],
+      "minChillItems": 5,
+      "notes": "Lounges, gardens, quiet zones, spa — not restaurants or shops"
+    }
+  },
+  {
+    "id": "s18_flagship_surfacing",
+    "description": "Explore at T1, 4hrs — flagships should appear in results",
+    "context": {
+      "userTerminal": "SIN-T1",
+      "departureTerminal": "SIN-T1",
+      "minutesToBoarding": 240,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "Explore",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["flagship_present"],
+      "minFlagshipItems": 1,
+      "notes": "At least 1 flagship amenity should appear when time permits"
+    }
+  },
+  {
+    "id": "s19_jewel_cap_short_layover",
+    "description": "Short 90min layover at T2 — Jewel should be capped at 1",
+    "context": {
+      "userTerminal": "SIN-T2",
+      "departureTerminal": "SIN-T2",
+      "minutesToBoarding": 90,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "Explore",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["jewel_capped"],
+      "maxFromJewel": 1,
+      "notes": "90min = approaching boarding. Max 1 Jewel item (immigration time)"
+    }
+  },
+  {
+    "id": "s20_full_diversity_stress_test",
+    "description": "3hrs at T3, no vibe preference, no price preference — maximum diversity",
+    "context": {
+      "userTerminal": "SIN-T3",
+      "departureTerminal": "SIN-T3",
+      "minutesToBoarding": 180,
+      "timeOfDay": "afternoon",
+      "selectedVibe": "any",
+      "pricePreference": "any"
+    },
+    "expected": {
+      "mustInclude": ["maximum_diversity"],
+      "maxSameTerminal": 3,
+      "maxSamePriceLevel": 3,
+      "maxSameCategory": 2,
+      "maxSameBrandFamily": 1,
+      "notes": "No filters = diversity rules must carry the load"
+    }
+  }
+]
