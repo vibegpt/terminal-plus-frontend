@@ -1,0 +1,58 @@
+{
+  "name": "Terminal+ Airport Agent",
+  "version": "1.0.0-beta",
+  "description": "AI-powered airport companion for Singapore Changi Airport. Provides amenity recommendations, flight context, and disruption alerts across T1, T2, T3, T4, and Jewel.",
+  "mcp_endpoint": "https://terminalplus.app/api/mcp",
+  "protocol_version": "2025-03-26",
+  "transport": ["streamable-http"],
+  "coverage": {
+    "airports": ["SIN"],
+    "zones": ["SIN-T1", "SIN-T2", "SIN-T3", "SIN-T4", "SIN-JEWEL"],
+    "expanding": true
+  },
+  "trigger_conditions": {
+    "geofence": "airport",
+    "context_signals": ["boarding_pass", "flight_checkin", "airport_wifi_connected"],
+    "airport_codes": ["SIN"]
+  },
+  "tools": [
+    {
+      "name": "get_airport_context",
+      "description": "Get terminal, gate, boarding time, and travel context for a flight at SIN.",
+      "input": { "required": ["flight_number"], "optional": ["date"] },
+      "output": "Airport context object with terminal, gate, urgency, inter-terminal travel info"
+    },
+    {
+      "name": "get_recommendations",
+      "description": "Get personalized amenity recommendations by vibe, terminal, and time constraints.",
+      "input": { "required": [], "optional": ["terminal", "vibe", "time_until_boarding_minutes", "gate", "exclude_jewel", "limit"] },
+      "output": "Ranked list of amenities with scores, descriptions, and app links"
+    },
+    {
+      "name": "get_disruption_status",
+      "description": "Check flight for delays, gate changes, or cancellations with suggested response actions.",
+      "input": { "required": ["flight_number"], "optional": ["date"] },
+      "output": "Disruption details with severity, delay minutes, and suggested passenger actions"
+    }
+  ],
+  "specialisation": ["amenity_discovery", "transit_management", "disruption_alerts"],
+  "output_format": "structured_json",
+  "data_sources": {
+    "amenities": "Curated database of 372 verified SIN amenities",
+    "flights": "AeroDataBox real-time flight data",
+    "scoring": "Smart7 weighted recommendation algorithm"
+  },
+  "trust_signals": {
+    "no_hallucination": "Agent only returns amenities verified in database. Never fabricates.",
+    "verified_hours": "Opening hours sourced from official airport data",
+    "real_time_disruption": "Flight data refreshed via AeroDataBox API",
+    "transit_safety": "Always warns about Jewel immigration requirements"
+  },
+  "pricing": "free-beta",
+  "contact": {
+    "website": "https://terminalplus.app",
+    "support": "support@terminalplus.app"
+  },
+  "status": "beta",
+  "beta_notes": "Currently covers Singapore Changi Airport only. Expanding to additional airports Q3 2026."
+}
