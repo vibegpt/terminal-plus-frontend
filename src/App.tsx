@@ -11,6 +11,8 @@ import TransitGuide from "@/pages/transit-guide/[airport]";
 import ExploreTerminal from '@/pages/explore-terminal';
 import { VibeProvider } from '@/context/VibeContext';
 import ChatBubble from '@/components/ChatBubble';
+import { useFlightUpdates } from '@/hooks/useFlightUpdates';
+import { Toaster } from '@/components/ui/toaster';
 
 // Placeholder for transit guide
 function TransitGuidePlaceholder() {
@@ -23,6 +25,8 @@ function TransitGuidePlaceholder() {
 }
 
 export default function App() {
+  useFlightUpdates();
+
   return (
     <VibeProvider>
       <Routes>
@@ -37,6 +41,7 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ChatBubble />
+      <Toaster />
     </VibeProvider>
   );
 }
