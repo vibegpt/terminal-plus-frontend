@@ -77,7 +77,7 @@ async function fetchFlightStatus(flightNumber: string, date: string) {
 
   try {
     const res = await fetch(
-      `${baseUrl}/api/flight-status?flight=${encodeURIComponent(flightNumber)}&date=${date}`,
+      `${baseUrl}/api/flight-status?number=${encodeURIComponent(flightNumber)}&date=${date}`,
     );
     if (!res.ok) return null;
     return await res.json();
@@ -395,5 +395,38 @@ const handler = createMcpHandler(
   },
 );
 
-// Export for Vercel Web API route format
-export { handler as GET, handler as POST, handler as DELETE };
+// Vercel serverless functions use (req, res) format, not Web API.
+// Wrap the adapter's Web API handler for compatibility.
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+
+export default async function mcpHandler(req: VercelRequest, res: VercelResponse) {
+  // Build a Web API Request from the Vercel request
+  const protocol = req.headers['x-forwarded-proto'] || 'https';
+  const host = req.headers['x-forwarded-host'] || req.headers.host || 'localhost';
+  const url = `${protocol}://${host}${req.url}`;
+
+  const webReq = new Request(url, {
+    method: req.method || 'GET',
+    headers: Object.fromEntries(
+      Object.entries(req.headers).filter(([, v]) => typeof v === 'string') as [string, string][],
+    ),
+    body: req.method !== 'GET' && req.method !== 'HEAD' ? JSON.stringify(req.body) : undefined,
+  });
+
+  try {
+    const webRes = await handler(webReq);
+
+    // Copy status + headers
+    res.status(webRes.status);
+    webRes.headers.forEach((value, key) => {
+      res.setHeader(key, value);
+    });
+
+    // Stream body
+    const body = await webRes.text();
+    res.send(body);
+  } catch (err) {
+    console.error('MCP handler error:', err);
+    res.status(500).json({ error: 'MCP server error' });
+  }
+}
