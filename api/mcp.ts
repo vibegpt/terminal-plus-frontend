@@ -1,4 +1,4 @@
-import createMcpHandler from '@vercel/mcp-adapter';
+import { createMcpHandler } from '@vercel/mcp-adapter';
 import { z } from 'zod';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';
