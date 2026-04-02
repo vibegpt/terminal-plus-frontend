@@ -3,6 +3,8 @@ import { createClient } from '@supabase/supabase-js'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
+import { queryRouteMatch } from './lib/agent'
+import type { RouteMatch } from './lib/agent'
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -320,6 +322,10 @@ Key knowledge:
 - Terminal codes: SIN-T1, SIN-T2, SIN-T3, SIN-T4, SIN-JEWEL.
 - Singapore timezone: SGT (UTC+8).
 
+Editorial notes:
+Some amenities have an editorial_note — a concierge-style recommendation from real traveller opinions. When present, weave the insight naturally into your response (don't copy-paste). Use route_context to explain who it's best for. Prefer higher editorial_score amenities when all else is equal. Use specific details (dish names, tips) from editorial notes to make recommendations concrete.
+IMPORTANT: Editorial notes are based on traveller reviews that may be outdated. Never quote specific prices. If asked about prices, say "prices may have changed — check at the venue or on the Changi Airport website." Use general terms like "budget-friendly", "mid-range", or "premium" based on the price_level field.
+
 Response rules:
 1. Be conversational and warm — 2–3 sentences for the message.
 2. ALWAYS respond with valid JSON (no markdown fences):
@@ -330,6 +336,31 @@ Response rules:
 6. When you have time context: be honest about uncertainty. Say "this could take 20–40 min depending on queues" rather than stating a fixed duration. Flag tight connections clearly.
 7. If no amenities match, say so and suggest what the user could try instead.
 8. If you don't know the user's departure time, ask naturally as a follow-up question.`
+
+// ---------- Route context builder ----------
+
+function buildRouteContext(route: RouteMatch, availableMinutes: number): string {
+  const lines: string[] = [
+    '',
+    '[CURATED ROUTE AVAILABLE]',
+    `Template: "${route.templateName}" (${route.arrivalTerminal}→${route.departureTerminal}, ${availableMinutes} min)`,
+    'This passenger matches a curated transit route. Present these stops as a numbered walking sequence.',
+    `Time budget: ${availableMinutes} minutes total, ${availableMinutes - route.gateBufferMinutes} min usable (${route.gateBufferMinutes} min gate buffer)`,
+    route.isTimeTight ? 'Note: Time is tight — optional stops have been removed.' : '',
+    '',
+  ]
+  for (const stop of route.stops) {
+    const optional = stop.isOptional ? ' [OPTIONAL]' : ''
+    lines.push(`Stop ${stop.order}: ${stop.name} (${stop.terminalCode}) — ${stop.durationMinutes} min — ${stop.stopType}${optional}`)
+    if (stop.editorialNote) {
+      lines.push(`  Editorial: ${stop.editorialNote}`)
+    }
+  }
+  lines.push('')
+  lines.push('INSTRUCTIONS: Use this curated route as the backbone of your response. Present stops as a numbered sequence with timing. Use editorial notes for personality — rephrase in your own voice, don\'t copy verbatim. Mention the gate buffer at the end. If optional stops were stripped, don\'t mention them. If the user asks about something not on the route, answer from the amenity list below.')
+  lines.push('')
+  return lines.filter(Boolean).join('\n')
+}
 
 // ---------- Handler ----------
 
@@ -359,6 +390,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Pre-filter and query
     const filters = preFilter(query, context)
+
+    // Check for curated route match
+    const routeMatch = await queryRouteMatch(getSupabase(), filters.terminal ?? null, availableMinutes)
+
     const allAmenities = await queryAmenities(filters)
 
     // Smart 7 — hard floor filter only
@@ -397,6 +432,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       available_in_transit: a.available_in_tr,
       category: a.category ?? null,
       walk_minutes: a.walking_time_minutes ?? null,
+      editorial_note: a.editorial_note ?? null,
+      editorial_score: a.editorial_score ?? null,
+      route_context: a.route_context ?? null,
     }))
 
     const userMessage = [
@@ -405,6 +443,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       filters.terminal ? `User terminal: ${filters.terminal}` : '',
       filters.isTransit ? 'User is in transit.' : '',
       filters.gate ? `User gate: ${filters.gate}` : '',
+      routeMatch && availableMinutes ? buildRouteContext(routeMatch, availableMinutes) : '',
       `\nAmenities (${amenityContext.length}):\n${JSON.stringify(amenityContext)}`,
       `\nUser: ${query}`,
     ].filter(Boolean).join('\n')
