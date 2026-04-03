@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
+import { queryRouteMatch } from './lib/agent';
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -79,6 +80,21 @@ const TOOLS = [
       required: ['flight_number'],
     },
   },
+  {
+    name: 'get_route',
+    description: 'Get a time-sequenced route through Singapore Changi Airport. Returns ordered stops with editorial notes, durations, and timing. Best used after get_airport_context to know the passenger terminal and time budget. Returns curated routes for known flight patterns (e.g. QF1) or dynamically composed routes.',
+    inputSchema: {
+      type: 'object' as const,
+      properties: {
+        arrival_terminal: { type: 'string', description: 'Terminal the passenger arrived at, e.g. SIN-T1, SIN-T3' },
+        departure_terminal: { type: 'string', description: 'Terminal departing from. Defaults to arrival_terminal if same-terminal transit.' },
+        time_budget_minutes: { type: 'number', description: 'Total usable minutes between now and when passenger needs to be at departure gate.' },
+        flight_number: { type: 'string', description: 'If known, used to match curated route templates (e.g. QF1, SQ322).' },
+        vibe: { type: 'string', enum: ['explore', 'refuel', 'comfort', 'chill', 'work', 'shop', 'quick'], description: 'Preferred vibe to weight stop selection.' },
+      },
+      required: ['arrival_terminal', 'time_budget_minutes'],
+    },
+  },
 ];
 
 // ---------- Flight status helper ----------
@@ -136,7 +152,7 @@ async function handleGetAirportContext(args: any) {
 async function handleGetRecommendations(args: any) {
   const supabase = getSupabase();
   let query = supabase.from('amenity_detail')
-    .select('id, name, amenity_slug, description, terminal_code, vibe_tags, price_level, opening_hours, available_in_tr, booking_required')
+    .select('id, name, amenity_slug, description, terminal_code, vibe_tags, price_level, opening_hours, available_in_tr, booking_required, editorial_note, editorial_score, route_context')
     .eq('airport_code', 'SIN');
 
   if (args.vibe) query = query.ilike('vibe_tags', `%${args.vibe}%`);
@@ -161,6 +177,8 @@ async function handleGetRecommendations(args: any) {
     if (a.terminal_code === 'SIN-JEWEL') score += (args.time_until_boarding_minutes && args.time_until_boarding_minutes > 240) ? 20 : -10;
     if (args.vibe && a.vibe_tags?.toLowerCase().includes(args.vibe.toLowerCase())) score += 20;
     if (a.available_in_tr) score += 5;
+    if (a.editorial_score && a.editorial_score >= 12) score += 10;
+    else if (a.editorial_score && a.editorial_score >= 10) score += 5;
     return { ...a, _score: score };
   });
   scored.sort((a: any, b: any) => b._score - a._score);
@@ -169,6 +187,9 @@ async function handleGetRecommendations(args: any) {
     rank: i + 1, id: a.id, name: a.name, slug: a.amenity_slug,
     terminal: a.terminal_code, vibe_tags: a.vibe_tags, price_level: a.price_level,
     description: a.description?.substring(0, 150),
+    editorial_note: a.editorial_note || null,
+    editorial_score: a.editorial_score || null,
+    route_context: a.route_context || null,
     app_url: `https://terminalplus.app/amenity/${a.amenity_slug}`,
   }));
 
@@ -217,6 +238,205 @@ async function handleGetDisruptionStatus(args: any) {
     gate: { gate: flight.gate, terminal: flight.terminal },
     suggested_actions: suggestedActions.length > 0 ? suggestedActions : ['No disruptions detected.'],
     checked_at: new Date().toISOString(),
+  }, null, 2);
+}
+
+// ---------- Route handler ----------
+
+async function handleGetRoute(args: any) {
+  const supabase = getSupabase();
+  const depTerminal = args.departure_terminal || args.arrival_terminal;
+  const timeBudget: number = args.time_budget_minutes;
+
+  // 1. Try flight-number match first (MCP-specific feature)
+  let flightMatch: any = null;
+  if (args.flight_number) {
+    const { data: templates } = await supabase
+      .from('route_templates')
+      .select('*')
+      .eq('is_active', true)
+      .contains('flight_patterns', [args.flight_number.toUpperCase()]);
+
+    if (templates && templates.length > 0) {
+      flightMatch = templates.find((t: any) =>
+        timeBudget >= t.min_minutes && timeBudget <= t.max_minutes
+      ) || templates[0];
+    }
+  }
+
+  // 2. Use shared queryRouteMatch for terminal+time matching (same logic as chat agent)
+  const routeMatch = flightMatch
+    ? null // skip if flight match already found
+    : await queryRouteMatch(supabase, args.arrival_terminal, timeBudget);
+
+  // 3. If flight match found, fetch stops using same pattern as queryRouteMatch
+  if (flightMatch) {
+    const { data: rawStops } = await supabase
+      .from('route_stops')
+      .select('stop_order, name, amenity_slug, stop_type, duration_minutes, editorial_note, is_optional, area')
+      .eq('route_template_id', flightMatch.id)
+      .order('stop_order', { ascending: true });
+
+    let stops = rawStops || [];
+
+    // Strip optional stops if time is tight (same logic as queryRouteMatch)
+    const isTimeTight = timeBudget < flightMatch.min_minutes + 15;
+    if (isTimeTight) {
+      stops = stops.filter((s: any) => !s.is_optional);
+    }
+
+    // Progressive strip: remove optionals from end if total + buffer exceeds budget
+    let totalTime = stops.reduce((sum: number, s: any) => sum + s.duration_minutes, 0);
+    while (totalTime + 15 > timeBudget && stops.some((s: any) => s.is_optional)) {
+      for (let i = stops.length - 1; i >= 0; i--) {
+        if (stops[i].is_optional) { stops.splice(i, 1); break; }
+      }
+      totalTime = stops.reduce((sum: number, s: any) => sum + s.duration_minutes, 0);
+    }
+
+    try {
+      await supabase.from('agent_interactions').insert({
+        session_id: 'mcp-route',
+        user_message: JSON.stringify({ tool: 'get_route', flight_number: args.flight_number, arrival_terminal: args.arrival_terminal, time_budget_minutes: timeBudget }),
+        agent_response: `curated:${flightMatch.route_id}:${stops.length} stops`,
+        terminal: args.arrival_terminal, mode: 'mcp',
+      });
+    } catch { /* non-critical */ }
+
+    return JSON.stringify({
+      route_type: 'curated',
+      route_id: flightMatch.route_id,
+      route_name: flightMatch.name,
+      description: flightMatch.description,
+      arrival_terminal: flightMatch.arrival_terminal,
+      departure_terminal: flightMatch.departure_terminal,
+      total_minutes: totalTime,
+      gate_buffer_minutes: 15,
+      time_budget_minutes: timeBudget,
+      is_time_tight: isTimeTight,
+      stops: stops.map((s: any) => ({
+        order: s.stop_order, type: s.stop_type, name: s.name,
+        area: s.area, duration_minutes: s.duration_minutes,
+        editorial_note: s.editorial_note, is_optional: s.is_optional,
+        amenity_slug: s.amenity_slug,
+      })),
+      constraints: flightMatch.key_constraints,
+    }, null, 2);
+  }
+
+  // 4. If queryRouteMatch found a curated template, format for MCP response
+  if (routeMatch) {
+    try {
+      await supabase.from('agent_interactions').insert({
+        session_id: 'mcp-route',
+        user_message: JSON.stringify({ tool: 'get_route', arrival_terminal: args.arrival_terminal, time_budget_minutes: timeBudget }),
+        agent_response: `curated:${routeMatch.templateName}:${routeMatch.stops.length} stops`,
+        terminal: args.arrival_terminal, mode: 'mcp',
+      });
+    } catch { /* non-critical */ }
+
+    return JSON.stringify({
+      route_type: 'curated',
+      route_name: routeMatch.templateName,
+      description: routeMatch.templateDescription,
+      arrival_terminal: routeMatch.arrivalTerminal,
+      departure_terminal: routeMatch.departureTerminal,
+      total_minutes: routeMatch.totalDurationMinutes,
+      gate_buffer_minutes: routeMatch.gateBufferMinutes,
+      time_budget_minutes: timeBudget,
+      is_time_tight: routeMatch.isTimeTight,
+      stops: routeMatch.stops.map((s) => ({
+        order: s.order, type: s.stopType, name: s.name,
+        area: s.terminalCode, duration_minutes: s.durationMinutes,
+        editorial_note: s.editorialNote, is_optional: s.isOptional,
+        amenity_slug: s.amenitySlug,
+      })),
+    }, null, 2);
+  }
+
+  // 5. Dynamic fallback from top editorial-scored amenities
+  const terminals = args.arrival_terminal === depTerminal
+    ? [args.arrival_terminal]
+    : [args.arrival_terminal, depTerminal];
+
+  let query = supabase
+    .from('amenity_detail')
+    .select('amenity_slug, name, terminal_code, vibe_tags, editorial_note, editorial_score, route_context, price_level')
+    .eq('airport_code', 'SIN')
+    .in('terminal_code', terminals)
+    .not('editorial_note', 'is', null)
+    .order('editorial_score', { ascending: false })
+    .limit(20);
+
+  if (args.vibe) {
+    query = query.ilike('vibe_tags', `%${args.vibe}%`);
+  }
+
+  const { data: amenities } = await query;
+
+  if (!amenities || amenities.length === 0) {
+    return JSON.stringify({
+      route_type: 'dynamic',
+      message: 'No amenities with editorial recommendations found for these terminals. Try get_recommendations for a broader search.',
+      arrival_terminal: args.arrival_terminal,
+      departure_terminal: depTerminal,
+    }, null, 2);
+  }
+
+  const stopDurations: Record<string, number> = { food: 15, attraction: 10, shopping: 12, lounge: 30, default: 10 };
+  const dynamicStops: any[] = [];
+  let remainingMinutes = timeBudget - 15; // reserve 15 min gate buffer
+
+  for (const amenity of amenities) {
+    if (remainingMinutes <= 0) break;
+    const vibes = (amenity.vibe_tags || '').toLowerCase();
+    let stopType = 'attraction';
+    let duration = stopDurations.default;
+
+    if (vibes.includes('refuel')) { stopType = 'food'; duration = stopDurations.food; }
+    else if (vibes.includes('shop')) { stopType = 'shopping'; duration = stopDurations.shopping; }
+    else if (vibes.includes('comfort')) { stopType = 'lounge'; duration = stopDurations.lounge; }
+    else if (vibes.includes('explore')) { stopType = 'attraction'; duration = stopDurations.attraction; }
+
+    if (duration + 5 <= remainingMinutes) {
+      dynamicStops.push({
+        order: dynamicStops.length + 1, type: stopType, name: amenity.name,
+        area: amenity.terminal_code, duration_minutes: duration,
+        editorial_note: amenity.editorial_note, amenity_slug: amenity.amenity_slug,
+        editorial_score: amenity.editorial_score,
+      });
+      remainingMinutes -= (duration + 5);
+    }
+  }
+
+  dynamicStops.push({
+    order: dynamicStops.length + 1, type: 'buffer',
+    name: 'Walk to gate + security', area: depTerminal,
+    duration_minutes: 15,
+    editorial_note: 'Gate security at Changi is per-gate. No priority lane. Do not cut this short.',
+  });
+
+  const totalTime = dynamicStops.reduce((sum: number, s: any) => sum + s.duration_minutes, 0);
+
+  try {
+    await supabase.from('agent_interactions').insert({
+      session_id: 'mcp-route',
+      user_message: JSON.stringify({ tool: 'get_route', arrival_terminal: args.arrival_terminal, time_budget_minutes: timeBudget, vibe: args.vibe }),
+      agent_response: `dynamic:${dynamicStops.length} stops`,
+      terminal: args.arrival_terminal, mode: 'mcp',
+    });
+  } catch { /* non-critical */ }
+
+  return JSON.stringify({
+    route_type: 'dynamic',
+    description: `Dynamically composed route based on highest-rated amenities in ${terminals.join(' + ')}`,
+    arrival_terminal: args.arrival_terminal,
+    departure_terminal: depTerminal,
+    total_minutes: totalTime,
+    gate_buffer_minutes: 15,
+    time_budget_minutes: timeBudget,
+    stops: dynamicStops,
+    note: 'This route was composed dynamically from editorial-scored amenities. Curated routes are available for known flight patterns.',
   }, null, 2);
 }
 
@@ -276,6 +496,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             break;
           case 'get_disruption_status':
             resultText = await handleGetDisruptionStatus(toolArgs);
+            break;
+          case 'get_route':
+            resultText = await handleGetRoute(toolArgs);
             break;
           default:
             return res.status(200).json({
