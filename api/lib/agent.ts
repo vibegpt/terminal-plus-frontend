@@ -110,16 +110,12 @@ export async function queryAmenities(
   let query = supabase
     .from('amenity_detail')
     .select('id, name, amenity_slug, description, terminal_code, vibe_tags, price_level, opening_hours, available_in_tr, booking_required, gate_location, zone, editorial_note, editorial_score, route_context')
-    .eq('airport_code', 'SIN');
+    .eq('airport_code', 'SIN')
+    .order('editorial_score', { ascending: false, nullsFirst: false });
 
   // Vibe filter
   if (ctx.selectedVibe) {
     query = query.ilike('vibe_tags', `%${ctx.selectedVibe}%`);
-  }
-
-  // Terminal ordering: prioritise user's terminal but include others
-  if (ctx.terminal) {
-    // Supabase doesn't support ORDER BY CASE, so we fetch all and sort client-side
   }
 
   const { data, error } = await query.limit(50);
@@ -127,7 +123,7 @@ export async function queryAmenities(
 
   let results = data || [];
 
-  // Sort: user's terminal first, then others
+  // Sort: user's terminal first, then others (stable within score tiers)
   if (ctx.terminal) {
     results.sort((a: AmenityRow, b: AmenityRow) => {
       const aMatch = a.terminal_code === ctx.terminal ? 0 : 1;

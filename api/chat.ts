@@ -282,6 +282,7 @@ async function queryAmenities(filters: PreFilterResult) {
     .from('amenity_detail')
     .select('*')
     .eq('airport_code', 'SIN')
+    .order('editorial_score', { ascending: false, nullsFirst: false })
 
   if (filters.terminal) query = query.eq('terminal_code', filters.terminal)
   if (filters.isTransit) query = query.eq('available_in_tr', true)
@@ -304,6 +305,7 @@ async function queryAmenities(filters: PreFilterResult) {
   if ((!data || data.length < 3) && filters.keywords.length > 0) {
     let broad = getSupabase().from('amenity_detail').select('*').eq('airport_code', 'SIN')
     if (filters.terminal) broad = broad.eq('terminal_code', filters.terminal)
+    broad = broad.order('editorial_score', { ascending: false, nullsFirst: false })
     const { data: broadData } = await broad.limit(40)
     return broadData || []
   }
