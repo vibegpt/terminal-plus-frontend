@@ -455,7 +455,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Claude call (10s timeout to fail fast instead of hanging)
     const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 10_000)
+    const timeout = setTimeout(() => controller.abort(), 15_000)
 
     let response: Anthropic.Message
     try {
