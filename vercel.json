@@ -6,8 +6,17 @@
   "functions": {
     "api/mcp.ts": {
       "maxDuration": 30
+    },
+    "api/cron/sync-reviews.ts": {
+      "maxDuration": 300
     }
   },
+  "crons": [
+    {
+      "path": "/api/cron/sync-reviews",
+      "schedule": "0 3 * * 1"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
