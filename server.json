@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "app.terminalplus/airport-concierge",
+  "title": "Terminal+ Airport Concierge",
+  "description": "AI concierge for Singapore Changi Airport — amenities, routes, flights, and disruptions.",
+  "repository": {
+    "url": "https://github.com/vibegpt/terminal-plus-frontend",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://terminalplus.app/api/mcp"
+    }
+  ]
+}
