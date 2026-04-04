@@ -3,7 +3,9 @@ dist
 .vite
 .env
 supabase/.temp
+*.pem
 supabase/functions/*/deno.json
 *.log
 .DS_Store
 .vercel
+.env*.local
