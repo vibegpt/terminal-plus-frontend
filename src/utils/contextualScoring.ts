@@ -2,6 +2,7 @@
 // Multi-factor contextual scoring for collections and amenities at Changi Airport
 
 import type { AmenityRow } from './smart7Select';
+import { DISPLAY } from '@/lib/displayConfig';
 
 // ── Types ──────────────────────────────────────────────────────────
 
@@ -324,7 +325,7 @@ export function scoreCollection(
 export function selectScoredAmenities(
   pool: AmenityRow[],
   context: UserContext,
-  limit = 7
+  limit = DISPLAY.COLLECTION_VISIBLE
 ): ScoredAmenity[] {
   if (!pool?.length) return [];
 

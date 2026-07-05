@@ -6,6 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Clock, MapPin } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { smart7Select } from '@/utils/smart7Select';
+import { DISPLAY } from '@/lib/displayConfig';
 
 // ── Config ──────────────────────────────────────────────────────────
 const VIBE_CONFIG: Record<string, { icon: string; label: string; gradient: string; dbTag: string }> = {
@@ -87,8 +88,8 @@ export default function VibePage() {
                 const bOpen = isOpenNow(b.opening_hours);
                 if (aOpen !== bOpen) return aOpen ? -1 : 1;
                 return a.name.localeCompare(b.name);
-              }).slice(0, 7)
-            : smart7Select(data || [], userTerminal, 7);
+              }).slice(0, DISPLAY.COLLECTION_VISIBLE)
+            : smart7Select(data || [], userTerminal, DISPLAY.COLLECTION_VISIBLE);
           setAmenities(result);
         }
         setLoading(false);

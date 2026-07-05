@@ -8,6 +8,7 @@ import { ArrowLeft, MapPin, Clock, Search, Filter, ChevronDown, ChevronRight, Do
 import { supabase } from '@/lib/supabase';
 import { getUserContext, selectScoredAmenities, type ScoredAmenity } from '@/utils/contextualScoring';
 import { AmenityImage } from '@/components/AmenityImage';
+import { DISPLAY } from '@/lib/displayConfig';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 const TERMINAL_SHORT: Record<string, string> = {
@@ -119,7 +120,7 @@ export const CollectionDetailPage: React.FC = () => {
 
           const mappedAmenities = amenityData?.map(item => item.amenity_detail) || [];
           const ctx = getUserContext({ selectedVibe: vibeSlug || '' });
-          const scored = selectScoredAmenities(mappedAmenities, ctx, 7);
+          const scored = selectScoredAmenities(mappedAmenities, ctx, DISPLAY.COLLECTION_VISIBLE);
           rawAmenities = scored.map(s => s.amenity);
           if (mounted) setScoredMeta(scored);
         }
@@ -138,7 +139,7 @@ export const CollectionDetailPage: React.FC = () => {
             .limit(50);
 
           const ctx = getUserContext({ selectedVibe: vibeSlug || '' });
-          const scored = selectScoredAmenities(vibeAmenities || [], ctx, 7);
+          const scored = selectScoredAmenities(vibeAmenities || [], ctx, DISPLAY.COLLECTION_VISIBLE);
           rawAmenities = scored.map(s => s.amenity);
           if (mounted) setScoredMeta(scored);
         }

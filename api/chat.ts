@@ -5,6 +5,7 @@ import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import { queryRouteMatch } from './lib/agent'
 import type { RouteMatch } from './lib/agent'
+import { DISPLAY } from '../src/lib/displayConfig'
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -299,14 +300,14 @@ async function queryAmenities(filters: PreFilterResult) {
     query = query.or(orParts.join(','))
   }
 
-  const { data, error } = await query.limit(40)
+  const { data, error } = await query.limit(DISPLAY.SEARCH_LIMIT)
   if (error) throw error
 
   if ((!data || data.length < 3) && filters.keywords.length > 0) {
     let broad = getSupabase().from('amenity_detail').select('*').eq('airport_code', 'SIN')
     if (filters.terminal) broad = broad.eq('terminal_code', filters.terminal)
     broad = broad.order('editorial_score', { ascending: false, nullsFirst: false })
-    const { data: broadData } = await broad.limit(40)
+    const { data: broadData } = await broad.limit(DISPLAY.SEARCH_LIMIT)
     return broadData || []
   }
 

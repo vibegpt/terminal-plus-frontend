@@ -1,3 +1,5 @@
+import { DISPLAY } from '@/lib/displayConfig';
+
 export interface AmenityRow {
   id: number;
   amenity_slug: string;
@@ -44,7 +46,7 @@ function terminalScore(terminal: string, userTerminal: string | null): number {
 export function smart7Select(
   pool: AmenityRow[],
   userTerminal: string | null = null,
-  limit = 7
+  limit = DISPLAY.COLLECTION_VISIBLE
 ): AmenityRow[] {
   if (!pool?.length) return [];
 
