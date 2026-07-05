@@ -8,6 +8,7 @@ export interface AmenityRow {
   vibe_tags?: string;
   description?: string;
   logo_url?: string;
+  editorial_score?: number | null;
   [key: string]: unknown;
 }
 
@@ -58,6 +59,9 @@ export function smart7Select(
 
   return Array.from(bestByName.values())
     .sort((a, b) => {
+      // RANKING: editorial_score DESC — keep in sync with api/lib
+      const editorialDiff = (b.editorial_score ?? 0) - (a.editorial_score ?? 0);
+      if (editorialDiff !== 0) return editorialDiff;
       const aOpen = isOpenNow(a.opening_hours);
       const bOpen = isOpenNow(b.opening_hours);
       if (aOpen !== bOpen) return aOpen ? -1 : 1;

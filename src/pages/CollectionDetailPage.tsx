@@ -103,6 +103,11 @@ export const CollectionDetailPage: React.FC = () => {
 
         if (collectionData) {
           // Try junction table using the collection's UUID (id)
+          // Note: editorial_score DESC isn't applied here — supabase-js's
+          // foreignTable order option doesn't take effect on this !inner
+          // embedded relation (tested against live data, no-op). Ranking is
+          // instead enforced downstream by selectScoredAmenities, which sorts
+          // by editorial_score DESC regardless of this fetch's raw order.
           const { data: amenityData } = await supabase
             .from('collection_amenities')
             .select(`
@@ -127,6 +132,8 @@ export const CollectionDetailPage: React.FC = () => {
             .select('*')
             .eq('airport_code', 'SIN')
             .ilike('vibe_tags', `%${vibeTag}%`)
+            // RANKING: editorial_score DESC — keep in sync with api/lib
+            .order('editorial_score', { ascending: false, nullsFirst: false })
             .order('name')
             .limit(50);
 
@@ -403,6 +410,11 @@ export const CollectionDetailPage: React.FC = () => {
                       </span>
                     )}
                   </div>
+                  {amenity.editorial_note && (
+                    <p className="text-xs text-white/50 italic mt-1.5 line-clamp-2">
+                      "{amenity.editorial_note}"
+                    </p>
+                  )}
                 </div>
               </button>
             );

@@ -52,6 +52,8 @@ export default function SearchPage() {
         .from('amenity_detail')
         .select('name, amenity_slug, terminal_code, vibe_tags, price_level, opening_hours')
         .or(`name.ilike.%${q}%,description.ilike.%${q}%`)
+        // RANKING: editorial_score DESC — keep in sync with api/lib
+        .order('editorial_score', { ascending: false, nullsFirst: false })
         .limit(20);
 
       setResults(data ?? []);

@@ -344,6 +344,9 @@ export function selectScoredAmenities(
   return Array.from(bestByName.values())
     .filter(s => !s.isFiltered)
     .sort((a, b) => {
+      // RANKING: editorial_score DESC — keep in sync with api/lib
+      const editorialDiff = (b.amenity.editorial_score ?? 0) - (a.amenity.editorial_score ?? 0);
+      if (editorialDiff !== 0) return editorialDiff;
       // Open items always above closed
       const aOpen = isOpenNow(a.amenity.opening_hours);
       const bOpen = isOpenNow(b.amenity.opening_hours);

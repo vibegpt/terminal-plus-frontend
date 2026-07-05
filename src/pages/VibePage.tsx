@@ -58,9 +58,11 @@ export default function VibePage() {
 
       let query = supabase
         .from('amenity_detail')
-        .select('id, amenity_slug, name, description, terminal_code, opening_hours, price_level, vibe_tags, logo_url')
+        .select('id, amenity_slug, name, description, terminal_code, opening_hours, price_level, vibe_tags, logo_url, editorial_score')
         .eq('airport_code', 'SIN')
         .ilike('vibe_tags', `%${vibeKey}%`)
+        // RANKING: editorial_score DESC — keep in sync with api/lib
+        .order('editorial_score', { ascending: false, nullsFirst: false })
         .order('name')
         .limit(50);
 
@@ -78,6 +80,9 @@ export default function VibePage() {
           const userTerminal = sessionStorage.getItem('tp_user_terminal') || null;
           const result = terminalFilter !== 'all'
             ? (data || []).sort((a, b) => {
+                // RANKING: editorial_score DESC — keep in sync with api/lib
+                const scoreDiff = (b.editorial_score ?? 0) - (a.editorial_score ?? 0);
+                if (scoreDiff !== 0) return scoreDiff;
                 const aOpen = isOpenNow(a.opening_hours);
                 const bOpen = isOpenNow(b.opening_hours);
                 if (aOpen !== bOpen) return aOpen ? -1 : 1;
