@@ -52,7 +52,6 @@ function AppInner() {
   const [captureVisible, setCaptureVisible] = useState(() => {
     const stored = localStorage.getItem('tp_journey_context');
     const hasContext = !!stored;
-    console.log('[Journey] Gate check — tp_journey_context:', hasContext ? 'FOUND (skip capture)' : 'EMPTY (show capture)');
     return !hasContext;
   });
 
