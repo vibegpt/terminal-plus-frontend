@@ -7,6 +7,7 @@ import { JourneyProvider, useJourney } from './context/JourneyContext';
 import { FlightContextCapture } from './pages/FlightContextCapture';
 import { useFlightUpdates, setFlightToastHandler } from './hooks/useFlightUpdates';
 import SimpleToast from './components/ui/SimpleToast';
+import { init as initTelemetry } from './lib/telemetry';
 
 // MVP routes — lazy loaded
 const HomePage = lazy(() => import("@/pages/HomePage"));
@@ -35,6 +36,10 @@ function AppInner() {
 
   // Background flight polling
   useFlightUpdates();
+
+  // Telemetry: ensures anon/session identity and fires session_start
+  // once per session_id (rotation after 30min idle is handled internally)
+  useEffect(() => { initTelemetry(); }, []);
 
   // Toast for flight updates
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);

@@ -7,6 +7,7 @@ import { ArrowLeft, Clock, MapPin, DollarSign, Globe, ExternalLink, ChevronRight
 import { supabase } from '@/lib/supabase';
 import { useBookmark } from '../hooks/useBookmarks';
 import { AmenityImage } from '../components/AmenityImage';
+import { trackDwell } from '@/lib/telemetry';
 
 // ── Types ──────────────────────────────────────────────────────────
 interface AmenityData {
@@ -25,6 +26,9 @@ interface AmenityData {
   available_in_tr: string;
   walking_time_minutes?: string;
   category?: string;
+  editorial_note?: string;
+  editorial_score?: number;
+  route_context?: string;
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────
@@ -184,6 +188,24 @@ export default function AmenityDetailPage() {
     return () => { mounted = false; };
   }, [slug, vibeFromRoute]);
 
+  // Dwell: time on this amenity's page — fires on unmount or pagehide,
+  // whichever comes first. trackDwell clamps at 10min, discards <500ms.
+  useEffect(() => {
+    if (!slug) return;
+    const start = Date.now();
+    let fired = false;
+    const fire = () => {
+      if (fired) return;
+      fired = true;
+      trackDwell(slug, vibeFromRoute?.toLowerCase() ?? null, Date.now() - start);
+    };
+    window.addEventListener('pagehide', fire);
+    return () => {
+      window.removeEventListener('pagehide', fire);
+      fire();
+    };
+  }, [slug, vibeFromRoute]);
+
   // ── Loading ──────────────────────────────────────────────────────
   if (loading) {
     return (
@@ -334,6 +356,20 @@ export default function AmenityDetailPage() {
             <p className="text-gray-200 text-[15px] leading-relaxed">
               {vibeDescription || amenity.description}
             </p>
+          </div>
+        )}
+
+        {/* Editorial note — concierge recommendation */}
+        {amenity.editorial_note && (
+          <div className="mb-6 p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+            <p className="text-[15px] text-white/80 italic leading-relaxed">
+              "{amenity.editorial_note}"
+            </p>
+            {amenity.route_context && (
+              <p className="text-xs text-white/40 mt-2">
+                {amenity.route_context}
+              </p>
+            )}
           </div>
         )}
 

@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabase';
 import { getUserContext, selectScoredAmenities, type ScoredAmenity } from '@/utils/contextualScoring';
 import { AmenityImage } from '@/components/AmenityImage';
 import { DISPLAY } from '@/lib/displayConfig';
+import { track, trackImpressionOnce } from '@/lib/telemetry';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 const TERMINAL_SHORT: Record<string, string> = {
@@ -208,6 +209,19 @@ export const CollectionDetailPage: React.FC = () => {
     return filtered;
   }, [amenities, searchQuery, sortBy, filterBy]);
 
+  // Impression: fires on the list as actually rendered (post filter/sort).
+  // Telemetry dedups identical ordered slug lists per session, so plain
+  // re-renders fire nothing; a new order or new slugs is a new impression.
+  useEffect(() => {
+    if (!loading && filteredAndSortedAmenities.length > 0) {
+      trackImpressionOnce({
+        vibe: vibeSlug?.toLowerCase() ?? null,
+        collection: collectionId,
+        slugs: filteredAndSortedAmenities.map(a => a.amenity_slug).filter(Boolean),
+      });
+    }
+  }, [filteredAndSortedAmenities, loading, vibeSlug, collectionId]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0a0a0f]">
@@ -355,7 +369,7 @@ export const CollectionDetailPage: React.FC = () => {
       {/* Amenity List */}
       <div className="px-4 pt-4 space-y-2">
         {filteredAndSortedAmenities.length > 0 ? (
-          filteredAndSortedAmenities.map(amenity => {
+          filteredAndSortedAmenities.map((amenity, index) => {
             const openStatus = isOpenNow(amenity.opening_hours);
             const termShort = TERMINAL_SHORT[amenity.terminal_code] || amenity.terminal_code;
             const devScore = import.meta.env.DEV
@@ -365,7 +379,15 @@ export const CollectionDetailPage: React.FC = () => {
             return (
               <button
                 key={amenity.id}
-                onClick={() => amenity.amenity_slug && navigate(`/amenity/${amenity.amenity_slug}`, { state: { vibe: vibeSlug } })}
+                onClick={() => {
+                  if (!amenity.amenity_slug) return;
+                  track('amenity_tapped', {
+                    amenity_slug: amenity.amenity_slug,
+                    position: index,
+                    vibe: vibeSlug?.toLowerCase() ?? null,
+                  });
+                  navigate(`/amenity/${amenity.amenity_slug}`, { state: { vibe: vibeSlug } });
+                }}
                 className={`w-full bg-[#13131a] rounded-xl text-left overflow-hidden transition-colors hover:bg-white/5 active:bg-white/10 ${
                   !openStatus.open ? 'opacity-60' : ''
                 }`}

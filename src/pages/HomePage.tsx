@@ -12,6 +12,7 @@ import {
 import { getUserContext, scoreCollection } from '../utils/contextualScoring';
 import { useJourney } from '../context/JourneyContext';
 import { AmenityImage } from '../components/AmenityImage';
+import { track } from '@/lib/telemetry';
 
 // ── Vibe Configuration ─────────────────────────────────────────────
 const VIBES = [
@@ -398,8 +399,14 @@ export const HomePage: React.FC = () => {
             key={vibe.key}
             vibe={vibe}
             collections={collections}
-            onCollectionClick={id => navigate(`/collection/${vibe.serviceKey}/${id}`)}
-            onSeeAll={() => navigate(`/vibe/${vibe.serviceKey}`)}
+            onCollectionClick={id => {
+              track('vibe_selected', { vibe: vibe.serviceKey });
+              navigate(`/collection/${vibe.serviceKey}/${id}`);
+            }}
+            onSeeAll={() => {
+              track('vibe_selected', { vibe: vibe.serviceKey });
+              navigate(`/vibe/${vibe.serviceKey}`);
+            }}
           />
         ))}
       </div>

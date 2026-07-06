@@ -7,6 +7,7 @@ import { ArrowLeft, Clock, MapPin } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { smart7Select } from '@/utils/smart7Select';
 import { DISPLAY } from '@/lib/displayConfig';
+import { track, trackImpressionOnce } from '@/lib/telemetry';
 
 // ── Config ──────────────────────────────────────────────────────────
 const VIBE_CONFIG: Record<string, { icon: string; label: string; gradient: string; dbTag: string }> = {
@@ -100,6 +101,17 @@ export default function VibePage() {
     return () => { mounted = false; };
   }, [vibeKey, terminalFilter]);
 
+  // Impression: keyed on list content, not renders — telemetry dedups
+  // identical ordered slug lists per session
+  useEffect(() => {
+    if (!loading && amenities.length > 0) {
+      trackImpressionOnce({
+        vibe: vibeId?.toLowerCase() ?? null,
+        slugs: amenities.map(a => a.amenity_slug),
+      });
+    }
+  }, [amenities, loading, vibeId]);
+
   if (!vibe) {
     return (
       <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
@@ -174,14 +186,21 @@ export default function VibePage() {
             <p className="text-gray-500 text-sm">No {vibe.label.toLowerCase()} spots found</p>
           </div>
         ) : (
-          amenities.map(amenity => {
+          amenities.map((amenity, index) => {
             const open = isOpenNow(amenity.opening_hours);
             const termShort = TERMINAL_SHORT[amenity.terminal_code] || amenity.terminal_code;
 
             return (
               <button
                 key={amenity.id}
-                onClick={() => navigate(`/amenity/${amenity.amenity_slug}`, { state: { vibe: vibeId } })}
+                onClick={() => {
+                  track('amenity_tapped', {
+                    amenity_slug: amenity.amenity_slug,
+                    position: index,
+                    vibe: vibeId?.toLowerCase() ?? null,
+                  });
+                  navigate(`/amenity/${amenity.amenity_slug}`, { state: { vibe: vibeId } });
+                }}
                 className={`w-full flex items-center gap-3 p-3.5 bg-[#13131a] rounded-xl text-left transition-colors hover:bg-white/5 active:bg-white/10 ${
                   !open ? 'opacity-60' : ''
                 }`}

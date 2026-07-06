@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { track } from '@/lib/telemetry';
 
 interface SearchResult {
   name: string;
@@ -33,6 +34,7 @@ export default function SearchPage() {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const lastLoggedQuery = useRef('');
 
   // Auto-focus on mount
   useEffect(() => { inputRef.current?.focus(); }, []);
@@ -46,6 +48,7 @@ export default function SearchPage() {
     }
 
     setLoading(true);
+    let settleTimer: ReturnType<typeof setTimeout> | undefined;
     const timer = setTimeout(async () => {
       const q = query.trim();
       const { data } = await supabase
@@ -59,9 +62,23 @@ export default function SearchPage() {
       setResults(data ?? []);
       setSearched(true);
       setLoading(false);
+
+      // There's no submit action (search runs per keystroke, debounced) —
+      // log once the query settles, and never the raw query text.
+      settleTimer = setTimeout(() => {
+        if (q !== lastLoggedQuery.current) {
+          lastLoggedQuery.current = q;
+          track('search_performed', {
+            payload: { query_len: q.length, results_count: (data ?? []).length },
+          });
+        }
+      }, 1200);
     }, 300);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      if (settleTimer) clearTimeout(settleTimer);
+    };
   }, [query]);
 
   return (
