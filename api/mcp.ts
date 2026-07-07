@@ -3,6 +3,8 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { queryRouteMatch } from './lib/agent';
+import { randomUUID } from 'node:crypto';
+import { logToolCall } from './lib/agentTelemetry';
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -193,18 +195,6 @@ async function handleGetRecommendations(args: any) {
     app_url: `https://terminalplus.app/amenity/${a.amenity_slug}`,
   }));
 
-  // Log
-  try {
-    await supabase.from('agent_interactions').insert({
-      session_id: 'mcp-orchestrator',
-      user_message: `get_recommendations: ${JSON.stringify(args)}`,
-      agent_response: `Returned ${recs.length} amenities`,
-      terminal: args.terminal, vibe_requested: args.vibe,
-      amenities_shown: recs.map((r: any) => ({ id: r.id, name: r.name })),
-      mode: 'mcp',
-    });
-  } catch { /* ignore */ }
-
   return JSON.stringify({ recommendations: recs, total_available: amenities.length, filters_applied: args }, null, 2);
 }
 
@@ -294,15 +284,6 @@ async function handleGetRoute(args: any) {
       totalTime = stops.reduce((sum: number, s: any) => sum + s.duration_minutes, 0);
     }
 
-    try {
-      await supabase.from('agent_interactions').insert({
-        session_id: 'mcp-route',
-        user_message: JSON.stringify({ tool: 'get_route', flight_number: args.flight_number, arrival_terminal: args.arrival_terminal, time_budget_minutes: timeBudget }),
-        agent_response: `curated:${flightMatch.route_id}:${stops.length} stops`,
-        terminal: args.arrival_terminal, mode: 'mcp',
-      });
-    } catch { /* non-critical */ }
-
     return JSON.stringify({
       route_type: 'curated',
       route_id: flightMatch.route_id,
@@ -326,15 +307,6 @@ async function handleGetRoute(args: any) {
 
   // 4. If queryRouteMatch found a curated template, format for MCP response
   if (routeMatch) {
-    try {
-      await supabase.from('agent_interactions').insert({
-        session_id: 'mcp-route',
-        user_message: JSON.stringify({ tool: 'get_route', arrival_terminal: args.arrival_terminal, time_budget_minutes: timeBudget }),
-        agent_response: `curated:${routeMatch.templateName}:${routeMatch.stops.length} stops`,
-        terminal: args.arrival_terminal, mode: 'mcp',
-      });
-    } catch { /* non-critical */ }
-
     return JSON.stringify({
       route_type: 'curated',
       route_name: routeMatch.templateName,
@@ -418,15 +390,6 @@ async function handleGetRoute(args: any) {
 
   const totalTime = dynamicStops.reduce((sum: number, s: any) => sum + s.duration_minutes, 0);
 
-  try {
-    await supabase.from('agent_interactions').insert({
-      session_id: 'mcp-route',
-      user_message: JSON.stringify({ tool: 'get_route', arrival_terminal: args.arrival_terminal, time_budget_minutes: timeBudget, vibe: args.vibe }),
-      agent_response: `dynamic:${dynamicStops.length} stops`,
-      terminal: args.arrival_terminal, mode: 'mcp',
-    });
-  } catch { /* non-critical */ }
-
   return JSON.stringify({
     route_type: 'dynamic',
     description: `Dynamically composed route based on highest-rated amenities in ${terminals.join(' + ')}`,
@@ -470,6 +433,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     switch (method) {
       case 'initialize':
+        res.setHeader('Mcp-Session-Id', randomUUID());
         return res.status(200).json({
           jsonrpc: '2.0', id,
           result: {
@@ -485,6 +449,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       case 'tools/call': {
         const toolName = params?.name;
         const toolArgs = params?.arguments || {};
+        const mcpSessionKey = (req.headers['mcp-session-id'] as string) || null;
+        const sessionId = mcpSessionKey || randomUUID();
+        const startedAt = Date.now();
         let resultText: string;
 
         switch (toolName) {
@@ -506,6 +473,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               error: { code: -32601, message: `Unknown tool: ${toolName}` },
             });
         }
+
+        await logToolCall(getSupabase(), {
+          toolName, args: toolArgs, resultText, sessionId, mcpSessionKey,
+          latencyMs: Date.now() - startedAt,
+        });
 
         return res.status(200).json({
           jsonrpc: '2.0', id,
