@@ -6,10 +6,18 @@
 // Run: npm run test:adversarial
 // Uses the anon key (see helpers.ts) — same privileges as the shipped UI.
 
+// Pin the process to SGT: venue hours are Singapore wall-clock, and the
+// open-now tiebreak in smart7Select uses process-local time while
+// api/lib/ranking.ts pins Asia/Singapore internally. Same zone → test 11's
+// parity comparison (and tests 7–9's ordering) is deterministic anywhere.
+process.env.TZ = 'Asia/Singapore';
+
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { queryAmenities, queryRouteMatch } from '../../api/lib/agent';
+import { queryRankedAmenities } from '../../api/lib/ranking';
 import { smart7Select } from '../../src/utils/smart7Select';
+import { DISPLAY } from '../../src/lib/displayConfig';
 import { getAnonClient, ctx, isNonIncreasing } from './helpers';
 
 const supabase = getAnonClient();
@@ -181,4 +189,43 @@ test('10. nonexistent amenity slug returns clean not-found', T, async () => {
   assert.equal(data, null);
   assert.ok(error, 'expected a not-found error object');
   assert.equal(error!.code, 'PGRST116', `expected clean PGRST116 not-found, got ${error!.code}: ${error!.message}`);
+});
+
+// 11. MCP-path ranking parity (regression guard for the scorer-unification fix).
+// The agent surface must draw from the same editorial-ordered candidate pool
+// and emit the same order as the UI's smart7Select — this is the exact hole
+// the pre-fix inline scorer slipped through (see tasks/scorer-divergence-report.md).
+test('11. MCP ranking parity: shared pool + comparator match smart7Select', T, async () => {
+  const { pool, ranked, error } = await queryRankedAmenities(supabase, {
+    vibe: 'refuel',
+    userTerminal: 'SIN-T1',
+    limit: 7,
+  });
+  assert.equal(error, null);
+  assert.ok(pool.length >= 7, `need a real pool, got ${pool.length}`);
+
+  // Pool guard: exactly the top-VIBE_POOL by editorial_score DESC, name ASC —
+  // an unordered LIMIT (the original bug) fails slug-for-slug equality here.
+  const { data: direct, error: dErr } = await supabase
+    .from('amenity_detail')
+    .select('amenity_slug')
+    .eq('airport_code', 'SIN')
+    .ilike('vibe_tags', '%refuel%')
+    .order('editorial_score', { ascending: false, nullsFirst: false })
+    .order('name')
+    .limit(DISPLAY.VIBE_POOL);
+  assert.equal(dErr, null);
+  assert.deepEqual(
+    pool.map(p => p.amenity_slug),
+    (direct ?? []).map(d => d.amenity_slug),
+    'MCP candidate pool must be the editorial-ordered top-VIBE_POOL',
+  );
+
+  // Order parity: the shared ranking must equal the UI selection layer on the same pool
+  const ui = smart7Select(pool as Parameters<typeof smart7Select>[0], 'SIN-T1', 7);
+  assert.deepEqual(
+    ranked.map(r => r.amenity_slug),
+    ui.map(u => u.amenity_slug),
+    'MCP ranking diverged from smart7Select on an identical pool',
+  );
 });
