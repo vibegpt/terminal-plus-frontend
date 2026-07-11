@@ -3,6 +3,7 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { queryRouteMatch } from './lib/agent';
+import { queryRankedAmenities } from './lib/ranking';
 import { randomUUID } from 'node:crypto';
 import { logToolCall } from './lib/agentTelemetry';
 
@@ -153,39 +154,21 @@ async function handleGetAirportContext(args: any) {
 
 async function handleGetRecommendations(args: any) {
   const supabase = getSupabase();
-  let query = supabase.from('amenity_detail')
-    .select('id, name, amenity_slug, description, terminal_code, vibe_tags, price_level, opening_hours, available_in_tr, booking_required, editorial_note, editorial_score, route_context')
-    .eq('airport_code', 'SIN');
-
-  if (args.vibe) query = query.ilike('vibe_tags', `%${args.vibe}%`);
-  if (args.terminal && args.time_until_boarding_minutes !== undefined && args.time_until_boarding_minutes < 30) {
-    query = query.eq('terminal_code', args.terminal);
-  }
-  if (args.exclude_jewel || (args.time_until_boarding_minutes !== undefined && args.time_until_boarding_minutes < 120)) {
-    query = query.neq('terminal_code', 'SIN-JEWEL');
-  }
-
   const resultLimit = Math.min(args.limit || 7, 12);
-  const { data: amenities, error } = await query.limit(resultLimit * 3);
 
-  if (error || !amenities?.length) {
+  const { pool, ranked, error } = await queryRankedAmenities(supabase, {
+    vibe: args.vibe,
+    userTerminal: args.terminal ?? null,
+    timeUntilBoardingMinutes: args.time_until_boarding_minutes,
+    excludeJewel: args.exclude_jewel,
+    limit: resultLimit,
+  });
+
+  if (error || !ranked.length) {
     return JSON.stringify({ recommendations: [], message: 'No matching amenities found.', total_available: 0 });
   }
 
-  const scored = amenities.map((a: any) => {
-    let score = 50;
-    if (args.terminal && a.terminal_code === args.terminal) score += 30;
-    if (args.terminal && a.terminal_code !== args.terminal && a.terminal_code !== 'SIN-JEWEL') score += 10;
-    if (a.terminal_code === 'SIN-JEWEL') score += (args.time_until_boarding_minutes && args.time_until_boarding_minutes > 240) ? 20 : -10;
-    if (args.vibe && a.vibe_tags?.toLowerCase().includes(args.vibe.toLowerCase())) score += 20;
-    if (a.available_in_tr) score += 5;
-    if (a.editorial_score && a.editorial_score >= 12) score += 10;
-    else if (a.editorial_score && a.editorial_score >= 10) score += 5;
-    return { ...a, _score: score };
-  });
-  scored.sort((a: any, b: any) => b._score - a._score);
-
-  const recs = scored.slice(0, resultLimit).map((a: any, i: number) => ({
+  const recs = ranked.map((a: any, i: number) => ({
     rank: i + 1, id: a.id, name: a.name, slug: a.amenity_slug,
     terminal: a.terminal_code, vibe_tags: a.vibe_tags, price_level: a.price_level,
     description: a.description?.substring(0, 150),
@@ -195,7 +178,7 @@ async function handleGetRecommendations(args: any) {
     app_url: `https://terminalplus.app/amenity/${a.amenity_slug}`,
   }));
 
-  return JSON.stringify({ recommendations: recs, total_available: amenities.length, filters_applied: args }, null, 2);
+  return JSON.stringify({ recommendations: recs, total_available: pool.length, filters_applied: args }, null, 2);
 }
 
 async function handleGetDisruptionStatus(args: any) {
