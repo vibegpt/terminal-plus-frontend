@@ -9,3 +9,8 @@ supabase/functions/*/deno.json
 .DS_Store
 .vercel
 .env*.local
+supabase-migration-backup/
+.claude/
+mcp-publisher
+.claude/
+mcp-publisher
