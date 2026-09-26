@@ -13,6 +13,8 @@ export interface FlightData {
   destination: string | null;
   origin: string | null;
   isDepartingFromSIN: boolean;
+  leg?: 'departure' | 'arrival';
+  date?: string;
 }
 
 export function mapTerminalToCode(terminal: string | null | undefined): string | null {
@@ -25,13 +27,15 @@ export function mapTerminalToCode(terminal: string | null | undefined): string |
 
 export async function lookupFlight(
   flightNumber: string,
-  date?: string
+  date?: string,
+  leg?: 'departure' | 'arrival'
 ): Promise<FlightData | null> {
   try {
     const params = new URLSearchParams({
       number: flightNumber.trim().toUpperCase(),
     });
     if (date) params.set('date', date);
+    if (leg) params.set('leg', leg);
 
     const r = await fetch(`/api/flight-status?${params.toString()}`);
     if (!r.ok) return null;

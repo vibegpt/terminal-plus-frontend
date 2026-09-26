@@ -28,6 +28,13 @@ function getPollingInterval(boardingTimeIso: string): number | null {
   return 30 * 60_000;
 }
 
+/** Minutes from a to b for AeroDataBox times such as "2026-09-26 12:45Z"; null if either is missing. */
+function minutesBetween(a: string | null, b: string | null): number | null {
+  if (!a || !b) return null;
+  const ms = Date.parse(b.replace(' ', 'T')) - Date.parse(a.replace(' ', 'T'));
+  return Number.isNaN(ms) ? null : Math.round(ms / 60_000);
+}
+
 export function useFlightUpdates() {
   const { journey, setJourney } = useJourney();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -40,7 +47,7 @@ export function useFlightUpdates() {
     // Skip if tab is hidden
     if (document.visibilityState !== 'visible') return;
 
-    const data = await lookupFlight(journey.departingFlight);
+    const data = await lookupFlight(journey.departingFlight, undefined, 'departure');
     if (!data) return;
 
     let updated = false;
@@ -57,7 +64,10 @@ export function useFlightUpdates() {
     }
 
     // Delay / revised time
-    if (data.revisedTime && data.revisedTime !== journey.scheduledDeparture) {
+    // Revised vs scheduled from the same response. The stored scheduledDeparture can use
+    // a different time format (board picker), so comparing strings raised false alerts.
+    const delayMin = minutesBetween(data.scheduledTime, data.revisedTime);
+    if (delayMin !== null && delayMin >= 5 && journey.status !== 'Delayed') {
       updates.status = 'Delayed';
       updated = true;
       showToastCallback?.({
