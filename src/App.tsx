@@ -19,12 +19,6 @@ const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
 const MapPage = lazy(() => import("@/pages/MapPage"));
 const SavedPage = lazy(() => import("@/pages/SavedPage"));
 
-// Legacy routes — gated behind DEV
-const ExploreTerminal = lazy(() => import("@/pages/explore-terminal"));
-const PlanJourneyStepper = lazy(() => import("@/pages/plan-journey-stepper"));
-const GuideView = lazy(() => import("@/pages/guide-view"));
-const MyJourneys = lazy(() => import("@/pages/my-journeys"));
-
 const Loading = () => (
   <div className="min-h-screen flex items-center justify-center" style={{ background: '#0a0a0f' }}>
     <div className="animate-spin rounded-full h-8 w-8 border-2 border-purple-700 border-t-purple-400" />
@@ -90,15 +84,6 @@ function AppInner() {
           <Route path="/amenity/:terminalCode/:slug" element={<AmenityDetailPage />} />
           <Route path="/amenity/:slug" element={<AmenityDetailPage />} />
           <Route path="/sin" element={<Navigate to="/" replace />} />
-
-          {import.meta.env.DEV && (
-            <>
-              <Route path="/explore-terminal" element={<ExploreTerminal />} />
-              <Route path="/plan-journey-stepper" element={<PlanJourneyStepper />} />
-              <Route path="/guide-view" element={<GuideView />} />
-              <Route path="/my-journeys" element={<MyJourneys />} />
-            </>
-          )}
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
