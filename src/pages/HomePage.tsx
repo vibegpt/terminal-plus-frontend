@@ -29,8 +29,12 @@ type VibeKey = typeof VIBES[number]['key'];
 
 type TimeBucket = 'urgent' | 'oneStop' | 'settled' | 'explore' | 'unknown';
 
+// Boarding opens 35 min before departure (api/flight-status.ts). Minutes to boarding between
+// -35 and 0 means boarding now; at -35 or below the flight has left.
+const BOARDING_WINDOW_MIN = 35;
+
 function getTimeBucket(minutesToBoarding: number): TimeBucket {
-  if (minutesToBoarding < 0)   return 'unknown';
+  if (minutesToBoarding <= -BOARDING_WINDOW_MIN) return 'unknown'; // no flight, or it has left
   if (minutesToBoarding < 30)  return 'urgent';
   if (minutesToBoarding < 60)  return 'oneStop';
   if (minutesToBoarding < 120) return 'settled';
@@ -39,7 +43,7 @@ function getTimeBucket(minutesToBoarding: number): TimeBucket {
 
 function getVibeOrder(minutesToBoarding: number): VibeKey[] {
   // < 30 min: urgency overrides everything
-  if (minutesToBoarding >= 0 && minutesToBoarding < 30) {
+  if (minutesToBoarding > -BOARDING_WINDOW_MIN && minutesToBoarding < 30) {
     return ['Quick','Refuel','Comfort','Chill','Work','Shop','Explore'];
   }
   // 30-60 min: Quick promoted
@@ -91,8 +95,10 @@ const TERMINAL_LABEL: Record<string, string> = {
   'SIN-T4': 'T4', 'SIN-JEWEL': 'Jewel',
 };
 
-function getBoardingMessage(minutes: number, terminal: string | null): string {
+function getBoardingMessage(minutes: number, terminal: string | null, gate?: string | null): string {
   const term = terminal ? ` · ${TERMINAL_LABEL[terminal] ?? terminal} · Sorted for you` : '';
+  if (minutes <= -BOARDING_WINDOW_MIN) return 'Your flight time has passed · Tap to update';
+  if (minutes <= 0) return gate ? `Boarding now · Gate ${gate}` : 'Boarding now · Head to your gate';
   if (minutes < 30)  return `Boarding in ${minutes} min · Quick options only ⚡`;
   if (minutes < 60)  return `Time for one stop · Make it count${term}`;
   if (minutes < 120) return `You've got an hour · Settle in somewhere${term}`;
@@ -102,14 +108,14 @@ function getBoardingMessage(minutes: number, terminal: string | null): string {
 }
 
 const BoardingContextStrip: React.FC = () => {
-  const { journey } = useJourney();
+  const { journey, resetJourney } = useJourney();
   const [minutes, setMinutes] = React.useState<number | null>(null);
 
   React.useEffect(() => {
     if (!journey) return;
     const calc = () => {
       const mins = Math.floor((new Date(journey.boardingTime).getTime() - Date.now()) / 60000);
-      setMinutes(Math.max(0, mins));
+      setMinutes(Number.isNaN(mins) ? null : mins);
     };
     calc();
     const id = setInterval(calc, 60_000);
@@ -118,11 +124,18 @@ const BoardingContextStrip: React.FC = () => {
 
   if (!journey || minutes === null) return null;
 
-  const msg = getBoardingMessage(minutes, journey.currentTerminal ?? null);
-  const urgent = minutes < 30;
+  const msg = getBoardingMessage(minutes, journey.currentTerminal ?? null, journey.gate ?? null);
+  const stale = minutes <= -BOARDING_WINDOW_MIN;
+  const urgent = !stale && minutes < 30;
+  // Clearing the journey and reloading brings back the flight capture gate (App.tsx).
+  const updateFlight = () => { resetJourney(); window.location.assign('/'); };
 
   return (
     <div
+      role={stale ? 'button' : undefined}
+      tabIndex={stale ? 0 : undefined}
+      onClick={stale ? updateFlight : undefined}
+      onKeyDown={stale ? (e) => { if (e.key === 'Enter' || e.key === ' ') updateFlight(); } : undefined}
       style={{
         margin: '0 16px 4px',
         padding: '7px 14px',
@@ -136,6 +149,7 @@ const BoardingContextStrip: React.FC = () => {
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         lineHeight: '1',
+        cursor: stale ? 'pointer' : undefined,
       }}
     >
       {msg}
@@ -150,7 +164,7 @@ const CollectionCard: React.FC<{
   onClick: () => void;
   priority?: boolean;
 }> = ({ collection, vibeKey, onClick, priority }) => {
-  const count = collection.amenity_count ?? 7;
+  const count = collection.amenity_count;
 
   return (
     <button onClick={onClick} className="flex-shrink-0 text-left" style={{ width: 176 }}>
@@ -183,9 +197,11 @@ const CollectionCard: React.FC<{
           <h3 className="font-semibold text-white text-[13px] leading-snug line-clamp-2">
             {collection.name}
           </h3>
-          <p className="text-[11px] mt-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            {count} spots
-          </p>
+          {count != null && (
+            <p className="text-[11px] mt-0.5" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              {count} spots
+            </p>
+          )}
         </div>
       </div>
     </button>
@@ -256,8 +272,9 @@ export const HomePage: React.FC = () => {
 
   // Compute current time bucket — re-evaluated every 60s
   const computeMinutes = useCallback(() => {
-    if (!journey?.boardingTime) return -1;
-    return Math.max(0, Math.floor((new Date(journey.boardingTime).getTime() - Date.now()) / 60000));
+    if (!journey?.boardingTime) return Number.NEGATIVE_INFINITY;
+    const mins = Math.floor((new Date(journey.boardingTime).getTime() - Date.now()) / 60000);
+    return Number.isNaN(mins) ? Number.NEGATIVE_INFINITY : mins;
   }, [journey]);
 
   const [minutesToBoarding, setMinutesToBoarding] = useState(computeMinutes);
@@ -304,7 +321,7 @@ export const HomePage: React.FC = () => {
 
       const { data } = await supabase
         .from('collections')
-        .select('collection_id, name, hero_image_url, amenity_count')
+        .select('collection_id, name, hero_image_url, collection_amenities(count)')
         .in('collection_id', slugs);
 
       const collections: Collection[] = mappings.map(mapping => {
@@ -313,7 +330,7 @@ export const HomePage: React.FC = () => {
           collection_id: mapping.collection_slug,
           name: db?.name || mapping.collection_name,
           hero_image_url: db?.hero_image_url ?? undefined,
-          amenity_count: db?.amenity_count ?? 7,
+          amenity_count: db?.collection_amenities?.[0]?.count,
           is_dynamic: mapping.isDynamic,
           time_relevance: mapping.time_relevance,
         };
