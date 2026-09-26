@@ -92,15 +92,26 @@ export function FlightProvider({ children }: { children: React.ReactNode }) {
     setFlightState(f);
   };
 
+  // Boarding opens 35 min before departure, so a boarding time more than 35 min ago means
+  // the flight has left: stop showing it as boarding and offer to add a flight instead.
+  const departed = minutesToBoarding !== null && minutesToBoarding <= -35;
+
   const urgency: UrgencyLevel =
-    minutesToBoarding === null ? 'relaxed'
+    minutesToBoarding === null || departed ? 'relaxed'
     : minutesToBoarding <= 0 ? 'boarding'
     : minutesToBoarding <= 25 ? 'urgent'
     : minutesToBoarding <= 75 ? 'moderate'
     : 'relaxed';
 
   return (
-    <FlightContext.Provider value={{ flight, setFlight, urgency, minutesToBoarding }}>
+    <FlightContext.Provider
+      value={{
+        flight: departed ? null : flight,
+        setFlight,
+        urgency,
+        minutesToBoarding: departed ? null : minutesToBoarding,
+      }}
+    >
       {children}
     </FlightContext.Provider>
   );
