@@ -23,6 +23,7 @@ const EVENT_TYPES = new Set([
   'stop_skipped',
   'search_performed',
   'tool_called',
+  'flight_not_found',
 ]);
 
 export type EventType =
@@ -35,7 +36,8 @@ export type EventType =
   | 'stop_completed'
   | 'stop_skipped'
   | 'search_performed'
-  | 'tool_called';
+  | 'tool_called'
+  | 'flight_not_found';
 
 export interface TrackFields {
   terminal_code?: string | null;

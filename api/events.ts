@@ -50,6 +50,7 @@ const EVENT_TYPES = new Set([
   'stop_skipped',
   'search_performed',
   'tool_called',
+  'flight_not_found',
 ])
 
 const SURFACES = new Set(['app', 'chat', 'mcp'])
