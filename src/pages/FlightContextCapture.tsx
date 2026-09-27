@@ -39,16 +39,19 @@ type FlightResult = {
   // Enriched fields from AeroDataBox
   airline?: string | null;
   destination?: string | null;
+  origin?: string | null;
   revisedTime?: string | null;
 };
 
 // ── API helper ──────────────────────────────────────────────────────
 
+// `leg` tells the API which SIN movement we mean: a flight number like QF1 both lands
+// at and leaves SIN on the same day.
 async function lookupFlight(
   number: string,
-  _type: 'departure' | 'arrival' = 'departure'
+  leg: 'departure' | 'arrival' = 'departure'
 ): Promise<FlightResult | null> {
-  const data = await lookupFlightService(number);
+  const data = await lookupFlightService(number, undefined, leg);
   if (!data) return null;
   return {
     flightNumber: data.flightNumber,
@@ -59,6 +62,7 @@ async function lookupFlight(
     status: data.status,
     airline: data.airline,
     destination: data.destination,
+    origin: data.origin,
     revisedTime: data.revisedTime,
   };
 }
@@ -291,7 +295,7 @@ function Step1({ onTerminal, onSkip, segment }: Step1Props) {
     setLookupState('loading');
     const result = await lookupFlight(num, 'arrival');
     if (result?.terminal) {
-      onTerminal(result.terminal, num.toUpperCase(), 'typed', result.destination ?? null);
+      onTerminal(result.terminal, num.toUpperCase(), 'typed', result.origin ?? null);
     } else {
       setLookupState('error');
       setTimeout(() => { setMode('terminal'); setLookupState('idle'); }, 1500);
