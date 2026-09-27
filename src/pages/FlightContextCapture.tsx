@@ -13,8 +13,11 @@ import {
 } from '../context/JourneyContext';
 import {
   lookupFlight as lookupFlightService,
+  mapTerminalToCode,
   type FlightData as ServiceFlightData,
 } from '../services/flightService';
+import { FlightPicker, type BoardFlight } from '../components/FlightPicker';
+import { recordJourney, type FlightSource, type JourneyType } from '../lib/journeyRecord';
 
 // ── Constants ──────────────────────────────────────────────────────
 
@@ -133,7 +136,8 @@ const S = {
 
 // ── Step dots ──────────────────────────────────────────────────────
 
-function StepDots({ current }: { current: 1 | 2 | 3 }) {
+function StepDots({ current }: { current: 0 | 1 | 2 | 3 }) {
+  if (current === 0) return null;
   return (
     <div style={{ display: 'flex', gap: 6, marginBottom: 20 }}>
       {([1, 2, 3] as const).map(n => (
@@ -196,15 +200,87 @@ function TerminalPicker({
   );
 }
 
+// ── STEP 0: Segment ────────────────────────────────────────────────
+
+export type Segment = 'departing' | 'connecting' | 'just_landed';
+
+const SEGMENTS: ReadonlyArray<{ key: Segment; label: string; desc: string; icon: string }> = [
+  { key: 'departing',   label: 'Departing',   desc: 'Flying out of Changi',        icon: '\u2708\ufe0f' },
+  { key: 'connecting',  label: 'Connecting',  desc: 'Landed, catching another',    icon: '\ud83d\udd01' },
+  { key: 'just_landed', label: 'Just landed', desc: 'Arrived at Changi',           icon: '\ud83d\udeec' },
+];
+
+function Step0({ onPick, onSkip }: { onPick: (s: Segment) => void; onSkip: () => void }) {
+  return (
+    <div style={{ padding: '28px 24px 24px' }}>
+      <div style={{ marginBottom: 22 }}>
+        <h2 style={{ fontSize: 26, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>
+          What brings you to Changi?
+        </h2>
+        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 8, lineHeight: 1.5 }}>
+          No account. No name. Just your flight.
+        </p>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {SEGMENTS.map(seg => (
+          <button
+            key={seg.key}
+            type="button"
+            onClick={() => onPick(seg.key)}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              padding: '18px 18px',
+              borderRadius: 14,
+              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'rgba(37,37,53,0.6)',
+              color: '#f0f0f8',
+              fontFamily: 'inherit',
+              cursor: 'pointer',
+              textAlign: 'left',
+              minHeight: 68,
+            }}
+          >
+            <span style={{ fontSize: 22, lineHeight: 1 }}>{seg.icon}</span>
+            <span style={{ flex: 1 }}>
+              <span style={{ display: 'block', fontSize: 16, fontWeight: 700 }}>{seg.label}</span>
+              <span style={{ display: 'block', fontSize: 12.5, color: 'rgba(255,255,255,0.4)', marginTop: 3 }}>
+                {seg.desc}
+              </span>
+            </span>
+            <ArrowRight size={16} style={{ color: 'rgba(255,255,255,0.25)' }} />
+          </button>
+        ))}
+      </div>
+
+      {/* Always visible, never behind a scroll — this is the escape hatch. */}
+      <div style={S.skip} onClick={onSkip}>Skip, just show me around</div>
+    </div>
+  );
+}
+
 // ── STEP 1: Where are you? ─────────────────────────────────────────
 
 interface Step1Props {
-  onTerminal: (terminal: string, arrivingFlight?: string) => void;
+  onTerminal: (
+    terminal: string,
+    arrivingFlight?: string,
+    inboundSource?: FlightSource,
+    inboundOrigin?: string | null,
+  ) => void;
   onSkip: () => void;
+  /** 'departing' skips the arrivals capture entirely — there is no inbound leg. */
+  segment: Segment;
 }
 
-function Step1({ onTerminal, onSkip }: Step1Props) {
-  const [mode, setMode] = useState<'flight' | 'terminal'>('flight');
+function Step1({ onTerminal, onSkip, segment }: Step1Props) {
+  const [mode, setMode] = useState<'flight' | 'terminal'>(
+    segment === 'departing' ? 'terminal' : 'flight'
+  );
+  const [flightEntry, setFlightEntry] = useState<'picker' | 'typed'>('picker');
   const [flightInput, setFlightInput] = useState('');
   const [lookupState, setLookupState] = useState<'idle' | 'loading' | 'error'>('idle');
   const [selectedTerminal, setSelectedTerminal] = useState('SIN-T3');
@@ -215,7 +291,7 @@ function Step1({ onTerminal, onSkip }: Step1Props) {
     setLookupState('loading');
     const result = await lookupFlight(num, 'arrival');
     if (result?.terminal) {
-      onTerminal(result.terminal, num.toUpperCase());
+      onTerminal(result.terminal, num.toUpperCase(), 'typed', result.destination ?? null);
     } else {
       setLookupState('error');
       setTimeout(() => { setMode('terminal'); setLookupState('idle'); }, 1500);
@@ -248,8 +324,28 @@ function Step1({ onTerminal, onSkip }: Step1Props) {
         </button>
       </div>
 
-      {/* Flight lookup block — only mounts when mode is 'flight' */}
-      {mode === 'flight' && (
+      {/* Arrivals picker — the inbound leg of the corridor, highest-value capture */}
+      {mode === 'flight' && flightEntry === 'picker' && (
+        <FlightPicker
+          direction="arrival"
+          title="Which flight did you arrive on?"
+          subtitle="Recent landings at Changi. Tap yours."
+          onSelect={(f: BoardFlight, source: FlightSource) =>
+            onTerminal(
+              mapTerminalToCode(f.terminal) || 'SIN-T3',
+              f.flight_iata,
+              source,
+              f.origin_iata,
+            )
+          }
+          onManual={() => setFlightEntry('typed')}
+          onSkip={() => setMode('terminal')}
+          skipLabel="Skip — I'll pick my terminal instead"
+        />
+      )}
+
+      {/* Typed fallback — reached from the picker's "Enter manually" link */}
+      {mode === 'flight' && flightEntry === 'typed' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ position: 'relative' }}>
             <Plane size={15} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)', pointerEvents: 'none' }} />
@@ -338,11 +434,16 @@ function getDefaultBoardingTime(): { h: string; m: string } {
 
 interface Step2Props {
   currentTerminal: string;
-  onConfirm: (result: { flightNumber: string; departureTerminal: string; boardingTime: string; gate: string | null; airline?: string | null; destination?: string | null; status?: string; scheduledDeparture?: string }) => void;
+  onConfirm: (result: { flightNumber: string; departureTerminal: string; boardingTime: string; gate: string | null; airline?: string | null; destination?: string | null; status?: string; scheduledDeparture?: string; source: FlightSource }) => void;
   onSkip: () => void;
+  skipLabel: string;
 }
 
-function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
+/** Departures board gives scheduled departure; boarding is 35min prior, matching api/flight-status.ts. */
+const BOARDING_LEAD_MS = 35 * 60_000;
+
+function Step2({ currentTerminal, onConfirm, onSkip, skipLabel }: Step2Props) {
+  const [entry, setEntry] = useState<'picker' | 'typed'>('picker');
   const [flightInput, setFlightInput] = useState('');
   const [lookupState, setLookupState] = useState<'idle' | 'loading' | 'found' | 'error'>('idle');
   const [result, setResult] = useState<FlightResult | null>(null);
@@ -379,6 +480,7 @@ function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
       destination: result.destination,
       status: result.status,
       scheduledDeparture: result.scheduledTime || undefined,
+      source: 'typed',
     });
   };
 
@@ -393,6 +495,7 @@ function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
       departureTerminal: manualTerminal,
       boardingTime: bt,
       gate: null,
+      source: 'typed',
     });
   };
 
@@ -424,8 +527,35 @@ function Step2({ currentTerminal, onConfirm, onSkip }: Step2Props) {
         </p>
       </div>
 
+      {/* ── Departures picker — default entry, replaces the typed input ── */}
+      {entry === 'picker' && lookupState === 'idle' && (
+        <FlightPicker
+          direction="departure"
+          title="Which flight are you on?"
+          subtitle="Departing Changi in the next 6 hours."
+          onSelect={(f: BoardFlight, source: FlightSource) =>
+            onConfirm({
+              flightNumber: f.flight_iata,
+              departureTerminal: mapTerminalToCode(f.terminal) || currentTerminal,
+              boardingTime: new Date(
+                new Date(f.scheduled_at).getTime() - BOARDING_LEAD_MS
+              ).toISOString(),
+              gate: f.gate,
+              airline: f.airline_name,
+              destination: f.destination_iata,
+              status: f.status,
+              scheduledDeparture: f.scheduled_at,
+              source,
+            })
+          }
+          onManual={() => setEntry('typed')}
+          onSkip={onSkip}
+          skipLabel={skipLabel}
+        />
+      )}
+
       {/* ── State: idle / loading — show flight input + lookup button ── */}
-      {(lookupState === 'idle' || lookupState === 'loading') && (
+      {entry === 'typed' && (lookupState === 'idle' || lookupState === 'loading') && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <div style={{ position: 'relative' }}>
             <Plane size={15} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.3)', pointerEvents: 'none' }} />
@@ -743,23 +873,47 @@ interface FlightContextCaptureProps {
 
 export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) {
   const { setJourney } = useJourney();
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [step, setStep] = useState<0 | 1 | 2 | 3>(0);
+  const [segment, setSegment] = useState<Segment>('departing');
   const [currentTerminal, setCurrentTerminal] = useState('SIN-T3');
   const [arrivingFlight, setArrivingFlight] = useState<string | undefined>();
+  const [inboundSource, setInboundSource] = useState<FlightSource | undefined>();
+  const [inboundOrigin, setInboundOrigin] = useState<string | null>(null);
   const [pendingJourney, setPendingJourney] = useState<JourneyData | null>(null);
 
-  const handleStep1 = (terminal: string, flight?: string) => {
-    console.log('[FlightCapture] handleStep1 called — terminal:', terminal, 'flight:', flight);
+  const handleSegment = (picked: Segment) => {
+    setSegment(picked);
+    setStep(1);
+  };
+
+  // The escape hatch. Records the skip so drop-off is measurable, then drops
+  // the user straight into a fully working vibe feed.
+  const handleSkipAll = () => {
+    void recordJourney({
+      journey_type: 'skipped',
+      flight_source: 'skipped',
+      onboarding_skipped: true,
+    });
+    onComplete();
+  };
+
+  const handleStep1 = (
+    terminal: string,
+    flight?: string,
+    source?: FlightSource,
+    origin?: string | null,
+  ) => {
     setCurrentTerminal(terminal);
     setArrivingFlight(flight);
+    setInboundSource(source);
+    setInboundOrigin(origin ?? null);
     setStep(2);
-    console.log('[FlightCapture] setStep(2) called');
   };
 
   const handleStep1Skip = () => {
     // Skipped → defaults to SIN-T3, no personalisation
     setCurrentTerminal('SIN-T3');
-    buildAndComplete('SQ000', 'SIN-T3', new Date(Date.now() + 180 * 60_000).toISOString(), null, undefined);
+    buildAndComplete('SQ000', 'SIN-T3', new Date(Date.now() + 180 * 60_000).toISOString(), null, 'skipped', undefined);
   };
 
   const handleStep2 = ({
@@ -771,6 +925,7 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
     destination,
     status,
     scheduledDeparture,
+    source,
   }: {
     flightNumber: string;
     departureTerminal: string;
@@ -780,13 +935,15 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
     destination?: string | null;
     status?: string;
     scheduledDeparture?: string;
+    source: FlightSource;
   }) => {
-    buildAndComplete(flightNumber, departureTerminal, boardingTime, gate, { airline, destination, status, scheduledDeparture });
+    buildAndComplete(flightNumber, departureTerminal, boardingTime, gate, source, { airline, destination, status, scheduledDeparture });
   };
 
   const handleStep2Skip = () => {
-    // No departure info → assume 3h window from current terminal
-    buildAndComplete('UNKNOWN', currentTerminal, new Date(Date.now() + 180 * 60_000).toISOString(), null, undefined);
+    // No departure info → assume 3h window from current terminal. The inbound
+    // leg, if captured, is still persisted: half a corridor beats none.
+    buildAndComplete('UNKNOWN', currentTerminal, new Date(Date.now() + 180 * 60_000).toISOString(), null, 'skipped', undefined);
   };
 
   function buildAndComplete(
@@ -794,6 +951,7 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
     departureTerminal: string,
     boardingTime: string,
     gate: string | null,
+    source: FlightSource,
     enrichment?: { airline?: string | null; destination?: string | null; status?: string; scheduledDeparture?: string }
   ) {
     const walkMinutes = getWalkTime(currentTerminal, departureTerminal);
@@ -816,10 +974,31 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
       status: enrichment?.status,
       scheduledDeparture: enrichment?.scheduledDeparture,
       lastUpdated: new Date().toISOString(),
+      schema_version: 2,
+      flight_source: source,
+      inbound_flight_source: inboundSource,
+      inbound_flight: arrivingFlight,
+      inbound_origin: inboundOrigin ?? undefined,
     };
 
     setJourney(data);
     setPendingJourney(data);
+
+    const journeyType: JourneyType =
+      source === 'skipped' && !arrivingFlight ? 'skipped' : segment;
+
+    void recordJourney({
+      journey_type: journeyType,
+      flight_number: flightNumber === 'UNKNOWN' || flightNumber === 'SQ000' ? null : flightNumber,
+      destination: enrichment?.destination ?? null,
+      departure_time: enrichment?.scheduledDeparture ?? boardingTime,
+      flight_source: source,
+      inbound_flight: arrivingFlight ?? null,
+      inbound_origin: inboundOrigin,
+      inbound_flight_source: inboundSource ?? null,
+      onboarding_skipped: false,
+    });
+
     setStep(3);
   }
 
@@ -836,8 +1015,12 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
 
       {/* Plain keyed div — no AnimatePresence, no pointer-events interference */}
       <div key={step} style={{ ...S.card, animation: 'tp-fadein 0.18s ease-out' }}>
+        {step === 0 && (
+          <Step0 onPick={handleSegment} onSkip={handleSkipAll} />
+        )}
         {step === 1 && (
           <Step1
+            segment={segment}
             onTerminal={handleStep1}
             onSkip={handleStep1Skip}
           />
@@ -847,6 +1030,11 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
             currentTerminal={currentTerminal}
             onConfirm={handleStep2}
             onSkip={handleStep2Skip}
+            skipLabel={
+              segment === 'just_landed'
+                ? "Skip — I'm not flying on today"
+                : 'Skip — I don\'t know my flight yet'
+            }
           />
         )}
         {step === 3 && pendingJourney && (

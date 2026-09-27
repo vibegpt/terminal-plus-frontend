@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import ChatBubble from './components/ChatBubble';
 import { FlightProvider } from './components/FlightStatusBar';
 import { AppShell } from './components/AppShell';
-import { JourneyProvider, useJourney } from './context/JourneyContext';
+import { JourneyProvider, useJourney, hasDeparted, type JourneyData } from './context/JourneyContext';
 import { FlightContextCapture } from './pages/FlightContextCapture';
 import { useFlightUpdates, setFlightToastHandler } from './hooks/useFlightUpdates';
 import SimpleToast from './components/ui/SimpleToast';
@@ -50,8 +50,30 @@ function AppInner() {
   // timing edge cases. This is the single source of truth for the gate.
   const [captureVisible, setCaptureVisible] = useState(() => {
     const stored = localStorage.getItem('tp_journey_context');
-    const hasContext = !!stored;
-    return !hasContext;
+
+    if (stored) {
+      // A stored journey whose onward flight has already departed is stale —
+      // clear it and capture again rather than restoring yesterday's trip.
+      try {
+        const parsed = JSON.parse(stored) as JourneyData;
+        if (!hasDeparted(parsed)) return false;
+        localStorage.removeItem('tp_journey_context');
+        sessionStorage.removeItem('tp_user_terminal');
+        sessionStorage.removeItem('terminal_plus_flight');
+        // A departed flight means a new trip, so an earlier skip in this
+        // session must not suppress the fresh capture.
+        sessionStorage.removeItem('tp_onboarded');
+        return true;
+      } catch {
+        localStorage.removeItem('tp_journey_context');
+        return true;
+      }
+    }
+
+    // Skipped: there is no journey to restore, but the user already said no.
+    // Re-showing the wall on every reload is what "skip" exists to prevent.
+    // sessionStorage, so a genuinely new session still gets the offer.
+    return sessionStorage.getItem('tp_onboarded') !== '1';
   });
 
   // useCallback so Step3's useEffect[onComplete] doesn't restart on every render

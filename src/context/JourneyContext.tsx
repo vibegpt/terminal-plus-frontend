@@ -5,6 +5,7 @@
 // can read them without needing a React context dependency.
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import type { FlightSource } from '../lib/journeyRecord';
 
 // ── Types ──────────────────────────────────────────────────────────
 
@@ -25,6 +26,13 @@ export interface JourneyData {
   scheduledDeparture?: string;
   status?: string;
   lastUpdated?: string;
+  // ── v2: capture provenance ────────────────────────────────────────
+  // schema_version absent => a v1 record written before tap-only capture.
+  schema_version?: number;
+  flight_source?: FlightSource;
+  inbound_flight_source?: FlightSource;
+  inbound_flight?: string;
+  inbound_origin?: string;
 }
 
 interface JourneyContextType {
@@ -68,18 +76,60 @@ export function calcUsableWindow(
 
 const LS_KEY = 'tp_journey_context';
 
+export const JOURNEY_SCHEMA_VERSION = 2;
+
+/**
+ * Read-time migration. A record with no schema_version predates tap-only
+ * capture, so every flight number in it was typed by hand: backfill
+ * flight_source accordingly, stamp v2, and write it back. Field names and
+ * reader signatures are unchanged, so the six existing readers of
+ * tp_journey_context are unaffected.
+ */
+function migrate(data: JourneyData): JourneyData {
+  if (data.schema_version === JOURNEY_SCHEMA_VERSION) return data;
+  return {
+    ...data,
+    schema_version: JOURNEY_SCHEMA_VERSION,
+    flight_source: data.flight_source ?? 'typed',
+    inbound_flight_source:
+      data.inbound_flight_source ?? (data.arrivingFlight ? 'typed' : undefined),
+    inbound_flight: data.inbound_flight ?? data.arrivingFlight,
+  };
+}
+
 function loadFromStorage(): JourneyData | null {
   try {
     const raw = localStorage.getItem(LS_KEY);
     if (!raw) return null;
-    return JSON.parse(raw) as JourneyData;
+    const parsed = JSON.parse(raw) as JourneyData;
+    const migrated = migrate(parsed);
+    if (migrated !== parsed) {
+      saveToStorage(migrated);
+      console.log('[Journey] migrated stored context to v%d', JOURNEY_SCHEMA_VERSION);
+    }
+    return migrated;
   } catch {
     return null;
   }
 }
 
+/**
+ * True when the stored onward flight has already departed, so the capture flow
+ * should run again instead of restoring a stale journey.
+ */
+export function hasDeparted(data: JourneyData | null): boolean {
+  if (!data) return false;
+  const when = data.scheduledDeparture || data.boardingTime;
+  if (!when) return false;
+  const t = new Date(when).getTime();
+  return Number.isNaN(t) ? false : t < Date.now();
+}
+
 function saveToStorage(data: JourneyData) {
-  localStorage.setItem(LS_KEY, JSON.stringify(data));
+  localStorage.setItem(
+    LS_KEY,
+    JSON.stringify({ ...data, schema_version: JOURNEY_SCHEMA_VERSION })
+  );
 }
 
 // Sync derived values to sessionStorage so contextualScoring.ts
