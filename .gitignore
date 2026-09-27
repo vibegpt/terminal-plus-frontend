@@ -14,3 +14,6 @@ supabase-migration-backup/
 mcp-publisher
 .claude/
 mcp-publisher
+
+# Claude working docs (local only; this repo is public)
+Claude outputs/
