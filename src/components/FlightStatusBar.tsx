@@ -5,6 +5,7 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plane, Clock, MapPin, ChevronDown, ChevronUp, AlertCircle, Zap, Navigation } from 'lucide-react';
+import { useJourney, type JourneyData } from '../context/JourneyContext';
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -39,12 +40,9 @@ export const FlightContext = createContext<FlightContextValue>({
 
 export const useFlightContext = () => useContext(FlightContext);
 
-function readJourneyAsFlightData(): FlightData | null {
+function journeyToFlightData(jc: Partial<JourneyData> | null): FlightData | null {
   try {
-    const raw = localStorage.getItem('tp_journey_context');
-    if (!raw) return null;
-    const jc = JSON.parse(raw);
-    if (!jc.boardingTime) return null;
+    if (!jc?.boardingTime) return null;
 
     // Determine status from journey context
     let status: FlightData['status'] = 'on-time';
@@ -65,11 +63,29 @@ function readJourneyAsFlightData(): FlightData | null {
   }
 }
 
+function readJourneyAsFlightData(): FlightData | null {
+  try {
+    const raw = localStorage.getItem('tp_journey_context');
+    return raw ? journeyToFlightData(JSON.parse(raw)) : null;
+  } catch {
+    return null;
+  }
+}
+
 export function FlightProvider({ children }: { children: React.ReactNode }) {
-  const [flight, setFlightState] = useState<FlightData | null>(readJourneyAsFlightData);
+  // Reads the journey, so it must sit inside JourneyProvider (see App.tsx).
+  const { journey } = useJourney();
+  const [flight, setFlightState] = useState<FlightData | null>(() => journeyToFlightData(journey));
   const [minutesToBoarding, setMinutesToBoarding] = useState<number | null>(null);
 
-  // Re-read journey context when localStorage changes (e.g. after onboarding)
+  // Follow the journey in this tab. Capture, the flight poller and "update flight" all
+  // go through JourneyProvider, so the bar changes without a reload. (The storage
+  // event below only fires in other tabs.)
+  useEffect(() => {
+    setFlightState(journeyToFlightData(journey));
+  }, [journey]);
+
+  // Another tab changed the journey
   useEffect(() => {
     const onStorage = () => setFlightState(readJourneyAsFlightData());
     window.addEventListener('storage', onStorage);

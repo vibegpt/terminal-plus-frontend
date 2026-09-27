@@ -126,10 +126,11 @@ function AppInner() {
 
 export default function App() {
   return (
-    <FlightProvider>
-      <JourneyProvider>
+    <JourneyProvider>
+      {/* FlightProvider reads the journey, so it sits inside JourneyProvider */}
+      <FlightProvider>
         <AppInner />
-      </JourneyProvider>
-    </FlightProvider>
+      </FlightProvider>
+    </JourneyProvider>
   );
 }
