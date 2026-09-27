@@ -1,0 +1,237 @@
+{
+  "_comment": "PLACEHOLDER — hand-authored, NOT a real AeroDataBox response. Overwrite with a captured production board (same shape, raw upstream JSON) as soon as AERODATABOX_API_KEY is reachable. Dev-only: api/flights/board.ts refuses to serve this in production. Deliberately exercises the awkward cases: the space-separated datetime format, a confirmed codeshare group, an all-Unknown group, a null iata, and a row with no scheduledTime.",
+  "departures": [
+    {
+      "movement": {
+        "airport": { "icao": "EGLL", "iata": "LHR", "name": "London Heathrow" },
+        "scheduledTime": { "utc": "2026-08-24 15:40Z", "local": "2026-08-24 23:40+08:00" },
+        "terminal": "3",
+        "gate": "A11"
+      },
+      "number": "SQ 322",
+      "callSign": "SIA322",
+      "status": "CheckIn",
+      "codeshareStatus": "IsOperator",
+      "isCargo": false,
+      "airline": { "name": "Singapore Airlines", "iata": "SQ", "icao": "SIA" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "EGLL", "iata": "LHR", "name": "London Heathrow" },
+        "scheduledTime": { "utc": "2026-08-24 15:40Z", "local": "2026-08-24 23:40+08:00" },
+        "terminal": "3",
+        "gate": "A11"
+      },
+      "number": "LH 9756",
+      "callSign": "SIA322",
+      "status": "CheckIn",
+      "codeshareStatus": "IsCodeshared",
+      "isCargo": false,
+      "airline": { "name": "Lufthansa", "iata": "LH", "icao": "DLH" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "EGLL", "iata": "LHR", "name": "London Heathrow" },
+        "scheduledTime": { "utc": "2026-08-24 15:40Z", "local": "2026-08-24 23:40+08:00" },
+        "terminal": "3",
+        "gate": "A11"
+      },
+      "number": "NZ 4652",
+      "callSign": null,
+      "status": "CheckIn",
+      "codeshareStatus": "IsCodeshared",
+      "isCargo": false,
+      "airline": { "name": "Air New Zealand", "iata": "NZ", "icao": "ANZ" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "RJAA", "iata": "NRT", "name": "Tokyo Narita" },
+        "scheduledTime": { "utc": "2026-08-24 16:05Z", "local": "2026-08-25 00:05+08:00" },
+        "terminal": "3",
+        "gate": "A5"
+      },
+      "number": "SQ 638",
+      "callSign": "SIA638",
+      "status": "Expected",
+      "codeshareStatus": "IsOperator",
+      "isCargo": false,
+      "airline": { "name": "Singapore Airlines", "iata": "SQ", "icao": "SIA" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "VTBS", "iata": "BKK", "name": "Bangkok Suvarnabhumi" },
+        "scheduledTime": { "utc": "2026-08-24 13:25Z", "local": "2026-08-24 21:25+08:00" },
+        "terminal": "1",
+        "gate": "D42"
+      },
+      "number": "TR 898",
+      "callSign": null,
+      "status": "Boarding",
+      "codeshareStatus": "IsOperator",
+      "isCargo": false,
+      "airline": { "name": "Scoot", "iata": "TR", "icao": "TGW" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "WMKK", "iata": "KUL", "name": "Kuala Lumpur" },
+        "scheduledTime": { "utc": "2026-08-24 12:50Z", "local": "2026-08-24 20:50+08:00" },
+        "terminal": "2",
+        "gate": "E22"
+      },
+      "number": "MH 606",
+      "callSign": null,
+      "status": "GateClosed",
+      "codeshareStatus": "Unknown",
+      "isCargo": false,
+      "airline": { "name": "Malaysia Airlines", "iata": "MH", "icao": "MAS" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "VHHH", "iata": "HKG", "name": "Hong Kong International" },
+        "scheduledTime": { "utc": "2026-08-24 14:15Z", "local": "2026-08-24 22:15+08:00" },
+        "terminal": "4",
+        "gate": null
+      },
+      "number": "CX 734",
+      "callSign": null,
+      "status": "Expected",
+      "codeshareStatus": "IsOperator",
+      "isCargo": false,
+      "airline": { "name": "Cathay Pacific", "iata": "CX", "icao": "CPA" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "YMML", "iata": null, "name": "Melbourne Tullamarine" },
+        "scheduledTime": { "utc": "2026-08-24 17:30Z", "local": "2026-08-25 01:30+08:00" },
+        "terminal": "1",
+        "gate": "D30"
+      },
+      "number": "QF 36",
+      "callSign": null,
+      "status": "Expected",
+      "codeshareStatus": "IsOperator",
+      "isCargo": false,
+      "airline": { "name": "Qantas", "iata": "QF", "icao": "QFA" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "WIII", "iata": "CGK", "name": "Jakarta Soekarno-Hatta" },
+        "terminal": "1",
+        "gate": null
+      },
+      "number": "GA 837",
+      "callSign": null,
+      "status": "Unknown",
+      "codeshareStatus": "Unknown",
+      "isCargo": false,
+      "airline": { "name": "Garuda Indonesia", "iata": "GA", "icao": "GIA" }
+    }
+  ],
+  "arrivals": [
+    {
+      "movement": {
+        "airport": { "icao": "YSSY", "iata": "SYD", "name": "Sydney Kingsford Smith" },
+        "scheduledTime": { "utc": "2026-08-24 09:10Z", "local": "2026-08-24 17:10+08:00" },
+        "terminal": "1",
+        "gate": "C21",
+        "baggageBelt": "24"
+      },
+      "number": "QF 1",
+      "callSign": "QFA1",
+      "status": "Arrived",
+      "codeshareStatus": "IsOperator",
+      "isCargo": false,
+      "airline": { "name": "Qantas", "iata": "QF", "icao": "QFA" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "EGLL", "iata": "LHR", "name": "London Heathrow" },
+        "scheduledTime": { "utc": "2026-08-24 09:45Z", "local": "2026-08-24 17:45+08:00" },
+        "terminal": "1",
+        "gate": "C15",
+        "baggageBelt": "17"
+      },
+      "number": "BA 11",
+      "callSign": null,
+      "status": "Arrived",
+      "codeshareStatus": "IsOperator",
+      "isCargo": false,
+      "airline": { "name": "British Airways", "iata": "BA", "icao": "BAW" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "OMDB", "iata": "DXB", "name": "Dubai International" },
+        "scheduledTime": { "utc": "2026-08-24 10:20Z", "local": "2026-08-24 18:20+08:00" },
+        "terminal": "3",
+        "gate": "B7",
+        "baggageBelt": "33"
+      },
+      "number": "EK 354",
+      "callSign": null,
+      "status": "Arrived",
+      "codeshareStatus": "IsOperator",
+      "isCargo": false,
+      "airline": { "name": "Emirates", "iata": "EK", "icao": "UAE" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "RJTT", "iata": "HND", "name": "Tokyo Haneda" },
+        "scheduledTime": { "utc": "2026-08-24 10:55Z", "local": "2026-08-24 18:55+08:00" },
+        "terminal": "3",
+        "gate": "B2",
+        "baggageBelt": "31"
+      },
+      "number": "NH 5847",
+      "callSign": null,
+      "status": "Arrived",
+      "codeshareStatus": "Unknown",
+      "isCargo": false,
+      "airline": { "name": "All Nippon Airways", "iata": "NH", "icao": "ANA" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "RJTT", "iata": "HND", "name": "Tokyo Haneda" },
+        "scheduledTime": { "utc": "2026-08-24 10:55Z", "local": "2026-08-24 18:55+08:00" },
+        "terminal": "3",
+        "gate": "B2",
+        "baggageBelt": "31"
+      },
+      "number": "SQ 635",
+      "callSign": null,
+      "status": "Arrived",
+      "codeshareStatus": "Unknown",
+      "isCargo": false,
+      "airline": { "name": "Singapore Airlines", "iata": "SQ", "icao": "SIA" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "KSFO", "iata": "SFO", "name": "San Francisco International" },
+        "scheduledTime": { "utc": "2026-08-24 11:30Z", "local": "2026-08-24 19:30+08:00" },
+        "terminal": "3",
+        "gate": "A17",
+        "baggageBelt": "35"
+      },
+      "number": "SQ 33",
+      "callSign": "SIA33",
+      "status": "Approaching",
+      "codeshareStatus": "IsOperator",
+      "isCargo": false,
+      "airline": { "name": "Singapore Airlines", "iata": "SQ", "icao": "SIA" }
+    },
+    {
+      "movement": {
+        "airport": { "icao": "VIDP", "iata": "DEL", "name": "Delhi Indira Gandhi" },
+        "scheduledTime": { "utc": "2026-08-24 11:50Z", "local": "2026-08-24 19:50+08:00" },
+        "terminal": "4",
+        "gate": null,
+        "baggageBelt": "42"
+      },
+      "number": "AI 2378",
+      "callSign": null,
+      "status": "Expected",
+      "codeshareStatus": "IsOperator",
+      "isCargo": false,
+      "airline": { "name": "Air India", "iata": "AI", "icao": "AIC" }
+    }
+  ]
+}
