@@ -121,7 +121,9 @@ export function hasDeparted(data: JourneyData | null): boolean {
   if (!data) return false;
   const when = data.scheduledDeparture || data.boardingTime;
   if (!when) return false;
-  const t = new Date(when).getTime();
+  // AeroDataBox times look like "2026-09-26 15:00Z". The JS spec only guarantees
+  // the ISO form with a "T", and Safari has returned Invalid Date for the space form.
+  const t = new Date(when.replace(' ', 'T')).getTime();
   return Number.isNaN(t) ? false : t < Date.now();
 }
 
