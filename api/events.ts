@@ -58,7 +58,7 @@ const TERMINALS = new Set(['SIN-T1', 'SIN-T2', 'SIN-T3', 'SIN-T4', 'SIN-JEWEL'])
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
-interface EventRow {
+type EventRow = {
   anon_id: string
   session_id: string
   surface: string

@@ -87,7 +87,7 @@ export function compareAmenities(
 export function rankAmenities(
   pool: RankedAmenityRow[],
   userTerminal: string | null = null,
-  limit = DISPLAY.COLLECTION_VISIBLE,
+  limit: number = DISPLAY.COLLECTION_VISIBLE,
 ): RankedAmenityRow[] {
   if (!pool?.length) return [];
 
