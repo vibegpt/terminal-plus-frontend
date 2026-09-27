@@ -1,0 +1,72 @@
+
+> terminal-plus-frontend@1.0.0 build
+> vite build
+
+vite v6.3.5 building for production...
+transforming...
+Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+✓ 2199 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/registerSW.js                                 0.13 kB
+dist/manifest.webmanifest                          0.97 kB
+dist/index.html                                    1.50 kB │ gzip:  0.71 kB
+dist/assets/AmenityDetailPage-DExK2R9a.js.br       3.17 kB
+dist/assets/CollectionDetailPage-B9YgEhUT.js.br    3.32 kB
+dist/assets/AmenityDetailPage-DExK2R9a.js.gz       3.62 kB
+dist/assets/CollectionDetailPage-B9YgEhUT.js.gz    3.78 kB
+dist/assets/HomePage-DI5kEvI5.js.br                4.16 kB
+dist/assets/HomePage-DI5kEvI5.js.gz                4.75 kB
+dist/assets/plan-journey-stepper-lTGEmXCL.js.br    5.55 kB
+dist/assets/plan-journey-stepper-lTGEmXCL.js.gz    6.36 kB
+dist/assets/utils-Ci9v7OoD.js.br                   6.74 kB
+dist/assets/utils-Ci9v7OoD.js.gz                   7.73 kB
+dist/assets/amenities-Dw_-KcNb.js.br              11.95 kB
+dist/assets/amenities-Dw_-KcNb.js.gz              14.40 kB
+dist/assets/index-Bs9mQUxb.css.br                 18.57 kB
+dist/assets/index-CGMnpBcF.js.br                  23.37 kB
+dist/assets/index-Bs9mQUxb.css.gz                 24.31 kB
+dist/assets/index-CGMnpBcF.js.gz                  26.78 kB
+dist/assets/supabase-CeNziL-e.js.br               28.01 kB
+dist/assets/supabase-CeNziL-e.js.gz               32.19 kB
+dist/assets/animation-Bw3KA-Ni.js.br              33.37 kB
+dist/assets/animation-Bw3KA-Ni.js.gz              37.18 kB
+dist/assets/react-vendor-Bfm93MZl.js.br           49.57 kB
+dist/assets/react-vendor-Bfm93MZl.js.gz           56.74 kB
+dist/assets/index-Bs9mQUxb.css                   182.52 kB │ gzip: 24.69 kB
+dist/assets/displayConfig-BdEwpeSE.js              0.10 kB │ gzip:  0.10 kB │ map:   1.21 kB
+dist/assets/useBookmarks-dkUZs7bs.js               0.85 kB │ gzip:  0.47 kB │ map:   3.71 kB
+dist/assets/AmenityImage-1Ga7KXnZ.js               1.17 kB │ gzip:  0.63 kB │ map:   3.61 kB
+dist/assets/button-D5H2cGgi.js                     2.04 kB │ gzip:  0.96 kB │ map:   8.86 kB
+dist/assets/SavedPage-0_AFjfNe.js                  2.95 kB │ gzip:  1.21 kB │ map:   7.28 kB
+dist/assets/SearchPage-qTya0hgF.js                 3.86 kB │ gzip:  1.59 kB │ map:  10.73 kB
+dist/assets/guide-view-CL3pLBf5.js                 4.26 kB │ gzip:  1.76 kB │ map:  15.14 kB
+dist/assets/explore-terminal-BYRDPLgR.js           4.51 kB │ gzip:  1.58 kB │ map:  10.99 kB
+dist/assets/contextualScoring-BAcCc81y.js          4.73 kB │ gzip:  2.09 kB │ map:  21.62 kB
+dist/assets/MapPage-22jCmbd9.js                    5.46 kB │ gzip:  1.84 kB │ map:  12.69 kB
+dist/assets/my-journeys-CzH0tzm7.js                5.77 kB │ gzip:  2.47 kB │ map:  33.43 kB
+dist/assets/ProfilePage-ByRRgbr2.js                6.22 kB │ gzip:  1.96 kB │ map:  15.49 kB
+dist/assets/VibePage-jH2Y9tBc.js                   7.07 kB │ gzip:  2.72 kB │ map:  21.20 kB
+dist/assets/ui-vendor-ChHeSp-m.js                  9.99 kB │ gzip:  4.02 kB │ map:  42.13 kB
+dist/assets/AmenityDetailPage-DExK2R9a.js         10.96 kB │ gzip:  3.62 kB │ map:  29.28 kB
+dist/assets/CollectionDetailPage-B9YgEhUT.js      11.07 kB │ gzip:  3.79 kB │ map:  30.56 kB
+dist/assets/HomePage-DI5kEvI5.js                  14.39 kB │ gzip:  4.77 kB │ map:  41.99 kB
+dist/assets/plan-journey-stepper-lTGEmXCL.js      23.26 kB │ gzip:  6.38 kB │ map:  47.38 kB
+dist/assets/utils-Ci9v7OoD.js                     25.85 kB │ gzip:  7.75 kB │ map: 127.01 kB
+dist/assets/index-CGMnpBcF.js                     95.70 kB │ gzip: 26.84 kB │ map: 315.25 kB
+dist/assets/amenities-Dw_-KcNb.js                110.07 kB │ gzip: 14.69 kB │ map:   0.10 kB
+dist/assets/animation-Bw3KA-Ni.js                116.43 kB │ gzip: 37.30 kB │ map: 634.14 kB
+dist/assets/supabase-CeNziL-e.js                 121.88 kB │ gzip: 32.28 kB │ map: 516.66 kB
+dist/assets/react-vendor-Bfm93MZl.js             172.68 kB │ gzip: 56.85 kB │ map: 733.60 kB
+
+PWA v1.2.0
+mode      generateSW
+precache  30 entries (2080.30 KiB)
+files generated
+  dist/sw.js.map
+  dist/sw.js
+  dist/workbox-b51dd497.js.map
+  dist/workbox-b51dd497.js
+EXIT_CODE=0
