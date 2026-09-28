@@ -168,8 +168,12 @@ const JourneyContext = createContext<JourneyContextType>({
 export function JourneyProvider({ children }: { children: React.ReactNode }) {
   const [journey, setJourneyState] = useState<JourneyData | null>(() => {
     const data = loadFromStorage();
-    console.log('[Journey] isComplete:', !!data);
-    return data;
+    // A departed flight is not a current journey. App's capture gate clears the stored
+    // copy and runs capture again; starting from null keeps Home, the flight bar and the
+    // session mirror in step with it.
+    const current = hasDeparted(data) ? null : data;
+    console.log('[Journey] isComplete:', !!current);
+    return current;
   });
 
   // Sync to session on mount and whenever journey changes
