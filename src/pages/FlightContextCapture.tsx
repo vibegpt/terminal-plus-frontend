@@ -526,11 +526,13 @@ function Step2({ currentTerminal, onConfirm, onSkip, skipLabel, changeFrom }: St
   return (
     <div style={{ padding: '28px 24px 24px' }}>
       <div style={{ marginBottom: 24 }}>
-        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>
-          {keepLabel ? 'Change flight' : 'Step 2 of 2'}
-        </p>
+        {!keepLabel && (
+          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>
+            Step 2 of 2
+          </p>
+        )}
         <h2 style={{ fontSize: 24, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>
-          {keepLabel ? 'Which flight are you on now?' : "What's your departing flight?"}
+          {keepLabel ? 'Change flight' : "What's your departing flight?"}
         </h2>
         <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 6, lineHeight: 1.5 }}>
           {keepLabel
@@ -724,9 +726,12 @@ function Step2({ currentTerminal, onConfirm, onSkip, skipLabel, changeFrom }: St
         </div>
       )}
 
-      <div style={S.skip} onClick={onSkip}>
-        {keepLabel ?? "Skip — I'll add this later →"}
-      </div>
+      {/* The picker has its own skip link; show this one only when the picker is hidden. */}
+      {!(entry === 'picker' && lookupState === 'idle') && (
+        <div style={S.skip} onClick={onSkip}>
+          {keepLabel ?? "Skip — I'll add this later →"}
+        </div>
+      )}
 
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
