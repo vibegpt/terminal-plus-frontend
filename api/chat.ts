@@ -62,6 +62,13 @@ interface ChatContext {
   departureTime?: string
   availableMinutes?: number
   gate?: string
+  /** The flight the user entered in the app (client-supplied: validated before use) */
+  flight?: {
+    number?: string
+    destination?: string | null
+    departureTerminal?: string
+    boardingTime?: string   // ISO 8601
+  }
 }
 
 interface ChatRequestBody {
@@ -229,6 +236,35 @@ function extractAvailableMinutes(
   }
 
   return null
+}
+
+// ---------- Flight the user entered in the app ----------
+
+// One line for the prompt, e.g. "User's flight: QF1 to LHR, departing SIN-T1, boarding 22:45 SGT."
+// Every field is client-supplied, so each is checked against a strict pattern first.
+function describeFlight(flight: ChatContext['flight']): string {
+  if (!flight || typeof flight.number !== 'string' || !/^[A-Z0-9]{2,8}$/i.test(flight.number)) return ''
+  const destination =
+    typeof flight.destination === 'string' && /^[A-Z]{3}$/i.test(flight.destination)
+      ? flight.destination.toUpperCase()
+      : null
+  const terminal =
+    typeof flight.departureTerminal === 'string' && /^SIN-(T[1-4]|JEWEL)$/.test(flight.departureTerminal)
+      ? flight.departureTerminal
+      : null
+  const boardingMs = typeof flight.boardingTime === 'string' ? Date.parse(flight.boardingTime) : NaN
+  const boards = Number.isNaN(boardingMs)
+    ? null
+    : new Date(boardingMs).toLocaleTimeString('en-GB', {
+        timeZone: 'Asia/Singapore', hour: '2-digit', minute: '2-digit', hour12: false,
+      })
+  return [
+    `User's flight: ${flight.number.toUpperCase()}`,
+    destination ? ` to ${destination}` : '',
+    terminal ? `, departing ${terminal}` : '',
+    boards ? `, boarding ${boards} SGT` : '',
+    '.',
+  ].join('')
 }
 
 // ---------- Pre-filter ----------
@@ -442,6 +478,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const userMessage = [
       `Current Singapore time: ${currentSGT}`,
+      describeFlight(context?.flight),
       timeContext,
       filters.terminal ? `User terminal: ${filters.terminal}` : '',
       filters.isTransit ? 'User is in transit.' : '',

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, MapPin, Clock, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
 import { useChat } from '../hooks/useChat';
+import { useJourney } from '../context/JourneyContext';
 import { useVoice } from '../hooks/useVoice';
 import type { ChatMessage } from '../services/chatService';
 import type { AmenityDetail } from '../lib/supabase';
@@ -14,7 +15,8 @@ interface ChatPanelProps {
 }
 
 export default function ChatPanel({ open, onClose, onNewMessage }: ChatPanelProps) {
-  const { messages, loading, error, sendMessage, context, updateContext } = useChat();
+  const { journey } = useJourney();
+  const { messages, loading, error, sendMessage, context, updateContext } = useChat({ journey });
   const [input, setInput] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);

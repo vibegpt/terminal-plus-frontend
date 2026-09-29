@@ -17,6 +17,13 @@ export interface ChatContext {
   departureTime?: string
   availableMinutes?: number
   gate?: string
+  /** The flight the user entered in the app */
+  flight?: {
+    number?: string
+    destination?: string | null
+    departureTerminal?: string
+    boardingTime?: string   // ISO 8601
+  }
 }
 
 export interface ChatRequest {

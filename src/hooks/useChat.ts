@@ -1,19 +1,47 @@
 import { useCallback, useState } from 'react'
-import { askConcierge, type ChatMessage, type ChatResponse } from '../services/chatService'
+import { askConcierge, type ChatContext, type ChatMessage, type ChatResponse } from '../services/chatService'
+import type { JourneyData } from '../context/JourneyContext'
 
 const MAX_HISTORY = 10
 
 interface UseChatOptions {
   terminal?: string
   isTransit?: boolean
+  /** The flight the user entered in the app. Read on every send, so the minutes stay current. */
+  journey?: JourneyData | null
 }
 
-interface ChatContext {
-  terminal?: string
-  isTransit?: boolean
-  departureTime?: string      // ISO string e.g. "2026-02-18T15:45:00+08:00"
-  availableMinutes?: number   // calculated from departureTime
-  gate?: string
+// Written when capture is skipped: not real flights.
+const PLACEHOLDER_FLIGHTS = new Set(['SQ000', 'UNKNOWN'])
+
+/** What the concierge should know about the trip, from the journey the user entered. */
+export function journeyToChatContext(
+  journey: JourneyData | null | undefined,
+  now: number = Date.now(),
+): ChatContext {
+  if (!journey) return {}
+  const ctx: ChatContext = { terminal: journey.currentTerminal }
+  if (journey.gate) ctx.gate = journey.gate
+  if (journey.arrivingFlight) ctx.isTransit = true
+  if (!journey.departingFlight || PLACEHOLDER_FLIGHTS.has(journey.departingFlight)) return ctx
+
+  const boardingMs = Date.parse(journey.boardingTime)
+  if (!Number.isNaN(boardingMs) && boardingMs > now) {
+    ctx.availableMinutes = Math.floor((boardingMs - now) / 60_000)
+  }
+  ctx.flight = {
+    number: journey.departingFlight,
+    destination: journey.destination ?? null,
+    departureTerminal: journey.departureTerminal,
+    boardingTime: journey.boardingTime,
+  }
+  return ctx
+}
+
+function definedOnly(ctx: ChatContext): ChatContext {
+  return Object.fromEntries(
+    Object.entries(ctx).filter(([, v]) => v !== undefined && v !== null)
+  ) as ChatContext
 }
 
 export function useChat(options: UseChatOptions = {}) {
@@ -48,9 +76,10 @@ export function useChat(options: UseChatOptions = {}) {
         .slice(-MAX_HISTORY)
         .map(({ role, content }) => ({ role, content }))
 
+      // The entered flight is the baseline; anything the user said in this chat wins.
       const response: ChatResponse = await askConcierge({
         query: query.trim(),
-        context,
+        context: { ...journeyToChatContext(options.journey), ...definedOnly(context) },
         conversationHistory: history,
       })
 
@@ -75,7 +104,7 @@ export function useChat(options: UseChatOptions = {}) {
     } finally {
       setLoading(false)
     }
-  }, [messages, context])
+  }, [messages, context, options.journey])
 
   const clearMessages = useCallback(() => {
     setMessages([])
