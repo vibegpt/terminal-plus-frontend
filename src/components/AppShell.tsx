@@ -66,9 +66,10 @@ interface SidebarProps {
   activeVibe: string;
   onVibeSelect: (key: string) => void;
   onEditFlight: () => void;
+  onChangeFlight?: () => void;
 }
 
-function Sidebar({ collapsed = false, activeVibe, onVibeSelect, onEditFlight }: SidebarProps) {
+function Sidebar({ collapsed = false, activeVibe, onVibeSelect, onEditFlight, onChangeFlight }: SidebarProps) {
   const { flight } = useFlightContext();
 
   return (
@@ -197,7 +198,7 @@ function Sidebar({ collapsed = false, activeVibe, onVibeSelect, onEditFlight }: 
       {/* Footer */}
       <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 8 }}>
         <button
-          onClick={onEditFlight}
+          onClick={flight && onChangeFlight ? onChangeFlight : onEditFlight}
           style={{
             display: 'flex', alignItems: 'center', gap: collapsed ? 0 : 10,
             padding: collapsed ? 10 : '8px 10px', width: '100%',
@@ -309,9 +310,10 @@ function TopBar({ onEditFlight }: TopBarProps) {
 
 interface MobileHeaderProps {
   onEditFlight: () => void;
+  onChangeFlight?: () => void;
 }
 
-function MobileHeader({ onEditFlight }: MobileHeaderProps) {
+function MobileHeader({ onEditFlight, onChangeFlight }: MobileHeaderProps) {
   return (
     <div style={{
       padding: '10px 14px 6px',
@@ -340,6 +342,7 @@ function MobileHeader({ onEditFlight }: MobileHeaderProps) {
       </div>
       <FlightStatusBar
         onAddFlight={onEditFlight}
+        onChangeFlight={onChangeFlight}
         onCTAPress={(urgency) => {
           if (urgency === 'urgent' || urgency === 'boarding') {
             // Navigate to map / gate
@@ -410,9 +413,11 @@ interface AppShellProps {
   children: React.ReactNode;
   /** Called when user needs to edit/add flight (open onboarding step 2) */
   onEditFlight: () => void;
+  /** Called when a user with a flight wants to change it (capture opens at the flight step) */
+  onChangeFlight?: () => void;
 }
 
-export function AppShell({ children, onEditFlight }: AppShellProps) {
+export function AppShell({ children, onEditFlight, onChangeFlight }: AppShellProps) {
   const bp = useBreakpoint();
   const activeVibe = useActiveVibe();
   const navigate = useNavigate();
@@ -440,6 +445,7 @@ export function AppShell({ children, onEditFlight }: AppShellProps) {
             activeVibe={activeVibe}
             onVibeSelect={onVibeSelect}
             onEditFlight={onEditFlight}
+            onChangeFlight={onChangeFlight}
           />
           <main style={{
             flex: 1,
@@ -472,6 +478,7 @@ export function AppShell({ children, onEditFlight }: AppShellProps) {
             activeVibe={activeVibe}
             onVibeSelect={onVibeSelect}
             onEditFlight={onEditFlight}
+            onChangeFlight={onChangeFlight}
           />
           <main style={{ flex: 1, overflowY: 'auto', background: '#0a0a0f' }}>
             {children}
@@ -492,7 +499,7 @@ export function AppShell({ children, onEditFlight }: AppShellProps) {
       fontFamily: '"DM Sans", system-ui, sans-serif',
       overflow: 'hidden',
     }}>
-      <MobileHeader onEditFlight={onEditFlight} />
+      <MobileHeader onEditFlight={onEditFlight} onChangeFlight={onChangeFlight} />
       <main style={{ flex: 1, overflowY: 'auto', background: '#0a0a0f' }}>
         {children}
       </main>

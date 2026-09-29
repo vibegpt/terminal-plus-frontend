@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plane, Clock, MapPin, ChevronDown, ChevronUp, AlertCircle, Zap, Navigation } from 'lucide-react';
+import { Plane, Clock, MapPin, ChevronDown, ChevronUp, AlertCircle, Zap, Navigation, Pencil } from 'lucide-react';
 import { useJourney, type JourneyData } from '../context/JourneyContext';
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
@@ -222,6 +222,8 @@ interface FlightStatusBarProps {
   onCTAPress?: (urgency: UrgencyLevel) => void;
   /** Called when user taps "Add flight" prompt */
   onAddFlight?: () => void;
+  /** Called when user taps "Change flight" in the expanded bar */
+  onChangeFlight?: () => void;
   className?: string;
 }
 
@@ -229,6 +231,7 @@ export function FlightStatusBar({
   compact = false,
   onCTAPress,
   onAddFlight,
+  onChangeFlight,
   className = '',
 }: FlightStatusBarProps) {
   const { flight, urgency, minutesToBoarding } = useFlightContext();
@@ -333,8 +336,11 @@ export function FlightStatusBar({
         WebkitBackdropFilter: 'blur(20px)',
       }}
     >
-      {/* Main row */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+      {/* Main row: the whole bar opens the details (the chevron alone is a small target) */}
+      <div
+        onClick={() => setExpanded(e => !e)}
+        style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer' }}
+      >
         {/* Pulse dot */}
         <span style={{
           width: 8,
@@ -372,7 +378,9 @@ export function FlightStatusBar({
 
         {/* Expand toggle */}
         <button
-          onClick={() => setExpanded(e => !e)}
+          onClick={(ev) => { ev.stopPropagation(); setExpanded(e => !e); }}
+          aria-expanded={expanded}
+          aria-label={expanded ? 'Hide flight details' : 'Show flight details'}
           style={{
             background: 'none',
             border: 'none',
@@ -442,6 +450,33 @@ export function FlightStatusBar({
               <Navigation size={13} />
               {ctaText}
             </button>
+
+            {/* Change flight: rebooked, or entered the wrong one. Delays update on their own. */}
+            {onChangeFlight && (
+              <button
+                onClick={onChangeFlight}
+                style={{
+                  marginTop: 8,
+                  width: '100%',
+                  padding: '8px 12px',
+                  borderRadius: 10,
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  background: 'transparent',
+                  color: 'rgba(255,255,255,0.6)',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 6,
+                }}
+              >
+                <Pencil size={12} />
+                Change flight
+              </button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

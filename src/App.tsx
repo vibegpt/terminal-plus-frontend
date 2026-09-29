@@ -26,7 +26,7 @@ const Loading = () => (
 );
 
 function AppInner() {
-  const { resetJourney } = useJourney();
+  const { journey, resetJourney } = useJourney();
 
   // Background flight polling
   useFlightUpdates();
@@ -76,9 +76,12 @@ function AppInner() {
     return sessionStorage.getItem('tp_onboarded') !== '1';
   });
 
+  const [changingFlight, setChangingFlight] = useState(false);
+
   // useCallback so Step3's useEffect[onComplete] doesn't restart on every render
   const handleCaptureComplete = useCallback(() => {
     sessionStorage.setItem('tp_onboarded', '1');
+    setChangingFlight(false);
     setCaptureVisible(false);
   }, []);
 
@@ -87,12 +90,29 @@ function AppInner() {
     setCaptureVisible(true);
   }, [resetJourney]);
 
+  // Change flight: reopen capture at the departing-flight step. The current journey stays
+  // until a new flight is confirmed, so "Keep …" leaves everything as it was.
+  const handleChangeFlight = useCallback(() => {
+    setChangingFlight(true);
+    setCaptureVisible(true);
+  }, []);
+  const handleCancelChange = useCallback(() => {
+    setChangingFlight(false);
+    setCaptureVisible(false);
+  }, []);
+
   if (captureVisible) {
-    return <FlightContextCapture onComplete={handleCaptureComplete} />;
+    return (
+      <FlightContextCapture
+        onComplete={handleCaptureComplete}
+        initial={changingFlight ? journey : null}
+        onCancel={changingFlight ? handleCancelChange : undefined}
+      />
+    );
   }
 
   return (
-    <AppShell onEditFlight={handleEditFlight}>
+    <AppShell onEditFlight={handleEditFlight} onChangeFlight={handleChangeFlight}>
       <Suspense fallback={<Loading />}>
         <Routes>
           {/* Core MVP flow */}

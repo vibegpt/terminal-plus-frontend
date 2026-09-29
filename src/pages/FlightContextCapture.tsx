@@ -441,12 +441,18 @@ interface Step2Props {
   onConfirm: (result: { flightNumber: string; departureTerminal: string; boardingTime: string; gate: string | null; airline?: string | null; destination?: string | null; status?: string; scheduledDeparture?: string; source: FlightSource }) => void;
   onSkip: () => void;
   skipLabel: string;
+  /** Change mode: the flight being replaced. Shows change copy, and skip becomes "Keep …". */
+  changeFrom?: string;
 }
 
 /** Departures board gives scheduled departure; boarding is 35min prior, matching api/flight-status.ts. */
 const BOARDING_LEAD_MS = 35 * 60_000;
 
-function Step2({ currentTerminal, onConfirm, onSkip, skipLabel }: Step2Props) {
+function Step2({ currentTerminal, onConfirm, onSkip, skipLabel, changeFrom }: Step2Props) {
+  // Placeholder flights from a skipped capture aren't worth naming.
+  const keepLabel = changeFrom
+    ? (/^(SQ000|UNKNOWN)$/.test(changeFrom) ? 'Cancel' : `Keep ${changeFrom}`)
+    : null;
   const [entry, setEntry] = useState<'picker' | 'typed'>('picker');
   const [flightInput, setFlightInput] = useState('');
   const [lookupState, setLookupState] = useState<'idle' | 'loading' | 'found' | 'error'>('idle');
@@ -521,13 +527,15 @@ function Step2({ currentTerminal, onConfirm, onSkip, skipLabel }: Step2Props) {
     <div style={{ padding: '28px 24px 24px' }}>
       <div style={{ marginBottom: 24 }}>
         <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>
-          Step 2 of 2
+          {keepLabel ? 'Change flight' : 'Step 2 of 2'}
         </p>
         <h2 style={{ fontSize: 24, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>
-          What's your departing flight?
+          {keepLabel ? 'Which flight are you on now?' : "What's your departing flight?"}
         </h2>
         <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 6, lineHeight: 1.5 }}>
-          We'll tell you exactly how long you have and what's reachable.
+          {keepLabel
+            ? 'Rebooked, or entered the wrong one? Pick it again. Delays update on their own.'
+            : "We'll tell you exactly how long you have and what's reachable."}
         </p>
       </div>
 
@@ -554,7 +562,7 @@ function Step2({ currentTerminal, onConfirm, onSkip, skipLabel }: Step2Props) {
           }
           onManual={() => setEntry('typed')}
           onSkip={onSkip}
-          skipLabel={skipLabel}
+          skipLabel={keepLabel ?? skipLabel}
         />
       )}
 
@@ -717,7 +725,7 @@ function Step2({ currentTerminal, onConfirm, onSkip, skipLabel }: Step2Props) {
       )}
 
       <div style={S.skip} onClick={onSkip}>
-        Skip — I'll add this later →
+        {keepLabel ?? "Skip — I'll add this later →"}
       </div>
 
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
@@ -873,16 +881,31 @@ function Step3({ journey, onComplete }: Step3Props) {
 
 interface FlightContextCaptureProps {
   onComplete: () => void;
+  /** Change mode: start at the departing-flight step, keeping this journey's terminal and inbound leg. */
+  initial?: JourneyData | null;
+  /** Change mode: leave without changing anything. */
+  onCancel?: () => void;
 }
 
-export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) {
+export function FlightContextCapture({ onComplete, initial, onCancel }: FlightContextCaptureProps) {
   const { setJourney } = useJourney();
-  const [step, setStep] = useState<0 | 1 | 2 | 3>(0);
-  const [segment, setSegment] = useState<Segment>('departing');
-  const [currentTerminal, setCurrentTerminal] = useState('SIN-T3');
-  const [arrivingFlight, setArrivingFlight] = useState<string | undefined>();
-  const [inboundSource, setInboundSource] = useState<FlightSource | undefined>();
-  const [inboundOrigin, setInboundOrigin] = useState<string | null>(null);
+  const changing = !!(initial && onCancel);
+  const [step, setStep] = useState<0 | 1 | 2 | 3>(changing ? 2 : 0);
+  const [segment, setSegment] = useState<Segment>(
+    changing && initial?.arrivingFlight ? 'connecting' : 'departing'
+  );
+  const [currentTerminal, setCurrentTerminal] = useState(
+    (changing && initial?.currentTerminal) || 'SIN-T3'
+  );
+  const [arrivingFlight, setArrivingFlight] = useState<string | undefined>(
+    changing ? initial?.arrivingFlight : undefined
+  );
+  const [inboundSource, setInboundSource] = useState<FlightSource | undefined>(
+    changing ? initial?.inbound_flight_source : undefined
+  );
+  const [inboundOrigin, setInboundOrigin] = useState<string | null>(
+    (changing && initial?.inbound_origin) || null
+  );
   const [pendingJourney, setPendingJourney] = useState<JourneyData | null>(null);
 
   const handleSegment = (picked: Segment) => {
@@ -1033,7 +1056,8 @@ export function FlightContextCapture({ onComplete }: FlightContextCaptureProps) 
           <Step2
             currentTerminal={currentTerminal}
             onConfirm={handleStep2}
-            onSkip={handleStep2Skip}
+            onSkip={(changing ? onCancel : undefined) ?? handleStep2Skip}
+            changeFrom={changing ? initial?.departingFlight : undefined}
             skipLabel={
               segment === 'just_landed'
                 ? "Skip — I'm not flying on today"
