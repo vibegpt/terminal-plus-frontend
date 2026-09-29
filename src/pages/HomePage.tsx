@@ -13,6 +13,7 @@ import { getUserContext, scoreCollection } from '../utils/contextualScoring';
 import { useJourney } from '../context/JourneyContext';
 import { AmenityImage } from '../components/AmenityImage';
 import { track } from '@/lib/telemetry';
+import { sgHour } from '@/lib/sgTime';
 
 // ── Vibe Configuration ─────────────────────────────────────────────
 const VIBES = [
@@ -50,8 +51,8 @@ function getVibeOrder(minutesToBoarding: number): VibeKey[] {
   if (minutesToBoarding >= 30 && minutesToBoarding < 60) {
     return ['Quick','Refuel','Comfort','Chill','Work','Shop','Explore'];
   }
-  // Otherwise: time-of-day ordering
-  const h = new Date().getHours();
+  // Otherwise: time-of-day ordering (Singapore time)
+  const h = sgHour();
   if (h >= 5  && h < 9)  return ['Comfort','Refuel','Quick','Chill','Work','Explore','Shop'];
   if (h >= 9  && h < 12) return ['Refuel','Work','Quick','Explore','Shop','Chill','Comfort'];
   if (h >= 12 && h < 14) return ['Refuel','Quick','Chill','Explore','Shop','Work','Comfort'];
@@ -61,7 +62,7 @@ function getVibeOrder(minutesToBoarding: number): VibeKey[] {
 }
 
 function getTimeLabel(): string {
-  const h = new Date().getHours();
+  const h = sgHour();
   if (h >= 5  && h < 12) return 'Morning picks';
   if (h >= 12 && h < 17) return 'Afternoon picks';
   if (h >= 17 && h < 22) return 'Evening picks';

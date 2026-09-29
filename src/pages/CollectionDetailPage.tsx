@@ -10,6 +10,7 @@ import { getUserContext, selectScoredAmenities, type ScoredAmenity } from '@/uti
 import { AmenityImage } from '@/components/AmenityImage';
 import { DISPLAY } from '@/lib/displayConfig';
 import { track, trackImpressionOnce } from '@/lib/telemetry';
+import { sgMinutesOfDay } from '@/lib/sgTime';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 const TERMINAL_SHORT: Record<string, string> = {
@@ -24,8 +25,7 @@ function isOpenNow(hours: string): { open: boolean; label: string } {
   if (!match) return { open: true, label: hours };
 
   const [, openH, openM, closeH, closeM] = match.map(Number);
-  const now = new Date();
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const currentMinutes = sgMinutesOfDay();
   const openMinutes = openH * 60 + openM;
   let closeMinutes = closeH * 60 + closeM;
 

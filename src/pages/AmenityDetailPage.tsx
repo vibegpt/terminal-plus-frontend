@@ -8,6 +8,7 @@ import { supabase } from '@/lib/supabase';
 import { useBookmark } from '../hooks/useBookmarks';
 import { AmenityImage } from '../components/AmenityImage';
 import { trackDwell } from '@/lib/telemetry';
+import { sgMinutesOfDay } from '@/lib/sgTime';
 
 // ── Types ──────────────────────────────────────────────────────────
 interface AmenityData {
@@ -74,8 +75,7 @@ function isOpenNow(hours: string): { open: boolean; label: string } {
   if (!match) return { open: true, label: hours };
 
   const [, openH, openM, closeH, closeM] = match.map(Number);
-  const now = new Date();
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const currentMinutes = sgMinutesOfDay();
   const openMinutes = openH * 60 + openM;
   let closeMinutes = closeH * 60 + closeM;
 

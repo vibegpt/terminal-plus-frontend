@@ -2,6 +2,8 @@
 // Complete vibe-to-collection mapping with 4+2 adaptive system
 // Handles all 31 collections (9 universal + 22 Singapore-specific)
 
+import { sgHour } from '@/lib/sgTime';
+
 export interface CollectionMapping {
   collection_slug: string;
   collection_name: string;
@@ -353,7 +355,7 @@ export const COLLECTION_MAPPINGS: CollectionMapping[] = [
 
 // Helper function to get current time slot
 export const getTimeSlot = (): TimeSlot => {
-  const hour = new Date().getHours();
+  const hour = sgHour();
   
   if (hour >= 5 && hour < 8) return 'earlyMorning';
   if (hour >= 8 && hour < 12) return 'morning';
@@ -392,7 +394,7 @@ export const getCollectionsForVibe = (
 
 // Get all vibes in time-based order
 export const getVibesInOrder = (timeSlot?: TimeSlot): string[] => {
-  const hour = new Date().getHours();
+  const hour = sgHour();
   
   if (hour >= 5 && hour < 11) {
     // Morning: Comfort first for red-eye recovery

@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Plane, MapPin, Clock, AlertCircle } from 'lucide-react';
 import { useJourney, type JourneyData } from '../context/JourneyContext';
+import { sgDateKey } from '../lib/sgTime';
 
 const TERMINAL_FRIENDLY: Record<string, string> = {
   'SIN-T1': 'Terminal 1', 'SIN-T2': 'Terminal 2', 'SIN-T3': 'Terminal 3',
@@ -32,11 +33,10 @@ function getBoardingDisplay(iso: string): { label: string; state: BoardingState 
 
   // > 6 h → show date + time
   const time = d.toLocaleTimeString('en-SG', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Singapore' });
-  const today = new Date();
-  const isToday = d.toDateString() === today.toDateString();
-  const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
-  const isTomorrow = d.toDateString() === tomorrow.toDateString();
-  const prefix = isToday ? 'Today' : isTomorrow ? 'Tomorrow' : d.toLocaleDateString('en-SG', { day: 'numeric', month: 'short' });
+  const day = sgDateKey(d);
+  const isToday = day === sgDateKey();
+  const isTomorrow = day === sgDateKey(Date.now() + 86_400_000);
+  const prefix = isToday ? 'Today' : isTomorrow ? 'Tomorrow' : d.toLocaleDateString('en-SG', { day: 'numeric', month: 'short', timeZone: 'Asia/Singapore' });
   return { label: `${prefix}, ${time}`, state: 'future' };
 }
 

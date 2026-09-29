@@ -3,6 +3,7 @@
 
 import type { AmenityRow } from './smart7Select';
 import { DISPLAY } from '@/lib/displayConfig';
+import { sgHour, sgMinutesOfDay } from '@/lib/sgTime';
 
 // ── Types ──────────────────────────────────────────────────────────
 
@@ -121,8 +122,7 @@ function isOpenNow(hours: string): boolean {
   const match = hours.match(/(\d{2}):(\d{2})\s*[-–]\s*(\d{2}):(\d{2})/);
   if (!match) return true;
   const [, openH, openM, closeH, closeM] = match.map(Number);
-  const now = new Date();
-  const cur = now.getHours() * 60 + now.getMinutes();
+  const cur = sgMinutesOfDay();
   const open = openH * 60 + openM;
   let close = closeH * 60 + closeM;
   if (close <= open) {
@@ -232,7 +232,7 @@ function factorProximity(amenity: AmenityRow, context: UserContext, availableMin
 // ── scoreAmenity ────────────────────────────────────────────────────
 
 export function scoreAmenity(amenity: AmenityRow, context: UserContext): ScoredAmenity {
-  const period = getMealPeriod(context.currentTime.getHours());
+  const period = getMealPeriod(sgHour(context.currentTime));
   const available = getAvailableMinutes(context);
 
   const timeOfDay       = factorTimeOfDay(amenity, period);
@@ -270,7 +270,7 @@ export function scoreCollection(
   collection: CollectionForScoring,
   context: UserContext
 ): number {
-  const period = getMealPeriod(context.currentTime.getHours());
+  const period = getMealPeriod(sgHour(context.currentTime));
   const trPeriod = toTimeRelevancePeriod(period);
   const available = getAvailableMinutes(context);
 

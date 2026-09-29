@@ -20,4 +20,4 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npx tsc --noEmit -p api/tsconfig.json
-      - run: npx tsx --test tests/flight-status.test.ts
+      - run: npx tsx --test tests/*.test.ts

@@ -1,4 +1,5 @@
 import { DISPLAY } from '@/lib/displayConfig';
+import { sgMinutesOfDay } from '@/lib/sgTime';
 
 export interface AmenityRow {
   id: number;
@@ -19,8 +20,7 @@ function isOpenNow(hours: string): boolean {
   const match = hours.match(/(\d{2}):(\d{2})\s*[-–]\s*(\d{2}):(\d{2})/);
   if (!match) return true;
   const [, openH, openM, closeH, closeM] = match.map(Number);
-  const now = new Date();
-  const cur = now.getHours() * 60 + now.getMinutes();
+  const cur = sgMinutesOfDay();
   const open = openH * 60 + openM;
   let close = closeH * 60 + closeM;
   if (close <= open) {

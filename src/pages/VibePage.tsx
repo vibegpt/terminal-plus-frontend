@@ -8,6 +8,7 @@ import { supabase } from '@/lib/supabase';
 import { smart7Select } from '@/utils/smart7Select';
 import { DISPLAY } from '@/lib/displayConfig';
 import { track, trackImpressionOnce } from '@/lib/telemetry';
+import { sgMinutesOfDay } from '@/lib/sgTime';
 
 // ── Config ──────────────────────────────────────────────────────────
 const VIBE_CONFIG: Record<string, { icon: string; label: string; gradient: string; dbTag: string }> = {
@@ -30,8 +31,7 @@ function isOpenNow(hours: string): boolean {
   const match = hours.match(/(\d{2}):(\d{2})\s*[-–]\s*(\d{2}):(\d{2})/);
   if (!match) return true;
   const [, openH, openM, closeH, closeM] = match.map(Number);
-  const now = new Date();
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  const currentMinutes = sgMinutesOfDay();
   const openMinutes = openH * 60 + openM;
   let closeMinutes = closeH * 60 + closeM;
   if (closeMinutes <= openMinutes) {
