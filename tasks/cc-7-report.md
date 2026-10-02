@@ -1,8 +1,8 @@
 # CC-7 Telemetry hygiene: report
 
-**Status: Phase A done. Migration 1 is applied, and the code passes acceptance on the preview. Phase B (merge to `main`, production check, env re-backfill, migration 2 uuid cast) waits for Todd's go.**
+**Status: DONE. Both migrations are applied. CC-7 is live in production (`ccdee5c`, `dpl_6rYas4hNg7EPU3ufd96MBneJvhfD`, READY 2026-10-02 19:09:25 UTC). Production SMOKE 13/13 green. The env backfill found 0 rows.**
 
-Run date: 2026-10-02. Branch `cc-7/telemetry-hygiene` = `51c91a5` (plus this report). Preview `dpl_44vTRWKgY8ajR9ee5eJ7t6ghdpUH`.
+Run date: 2026-10-02. Branch `cc-7/telemetry-hygiene` = `ccdee5c`, fast-forwarded into `main`. Preview `dpl_44vTRWKgY8ajR9ee5eJ7t6ghdpUH`.
 
 **Day zero: 2026-10-02 08:04:28.232 UTC**, the CC-1F production READY time (`dpl_923EJGizc8BczThKspLMaqTFgCyD`, from `tasks/release-2026-09-report.md`).
 
@@ -117,13 +117,65 @@ Data state after the run: every row is `is_test`. Events: unknown 52, preview 29
 
 - On preview deployments, Vercel's `vercel-live-feedback` toolbar covers the right edge from about y=430 down, so the "See all" taps there missed (`elementFromPoint` returned `VERCEL-LIVE-FEEDBACK`). It doesn't exist on production. Hidden by hand for the test.
 - Home-row impressions fire per Home render (each visit), not per viewport visibility, the same render-based semantics as the existing vibe and collection impressions.
-- Events fired between capture and the `/api/journey` response (about a second) have no `journey_id`. A skipped onboarding writes no context, so its events never carry one. Both still join on `session_id`. Until migration 2, `journeys.session_id` is text, so join with `events.session_id::text`.
+- Events fired between capture and the `/api/journey` response (about a second) have no `journey_id`. A skipped onboarding writes no context, so its events never carry one. Both still join on `session_id`, which since migration 2 is uuid on both sides, so no cast is needed.
 - `inbound_arrival_utc` is the **scheduled** arrival (the board only has `scheduled_at`). The typed path uses the lookup's scheduled time for consistency.
 
-## Phase B (waits for Todd's go)
+## Phase B (Todd's go, 2 Oct, with 3 additions)
 
-- [ ] Merge `cc-7/telemetry-hygiene` to `main` (fast-forward), push, production READY
-- [ ] Production check: a `tp_test` session writes `env='production'`, `is_test=true`, `journey_id` set
-- [ ] Re-run the env backfill (non-test rows from day zero onward, `env='unknown'`) and report counts
-- [ ] Migration 2: `journeys.anon_id`/`session_id` → uuid (castability re-check first), then re-verify a typed journey write on production
-- [ ] Update `CLAUDE.local.md` (CC-7 done, CC-13 unblocked)
+### 1. Upgrade-path check on the preview, before the push: PASS
+
+An e0b9e60-shaped context was written into localStorage: the exact key set production stored for QF1 in CC-1F, `schema_version: 2`, no `journey_id`, boarding +5 h. Then the page was reloaded with `tp_test=1`.
+
+| Check | Result |
+|---|---|
+| No crash | Home renders all 7 rows. The capture gate stays hidden |
+| No console errors | `read_console_messages` on a clean `/` load that ran the v2→v3 migration: 0 errors (only the service worker's preload-mismatch warnings) |
+| Flight bar keeps the flight | "QF1 · SIN → LHR, T1, 4h 59m to board" |
+| Stored context | `schema_version` 2 → **3**. `capturedAt`, `flight_source: typed` and the flight unchanged. `journey_id` absent |
+| journey_id on that session's events | **null.** Events 127–143 (anon `10c85198…`, `env='preview'`, `is_test=true`): 0 of 17 carry a `journey_id`. A v2 context never stored its row id and it can't be recovered. It arrives with the user's next capture |
+
+### 2. Ship, then production SMOKE before migration 2: 13/13 PASS
+
+- `git merge --ff-only origin/cc-7/telemetry-hygiene` (`40ec948..ccdee5c`), `git push origin main` at 19:08:46 UTC.
+- Production `dpl_6rYas4hNg7EPU3ufd96MBneJvhfD`, sha `ccdee5c`, READY 19:09:25 UTC, aliased to `terminalplus.app`. It serves `assets/index-934RMWpE.js` (the live HTML and the running script match).
+- Rollback target until migration 2: `dpl_DwvtuGCp6nzDwbwD8jVNk22dka4a`. Not used.
+- `tp_test=1` was set from `/registerSW.js`, a static file on the same origin, before the app's first load. So every SMOKE row, including the first `session_start`, is flagged.
+
+| # | Line | Result | Evidence |
+|---|---|---|---|
+| 1 | Capture gate shows | PASS | "What brings you to Changi?" |
+| 2 | Skip works | PASS | Home. journeys `e5d25e6b…` skipped |
+| 3 | Typed QF1 | PASS | "Terminal T1 · Boards 22:45 → LHR" (now the 3 Oct flight) → bar "19h 33m to board". Context v3, `journey_id ac0a0acf…` |
+| 4 | Board picker | PASS | HO1562 → "SIN → WUX, T4, 6 min to board". `journey_id 0094cfc0…` |
+| 5 | Home: 7 rows, photos, counts | PASS | Comfort, Chill, Quick, Refuel, Explore, Shop, Work. 40 cards, 32 with counts. 0 broken images (28 of 31 loaded at check, 3 Unsplash images still loading) |
+| 6 | `/vibe/refuel` 7 items | PASS | "7 spots across all terminals" |
+| 7 | Collection, amenity, search | PASS | `coffee-worth-walk` "7 of 7 spots". `/amenity/kinokuniya-jewel-new` renders. "laksa" returns Kopitiam (T1) |
+| 8 | Change flight → "Keep QF1" | PASS | `capturedAt`, `lastUpdated` and `journey_id` unchanged |
+| 9 | Hours follow SGT | PASS | Kinokuniya `06:00-23:00` shows **"Closed · Opens 06:00"** at local 22:12 (UTC+3; local time would read open), SGT 03:12 |
+| 10 | Chat | PASS | `/api/chat` 200: "You've got plenty of time before your QF1 flight tonight!" Cards: Starbucks, Toast Box, Koi Thé (T1) |
+| 11 | MCP | PASS | initialize 200, `tools/list` 4, `get_recommendations` refuel/SIN-T1 → 7. agent_interactions `08493a64…` `production/true` via `smoke-cc7-prod-20261002` |
+| 12 | SQL last-15-min events | PASS | `session_start` 5, `recommendation_impression` 39 (plus `search_performed`, `flight_not_found`) |
+| 13 | SQL typed journey | PASS | `ac0a0acf-cf3b-4884-a750-e339419064a0`: `typed`, `QF1`, `env='production'`, `is_test=true` |
+
+Every production row from the SMOKE is `env='production'`, `is_test=true`: events 144–172 (29, 18 with `journey_id`).
+
+### 3. Migration 2, `supabase/migrations/20261002191525_journeys_uuid_ids.sql`, after the green SMOKE
+
+| Step | Result |
+|---|---|
+| Castability re-check, 19:14:59 UTC | 0 of 32 rows fail (loose and strict UUID regex). 0 dependent views. 0 policies on either column |
+| Dry run (`begin … rollback`) | Both columns become `uuid`. `journeys ⋈ events` on `session_id` joins without a cast (125 pairs) |
+| Applied | `apply_migration` → DB version `20261002191525`, file renamed to match. `information_schema`: `anon_id uuid`, `session_id uuid`, `created_at timestamptz` |
+| Typed-journey check on production | Fresh `tp_test` session, typed QF1 → journeys `5dd18da7-41be-4351-8f17-230c152ec7b5`: `typed`, `env='production'`, `is_test=true`, uuid `anon_id`/`session_id` |
+| Non-UUID probe (the CC-7 gate) | `POST /api/journey` with `anon_id: 'not-a-uuid-cc7-probe'`, `session_id: 'legacy_session_12345'`, `x-tp-test: 1` → **200**, row `a3d106ab-a931-4009-a9fc-83e1214678cf` saved with both ids **null**. The insert didn't fail |
+| Env backfill, run 2 (19:16:50 UTC) | events **0**, agent_interactions **0**, journeys **0** updated. There have been 0 non-test rows of any env since day zero (no real traffic yet). `analytics_funnel`: 0 rows |
+
+### Test rows from Phase B (all `is_test = true`)
+
+| Table | Ids |
+|---|---|
+| events | 127–143 (preview upgrade check), 144–172 (production SMOKE), 173–181 (post-migration typed check). Id 126 was never committed (the rolled-back old-shape insert probe consumed it) |
+| journeys | `e5d25e6b-55f5-4ccd-8604-be522065cc35`, `ac0a0acf-cf3b-4884-a750-e339419064a0`, `0094cfc0-1eff-44de-bfed-6710606ad6e2`, `5dd18da7-41be-4351-8f17-230c152ec7b5`, `a3d106ab-a931-4009-a9fc-83e1214678cf` |
+| agent_interactions | `08493a64-f1d4-42e2-9fa4-45f98a0951be` |
+
+Dataset state at 19:16 UTC: there are no non-test rows in events, journeys or agent_interactions. The first real production session will be the first row the `env = 'production'` views count.
