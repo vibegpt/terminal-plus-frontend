@@ -12,7 +12,7 @@ import {
 import { getUserContext, scoreCollection } from '../utils/contextualScoring';
 import { useJourney } from '../context/JourneyContext';
 import { AmenityImage } from '../components/AmenityImage';
-import { track } from '@/lib/telemetry';
+import { track, trackImpressionOnce } from '@/lib/telemetry';
 import { sgHour } from '@/lib/sgTime';
 
 // ── Vibe Configuration ─────────────────────────────────────────────
@@ -216,6 +216,18 @@ const VibeSection: React.FC<{
   onCollectionClick: (collectionId: string) => void;
   onSeeAll: () => void;
 }> = ({ vibe, collections, onCollectionClick, onSeeAll }) => {
+  // One impression per rendered row. Slugs are collection ids here, so the
+  // placement keeps them out of the amenity-level analytics views.
+  const collectionIds = collections.map(c => c.collection_id).join(',');
+  useEffect(() => {
+    if (!collectionIds) return;
+    trackImpressionOnce({
+      vibe: vibe.serviceKey,
+      slugs: collectionIds.split(','),
+      placement: 'home_row',
+    });
+  }, [vibe.serviceKey, collectionIds]);
+
   if (collections.length === 0) return null;
 
   return (
@@ -295,6 +307,17 @@ export const HomePage: React.FC = () => {
     const id = setInterval(tick, 60_000);
     return () => clearInterval(id);
   }, [computeMinutes]);
+
+  // vibe_selected records what the app would have led with, so a chosen vibe can be
+  // read against the inferred one (findings P3.9 #6). Both use serviceKey spelling.
+  const trackVibeSelected = (chosen: string) => {
+    const leadKey = getVibeOrder(computeMinutes())[0];
+    const inferred = VIBES.find(v => v.key === leadKey)?.serviceKey ?? null;
+    track('vibe_selected', {
+      vibe: chosen,
+      payload: { inferred_vibe: inferred, overridden: inferred !== null && chosen !== inferred },
+    });
+  };
 
   // ?vibe=refuel → 'Refuel' (capitalize to match VIBES key)
   const urlVibe = searchParams.get('vibe');
@@ -418,11 +441,11 @@ export const HomePage: React.FC = () => {
             vibe={vibe}
             collections={collections}
             onCollectionClick={id => {
-              track('vibe_selected', { vibe: vibe.serviceKey });
+              trackVibeSelected(vibe.serviceKey);
               navigate(`/collection/${vibe.serviceKey}/${id}`);
             }}
             onSeeAll={() => {
-              track('vibe_selected', { vibe: vibe.serviceKey });
+              trackVibeSelected(vibe.serviceKey);
               navigate(`/vibe/${vibe.serviceKey}`);
             }}
           />

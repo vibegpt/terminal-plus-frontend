@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
+import { UUID_RE, isTestRequest, telemetryEnv } from './lib/telemetryEnv'
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -60,6 +61,8 @@ interface JourneyRow {
   inbound_flight: string | null
   inbound_origin: string | null
   inbound_flight_source: string | null
+  inbound_arrival_utc: string | null
+  connection_minutes: number | null
   onboarding_skipped: boolean
   onboarding_completed_at: string | null
   first_open_country: string | null
@@ -78,8 +81,24 @@ function str(v: unknown, max: number): string | null {
 
 function isoOrNull(v: unknown): string | null {
   if (typeof v !== 'string') return null
-  const d = new Date(v)
+  // AeroDataBox times look like "2026-10-02 15:20Z"; only the "T" form is guaranteed to parse.
+  const d = new Date(v.replace(' ', 'T'))
   return Number.isNaN(d.getTime()) ? null : d.toISOString()
+}
+
+/**
+ * journeys.anon_id / session_id become uuid columns (CC-7). A non-UUID value
+ * would fail the whole insert and lose the journey, so it's dropped to null.
+ */
+function uuidOrNull(v: unknown): string | null {
+  return typeof v === 'string' && UUID_RE.test(v.trim()) ? v.trim() : null
+}
+
+/** Onward departure minus inbound arrival, kept only when it's a plausible same-day connection. */
+function connectionMinutes(departureIso: string | null, arrivalIso: string | null): number | null {
+  if (!departureIso || !arrivalIso) return null
+  const mins = Math.round((Date.parse(departureIso) - Date.parse(arrivalIso)) / 60000)
+  return Number.isFinite(mins) && mins >= 0 && mins <= 1440 ? mins : null
 }
 
 function validate(raw: unknown, country: string | null): { row: JourneyRow } | { reason: string } {
@@ -103,18 +122,23 @@ function validate(raw: unknown, country: string | null): { row: JourneyRow } | {
     return { reason: `invalid journey_type: ${journeyType.slice(0, 50)}` }
   }
 
+  const departureTime = isoOrNull(j.departure_time)
+  const inboundArrival = isoOrNull(j.inbound_arrival_utc)
+
   return {
     row: {
-      session_id: str(j.session_id, 64),
-      anon_id: str(j.anon_id, 64),
+      session_id: uuidOrNull(j.session_id),
+      anon_id: uuidOrNull(j.anon_id),
       journey_type: journeyType,
       flight_number: str(j.flight_number, 10),
       destination: str(j.destination, 4),
-      departure_time: isoOrNull(j.departure_time),
+      departure_time: departureTime,
       flight_source: flightSource,
       inbound_flight: str(j.inbound_flight, 10),
       inbound_origin: str(j.inbound_origin, 4),
       inbound_flight_source: inboundSource,
+      inbound_arrival_utc: inboundArrival,
+      connection_minutes: connectionMinutes(departureTime, inboundArrival),
       onboarding_skipped: j.onboarding_skipped === true,
       onboarding_completed_at: isoOrNull(j.onboarding_completed_at) ?? new Date().toISOString(),
       // Server-side only: the client cannot spoof its own country.
@@ -131,7 +155,7 @@ function validate(raw: unknown, country: string | null): { row: JourneyRow } | {
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-tp-test')
 
   if (req.method === 'OPTIONS') return res.status(204).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
@@ -167,9 +191,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Cast at the boundary: the client is untyped (no generated DB types), so its
   // insert() overloads want a bare Record. JourneyRow is the real contract.
+  const row = { ...result.row, env: telemetryEnv(), is_test: isTestRequest(req.headers) }
   const { data, error } = await supabase
     .from('journeys')
-    .insert(result.row as unknown as Record<string, unknown>)
+    .insert(row as unknown as Record<string, unknown>)
     .select('id')
     .single()
 

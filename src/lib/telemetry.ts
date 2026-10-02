@@ -52,6 +52,7 @@ export interface TrackFields {
 interface EventRow extends Required<TrackFields> {
   anon_id: string;
   session_id: string;
+  journey_id: string | null;
   surface: 'app';
   event_type: EventType;
 }
@@ -76,6 +77,25 @@ const DEV = typeof import.meta !== 'undefined' && import.meta.env?.DEV;
 
 function devLog(...args: unknown[]) {
   if (DEV) console.log('[telemetry]', ...args);
+}
+
+// ── Test switch ─────────────────────────────────────────────────────
+// localStorage.tp_test = '1' flags this browser's rows is_test (manual smoke runs).
+// The server only ever honours it to exclude rows; env is stamped server-side.
+
+const TEST_KEY = 'tp_test';
+
+function isTestBrowser(): boolean {
+  try {
+    return localStorage.getItem(TEST_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+/** Headers for /api/events and /api/journey: x-tp-test when the switch is on. */
+export function testHeaders(): Record<string, string> {
+  return isTestBrowser() ? { 'x-tp-test': '1' } : {};
 }
 
 // ── Identity ────────────────────────────────────────────────────────
@@ -115,25 +135,34 @@ function getTerminalCode(): string | null {
   return sessionStorage.getItem('tp_user_terminal') || null;
 }
 
-// Exact minutes from the journey context's boarding time (the sessionStorage
-// flight mirror is only re-synced every 60s, so compute from source).
-function getMinutesToBoarding(): number | null {
+function readJourneyContext(): { boardingTime?: string; journey_id?: string } | null {
   try {
     const raw = localStorage.getItem('tp_journey_context');
-    if (!raw) return null;
-    const boardingTime = (JSON.parse(raw) as { boardingTime?: string }).boardingTime;
-    if (!boardingTime) return null;
-    const mins = Math.floor((new Date(boardingTime).getTime() - Date.now()) / 60000);
-    return Number.isFinite(mins) ? Math.max(0, mins) : null;
+    return raw ? (JSON.parse(raw) as { boardingTime?: string; journey_id?: string }) : null;
   } catch {
     return null;
   }
+}
+
+// Exact minutes from the journey context's boarding time (the sessionStorage
+// flight mirror is only re-synced every 60s, so compute from source).
+function getMinutesToBoarding(): number | null {
+  const boardingTime = readJourneyContext()?.boardingTime;
+  if (!boardingTime) return null;
+  const mins = Math.floor((new Date(boardingTime).getTime() - Date.now()) / 60000);
+  return Number.isFinite(mins) ? Math.max(0, mins) : null;
+}
+
+// The journeys row id stamped on the stored context once /api/journey answers (v3).
+function getJourneyId(): string | null {
+  return readJourneyContext()?.journey_id ?? null;
 }
 
 function buildRow(eventType: EventType, fields: TrackFields, sessionId: string): EventRow {
   return {
     anon_id: getAnonId(),
     session_id: sessionId,
+    journey_id: getJourneyId(),
     surface: 'app',
     event_type: eventType,
     terminal_code: fields.terminal_code ?? getTerminalCode(),
@@ -192,7 +221,7 @@ async function flush(): Promise<void> {
   try {
     const res = await fetch(ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...testHeaders() },
       body: JSON.stringify({ events: batch.map(q => q.row) }),
       keepalive: true,
     });
@@ -214,19 +243,20 @@ async function flush(): Promise<void> {
 }
 
 // Unload path: sendBeacon survives tab close; fetch-keepalive as fallback.
+// sendBeacon can't carry headers, so a test browser goes straight to fetch.
 function flushBeacon() {
   if (queue.length === 0) return;
   const batch = queue.slice(0, MAX_BATCH);
   const body = JSON.stringify({ events: batch.map(q => q.row) });
 
   let sent = false;
-  if (typeof navigator.sendBeacon === 'function') {
+  if (typeof navigator.sendBeacon === 'function' && !isTestBrowser()) {
     sent = navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'application/json' }));
   }
   if (!sent) {
     void fetch(ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...testHeaders() },
       body,
       keepalive: true,
     }).catch(() => {});
@@ -281,24 +311,31 @@ export function track(eventType: EventType, fields: TrackFields = {}): void {
 // identical ordered slug list fires nothing; new order or new slugs fire again.
 const seenImpressions = new Set<string>();
 
+// placement marks lists that aren't the amenity feed: 'home_row' slugs are
+// collection ids, so the amenity-level analytics views skip them; 'search' is
+// a result list. Absent placement = a vibe or collection amenity list.
+export type ImpressionPlacement = 'home_row' | 'search';
+
 export function trackImpressionOnce(fields: {
   vibe: string | null;
   slugs: string[];
   collection?: string;
+  placement?: ImpressionPlacement;
   terminal_code?: string | null;
 }): void {
   try {
     if (!fields.slugs.length) return;
     const sid = ensureSession();
-    const key = `${sid}|${fields.vibe ?? ''}|${fields.collection ?? ''}|${fields.slugs.join(',')}`;
+    const key = `${sid}|${fields.placement ?? ''}|${fields.vibe ?? ''}|${fields.collection ?? ''}|${fields.slugs.join(',')}`;
     if (seenImpressions.has(key)) return;
     seenImpressions.add(key);
+    const payload: Record<string, unknown> = { slugs: fields.slugs };
+    if (fields.collection) payload.collection = fields.collection;
+    if (fields.placement) payload.placement = fields.placement;
     track('recommendation_impression', {
       vibe: fields.vibe,
       terminal_code: fields.terminal_code,
-      payload: fields.collection
-        ? { slugs: fields.slugs, collection: fields.collection }
-        : { slugs: fields.slugs },
+      payload,
     });
   } catch (err) {
     devLog('impression error', err);

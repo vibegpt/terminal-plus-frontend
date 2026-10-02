@@ -4,6 +4,8 @@
 //
 // Never throws into app code: onboarding must complete even if the write fails.
 
+import { testHeaders } from './telemetry';
+
 export type FlightSource =
   | 'scanned'
   | 'picker'
@@ -23,6 +25,8 @@ export interface JourneyRecord {
   inbound_flight?: string | null;
   inbound_origin?: string | null;
   inbound_flight_source?: FlightSource | null;
+  /** Scheduled SIN arrival of the inbound leg; the server derives connection_minutes. */
+  inbound_arrival_utc?: string | null;
   onboarding_skipped?: boolean;
 }
 
@@ -84,7 +88,7 @@ export async function recordJourney(record: JourneyRecord): Promise<string | nul
 
     const r = await fetch('/api/journey', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...testHeaders() },
       body: JSON.stringify({ journey }),
     });
 

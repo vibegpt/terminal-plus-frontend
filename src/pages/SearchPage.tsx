@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { track } from '@/lib/telemetry';
+import { track, trackImpressionOnce } from '@/lib/telemetry';
 
 interface SearchResult {
   name: string;
@@ -70,6 +70,12 @@ export default function SearchPage() {
           lastLoggedQuery.current = q;
           track('search_performed', {
             payload: { query_len: q.length, results_count: (data ?? []).length },
+          });
+          // The settled result list, not every keystroke's.
+          trackImpressionOnce({
+            vibe: null,
+            slugs: (data ?? []).map(r => r.amenity_slug),
+            placement: 'search',
           });
         }
       }, 1200);

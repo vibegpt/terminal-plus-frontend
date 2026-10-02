@@ -9,6 +9,7 @@ import {
   useJourney,
   getWalkTime,
   calcUsableWindow,
+  JOURNEY_SCHEMA_VERSION,
   type JourneyData,
 } from '../context/JourneyContext';
 import {
@@ -274,6 +275,7 @@ interface Step1Props {
     arrivingFlight?: string,
     inboundSource?: FlightSource,
     inboundOrigin?: string | null,
+    inboundArrivalUtc?: string | null,
   ) => void;
   onSkip: () => void;
   /** 'departing' skips the arrivals capture entirely — there is no inbound leg. */
@@ -295,7 +297,7 @@ function Step1({ onTerminal, onSkip, segment }: Step1Props) {
     setLookupState('loading');
     const result = await lookupFlight(num, 'arrival');
     if (result?.terminal) {
-      onTerminal(result.terminal, num.toUpperCase(), 'typed', result.origin ?? null);
+      onTerminal(result.terminal, num.toUpperCase(), 'typed', result.origin ?? null, result.scheduledTime ?? null);
     } else {
       setLookupState('error');
       setTimeout(() => { setMode('terminal'); setLookupState('idle'); }, 1500);
@@ -340,6 +342,7 @@ function Step1({ onTerminal, onSkip, segment }: Step1Props) {
               f.flight_iata,
               source,
               f.origin_iata,
+              f.scheduled_at,
             )
           }
           onManual={() => setFlightEntry('typed')}
@@ -893,7 +896,7 @@ interface FlightContextCaptureProps {
 }
 
 export function FlightContextCapture({ onComplete, initial, onCancel }: FlightContextCaptureProps) {
-  const { setJourney } = useJourney();
+  const { setJourney, attachJourneyId } = useJourney();
   const changing = !!(initial && onCancel);
   const [step, setStep] = useState<0 | 1 | 2 | 3>(changing ? 2 : 0);
   const [segment, setSegment] = useState<Segment>(
@@ -910,6 +913,9 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
   );
   const [inboundOrigin, setInboundOrigin] = useState<string | null>(
     (changing && initial?.inbound_origin) || null
+  );
+  const [inboundArrival, setInboundArrival] = useState<string | null>(
+    (changing && initial?.inbound_arrival_utc) || null
   );
   const [pendingJourney, setPendingJourney] = useState<JourneyData | null>(null);
 
@@ -934,11 +940,13 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
     flight?: string,
     source?: FlightSource,
     origin?: string | null,
+    arrivalUtc?: string | null,
   ) => {
     setCurrentTerminal(terminal);
     setArrivingFlight(flight);
     setInboundSource(source);
     setInboundOrigin(origin ?? null);
+    setInboundArrival(arrivalUtc ?? null);
     setStep(2);
   };
 
@@ -1006,11 +1014,12 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
       status: enrichment?.status,
       scheduledDeparture: enrichment?.scheduledDeparture,
       lastUpdated: new Date().toISOString(),
-      schema_version: 2,
+      schema_version: JOURNEY_SCHEMA_VERSION,
       flight_source: source,
       inbound_flight_source: inboundSource,
       inbound_flight: arrivingFlight,
       inbound_origin: inboundOrigin ?? undefined,
+      inbound_arrival_utc: inboundArrival ?? undefined,
     };
 
     setJourney(data);
@@ -1019,6 +1028,8 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
     const journeyType: JourneyType =
       source === 'skipped' && !arrivingFlight ? 'skipped' : segment;
 
+    // The row id lands on the stored journey so later events carry journey_id.
+    // Events fired before it resolves (a second or so) go without it.
     void recordJourney({
       journey_type: journeyType,
       flight_number: flightNumber === 'UNKNOWN' || flightNumber === 'SQ000' ? null : flightNumber,
@@ -1028,7 +1039,10 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
       inbound_flight: arrivingFlight ?? null,
       inbound_origin: inboundOrigin,
       inbound_flight_source: inboundSource ?? null,
+      inbound_arrival_utc: arrivingFlight ? inboundArrival : null,
       onboarding_skipped: false,
+    }).then(id => {
+      if (id) attachJourneyId(data.capturedAt, id);
     });
 
     setStep(3);

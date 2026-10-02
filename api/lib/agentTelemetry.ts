@@ -7,6 +7,7 @@
 // the insert mid-flight.
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { isTestMcpSession, telemetryEnv } from './telemetryEnv';
 
 // Union of the four tools' input-schema properties (api/mcp.ts TOOLS).
 // Args are whitelisted against this before storage.
@@ -100,6 +101,10 @@ export async function logToolCall(supabase: SupabaseClient, call: ToolCallLog): 
       result_slugs: resultSlugs,
       route_id: routeId,
       mode: 'mcp',
+      // logToolCall never sees the request (api/mcp.ts is frozen), so smoke runs
+      // flag themselves through the mcp-session-id they send.
+      env: telemetryEnv(),
+      is_test: isTestMcpSession(call.mcpSessionKey),
     });
   } catch { /* telemetry must never break tool responses */ }
 }

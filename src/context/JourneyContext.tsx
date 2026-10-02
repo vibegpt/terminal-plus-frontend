@@ -33,11 +33,16 @@ export interface JourneyData {
   inbound_flight_source?: FlightSource;
   inbound_flight?: string;
   inbound_origin?: string;
+  // ── v3: the journeys row this capture wrote (CC-7), so events join to it ──
+  journey_id?: string;
+  inbound_arrival_utc?: string;  // scheduled SIN arrival of the inbound leg (AeroDataBox)
 }
 
 interface JourneyContextType {
   journey: JourneyData | null;
   setJourney: (data: JourneyData) => void;
+  /** Stamp the journeys row id onto the capture identified by capturedAt, if it's still current. */
+  attachJourneyId: (capturedAt: string, id: string) => void;
   resetJourney: () => void;
   isComplete: boolean;
 }
@@ -76,25 +81,30 @@ export function calcUsableWindow(
 
 const LS_KEY = 'tp_journey_context';
 
-export const JOURNEY_SCHEMA_VERSION = 2;
+export const JOURNEY_SCHEMA_VERSION = 3;
 
 /**
- * Read-time migration. A record with no schema_version predates tap-only
- * capture, so every flight number in it was typed by hand: backfill
- * flight_source accordingly, stamp v2, and write it back. Field names and
- * reader signatures are unchanged, so the six existing readers of
- * tp_journey_context are unaffected.
+ * Read-time migration, one step per version, then stamp the current version and
+ * write it back. Field names and reader signatures never change, so the existing
+ * readers of tp_journey_context are unaffected.
+ * - v1 → v2: a record with no schema_version predates tap-only capture, so every
+ *   flight number in it was typed by hand: backfill flight_source accordingly.
+ * - v2 → v3: adds journey_id. A v2 record never stored its journeys row id and it
+ *   can't be recovered, so it stays absent until the next capture.
  */
 function migrate(data: JourneyData): JourneyData {
   if (data.schema_version === JOURNEY_SCHEMA_VERSION) return data;
-  return {
-    ...data,
-    schema_version: JOURNEY_SCHEMA_VERSION,
-    flight_source: data.flight_source ?? 'typed',
-    inbound_flight_source:
-      data.inbound_flight_source ?? (data.arrivingFlight ? 'typed' : undefined),
-    inbound_flight: data.inbound_flight ?? data.arrivingFlight,
-  };
+  let d = data;
+  if ((d.schema_version ?? 1) < 2) {
+    d = {
+      ...d,
+      flight_source: d.flight_source ?? 'typed',
+      inbound_flight_source:
+        d.inbound_flight_source ?? (d.arrivingFlight ? 'typed' : undefined),
+      inbound_flight: d.inbound_flight ?? d.arrivingFlight,
+    };
+  }
+  return { ...d, schema_version: JOURNEY_SCHEMA_VERSION };
 }
 
 function loadFromStorage(): JourneyData | null {
@@ -161,6 +171,7 @@ function syncToSession(data: JourneyData) {
 const JourneyContext = createContext<JourneyContextType>({
   journey: null,
   setJourney: () => {},
+  attachJourneyId: () => {},
   resetJourney: () => {},
   isComplete: false,
 });
@@ -195,6 +206,17 @@ export function JourneyProvider({ children }: { children: React.ReactNode }) {
     console.log('[Terminal+] Journey context captured:', data);
   };
 
+  // The journeys write resolves after capture has already been saved. Patch the id
+  // into both the stored copy and state (so a later setJourney({...journey}) keeps
+  // it), but only if the user hasn't captured a different journey in the meantime.
+  const attachJourneyId = (capturedAt: string, id: string) => {
+    const stored = loadFromStorage();
+    if (stored?.capturedAt === capturedAt) saveToStorage({ ...stored, journey_id: id });
+    setJourneyState(prev =>
+      prev && prev.capturedAt === capturedAt ? { ...prev, journey_id: id } : prev
+    );
+  };
+
   const resetJourney = () => {
     localStorage.removeItem(LS_KEY);
     sessionStorage.removeItem('tp_user_terminal');
@@ -203,7 +225,7 @@ export function JourneyProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <JourneyContext.Provider value={{ journey, setJourney, resetJourney, isComplete: !!journey }}>
+    <JourneyContext.Provider value={{ journey, setJourney, attachJourneyId, resetJourney, isComplete: !!journey }}>
       {children}
     </JourneyContext.Provider>
   );

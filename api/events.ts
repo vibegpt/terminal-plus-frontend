@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
+import { UUID_RE, isTestRequest, telemetryEnv } from './lib/telemetryEnv'
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -57,8 +58,6 @@ const SURFACES = new Set(['app', 'chat', 'mcp'])
 
 const TERMINALS = new Set(['SIN-T1', 'SIN-T2', 'SIN-T3', 'SIN-T4', 'SIN-JEWEL'])
 
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-
 type EventRow = {
   anon_id: string
   session_id: string
@@ -70,8 +69,12 @@ type EventRow = {
   position: number | null
   minutes_to_boarding: number | null
   route_id: string | null
+  journey_id: string | null
   payload: Record<string, unknown>
 }
+
+// env and is_test are server-side provenance, stamped in the handler.
+type StampedEventRow = EventRow & { env: string; is_test: boolean }
 
 // Returns a clean row to insert, or a rejection reason string.
 function validateEvent(raw: unknown): { row: EventRow } | { reason: string } {
@@ -142,6 +145,8 @@ function validateEvent(raw: unknown): { row: EventRow } | { reason: string } {
       position: (e.position as number | undefined) ?? null,
       minutes_to_boarding: (e.minutes_to_boarding as number | undefined) ?? null,
       route_id: (e.route_id as string | undefined) ?? null,
+      // A malformed journey_id costs the join, not the event.
+      journey_id: typeof e.journey_id === 'string' && UUID_RE.test(e.journey_id) ? e.journey_id : null,
       payload,
     },
   }
@@ -152,7 +157,7 @@ function validateEvent(raw: unknown): { row: EventRow } | { reason: string } {
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-tp-test')
 
   if (req.method === 'OPTIONS') return res.status(204).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
@@ -176,11 +181,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: `Batch too large (max ${MAX_BATCH} events)` })
   }
 
-  const rows: EventRow[] = []
+  const env = telemetryEnv()
+  const is_test = isTestRequest(req.headers)
+  const rows: StampedEventRow[] = []
   const rejected: Array<{ index: number; reason: string }> = []
   events.forEach((raw, index) => {
     const result = validateEvent(raw)
-    if ('row' in result) rows.push(result.row)
+    if ('row' in result) rows.push({ ...result.row, env, is_test })
     else rejected.push({ index, reason: result.reason })
   })
 
