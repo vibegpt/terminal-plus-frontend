@@ -120,3 +120,40 @@ A one-hop importer list can't settle whether they're reachable.
 reachability with a full import trace from `src/main.tsx` (esbuild metafile,
 `@/` aliases resolved), and do it on both the release head and the rollback
 target, because a rollback puts the old tree back against the new grants.
+
+---
+
+## 2026-10-02 — "The route only writes UUIDs" was a claim about clients, not code
+
+**Assumed (CC-7 gate):** `api/journey.ts` only ever writes uuid-shaped `anon_id`
+and `session_id`, so casting the columns to `uuid` is safe.
+
+**Actual:** the route stored `str(j.session_id, 64)` and `str(j.anon_id, 64)`,
+any string up to 64 chars. Every client happens to mint `crypto.randomUUID()`,
+so the data was clean (0 of 28 rows failed the cast), but nothing enforced it.
+After the cast, one non-UUID value would have turned an insert into a 500 and
+lost the journey.
+
+**Rule going forward:** before tightening a column type, find the server line
+that enforces the new type on every write path. If there isn't one, ship the
+validation first (null or reject at the boundary) and cast afterwards.
+"Clients only send X" isn't a constraint.
+
+---
+
+## 2026-10-02 — `create or replace view` silently drops `security_invoker`
+
+Proven on this DB inside a rolled-back transaction:
+
+```
+create view _p with (security_invoker = on) as select 1 as x;  -- reloptions {security_invoker=on}
+create or replace view _p as select 1 as x;                    -- reloptions NULL
+```
+
+A replace without a `WITH` clause resets the view's options, so it quietly
+goes back to running with owner rights and bypassing base-table RLS.
+
+**Rule going forward:** when changing an `analytics_*` (or any
+security_invoker) view, either `drop` + `create … with (security_invoker = on)`
+or repeat the `WITH` on the replace, then check `pg_class.reloptions` and
+`has_table_privilege('anon', …)` after applying.
