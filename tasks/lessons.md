@@ -100,3 +100,23 @@ Verify with an explicit pass over both trees:
 ```bash
 npx tsc --noEmit -p tsconfig.json
 ```
+
+---
+
+## 2026-10-02 — A lockdown gate must cover every table the migration touches
+
+**Assumed:** CC-2B's caller gate ("no reachable client code calls
+`.from('journeys')`") was enough to make the RLS part B migration safe.
+
+**Actual:** the migration also revokes everything on `amenity_interactions`
+and `user_sessions` from anon and authenticated, and the gate never looked at
+them. One grep found 9 client call sites on those tables in
+`src/services/supabaseTrackingService.ts` and `src/services/supabaseDataService.ts`,
+plus a direct `.from("journeys").insert` in `src/pages/plan-journey.tsx:79`.
+A one-hop importer list can't settle whether they're reachable.
+
+**Rule going forward:** derive the caller gate from the migration's own
+`revoke`/`drop policy` targets, never from the headline table. Prove
+reachability with a full import trace from `src/main.tsx` (esbuild metafile,
+`@/` aliases resolved), and do it on both the release head and the rollback
+target, because a rollback puts the old tree back against the new grants.
