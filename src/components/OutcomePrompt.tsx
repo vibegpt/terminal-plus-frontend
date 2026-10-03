@@ -141,6 +141,12 @@ interface Strip {
 // A resume is handled once per page, however often the strip remounts.
 let lastHandledResume = 0;
 
+// A resume is judged when it happens. The strip isn't mounted while the full-screen
+// capture is up, so one that mounts later (after a capture) waits for the next resume,
+// as it does behind the capture bar, instead of replaying an old one against a fresh
+// journey's ledger. 10 s covers the normal boot, where the strip mounts within ms.
+const RESUME_REPLAY_MS = 10_000;
+
 export function OutcomePrompt() {
   const { journey } = useJourney();
   const { flight } = useFlightContext();
@@ -209,7 +215,13 @@ export function OutcomePrompt() {
 
   useEffect(() => {
     const pending = latestResume();
-    if (pending) handleResume(pending);
+    if (pending && pending.id > lastHandledResume) {
+      if (Date.now() - pending.at <= RESUME_REPLAY_MS) handleResume(pending);
+      else {
+        lastHandledResume = pending.id;
+        outcomeDebugLog('resume too old to replay on mount, waiting for the next one', { kind: pending.kind });
+      }
+    }
     return subscribeResume(handleResume);
   }, [handleResume]);
 
