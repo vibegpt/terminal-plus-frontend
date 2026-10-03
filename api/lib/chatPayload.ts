@@ -35,6 +35,8 @@ function hoursCell(v: unknown): string {
  * Header once, then one pipe-separated row per amenity. Replaces per-row JSON,
  * which repeated every key name. gate_location and zone (always null) and
  * walking_time_minutes (a placeholder 5 on 292 of 378 rows) are left out.
+ * description is only sent when there's no editorial_note: the note is the
+ * richer text, and the 80-char description was about a sixth of each row.
  */
 export function formatAmenityBlock(rows: Array<Record<string, unknown>>): string {
   if (!rows.length) return '';
@@ -50,7 +52,7 @@ export function formatAmenityBlock(rows: Array<Record<string, unknown>>): string
       cell(a.editorial_score),
       cell(a.editorial_note, MAX_NOTE),
       cell(a.route_context),
-      cell(a.description, MAX_DESCRIPTION),
+      cell(cell(a.editorial_note) ? null : a.description, MAX_DESCRIPTION),
     ].join('|')),
   ].join('\n');
 }

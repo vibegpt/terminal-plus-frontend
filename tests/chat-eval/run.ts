@@ -151,6 +151,9 @@ async function ask(p: EvalPrompt): Promise<Result> {
   const minutes = p.minutes_to_boarding ?? debug?.available_minutes ?? null;
   const shownJewel = (body.amenities ?? []).some(a => a.terminal_code === 'SIN-JEWEL');
 
+  // A 200 without a debug block isn't a chat reply (e.g. a deployment still
+  // rolling out serves the SPA shell); it counts as a failed turn.
+  const answered = status === 200 && debug !== null;
   const subsetOk = raw.every(s => feasible.has(s));
   const cOk = countOk(p.expect, raw.length, feasible.size);
   return {
@@ -163,12 +166,12 @@ async function ask(p: EvalPrompt): Promise<Result> {
     message,
     shown,
     debug,
-    json_valid: status === 200 && !!debug?.json_valid,
-    subset_ok: status === 200 && subsetOk,
-    count_ok: status === 200 && cOk,
-    slug_quality: status === 200 && subsetOk && cOk,
+    json_valid: answered && !!debug?.json_valid,
+    subset_ok: answered && subsetOk,
+    count_ok: answered && cOk,
+    slug_quality: answered && subsetOk && cOk,
     jewel_violation: minutes == null ? null : minutes < JEWEL_MIN_MINUTES && shownJewel,
-    adversarial_pass: p.check ? status === 200 && adversarialPass(p.check, message, raw, feasible, shownJewel) : null,
+    adversarial_pass: p.check ? answered && adversarialPass(p.check, message, raw, feasible, shownJewel) : null,
     has_markdown: /\*\*[^*]+\*\*|(^|\n)\s*[-*] /.test(message),
   };
 }
@@ -233,6 +236,7 @@ async function main() {
     started_at: startedAt,
     prompts: results.length,
     http_200: ok.length,
+    answered: results.filter(r => r.debug !== null).length,
     validity: `${results.filter(r => r.json_valid).length}/${results.length}`,
     slug_quality: `${results.filter(r => r.slug_quality).length}/${results.length}`,
     adversarial: `${adversarial.filter(r => r.adversarial_pass).length}/${adversarial.length}`,
