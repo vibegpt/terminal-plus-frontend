@@ -294,6 +294,17 @@ export function init(): void {
   }
 }
 
+// The ids events carry, for routes that write their own telemetry rows
+// (/api/chat logs each turn to agent_interactions).
+export function telemetryIds(): { session_id: string | null; journey_id: string | null } {
+  try {
+    return { session_id: ensureSession(), journey_id: getJourneyId() };
+  } catch (err) {
+    devLog('telemetryIds error', err);
+    return { session_id: null, journey_id: null };
+  }
+}
+
 export function track(eventType: EventType, fields: TrackFields = {}): void {
   try {
     if (!EVENT_TYPES.has(eventType)) {

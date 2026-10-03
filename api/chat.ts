@@ -1,10 +1,18 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@supabase/supabase-js'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
+import { waitUntil } from '@vercel/functions'
+import { randomUUID } from 'crypto'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import { queryRouteMatch } from './lib/agent'
 import type { RouteMatch } from './lib/agent'
+import { logChatTurn } from './lib/agentTelemetry'
+import type { ChatTurnLog } from './lib/agentTelemetry'
+import { parseReply, replyText } from './lib/chatPayload'
+import type { ChatReply } from './lib/chatPayload'
+import { CHAT_MODEL, FALLBACK_MODEL, chatParams } from './lib/models'
+import { UUID_RE, isTestRequest } from './lib/telemetryEnv'
 import { DISPLAY } from '../src/lib/displayConfig'
 
 // ---------- Load .env.local for vercel dev ----------
@@ -75,6 +83,9 @@ interface ChatRequestBody {
   query: string
   context?: ChatContext
   conversationHistory?: Array<{ role: 'user' | 'assistant'; content: string }>
+  /** Telemetry ids, the same values the client's events carry. UUID-checked. */
+  session_id?: string
+  journey_id?: string
 }
 
 interface PreFilterResult {
@@ -401,24 +412,95 @@ function buildRouteContext(route: RouteMatch, availableMinutes: number): string 
   return lines.filter(Boolean).join('\n')
 }
 
+// ---------- Model call ----------
+
+// The whole model budget, primary plus fallback, from the first call.
+const CHAT_BUDGET_MS = 15_000
+const PRIMARY_TIMEOUT_MS = 10_000
+// A fallback with less time than this can't finish a reply, so it isn't tried.
+const MIN_FALLBACK_MS = 3_000
+// Thinking (adaptive on claude-sonnet-5-5) counts toward max_tokens.
+const MAX_TOKENS = 2048
+
+type FallbackReason = 'overloaded' | 'timeout' | 'model_not_found'
+
+function fallbackReason(err: unknown, model: string): FallbackReason | null {
+  if (err instanceof Anthropic.APIConnectionTimeoutError) return 'timeout'
+  if (err instanceof Anthropic.NotFoundError && err.message.includes(model)) return 'model_not_found'
+  if (err instanceof Anthropic.APIError) {
+    const type = (err.error as { error?: { type?: string } } | undefined)?.error?.type
+    if (err.status === 529 || type === 'overloaded_error') return 'overloaded'
+  }
+  return null
+}
+
+/**
+ * CHAT_MODEL, then 1 retry on FALLBACK_MODEL when the primary is overloaded,
+ * times out, or doesn't exist. No SDK-level retries: they'd spend the budget
+ * on the model that just failed.
+ */
+async function callChatModel(
+  system: string,
+  messages: Anthropic.MessageParam[],
+): Promise<{ response: Anthropic.Message; fallbackFrom: string | null }> {
+  const deadline = Date.now() + CHAT_BUDGET_MS
+  const create = (model: string, timeout: number) =>
+    getAnthropic().messages.create(
+      { model, max_tokens: MAX_TOKENS, system, messages, ...chatParams(model) },
+      { timeout, maxRetries: 0 },
+    )
+
+  try {
+    return { response: await create(CHAT_MODEL, PRIMARY_TIMEOUT_MS), fallbackFrom: null }
+  } catch (err) {
+    const reason = fallbackReason(err, CHAT_MODEL)
+    const remaining = deadline - Date.now()
+    if (!reason || CHAT_MODEL === FALLBACK_MODEL || remaining < MIN_FALLBACK_MS) throw err
+    console.warn(`[chat] ${CHAT_MODEL}: ${reason}; retrying on ${FALLBACK_MODEL} (${remaining} ms left)`)
+    return { response: await create(FALLBACK_MODEL, remaining), fallbackFrom: CHAT_MODEL }
+  }
+}
+
+const REFUSAL_REPLY: ChatReply = {
+  message: "I can only help with getting around Changi: food, lounges, shops and how to spend your time before boarding. What are you after?",
+  recommended_slugs: [],
+  follow_up: null,
+  extracted_context: null,
+}
+
 // ---------- Handler ----------
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-tp-test')
 
   if (req.method === 'OPTIONS') return res.status(204).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
+  const startedAt = Date.now()
+  const isTest = isTestRequest(req.headers)
+  // Set once the request is a valid turn; every valid turn is logged, failed or not.
+  let turn: Omit<ChatTurnLog, 'agentResponse' | 'resultSlugs' | 'model' | 'inputTokens' | 'outputTokens' | 'latencyMs'> | null = null
+
   try {
-    const { query, context, conversationHistory } = req.body as ChatRequestBody
+    const { query, context, conversationHistory, session_id, journey_id } = req.body as ChatRequestBody
 
     if (!query || typeof query !== 'string') {
       return res.status(400).json({ error: 'query is required' })
     }
     if (query.length > 500) {
       return res.status(400).json({ error: 'Query too long (max 500 characters)' })
+    }
+
+    turn = {
+      sessionId: typeof session_id === 'string' && UUID_RE.test(session_id) ? session_id : randomUUID(),
+      journeyId: typeof journey_id === 'string' && UUID_RE.test(journey_id) ? journey_id : null,
+      userMessage: query,
+      terminal: null,
+      gate: null,
+      timeUntilBoarding: null,
+      isTest,
     }
 
     const history = (conversationHistory || []).slice(-10)
@@ -429,6 +511,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Pre-filter and query
     const filters = preFilter(query, context)
+    turn.terminal = filters.terminal ?? null
+    turn.gate = filters.gate ?? null
+    turn.timeUntilBoarding = availableMinutes
 
     // Check for curated route match
     const routeMatch = await queryRouteMatch(getSupabase(), filters.terminal ?? null, availableMinutes)
@@ -488,65 +573,45 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       `\nUser: ${query}`,
     ].filter(Boolean).join('\n')
 
-    const messages = [
+    const messages: Anthropic.MessageParam[] = [
       ...history.map(h => ({ role: h.role as 'user' | 'assistant', content: h.content })),
       { role: 'user' as const, content: userMessage },
     ]
 
-    // Claude call (10s timeout to fail fast instead of hanging)
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 15_000)
+    const { response, fallbackFrom } = await callChatModel(SYSTEM_PROMPT, messages)
 
-    let response: Anthropic.Message
-    try {
-      response = await getAnthropic().messages.create(
-        {
-          model: 'claude-sonnet-4-5-20250929',
-          max_tokens: 1024,
-          system: SYSTEM_PROMPT,
-          messages,
-        },
-        { signal: controller.signal },
-      )
-    } catch (err) {
-      console.error('Claude API error detail:', JSON.stringify(err, null, 2))
-      console.error('Messages sent:', JSON.stringify(messages, null, 2))
-      throw err
-    } finally {
-      clearTimeout(timeout)
-    }
+    // A refusal is a normal 200 with stop_reason 'refusal'; its content isn't a reply.
+    const { reply: parsed, jsonValid } = response.stop_reason === 'refusal'
+      ? { reply: REFUSAL_REPLY, jsonValid: false }
+      : parseReply(replyText(response.content))
 
-    const responseText = response.content[0].type === 'text' ? response.content[0].text : ''
-
-    let parsed: {
-      message: string
-      recommended_slugs: string[]
-      follow_up: string | null
-      extracted_context: Partial<ChatContext> | null
-    }
-
-    try {
-      const jsonMatch = responseText.match(/\{[\s\S]*\}/)
-      parsed = JSON.parse(jsonMatch?.[0] || responseText)
-    } catch {
-      parsed = { message: responseText, recommended_slugs: [], follow_up: null, extracted_context: null }
-    }
-
-    const recommendedAmenities = (parsed.recommended_slugs || [])
+    const recommendedAmenities = parsed.recommended_slugs
       .map((slug: string) => feasibleAmenities.find(a => a.amenity_slug === slug))
       .filter(Boolean)
 
     // Merge extracted context — only update fields Claude found with confidence
     const extractedContext: Partial<ChatContext> = {}
-    if (parsed.extracted_context) {
-      if (parsed.extracted_context.terminal) extractedContext.terminal = parsed.extracted_context.terminal
-      if (parsed.extracted_context.availableMinutes) extractedContext.availableMinutes = parsed.extracted_context.availableMinutes
-      if (parsed.extracted_context.gate) extractedContext.gate = parsed.extracted_context.gate
+    const modelContext = parsed.extracted_context as Partial<ChatContext> | null
+    if (modelContext) {
+      if (modelContext.terminal) extractedContext.terminal = modelContext.terminal
+      if (modelContext.availableMinutes) extractedContext.availableMinutes = modelContext.availableMinutes
+      if (modelContext.gate) extractedContext.gate = modelContext.gate
     }
     // Also surface what our own extractor found
     if (availableMinutes && !context?.availableMinutes) {
       extractedContext.availableMinutes = availableMinutes
     }
+
+    const shownSlugs = recommendedAmenities.map(a => a.amenity_slug as string)
+    logTurn({
+      ...turn,
+      agentResponse: parsed.message,
+      resultSlugs: shownSlugs,
+      model: response.model,
+      inputTokens: response.usage.input_tokens,
+      outputTokens: response.usage.output_tokens,
+      latencyMs: Date.now() - startedAt,
+    })
 
     return res.status(200).json({
       message: parsed.message,
@@ -558,13 +623,41 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         totalResults: allAmenities.length,
       },
       extractedContext: Object.keys(extractedContext).length > 0 ? extractedContext : null,
+      // Test requests only (x-tp-test: 1): what the model chose before the
+      // feasibility filter, for tests/chat-eval. Catalogue slugs and the model name.
+      ...(isTest
+        ? {
+            debug: {
+              model: response.model,
+              fallback_from: fallbackFrom,
+              stop_reason: response.stop_reason,
+              json_valid: jsonValid,
+              raw_slugs: parsed.recommended_slugs,
+              feasible_slugs: feasibleAmenities.map(a => a.amenity_slug),
+              available_minutes: availableMinutes,
+            },
+          }
+        : {}),
     })
 
   } catch (error: unknown) {
-    console.error('Chat API error:', error)
+    console.error('Chat API error:', error instanceof Error ? `${error.name}: ${error.message}` : error)
     const status = error && typeof error === 'object' && 'status' in error
       ? (error as { status: number }).status : undefined
+    if (turn) {
+      const kind = error instanceof Anthropic.APIError ? `anthropic_${status ?? 'connection'}` : 'internal'
+      logTurn({ ...turn, agentResponse: `error:${kind}`, resultSlugs: [], model: null, inputTokens: null, outputTokens: null, latencyMs: Date.now() - startedAt })
+    }
     if (status === 429) return res.status(429).json({ error: 'Rate limited. Please try again.' })
     return res.status(500).json({ error: 'Something went wrong. Please try again.' })
   }
+}
+
+/** Writes the turn's agent_interactions row after the response, off the response path. */
+function logTurn(row: ChatTurnLog): void {
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    console.warn('[chat] SUPABASE_SERVICE_ROLE_KEY missing; turn not logged')
+    return
+  }
+  waitUntil(logChatTurn(getSupabase(), row))
 }

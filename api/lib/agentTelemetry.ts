@@ -1,5 +1,6 @@
 // api/lib/agentTelemetry.ts
-// Centralized agent_interactions logging for MCP tool calls.
+// Centralized agent_interactions logging: MCP tool calls (logToolCall) and
+// chat turns (logChatTurn, at the bottom).
 // Replaces the per-handler inserts that wrote constant session ids.
 // Called from api/mcp.ts tools/call dispatch — one row per tool call,
 // whatever the tool or outcome. Never throws (telemetry must not break
@@ -107,4 +108,58 @@ export async function logToolCall(supabase: SupabaseClient, call: ToolCallLog): 
       is_test: isTestMcpSession(call.mcpSessionKey),
     });
   } catch { /* telemetry must never break tool responses */ }
+}
+
+// ---------- Chat turns (api/chat.ts) ----------
+
+const MAX_USER_MESSAGE = 500;
+const MAX_AGENT_RESPONSE = 1000;
+
+export interface ChatTurnLog {
+  sessionId: string;
+  journeyId: string | null;
+  userMessage: string;
+  /** The reply text the user saw, or 'error:<kind>' when the turn failed. */
+  agentResponse: string;
+  terminal: string | null;
+  gate: string | null;
+  timeUntilBoarding: number | null;
+  /** Slugs of the cards shown, in order. */
+  resultSlugs: string[];
+  /** The model that answered (response.model), null when no call succeeded. */
+  model: string | null;
+  inputTokens: number | null;
+  outputTokens: number | null;
+  latencyMs: number;
+  isTest: boolean;
+}
+
+/**
+ * One agent_interactions row per /api/chat turn. Run it off the response path
+ * (waitUntil). Never throws; a failed insert is logged to the function log.
+ * Stores no IP and no user agent.
+ */
+export async function logChatTurn(supabase: SupabaseClient, turn: ChatTurnLog): Promise<void> {
+  try {
+    const { error } = await supabase.from('agent_interactions').insert({
+      session_id: turn.sessionId,
+      journey_id: turn.journeyId,
+      user_message: turn.userMessage.slice(0, MAX_USER_MESSAGE),
+      agent_response: turn.agentResponse.slice(0, MAX_AGENT_RESPONSE),
+      terminal: turn.terminal,
+      gate: turn.gate,
+      time_until_boarding: turn.timeUntilBoarding,
+      result_slugs: turn.resultSlugs,
+      mode: 'conversational',
+      model: turn.model,
+      input_tokens: turn.inputTokens,
+      output_tokens: turn.outputTokens,
+      latency_ms: turn.latencyMs,
+      env: telemetryEnv(),
+      is_test: turn.isTest,
+    });
+    if (error) console.error('[chat] telemetry insert failed:', error.code, error.message);
+  } catch (err) {
+    console.error('[chat] telemetry insert threw:', err instanceof Error ? err.message : err);
+  }
 }

@@ -1,4 +1,5 @@
 import type { AmenityDetail } from '../lib/supabase'
+import { telemetryIds, testHeaders } from '../lib/telemetry'
 
 // ---------- Types ----------
 
@@ -49,10 +50,12 @@ export interface ChatResponse {
 const API_URL = '/api/chat'
 
 export async function askConcierge(request: ChatRequest): Promise<ChatResponse> {
+  // The server logs each turn: same session/journey ids as the app's events,
+  // and the tp_test switch flags the row is_test.
   const res = await fetch(API_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(request),
+    headers: { 'Content-Type': 'application/json', ...testHeaders() },
+    body: JSON.stringify({ ...request, ...telemetryIds() }),
   })
 
   const body = await res.json().catch(() => {
