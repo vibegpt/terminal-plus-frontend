@@ -1,7 +1,9 @@
 # CC-16 report: share card, sitemap, session attribution
 
-**Status: preview PASS after round 2 (SMOKE 13/13, all attribution and SW checks).
-Production: PENDING (Todd pushes).**
+**Status: SHIPPED 3 Oct 16:26 UTC (`c29ebc0`, `dpl_CwWbvpsmfTHPdinpzGQcApdTt8d9`). Preview
+PASS after round 2 (SMOKE 13/13, all attribution and SW checks); production
+acceptance PASS. One finding: the capture gate hides the sitemap pages from a
+first visit (see "Production").**
 
 Round 1 (preview `dpl_8mhCrAckP4A2hVbY2W8WbqfJ9sEM`, head `3762540`) passed. Todd
 then corrected 2 things (see "Round 2"): `journeys.acquisition_src` is now first
@@ -12,8 +14,8 @@ sha `1a665f2`, READY 11:24 UTC, sin1). Sections marked round 1 describe the
 first build. Where round 2 changed behaviour, round 2 wins.
 
 Run date: 2026-10-03. Branch `cc-16/share-card-attribution`.
-Production is unchanged: `d1ccd07` (`dpl_HEo7r8fyJrkJ3YQKfcw6k4ovXS7L`), which is
-also the rollback target.
+Rollback target: `dpl_HEo7r8fyJrkJ3YQKfcw6k4ovXS7L` (`d1ccd07`). The view is
+additive: `drop view public.analytics_acquisition`.
 
 ## Gates
 
@@ -247,26 +249,52 @@ designed.
 - agent_interactions (1): `a5d8d424-7828-4c31-b2dc-d78fc83184c0`.
 - Non-test rows since the round-2 watermark, from any source: **0**.
 
-## Production: PENDING
+## Production: SHIPPED
 
-The agent's permission layer refused `git push origin
-cc-16/share-card-attribution:main` as a production deploy. Production and
-origin/main are still `d1ccd07`, and the branch is a fast-forward of it. Todd
-pushes:
+Todd asked for the push in chat. `git push origin cc-16/share-card-attribution:main`
+at 16:25:29 UTC: `d1ccd07..c29ebc0`. Deployment `dpl_CwWbvpsmfTHPdinpzGQcApdTt8d9`,
+sha `c29ebc0`, READY 16:26:01 UTC, sin1, aliased to `terminalplus.app` and
+`www.terminalplus.app`. Rollback target: `dpl_HEo7r8fyJrkJ3YQKfcw6k4ovXS7L`
+(`d1ccd07`).
 
-```bash
-git push origin cc-16/share-card-attribution:main
-```
+| Check | Result |
+|---|---|
+| `curl -A "facebookexternalhit/1.1" https://terminalplus.app/` | Every COPY tag present exactly once: title, description, og:title, og:description, og:type, og:site_name, og:image (+width, height, alt), twitter:card, twitter:title, twitter:description. `rel="canonical"` 0, `og:url` 0, `replit` 0. GA4 still there |
+| og:image URL | 200 `image/png`, 110,990 bytes, 1200×630 (`file`, `sips`), byte-identical to `public/og/terminalplus-1200x630.png` |
+| `/robots.txt` | 200 `text/plain`, `Sitemap: https://terminalplus.app/sitemap.xml` |
+| `/sitemap.xml` | 200 `application/xml`, 3,347 bytes, `xmllint` OK, 41 `<loc>`, byte-identical to the committed file. No `vercel.json` change |
+| `/manifest.webmanifest` | `id '/'`, `start_url '/?utm_source=homescreen&utm_medium=pwa'` |
+| `/sw.js` | carries the 5-pattern `navigateFallbackDenylist` |
+| SW upgrade path (browser) | This profile still had the old production SW. The first open of `/robots.txt` got the old app shell. The new `sw.js` then installed and took control during that visit (`controller /sw.js`, `activated`, nothing waiting), and the next `/robots.txt` was `text/plain` and `/sitemap.xml` `application/xml` (41 `<loc>`), neither the app. A returning installed user gets the fix after one load |
+| 5 sampled URLs (`tp_test` on, after Skip) | `/` static title, no canonical. `/vibe/refuel` "Refuel at Changi · Terminal+". `/collection/refuel/coffee-worth-walk` "Coffee Worth the Walk · Terminal+" (7 of 7). `/collection/chill/gardens-at-dawn` "Gardens At Dawn · Terminal+" (7 of 7). `/vibe/work` "Work at Changi · Terminal+" (5 spots). Each has 1 canonical to its own path. 0 console errors |
+| Attribution end-to-end | `/?utm_source=cc16_prod_check&utm_medium=qa` → `tp_first_touch_v1` `{src: cc16_prod_check}`, session_start **452** `{utm_source: cc16_prod_check, utm_medium: qa, landing_path: /}`, Skip → journey `cb2143bf-4969-4bf2-aa68-bbd1540f4c55` `acquisition_src = cc16_prod_check`, env `production` |
+| `analytics_acquisition` | 0 rows |
 
-If another branch (CC-13 touches `api/events.ts`, `src/lib/telemetry.ts`,
-`AmenityDetailPage.tsx` and `tasks/lessons.md`) lands on main first, this is no
-longer a fast-forward and needs a merge plus a fresh preview SMOKE.
+Production test rows (all `is_test = true`, env `production`): events 447–452
+(anon `906fd64b-466c-4aad-a897-2e39a2ba6467`). Event 447 is the session started
+by the old bundle under the old SW, so its payload is `{}`. Journeys
+`7994b866-a8b6-47a4-a12b-264177e34c09` (Skip, `acquisition_src` null: no first
+touch yet) and `cb2143bf-4969-4bf2-aa68-bbd1540f4c55`. Non-test rows since the
+production watermark (events id > 446, 16:26:54 UTC): **0**.
 
-Then (acceptance):
-- `curl -A "facebookexternalhit/1.1" https://terminalplus.app/`: every COPY tag, no `rel="canonical"`, no og:url, no replit.com.
-- The og:image URL: 200 `image/png`, 1200×630, 110,990 bytes.
-- `/robots.txt` names `https://terminalplus.app/sitemap.xml`. `/sitemap.xml` 200 `application/xml` (as on the preview), passes `xmllint`.
-- 5 sampled URLs in a browser with `tp_test` on, and `/robots.txt` as text with the SW installed.
+### Finding: the capture gate hides every sitemap page from a first visit
+
+On production, `/vibe/refuel` in a fresh tab (no stored journey, not yet
+onboarded in this session) renders the capture gate ("What brings you to
+Changi?"), not the vibe page. The title stays the static one and there's no
+canonical, because `App.tsx` returns `<FlightContextCapture>` before the routes
+mount. Googlebot renders JS with empty storage, so it would see the same gate
+and the same title on all 41 sitemap URLs: one duplicate page, 41 times. The
+preview checks didn't show this, because those tabs had already passed the gate.
+
+This is a product call ("FlightContextCapture gates the shell"), so it isn't
+changed here. Options:
+1. Deep links (any path other than `/`) skip the gate and show a dismissible
+   "Add your flight" bar. The pages render for people and crawlers alike.
+2. Render the route behind the gate as an overlay, so the content and
+   `usePageMeta` mount underneath it.
+3. Keep the gate and drop the sitemap's vibe and collection URLs until one of
+   the above lands.
 
 ## Observations (not CC-16 failures)
 
@@ -274,3 +302,4 @@ Then (acceptance):
 - **Same card for every URL.** Link-preview crawlers don't run JS, so every link shows the home card. Per-page cards need SSR or edge middleware.
 - **Shared checkout and DB.** Other sessions (CC-13, CC-6) switched this directory's branch three times while CC-16's work was uncommitted (reflog 08:45–08:47 UTC). Nothing was lost, because all branches pointed at `d1ccd07`. They also applied migrations (`20261003084830`, `20261003085434`) and write `is_test` preview rows into the same tables, which is why every query in this report is scoped by this run's anon ids.
 - **Old key left in place.** Browsers that saw `?src=` before CC-16 still hold `tp_acquisition_src` in localStorage. Nothing reads it now; it's left alone rather than deleted on every load.
+- **CC-13 now needs a rebase.** CC-16 is on main (`c29ebc0`). `cc-13-journey-trail` was cut from `d1ccd07` and touches `api/events.ts`, `src/lib/telemetry.ts`, `AmenityDetailPage.tsx` and `tasks/lessons.md`, so it has to rebase onto `c29ebc0` and re-run its preview SMOKE before it ships.
