@@ -243,3 +243,19 @@ exit non-zero on a hit (`! git diff --cached | grep -qE '<patterns>'`), or check
 `$?` explicitly before committing. A count printed to the terminal isn't a gate.
 When a write-up has to name a secret pattern, describe it ("Supabase secret-key
 prefix") rather than spelling the literal, so the scan stays quiet on docs.
+
+---
+
+## 2026-10-03 — The outcome strip is a biased sample, not a visit log (CC-13)
+
+**Sample bias:** only people who reopen the app can answer "Make it to {venue}?", and
+whether someone reopens correlates with the outcome itself. `outcome_eligible` is
+logged on resume, so even the denominator excludes everyone who never came back.
+
+**Self-report isn't a position fix:** `outcome_self_reported` = 'yes' is a claim made
+by a tap. It isn't a visit and never proves location.
+
+**Rule going forward:** compute rates over eligible candidates (`outcome_eligible`),
+never over answers. Call the outcome self-reported, never "visited". Never infer it
+from dwell time or location. The warning also lives in the migration header and in
+`COMMENT ON VIEW` on both `analytics_journey_trail` views.

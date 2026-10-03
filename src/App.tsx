@@ -8,6 +8,9 @@ import { FlightContextCapture } from './pages/FlightContextCapture';
 import { useFlightUpdates, setFlightToastHandler } from './hooks/useFlightUpdates';
 import SimpleToast from './components/ui/SimpleToast';
 import { init as initTelemetry } from './lib/telemetry';
+// Static import on purpose: it pulls in lib/lastSeen, whose resume snapshot has to be
+// taken at module load, before any page can record a new outcome candidate.
+import { OutcomePrompt } from './components/OutcomePrompt';
 
 // MVP routes — lazy loaded
 const HomePage = lazy(() => import("@/pages/HomePage"));
@@ -112,7 +115,7 @@ function AppInner() {
   }
 
   return (
-    <AppShell onEditFlight={handleEditFlight} onChangeFlight={handleChangeFlight}>
+    <AppShell onEditFlight={handleEditFlight} onChangeFlight={handleChangeFlight} banner={<OutcomePrompt />}>
       <Suspense fallback={<Loading />}>
         <Routes>
           {/* Core MVP flow */}

@@ -5,7 +5,10 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plane, Clock, MapPin, ChevronDown, ChevronUp, AlertCircle, Zap, Navigation, Pencil } from 'lucide-react';
-import { useJourney, type JourneyData } from '../context/JourneyContext';
+import { useJourney, hasDeparted, type JourneyData } from '../context/JourneyContext';
+import { track } from '../lib/telemetry';
+import { readLedger, updateLedger } from '../lib/candidateTap';
+import { gateChipVisible, normalizeGate } from '../lib/outcomePrompt';
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -213,6 +216,81 @@ function formatMinutes(mins: number): string {
   return `${mins} min`;
 }
 
+// ─── GATE CHIP (CC-13) ────────────────────────────────────────────────────────
+// "At Gate C22? Tap when you arrive", from 45 min before boarding to 15 min after.
+// gate_prompt_shown logs the first time it renders in a journey; one tap per journey
+// writes gate_reached, and the chip doesn't come back. A self-report, not a position fix.
+
+function GateChip({ compact = false }: { compact?: boolean }) {
+  const { journey } = useJourney();
+  const { minutesToBoarding } = useFlightContext();
+  const journeyKey = journey?.capturedAt ?? null;
+  const gate = normalizeGate(journey?.gate);
+  const [reached, setReached] = useState(() => readLedger(journeyKey).gate_reached);
+
+  useEffect(() => {
+    setReached(readLedger(journeyKey).gate_reached);
+  }, [journeyKey]);
+
+  const visible = gateChipVisible({
+    gate,
+    minutesToBoarding,
+    journeyActive: !!journey,
+    departed: hasDeparted(journey),
+    reached,
+  });
+
+  const fields = () => ({
+    terminal_code: journey?.departureTerminal || null,
+    minutes_to_boarding: minutesToBoarding,
+    payload: { gate },
+  });
+
+  // Keyed on visibility, not on the minute tick: it fires once, when the chip first appears.
+  useEffect(() => {
+    if (!visible || readLedger(journeyKey).gate_prompt_logged) return;
+    track('gate_prompt_shown', fields());
+    updateLedger(journeyKey, () => ({ gate_prompt_logged: true }));
+  }, [visible, journeyKey]);
+
+  if (!visible) return null;
+
+  const onTap = (ev: React.MouseEvent) => {
+    ev.stopPropagation(); // the bar's main row toggles details on click
+    track('gate_reached', fields());
+    updateLedger(journeyKey, () => ({ gate_reached: true }));
+    setReached(true);
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={onTap}
+      style={{
+        marginTop: compact ? 0 : 10,
+        width: compact ? 'auto' : '100%',
+        padding: compact ? '3px 10px' : '8px 12px',
+        borderRadius: compact ? 20 : 10,
+        border: '1px solid rgba(34,197,94,0.35)',
+        background: 'rgba(34,197,94,0.12)',
+        color: '#4ade80',
+        fontSize: compact ? 11 : 13,
+        fontWeight: 600,
+        fontFamily: 'inherit',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 6,
+        flexShrink: 0,
+      }}
+    >
+      <MapPin size={compact ? 11 : 13} />
+      At Gate {gate}? Tap when you arrive
+    </button>
+  );
+}
+
 // ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 
 interface FlightStatusBarProps {
@@ -314,6 +392,7 @@ export function FlightStatusBar({
         <span style={{ color: 'rgba(255,255,255,0.5)' }}>
           Gate {flight.gate}, {flight.terminal}
         </span>
+        <GateChip compact />
       </motion.div>
     );
   }
@@ -394,6 +473,8 @@ export function FlightStatusBar({
           {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
         </button>
       </div>
+
+      <GateChip />
 
       {/* Expanded detail */}
       <AnimatePresence>

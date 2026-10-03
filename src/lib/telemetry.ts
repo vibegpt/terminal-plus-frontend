@@ -24,6 +24,12 @@ const EVENT_TYPES = new Set([
   'search_performed',
   'tool_called',
   'flight_not_found',
+  // CC-13 journey trail
+  'outcome_eligible',
+  'outcome_shown',
+  'outcome_response',
+  'gate_prompt_shown',
+  'gate_reached',
 ]);
 
 export type EventType =
@@ -37,7 +43,12 @@ export type EventType =
   | 'stop_skipped'
   | 'search_performed'
   | 'tool_called'
-  | 'flight_not_found';
+  | 'flight_not_found'
+  | 'outcome_eligible'
+  | 'outcome_shown'
+  | 'outcome_response'
+  | 'gate_prompt_shown'
+  | 'gate_reached';
 
 export interface TrackFields {
   terminal_code?: string | null;

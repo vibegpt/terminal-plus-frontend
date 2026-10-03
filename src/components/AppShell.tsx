@@ -311,9 +311,10 @@ function TopBar({ onEditFlight }: TopBarProps) {
 interface MobileHeaderProps {
   onEditFlight: () => void;
   onChangeFlight?: () => void;
+  banner?: React.ReactNode;
 }
 
-function MobileHeader({ onEditFlight, onChangeFlight }: MobileHeaderProps) {
+function MobileHeader({ onEditFlight, onChangeFlight, banner }: MobileHeaderProps) {
   return (
     <div style={{
       padding: '10px 14px 6px',
@@ -349,6 +350,7 @@ function MobileHeader({ onEditFlight, onChangeFlight }: MobileHeaderProps) {
           }
         }}
       />
+      {banner}
     </div>
   );
 }
@@ -415,9 +417,11 @@ interface AppShellProps {
   onEditFlight: () => void;
   /** Called when a user with a flight wants to change it (capture opens at the flight step) */
   onChangeFlight?: () => void;
+  /** Inline strip under the flight bar, in the sticky header (e.g. the outcome prompt). Renders nothing when empty. */
+  banner?: React.ReactNode;
 }
 
-export function AppShell({ children, onEditFlight, onChangeFlight }: AppShellProps) {
+export function AppShell({ children, onEditFlight, onChangeFlight, banner }: AppShellProps) {
   const bp = useBreakpoint();
   const activeVibe = useActiveVibe();
   const navigate = useNavigate();
@@ -440,6 +444,7 @@ export function AppShell({ children, onEditFlight, onChangeFlight }: AppShellPro
         overflow: 'hidden',
       }}>
         <TopBar onEditFlight={onEditFlight} />
+        {banner && <div style={{ flexShrink: 0, padding: '0 20px' }}>{banner}</div>}
         <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
           <Sidebar
             activeVibe={activeVibe}
@@ -472,6 +477,7 @@ export function AppShell({ children, onEditFlight, onChangeFlight }: AppShellPro
         overflow: 'hidden',
       }}>
         <TopBar onEditFlight={onEditFlight} />
+        {banner && <div style={{ flexShrink: 0, padding: '0 20px' }}>{banner}</div>}
         <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
           <Sidebar
             collapsed
@@ -499,7 +505,7 @@ export function AppShell({ children, onEditFlight, onChangeFlight }: AppShellPro
       fontFamily: '"DM Sans", system-ui, sans-serif',
       overflow: 'hidden',
     }}>
-      <MobileHeader onEditFlight={onEditFlight} onChangeFlight={onChangeFlight} />
+      <MobileHeader onEditFlight={onEditFlight} onChangeFlight={onChangeFlight} banner={banner} />
       <main style={{ flex: 1, overflowY: 'auto', background: '#0a0a0f' }}>
         {children}
       </main>
