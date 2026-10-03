@@ -439,7 +439,7 @@ const CHAT_BUDGET_MS = 15_000
 const FIRST_OUTPUT_MS = 6_000
 // A fallback with less time than this can't finish a reply, so it isn't tried.
 const MIN_FALLBACK_MS = 3_000
-// Thinking (adaptive on claude-sonnet-5-5) counts toward max_tokens.
+// Thinking counts toward max_tokens (adaptive by default on the current chat model).
 const MAX_TOKENS = 2048
 
 type FallbackReason = 'overloaded' | 'stalled' | 'model_not_found'
