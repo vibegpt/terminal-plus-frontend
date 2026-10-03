@@ -9,7 +9,7 @@ import { queryRouteMatch } from './lib/agent'
 import type { RouteMatch } from './lib/agent'
 import { logChatTurn } from './lib/agentTelemetry'
 import type { ChatTurnLog } from './lib/agentTelemetry'
-import { AMENITY_COLUMNS, formatAmenityBlock, parseReply, replyText } from './lib/chatPayload'
+import { formatAmenityBlock, parseReply, replyText } from './lib/chatPayload'
 import type { ChatReply } from './lib/chatPayload'
 import { CHAT_MODEL, FALLBACK_MODEL, chatParams } from './lib/models'
 import { UUID_RE, isTestRequest } from './lib/telemetryEnv'
@@ -379,9 +379,7 @@ Response rules:
 8. If you don't know the user's departure time, ask naturally as a follow-up question.
 
 Amenity list:
-Each turn lists the amenities you may recommend: a header row, then one row per amenity, fields separated by "|", empty when unknown:
-${AMENITY_COLUMNS}
-hours is opening hours; price is the price level; vibes are the amenity's tags.
+Each turn lists the amenities you may recommend as rows of "|"-separated fields under a header row (empty = unknown). hours is opening hours, price the price level, vibes the amenity's tags; description is given only when there's no editorial_note.
 
 Editorial notes:
 Some amenities have an editorial_note — a concierge-style recommendation from real traveller opinions. When present, weave the insight naturally into your response (don't copy-paste). Use route_context to explain who it's best for. Prefer higher editorial_score amenities when all else is equal. Use specific details (dish names, tips) from editorial notes to make recommendations concrete.

@@ -84,9 +84,11 @@ test('the amenity block is one header row, then one pipe row per amenity', () =>
   assert.equal(cells[3], 'Monday-Sunday: 06:00-01:00'); // JSON-in-text hours flattened
   assert.equal(cells[7].length, 200); // editorial_note capped
   assert.equal(cells[8], 'Best for coffee lovers with time'); // pipes and newlines can't break the row
-  assert.equal(cells[9].length, 80); // description capped
-  assert.equal(lines[2].split('|')[3], '24/7');
-  assert.equal(lines[2].split('|')[7], ''); // null is empty, not "null"
+  assert.equal(cells[9], ''); // a note is present, so no description
+  const second = lines[2].split('|');
+  assert.equal(second[3], '24/7');
+  assert.equal(second[7], ''); // null is empty, not "null"
+  assert.equal(second[9].length, 80); // no note: description sent, capped
 });
 
 test('dropped fields never reach the block', () => {
