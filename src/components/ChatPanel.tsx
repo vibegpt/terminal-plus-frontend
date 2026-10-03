@@ -331,7 +331,7 @@ function AmenityMiniCard({
               {hoursLines.length === 0
                 ? 'See details'
                 : hoursLines.map((line, i) => (
-                    <span key={i} className="block truncate" title={line}>{line}</span>
+                    <span key={i} className="block break-words">{line}</span>
                   ))}
             </span>
           </span>
