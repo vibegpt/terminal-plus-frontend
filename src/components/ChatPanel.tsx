@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, MapPin, Clock, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
@@ -7,6 +7,7 @@ import { useJourney } from '../context/JourneyContext';
 import { useVoice } from '../hooks/useVoice';
 import type { ChatMessage } from '../services/chatService';
 import type { AmenityDetail } from '../lib/supabase';
+import { formatHours, parseChatMarkdown, type Inline } from '../lib/chatFormat';
 
 interface ChatPanelProps {
   open: boolean;
@@ -249,7 +250,7 @@ function MessageBubble({
               : 'bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-2xl rounded-bl-md px-4 py-2.5 text-sm'
           }
         >
-          {message.content}
+          {isUser ? message.content : <MessageText text={message.content} />}
         </div>
 
         {/* Speaking indicator */}
@@ -297,18 +298,13 @@ function AmenityMiniCard({
   const slug = amenity.amenity_slug || '';
   const name = amenity.name || 'Unknown';
   const terminal = amenity.terminal_code || '';
-  const hours = amenity.opening_hours;
+  // opening_hours is text in the DB (a string, or a JSON object stored as one),
+  // whatever AmenityDetail's type says.
+  const hoursLines = formatHours(amenity.opening_hours as unknown);
   const imageUrl = amenity.logo_url;
 
   // Simple terminal label: "SIN-T3" → "T3"
   const terminalLabel = terminal.replace('SIN-', '');
-
-  // Format hours: show first entry or "See details"
-  let hoursText = 'See details';
-  if (hours) {
-    const firstVal = Object.values(hours)[0];
-    if (firstVal) hoursText = firstVal;
-  }
 
   return (
     <button
@@ -322,20 +318,61 @@ function AmenityMiniCard({
       )}
       <div className="p-2.5">
         <p className="text-xs font-semibold text-gray-900 dark:text-white truncate">{name}</p>
-        <div className="flex items-center gap-2 mt-1 text-[11px] text-gray-500 dark:text-slate-400">
+        <div className="flex items-start gap-2 mt-1 text-[11px] text-gray-500 dark:text-slate-400">
           {terminalLabel && (
-            <span className="flex items-center gap-0.5">
+            <span className="flex flex-shrink-0 items-center gap-0.5">
               <MapPin className="w-3 h-3" />
               {terminalLabel}
             </span>
           )}
-          <span className="flex items-center gap-0.5 truncate">
-            <Clock className="w-3 h-3" />
-            {hoursText}
+          <span className="flex min-w-0 items-start gap-0.5">
+            <Clock className="w-3 h-3 mt-px flex-shrink-0" />
+            <span className="min-w-0">
+              {hoursLines.length === 0
+                ? 'See details'
+                : hoursLines.map((line, i) => (
+                    <span key={i} className="block truncate" title={line}>{line}</span>
+                  ))}
+            </span>
           </span>
         </div>
       </div>
     </button>
+  );
+}
+
+// Assistant replies: bold, italics and bullet lists from parseChatMarkdown.
+// Every string is a React text node, so anything else (HTML included) shows
+// literally. No dangerouslySetInnerHTML.
+function MessageText({ text }: { text: string }) {
+  return (
+    <>
+      {parseChatMarkdown(text).map((block, i) =>
+        block.type === 'ul' ? (
+          <ul key={i} className="list-disc pl-4 my-1 space-y-0.5">
+            {block.items.map((item, j) => (
+              <li key={j}><InlineText parts={item} /></li>
+            ))}
+          </ul>
+        ) : (
+          <p key={i} className={i > 0 ? 'mt-1.5' : undefined}>
+            <InlineText parts={block.inline} />
+          </p>
+        ),
+      )}
+    </>
+  );
+}
+
+function InlineText({ parts }: { parts: Inline[] }) {
+  return (
+    <>
+      {parts.map((part, k) =>
+        part.type === 'strong' ? <strong key={k} className="font-semibold">{part.text}</strong>
+        : part.type === 'em' ? <em key={k}>{part.text}</em>
+        : <Fragment key={k}>{part.text}</Fragment>,
+      )}
+    </>
   );
 }
 
