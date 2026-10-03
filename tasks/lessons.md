@@ -374,3 +374,35 @@ by a tap. It isn't a visit and never proves location.
 never over answers. Call the outcome self-reported, never "visited". Never infer it
 from dwell time or location. The warning also lives in the migration header and in
 `COMMENT ON VIEW` on both `analytics_journey_trail` views.
+
+---
+
+## 2026-10-03 — A build strips every `console.*` call, debug ones included
+
+**Assumed (CC-13):** a log behind a `VITE_TP_DEBUG` check would print on a debug preview.
+
+**Actual:** `vite.config.ts` minifies with terser `drop_console: true`, so no `console.*`
+call survives any build, preview or production. AC-11 ("the console shows the reason")
+couldn't pass until the debug path held its own `console` reference
+(`const debugConsole = DEBUG_BUILD ? console : null`), with env read directly so
+production drops the branch.
+
+**Rule going forward:** before relying on a log in a deployed build, grep the built bundle
+for its string, in both a debug and a production build.
+
+---
+
+## 2026-10-03 — Check which build the tab is actually running
+
+**Assumed:** after a push, reloading the preview runs the new code.
+
+**Actual:** two traps.
+- Every Vercel deployment URL is its own origin, so its localStorage and journey are gone
+  on the next push. Test on the branch alias, which follows the newest build.
+- The PWA service worker (`registerType: 'autoUpdate'`) served the previous build's shell
+  from its precache. A fix looked broken because old code ran, and then a lazy chunk that
+  no longer existed came back as `index.html` and blanked the page.
+
+**Rule going forward:** after each push, compare the loaded `assets/index-*.js` with the
+one the server returns (`fetch('/', {cache: 'no-store'})`) before trusting a result. On a
+test origin, unregister the service worker and clear caches when they differ.
