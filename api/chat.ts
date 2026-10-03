@@ -416,16 +416,21 @@ function buildRouteContext(route: RouteMatch, availableMinutes: number): string 
 
 // The whole model budget, primary plus fallback, from the first call.
 const CHAT_BUDGET_MS = 15_000
-const PRIMARY_TIMEOUT_MS = 10_000
+// A primary that hasn't started its reply by now is treated as stalled. One that
+// is streaming keeps the whole budget: a fixed cutoff killed healthy turns that
+// took 10–12 s (CC-6 baseline, 3 of 20).
+const FIRST_OUTPUT_MS = 6_000
 // A fallback with less time than this can't finish a reply, so it isn't tried.
 const MIN_FALLBACK_MS = 3_000
 // Thinking (adaptive on claude-sonnet-5-5) counts toward max_tokens.
 const MAX_TOKENS = 2048
 
-type FallbackReason = 'overloaded' | 'timeout' | 'model_not_found'
+type FallbackReason = 'overloaded' | 'stalled' | 'model_not_found'
+
+class StalledError extends Error {}
 
 function fallbackReason(err: unknown, model: string): FallbackReason | null {
-  if (err instanceof Anthropic.APIConnectionTimeoutError) return 'timeout'
+  if (err instanceof StalledError || err instanceof Anthropic.APIConnectionTimeoutError) return 'stalled'
   if (err instanceof Anthropic.NotFoundError && err.message.includes(model)) return 'model_not_found'
   if (err instanceof Anthropic.APIError) {
     const type = (err.error as { error?: { type?: string } } | undefined)?.error?.type
@@ -435,29 +440,58 @@ function fallbackReason(err: unknown, model: string): FallbackReason | null {
 }
 
 /**
+ * One streamed call, aborted at the deadline. With `firstOutputMs`, it's also
+ * aborted (as StalledError) if no content block has started by then.
+ */
+async function streamReply(
+  model: string,
+  system: string,
+  messages: Anthropic.MessageParam[],
+  deadline: number,
+  firstOutputMs?: number,
+): Promise<Anthropic.Message> {
+  const controller = new AbortController()
+  let stalled = false
+  const budgetTimer = setTimeout(() => controller.abort(), Math.max(0, deadline - Date.now()))
+  const stallTimer = firstOutputMs
+    ? setTimeout(() => { stalled = true; controller.abort() }, firstOutputMs)
+    : undefined
+  try {
+    const stream = getAnthropic().messages.stream(
+      { model, max_tokens: MAX_TOKENS, system, messages, ...chatParams(model) },
+      { signal: controller.signal, maxRetries: 0 },
+    )
+    stream.on('streamEvent', event => {
+      if (event.type === 'content_block_start') clearTimeout(stallTimer)
+    })
+    return await stream.finalMessage()
+  } catch (err) {
+    if (stalled) throw new StalledError(`${model}: no output after ${firstOutputMs} ms`)
+    throw err
+  } finally {
+    clearTimeout(budgetTimer)
+    clearTimeout(stallTimer)
+  }
+}
+
+/**
  * CHAT_MODEL, then 1 retry on FALLBACK_MODEL when the primary is overloaded,
- * times out, or doesn't exist. No SDK-level retries: they'd spend the budget
- * on the model that just failed.
+ * stalls before its first output, or doesn't exist. No SDK-level retries:
+ * they'd spend the budget on the model that just failed.
  */
 async function callChatModel(
   system: string,
   messages: Anthropic.MessageParam[],
 ): Promise<{ response: Anthropic.Message; fallbackFrom: string | null }> {
   const deadline = Date.now() + CHAT_BUDGET_MS
-  const create = (model: string, timeout: number) =>
-    getAnthropic().messages.create(
-      { model, max_tokens: MAX_TOKENS, system, messages, ...chatParams(model) },
-      { timeout, maxRetries: 0 },
-    )
-
   try {
-    return { response: await create(CHAT_MODEL, PRIMARY_TIMEOUT_MS), fallbackFrom: null }
+    return { response: await streamReply(CHAT_MODEL, system, messages, deadline, FIRST_OUTPUT_MS), fallbackFrom: null }
   } catch (err) {
     const reason = fallbackReason(err, CHAT_MODEL)
     const remaining = deadline - Date.now()
     if (!reason || CHAT_MODEL === FALLBACK_MODEL || remaining < MIN_FALLBACK_MS) throw err
     console.warn(`[chat] ${CHAT_MODEL}: ${reason}; retrying on ${FALLBACK_MODEL} (${remaining} ms left)`)
-    return { response: await create(FALLBACK_MODEL, remaining), fallbackFrom: CHAT_MODEL }
+    return { response: await streamReply(FALLBACK_MODEL, system, messages, deadline), fallbackFrom: CHAT_MODEL }
   }
 }
 
@@ -645,7 +679,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const status = error && typeof error === 'object' && 'status' in error
       ? (error as { status: number }).status : undefined
     if (turn) {
-      const kind = error instanceof Anthropic.APIError ? `anthropic_${status ?? 'connection'}` : 'internal'
+      const kind =
+        error instanceof StalledError || error instanceof Anthropic.APIUserAbortError ? 'timeout'
+        : error instanceof Anthropic.APIError ? `anthropic_${status ?? 'connection'}`
+        : 'internal'
       logTurn({ ...turn, agentResponse: `error:${kind}`, resultSlugs: [], model: null, inputTokens: null, outputTokens: null, latencyMs: Date.now() - startedAt })
     }
     if (status === 429) return res.status(429).json({ error: 'Rate limited. Please try again.' })

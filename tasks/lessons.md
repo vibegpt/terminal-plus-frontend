@@ -299,3 +299,24 @@ after the page target closed, outside the interception, so it landed
 fetches and never sends a beacon. Navigate to `about:blank` and wait before
 closing each page. To prove an empty-storage render, run once untagged, then
 check the event table and flag any untagged row at once.
+
+---
+
+## 2026-10-03 — A fixed primary/fallback split inside one budget kills healthy slow turns
+
+**Assumed (CC-6 plan):** a 15 s chat budget split as 10 s for the primary model
+and the rest for 1 fallback call, "re-checked against baseline p95".
+
+**Actual:** the first baseline run on the preview (`claude-sonnet-4-5-20250929`,
+current payload) returned 500 on 3 of 20 turns. All 3 were the primary hitting
+the 10 s cutoff while still healthy (successful turns took up to 10.5 s
+server-side), followed by a `claude-sonnet-4-6` fallback that couldn't finish in
+the 5 s left. Production before CC-6 gave one call the full 15 s, so the split
+would have shipped a regression that looked like resilience.
+
+**Rule going forward:** a fallback budget triggers on a *stall* (no output by N
+seconds, via streaming) or a fast failure (529, 404), never on a fixed
+wall-clock slice of a model that is still streaming. Measure the latency
+distribution before choosing any cutoff, and test every fallback path (slow,
+stalled, overloaded, unknown model, over budget) against a local mock of the
+API before trusting the one path a preview can force.

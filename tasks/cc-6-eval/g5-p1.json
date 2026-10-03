@@ -1,0 +1,101 @@
+{
+  "summary": {
+    "label": "g5-p1",
+    "base": "https://terminal-plus-frontend-9lfmg1m6e-todds-projects-d0181971.vercel.app",
+    "started_at": "2026-10-03T08:54:55.227Z",
+    "prompts": 1,
+    "http_200": 1,
+    "validity": "1/1",
+    "slug_quality": "1/1",
+    "adversarial": "0/0",
+    "jewel_violations": [],
+    "markdown_replies": 0,
+    "p50_ms": 9315,
+    "p95_ms": 9315,
+    "median_input_tokens": 3416,
+    "median_output_tokens": 369,
+    "mean_cost_usd": 0.01578,
+    "models": [
+      "claude-sonnet-4-5-20250929"
+    ],
+    "fallbacks": [],
+    "rows_logged": "1/1",
+    "rows_with_model_and_tokens": 1,
+    "rows_not_test": 0,
+    "row_ids": [
+      "05cbea30-ba38-4554-a700-98847b87d356"
+    ]
+  },
+  "results": [
+    {
+      "id": "n01",
+      "kind": "normal",
+      "check": null,
+      "session_id": "b8d96a87-3e57-45c9-9533-4a17ee5989ab",
+      "status": 200,
+      "wall_ms": 9315,
+      "message": "You've got great timing — with 90 minutes, you can easily visit Bacha Coffee, the crown jewel of T3's coffee scene. It's the world's largest Bacha outlet with Moroccan stained-glass ceilings and over 200 single-origin Arabica coffees (takeaway only, but it feels luxurious even sipping by the gates). If you want a sit-down experience with a view, The Coffee Bean & Tea Leaf has premium seating overlooking the terminal and is quieter than Starbucks during busy periods.",
+      "shown": [
+        "bacha-coffee-sint3",
+        "ocoffee-club-sint3",
+        "coffee-bean-tea-leaf-sint3",
+        "starbucks-sint3"
+      ],
+      "debug": {
+        "model": "claude-sonnet-4-5-20250929",
+        "fallback_from": null,
+        "stop_reason": "end_turn",
+        "json_valid": true,
+        "raw_slugs": [
+          "bacha-coffee-sint3",
+          "ocoffee-club-sint3",
+          "coffee-bean-tea-leaf-sint3",
+          "starbucks-sint3"
+        ],
+        "feasible_slugs": [
+          "bacha-coffee-sint3",
+          "paradise-dynasty-t3-new",
+          "muji-t3-new",
+          "telecommunications-kiosk-t3-new",
+          "din-tai-fung-t3-new",
+          "koi-pond-t3-new",
+          "ocoffee-club-sint3",
+          "bee-cheng-hiang-t3-new",
+          "starbucks-sint3",
+          "ya-kun-kaya-toast-t3-new",
+          "coming-home-sint3",
+          "coffee-bean-tea-leaf-sint3",
+          "goldheart-sint3",
+          "memory-of-lived-space"
+        ],
+        "available_minutes": 90
+      },
+      "json_valid": true,
+      "subset_ok": true,
+      "count_ok": true,
+      "slug_quality": true,
+      "jewel_violation": false,
+      "adversarial_pass": null,
+      "has_markdown": false,
+      "row": {
+        "id": "05cbea30-ba38-4554-a700-98847b87d356",
+        "session_id": "b8d96a87-3e57-45c9-9533-4a17ee5989ab",
+        "created_at": "2026-10-03T08:55:04.895538+00:00",
+        "mode": "conversational",
+        "env": "preview",
+        "is_test": true,
+        "model": "claude-sonnet-4-5-20250929",
+        "input_tokens": 3416,
+        "output_tokens": 369,
+        "latency_ms": 8567,
+        "result_slugs": [
+          "bacha-coffee-sint3",
+          "ocoffee-club-sint3",
+          "coffee-bean-tea-leaf-sint3",
+          "starbucks-sint3"
+        ],
+        "agent_response": "You've got great timing — with 90 minutes, you can easily visit Bacha Coffee, the crown jewel of T3's coffee scene. It's the world's largest Bacha outlet with Moroccan stained-glass ceilings and over 200 single-origin Arabica coffees (takeaway only, but it feels luxurious even sipping by the gates). If you want a sit-down experience with a view, The Coffee Bean & Tea Leaf has premium seating overlooking the terminal and is quieter than Starbucks during busy periods."
+      }
+    }
+  ]
+}
