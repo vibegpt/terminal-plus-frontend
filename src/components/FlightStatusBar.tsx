@@ -5,7 +5,11 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plane, Clock, MapPin, ChevronDown, ChevronUp, AlertCircle, Zap, Navigation, Pencil } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { useJourney, type JourneyData } from '../context/JourneyContext';
+import { AddFlightBar } from './AddFlightBar';
+import { isPagePath } from '@/lib/routes';
+import type { CaptureEntry } from '@/lib/capture';
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -220,8 +224,8 @@ interface FlightStatusBarProps {
   compact?: boolean;
   /** Called when user taps the CTA button */
   onCTAPress?: (urgency: UrgencyLevel) => void;
-  /** Called when user taps "Add flight" prompt */
-  onAddFlight?: () => void;
+  /** Called when user taps "Add flight": 'bar' on page routes, 'prompt' on Home */
+  onAddFlight?: (entry: CaptureEntry) => void;
   /** Called when user taps "Change flight" in the expanded bar */
   onChangeFlight?: () => void;
   className?: string;
@@ -236,9 +240,20 @@ export function FlightStatusBar({
 }: FlightStatusBarProps) {
   const { flight, urgency, minutesToBoarding } = useFlightContext();
   const [expanded, setExpanded] = useState(false);
+  const { pathname } = useLocation();
   const config = URGENCY_CONFIG[urgency];
 
-  // No flight entered — show prompt
+  // No flight entered. Page routes get the slim, dismissible bar; Home keeps
+  // its prompt (first-time Home visitors meet the capture gate before this).
+  if (!flight && isPagePath(pathname)) {
+    return (
+      <AddFlightBar
+        compact={compact}
+        className={className}
+        onAddFlight={() => onAddFlight?.('bar')}
+      />
+    );
+  }
   if (!flight) {
     return (
       <motion.div
@@ -255,7 +270,7 @@ export function FlightStatusBar({
           gap: '10px',
           cursor: 'pointer',
         }}
-        onClick={onAddFlight}
+        onClick={() => onAddFlight?.('prompt')}
       >
         <Plane size={14} style={{ color: '#7c6dfa', opacity: 0.7 }} />
         <span style={{

@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useState, useCallback, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import ChatBubble from './components/ChatBubble';
 import { FlightProvider } from './components/FlightStatusBar';
 import { AppShell } from './components/AppShell';
@@ -7,7 +7,9 @@ import { JourneyProvider, useJourney, hasDeparted, type JourneyData } from './co
 import { FlightContextCapture } from './pages/FlightContextCapture';
 import { useFlightUpdates, setFlightToastHandler } from './hooks/useFlightUpdates';
 import SimpleToast from './components/ui/SimpleToast';
-import { init as initTelemetry } from './lib/telemetry';
+import { init as initTelemetry, track } from './lib/telemetry';
+import { HOME_PATH, PAGE_PATHS, isPagePath } from './lib/routes';
+import { dismissAddFlightBar, type CaptureEntry } from './lib/capture';
 
 // MVP routes — lazy loaded
 const HomePage = lazy(() => import("@/pages/HomePage"));
@@ -18,6 +20,42 @@ const SearchPage = lazy(() => import("@/pages/SearchPage"));
 const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
 const MapPage = lazy(() => import("@/pages/MapPage"));
 const SavedPage = lazy(() => import("@/pages/SavedPage"));
+
+// Whether this tab session started on a page (deep link) or on Home. Decided
+// once, on the first render, and kept for the session: a visitor who arrives on
+// /vibe/refuel and later taps Home never meets the full-screen gate.
+const ENTRY_KIND_KEY = 'tp_entry_kind';
+
+function sessionEntryKind(pathname: string): 'home' | 'page' {
+  const kind = isPagePath(pathname) ? 'page' : 'home';
+  try {
+    const stored = sessionStorage.getItem(ENTRY_KIND_KEY);
+    if (stored === 'home' || stored === 'page') return stored;
+    sessionStorage.setItem(ENTRY_KIND_KEY, kind);
+  } catch { /* storage blocked: decide from this path alone */ }
+  return kind;
+}
+
+// True when a stored journey is still live. A departed one is stale: clear it
+// (and the session's skip) so the next capture starts a new trip.
+function hasLiveJourney(): boolean {
+  const stored = localStorage.getItem('tp_journey_context');
+  if (!stored) return false;
+  try {
+    const parsed = JSON.parse(stored) as JourneyData;
+    if (!hasDeparted(parsed)) return true;
+    localStorage.removeItem('tp_journey_context');
+    sessionStorage.removeItem('tp_user_terminal');
+    sessionStorage.removeItem('terminal_plus_flight');
+    // A departed flight means a new trip, so an earlier skip in this
+    // session must not suppress the fresh capture.
+    sessionStorage.removeItem('tp_onboarded');
+    return false;
+  } catch {
+    localStorage.removeItem('tp_journey_context');
+    return false;
+  }
+}
 
 const Loading = () => (
   <div className="min-h-screen flex items-center justify-center" style={{ background: '#0a0a0f' }}>
@@ -46,62 +84,56 @@ function AppInner() {
     });
   }, []);
 
-  // Read localStorage directly in the initializer — avoids context propagation
-  // timing edge cases. This is the single source of truth for the gate.
-  const [captureVisible, setCaptureVisible] = useState(() => {
-    const stored = localStorage.getItem('tp_journey_context');
+  const { pathname } = useLocation();
 
-    if (stored) {
-      // A stored journey whose onward flight has already departed is stale —
-      // clear it and capture again rather than restoring yesterday's trip.
-      try {
-        const parsed = JSON.parse(stored) as JourneyData;
-        if (!hasDeparted(parsed)) return false;
-        localStorage.removeItem('tp_journey_context');
-        sessionStorage.removeItem('tp_user_terminal');
-        sessionStorage.removeItem('terminal_plus_flight');
-        // A departed flight means a new trip, so an earlier skip in this
-        // session must not suppress the fresh capture.
-        sessionStorage.removeItem('tp_onboarded');
-        return true;
-      } catch {
-        localStorage.removeItem('tp_journey_context');
-        return true;
-      }
-    }
-
+  // Which capture is open, if any. Page routes (vibe, collection, amenity, …)
+  // always render at once, for every visitor; the flight ask there is the slim
+  // bar in FlightStatusBar. The full-screen gate is only for a session that
+  // landed on Home (/, /sin, unknown paths) with no live journey and no skip yet.
+  // Read storage directly in the initializer: avoids context propagation timing.
+  const [captureEntry, setCaptureEntry] = useState<CaptureEntry | null>(() => {
+    const entryKind = sessionEntryKind(pathname);
+    if (hasLiveJourney()) return null;
     // Skipped: there is no journey to restore, but the user already said no.
     // Re-showing the wall on every reload is what "skip" exists to prevent.
     // sessionStorage, so a genuinely new session still gets the offer.
-    return sessionStorage.getItem('tp_onboarded') !== '1';
+    if (sessionStorage.getItem('tp_onboarded') === '1') return null;
+    return entryKind === 'home' && !isPagePath(pathname) ? 'gate' : null;
   });
 
-  const [changingFlight, setChangingFlight] = useState(false);
+  // One capture_opened per opening, so capture rate compares by entry point.
+  // Declared after the init effect, so it follows session_start.
+  useEffect(() => {
+    if (captureEntry) track('capture_opened', { payload: { entry: captureEntry } });
+  }, [captureEntry]);
 
-  // useCallback so Step3's useEffect[onComplete] doesn't restart on every render
+  const changingFlight = captureEntry === 'change_flight';
+
+  // useCallback so Step3's useEffect[onComplete] doesn't restart on every render.
+  // Capture closes onto the same URL it opened from (it never navigates).
   const handleCaptureComplete = useCallback(() => {
     sessionStorage.setItem('tp_onboarded', '1');
-    setChangingFlight(false);
-    setCaptureVisible(false);
-  }, []);
+    // Opened from the bar and closed without a journey (skip): don't re-nag
+    // this session. With a journey the bar is hidden anyway.
+    if (captureEntry === 'bar') dismissAddFlightBar();
+    setCaptureEntry(null);
+  }, [captureEntry]);
 
-  const handleEditFlight = useCallback(() => {
+  const handleEditFlight = useCallback((entry: CaptureEntry) => {
     resetJourney();
-    setCaptureVisible(true);
+    setCaptureEntry(entry);
   }, [resetJourney]);
 
   // Change flight: reopen capture at the departing-flight step. The current journey stays
   // until a new flight is confirmed, so "Keep …" leaves everything as it was.
   const handleChangeFlight = useCallback(() => {
-    setChangingFlight(true);
-    setCaptureVisible(true);
+    setCaptureEntry('change_flight');
   }, []);
   const handleCancelChange = useCallback(() => {
-    setChangingFlight(false);
-    setCaptureVisible(false);
+    setCaptureEntry(null);
   }, []);
 
-  if (captureVisible) {
+  if (captureEntry) {
     return (
       <FlightContextCapture
         onComplete={handleCaptureComplete}
@@ -116,15 +148,15 @@ function AppInner() {
       <Suspense fallback={<Loading />}>
         <Routes>
           {/* Core MVP flow */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/vibe/:vibeId" element={<VibePage />} />
-          <Route path="/collection/:vibeSlug/:collectionId" element={<CollectionDetailPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="/saved" element={<SavedPage />} />
-          <Route path="/amenity/:terminalCode/:slug" element={<AmenityDetailPage />} />
-          <Route path="/amenity/:slug" element={<AmenityDetailPage />} />
+          <Route path={HOME_PATH} element={<HomePage />} />
+          <Route path={PAGE_PATHS.vibe} element={<VibePage />} />
+          <Route path={PAGE_PATHS.collection} element={<CollectionDetailPage />} />
+          <Route path={PAGE_PATHS.search} element={<SearchPage />} />
+          <Route path={PAGE_PATHS.profile} element={<ProfilePage />} />
+          <Route path={PAGE_PATHS.map} element={<MapPage />} />
+          <Route path={PAGE_PATHS.saved} element={<SavedPage />} />
+          <Route path={PAGE_PATHS.amenityInTerminal} element={<AmenityDetailPage />} />
+          <Route path={PAGE_PATHS.amenity} element={<AmenityDetailPage />} />
           <Route path="/sin" element={<Navigate to="/" replace />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />

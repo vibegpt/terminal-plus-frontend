@@ -16,6 +16,7 @@ import {
   Menu, X, ChevronRight
 } from 'lucide-react';
 import { FlightStatusBar, useFlightContext } from './FlightStatusBar';
+import type { CaptureEntry } from '@/lib/capture';
 
 // ─── VIBE CONFIG ──────────────────────────────────────────────────────────────
 
@@ -65,7 +66,7 @@ interface SidebarProps {
   collapsed?: boolean;
   activeVibe: string;
   onVibeSelect: (key: string) => void;
-  onEditFlight: () => void;
+  onEditFlight: (entry: CaptureEntry) => void;
   onChangeFlight?: () => void;
 }
 
@@ -198,7 +199,7 @@ function Sidebar({ collapsed = false, activeVibe, onVibeSelect, onEditFlight, on
       {/* Footer */}
       <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 8 }}>
         <button
-          onClick={flight && onChangeFlight ? onChangeFlight : onEditFlight}
+          onClick={flight && onChangeFlight ? onChangeFlight : () => onEditFlight('prompt')}
           style={{
             display: 'flex', alignItems: 'center', gap: collapsed ? 0 : 10,
             padding: collapsed ? 10 : '8px 10px', width: '100%',
@@ -231,7 +232,7 @@ function Sidebar({ collapsed = false, activeVibe, onVibeSelect, onEditFlight, on
 // ─── DESKTOP TOPBAR ───────────────────────────────────────────────────────────
 
 interface TopBarProps {
-  onEditFlight: () => void;
+  onEditFlight: (entry: CaptureEntry) => void;
 }
 
 function TopBar({ onEditFlight }: TopBarProps) {
@@ -309,7 +310,7 @@ function TopBar({ onEditFlight }: TopBarProps) {
 // ─── MOBILE HEADER ────────────────────────────────────────────────────────────
 
 interface MobileHeaderProps {
-  onEditFlight: () => void;
+  onEditFlight: (entry: CaptureEntry) => void;
   onChangeFlight?: () => void;
 }
 
@@ -412,7 +413,7 @@ function MobileBottomNav() {
 interface AppShellProps {
   children: React.ReactNode;
   /** Called when user needs to edit/add flight (open onboarding step 2) */
-  onEditFlight: () => void;
+  onEditFlight: (entry: CaptureEntry) => void;
   /** Called when a user with a flight wants to change it (capture opens at the flight step) */
   onChangeFlight?: () => void;
 }

@@ -53,7 +53,11 @@ const EVENT_TYPES = new Set([
   'search_performed',
   'tool_called',
   'flight_not_found',
+  'capture_opened',
 ])
+
+// Where a flight capture was opened from (src/lib/capture.ts CaptureEntry).
+const CAPTURE_ENTRIES = new Set(['gate', 'bar', 'prompt', 'change_flight'])
 
 const SURFACES = new Set(['app', 'chat', 'mcp'])
 
@@ -134,6 +138,11 @@ function validateEvent(raw: unknown): { row: EventRow } | { reason: string } {
 
   // session_start carries landing attribution only: the 7 known keys, validated.
   if (e.event_type === 'session_start') payload = sessionStartPayload(payload)
+  // capture_opened carries only its entry point, and only a known one.
+  if (e.event_type === 'capture_opened') {
+    const entry = payload.entry
+    payload = typeof entry === 'string' && CAPTURE_ENTRIES.has(entry) ? { entry } : {}
+  }
 
   // occurred_at deliberately omitted — the DB default (now()) is the source
   // of truth in v1; client timestamps are ignored.
