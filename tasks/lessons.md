@@ -157,3 +157,63 @@ goes back to running with owner rights and bypassing base-table RLS.
 security_invoker) view, either `drop` + `create … with (security_invoker = on)`
 or repeat the `WITH` on the replace, then check `pg_class.reloptions` and
 `has_table_privilege('anon', …)` after applying.
+
+---
+
+## 2026-10-03 — `pg_default_acl` opens every new object in `public` to the client roles
+
+Proven on this DB (`pg_default_acl`, `aclexplode`), for objects created by both
+`postgres` and `supabase_admin` in schema `public`:
+
+```
+tables+views  anon, authenticated: SELECT INSERT UPDATE DELETE TRUNCATE REFERENCES TRIGGER
+functions     anon, authenticated: EXECUTE
+sequences     anon, authenticated: SELECT UPDATE USAGE
+```
+
+A new table is fully writable by anyone holding the public anon key until RLS is
+enabled, and a new function is callable through `/rest/v1/rpc` the moment it exists.
+
+**Rule going forward:** every migration that creates a table, view or function
+enables RLS (tables), sets `security_invoker = on` (views), and revokes from anon
+and authenticated whatever they don't need, in the same migration. Check with
+`has_table_privilege` / `has_function_privilege` after applying.
+
+---
+
+## 2026-10-03 — A lockdown revokes everything, and its rollback restores everything
+
+**Assumed (CC-2B plan):** revoking the write verbs (`insert, update, delete,
+truncate`) on journeys, events and agent_interactions was enough, because RLS with
+no anon policy returns 0 rows on SELECT. And a rollback was "recreate the policies".
+
+**Actual (Todd's correction):** the partial revoke left SELECT, REFERENCES and
+TRIGGER granted, so one later `disable row level security` or permissive policy
+would expose the rows. RLS was the only barrier on reads. And once the grants are
+revoked, recreating the policies restores nothing: the role has no privilege for
+a policy to filter.
+
+**Rule going forward:** service-role-only tables get `revoke all ... from anon,
+authenticated`. Before applying any lockdown, capture
+`information_schema.role_table_grants` for the client roles, and write the
+rollback as grants plus policies. Verify with `has_table_privilege` across all 7
+table privileges, not only the ones the migration names.
+
+---
+
+## 2026-10-03 — Deployed edge functions are callers too
+
+**Assumed:** the caller gate for a table lockdown is `src/` (reachable client code)
+plus `api/`.
+
+**Actual:** `list_edge_functions` showed `saveJourney` ACTIVE (v9, May 2025), with
+an anon-key client inserting into journeys. The repo copy exists, but nothing in
+the repo said it was deployed, and a deployed function's source can differ from
+the repo (`log-emotion`'s deployed `index.ts` isn't in the repo at all). It turned
+out to be dead (it calls the v1 `auth.api` against the v2 client and has 0
+invocations), but only reading the deployed source settled that.
+
+**Rule going forward:** a caller gate covers reachable client code, `api/`,
+`scripts/`, and every deployed edge function (`list_edge_functions`, then
+`get_edge_function` for the deployed source). Check the function logs for live
+traffic before calling one dead.
