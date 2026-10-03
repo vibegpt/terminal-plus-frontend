@@ -243,3 +243,40 @@ exit non-zero on a hit (`! git diff --cached | grep -qE '<patterns>'`), or check
 `$?` explicitly before committing. A count printed to the terminal isn't a gate.
 When a write-up has to name a secret pattern, describe it ("Supabase secret-key
 prefix") rather than spelling the literal, so the scan stays quiet on docs.
+
+---
+
+## 2026-10-03 — One attribution column, one attribution model
+
+**Assumed (CC-16 round 1):** `journeys.acquisition_src` could take the current
+tab's utm_source and fall back to the old first-touch `tp_acquisition_src`.
+
+**Actual (Todd's correction):** that mixed two models in one column. A tab
+with no source of its own was credited to whatever link the browser saw first,
+and a later link relabelled the browser. The round-1 preview showed both: QF1
+and QF2 journeys from tabs with no source carried `cc16_legacy`.
+
+**Rule going forward:** pick the model per column and write it down.
+`journeys.acquisition_src` is first touch per browser: stored once in its own
+versioned localStorage key (`tp_first_touch_v1`), never overwritten, and
+normalised before it takes the slot, so a malformed value can't burn it. Null
+when there's none, with no fallback. Each visit's own source goes on
+session_start only.
+
+---
+
+## 2026-10-03 — A file that beats the SPA fallback on the server can still lose to the service worker
+
+**Assumed (CC-16 gate G3):** proving with curl that Vercel serves a `public/`
+file ahead of the SPA rewrite was enough for `/robots.txt` and `/sitemap.xml`.
+
+**Actual (Todd's correction):** the PWA's generated service worker has a
+`NavigationRoute` that answers every navigation with `index.html`. In a browser
+with the app installed, opening `/robots.txt` booted the app and redirected to
+`/`. Crawlers don't run service workers, so curl never shows it.
+
+**Rule going forward:** any path a person might open directly (`/api/`,
+`/.well-known/`, `/og/`, `/robots.txt`, `/sitemap.xml`, and any new static file)
+goes in `workbox.navigateFallbackDenylist`. Workbox matches pathname + search,
+so use prefix patterns, not ones anchored with `$`. Verify in a browser with the
+SW installed and controlling the page, not only with curl.
