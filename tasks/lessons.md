@@ -208,12 +208,38 @@ plus `api/`.
 
 **Actual:** `list_edge_functions` showed `saveJourney` ACTIVE (v9, May 2025), with
 an anon-key client inserting into journeys. The repo copy exists, but nothing in
-the repo said it was deployed, and a deployed function's source can differ from
-the repo (`log-emotion`'s deployed `index.ts` isn't in the repo at all). It turned
-out to be dead (it calls the v1 `auth.api` against the v2 client and has 0
-invocations), but only reading the deployed source settled that.
+the repo said it was deployed, and the repo needn't hold the deployed entrypoint
+(`log-emotion`'s deployed `index.ts` existed only as `index 2.ts`/`index 3.ts`).
+It turned out to be dead (it calls the v1 `auth.api` against the v2 client and has
+0 invocations), but only reading the deployed source settled that.
+
+Correction (Todd): I filed `log-emotion` as "service role, out of scope". It was
+the worse of the two. It inserts caller-supplied fields with the service-role key,
+so RLS never applies, and `verify_jwt` accepts the public anon key. It was harmless
+only because its target table, `emotion_logs`, doesn't exist.
 
 **Rule going forward:** a caller gate covers reachable client code, `api/`,
 `scripts/`, and every deployed edge function (`list_edge_functions`, then
-`get_edge_function` for the deployed source). Check the function logs for live
-traffic before calling one dead.
+`get_edge_function` for the deployed source). Classify each function by three
+things: the key it writes with, the JWT it accepts (`verify_jwt: true` still
+admits the anon key), and whether its target exists. A service-role writer
+reachable with the anon key is an open write path, whatever the grants say.
+Check the function logs for live traffic before calling one dead.
+
+---
+
+## 2026-10-03 — A secret scan gates a commit only through `&&`
+
+**Assumed:** running the scan in the same command as `git commit` made it a gate.
+
+**Actual:** CC-2B's post-deploy commit ran `scan ; git commit`. The scan
+printed `1` hit, and the `;` committed anyway. The hit turned out to be the
+report's own description of the scan (the literal Supabase secret-key prefix), so nothing
+leaked. But the gate was decorative: a real key would have been committed the
+same way.
+
+**Rule going forward:** chain the scan to the commit with `&&`, and make the scan
+exit non-zero on a hit (`! git diff --cached | grep -qE '<patterns>'`), or check
+`$?` explicitly before committing. A count printed to the terminal isn't a gate.
+When a write-up has to name a secret pattern, describe it ("Supabase secret-key
+prefix") rather than spelling the literal, so the scan stays quiet on docs.

@@ -36,6 +36,8 @@ Root: ~/terminal-plus-frontend · Remote: github.com/vibegpt/terminal-plus-front
   - Write the migration file in supabase/migrations/ first, then apply it.
   - Introspect with information_schema.columns.
   - Before any bulk INSERT, run the slug verification query (LEFT JOIN from a VALUES list).
+  - `pg_default_acl` in `public` grants anon and authenticated every privilege on each new table and view, and EXECUTE on each new function. The migration that creates one enables RLS, sets `security_invoker = on` on views, and revokes what anon doesn't need. Check with `has_table_privilege` / `has_function_privilege`.
+  - Caller gates for a grant or policy change cover reachable client code (import trace from src/main.tsx), `api/`, `scripts/`, and every deployed edge function (`list_edge_functions`, then read the deployed source).
 - Pull the vendor's OpenAPI spec before mapping a third-party response. Prove a join key exists before building on it.
 - .env.local: never run `vercel env pull .env.local`, because it overwrites local-only keys. Pull to /tmp and merge by hand.
 - Latency: every uncached DB call from sin1 to Frankfurt costs ~160 ms. Read the catalogue through the cache (api/lib/catalogue.ts once CC-3 lands), run independent queries in parallel, and keep telemetry writes off the response path.

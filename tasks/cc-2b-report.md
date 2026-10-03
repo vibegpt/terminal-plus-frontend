@@ -161,7 +161,12 @@ Row counts: journeys 34 (0 non-test), events 136 (0), agent_interactions 15 (0),
    - Nothing calls it. Its 3 callers (`JourneyInputScreen.tsx`, `comfort-journey.tsx`, `simplified-explore.tsx`) aren't reachable on either tree. The only `functions/v1` string in the built JS is supabase-js's own `functionsUrl`. The logs show 0 function invocations in the 24 h window (1,335 edge requests).
 
    After this migration its insert would get 42501 anyway. It's dead surface: delete it in a separate step.
-2. `log-emotion` is deployed (service role, writes `emotion_logs`), but the repo holds only `index 2.ts` and `index 3.ts`, not the deployed `index.ts`. Out of scope; flagged for CC-9.
+2. `log-emotion` is deployed: ACTIVE v4, 2025-07-25, `verify_jwt true`. My first pass filed it as "service role, out of scope". Todd's correction, verified on 3 Oct:
+   - It inserts caller-supplied fields (`user_id`, `emotion`, `gpt_response` and more) with the **service-role key**, so RLS never applies.
+   - Its target table doesn't exist: `to_regclass('public.emotion_logs')` is null, and 0 relations match `%emotion%`. Every call therefore returns 500.
+   - `verify_jwt` accepts any validly signed project JWT, including the public anon key.
+
+   The repo held only `index 2.ts` and `index 3.ts`, identical to the deployed `index.ts`. See the Follow-up section.
 3. `api/mcp.ts`, `api/chat.ts` and `api/cron/sync-reviews.ts` fall back to the anon key when the service-role key is missing. None of them reads the 5 tables. Production has the service-role key (the CC-7 MCP smoke wrote agent_interactions as `production/true`).
 
 ## Rollback
@@ -199,4 +204,32 @@ Code rollback: `40ec948` (`dpl_DwvtuGCp6nzDwbwD8jVNk22dka4a`) has no reachable c
 
 ## Ship
 
-Commit: the migration, this report and `tasks/lessons.md`. `CLAUDE.local.md` stays local. Pushed to `main` after the acceptance above. The production deployment for the new sha, and one tagged `POST /api/journey` against it, are checked after the push.
+Commit: the migration, this report and `tasks/lessons.md`. `CLAUDE.local.md` stays local.
+
+Secret scan of the staged diff:
+- No gitleaks or trufflehog installed, so it was a pattern grep for JWT, Supabase secret and publishable key, Anthropic key, Stripe, AWS, GitHub and Slack token shapes, PEM headers, and `KEY|SECRET|TOKEN|PASSWORD=` assignments: 0 hits.
+- A literal match of every `.env.local` value of 20+ characters against the diff: 0 hits.
+- No `CLAUDE.local.md`, `Claude outputs/`, `.pem` or `.env*` path staged.
+
+| Step | Result |
+|---|---|
+| Push | `7590fe6..a92b1e3 main -> main` at 06:04:23 UTC |
+| Production deployment | `dpl_BJfmqu29NiTdj3tNcYUiiKKp9vPh`, sha `a92b1e354497eed821d07914e9f3ec457c3f5b07`, created 06:04:27, **READY 06:04:58 UTC**, sin1. `get_deployment terminalplus.app` resolves to it |
+| Tagged `POST /api/journey` on the new deployment | 06:05:14 UTC → **200** `cf4249e7-76c5-4dab-89d7-201a7db46b5d`: `typed`, `env='production'`, **`is_test=true`** (`acquisition_src smoke-cc2b-deploy`) |
+| Final sweep, 06:05:24 UTC | 0 non-test rows in journeys, events and agent_interactions (all time). 0 client grant rows on the 5 tables. 0 policies on journeys, amenity_interactions, user_sessions and events |
+
+Post-deploy test row: journeys `cf4249e7-76c5-4dab-89d7-201a7db46b5d`. This section was added after the push, in a docs-only commit that goes out with the next push.
+
+## Follow-up (Todd, 3 Oct)
+
+| Item | Result | Evidence |
+|---|---|---|
+| Migrations dir holds only the renamed file | PASS | `ls supabase/migrations`: `20261003055908_rls_lockdown_part_b.sql` is the only 20261003 file. `20261003055810` was the pre-rename name (`mv` at apply time). It was never committed: `git log --all` on that path is empty |
+| Edge function sources saved outside the repo | DONE | `~/terminal-plus-archive/edge-functions-2026-10-03/`: both deployed `index.ts` and `deno.json`, exactly as `get_edge_function` returned them, plus a README with ids, versions and dates. `cmp` against the repo copies: identical |
+| Delete `saveJourney` and `log-emotion` from the project | Todd, in the dashboard | Not done from here. The Supabase MCP has no delete for edge functions, and the CLI isn't authenticated in the agent sandbox (it hung outside it). Todd chose the dashboard. No `supabase link` was run |
+| Function list is empty | Checked after Todd's deletion | Recorded with `list_edge_functions` once Todd confirms. The result goes out with the next push |
+| Repo copies removed | DONE | `git rm -r supabase/functions/saveJourney supabase/functions/log-emotion` (6 files; both `.npmrc` were comments only). The stale `[functions.saveJourney]` block is removed from `supabase/config.toml`. `supabase/functions/hello-test/` stays: it isn't deployed and was out of scope |
+| CLAUDE.md standing rules | DONE | Added under "DB changes": the default-ACL rule and "caller gates cover api/, scripts/ and deployed edge functions" |
+| Lessons | DONE | Secret scan gates only through `&&`. The edge-function lesson now records the `log-emotion` correction |
+
+Stale docs that still describe `saveJourney` as live (`MVP-STATUS.md`, `terminalplus.mcp.md`) are left for CC-9.
