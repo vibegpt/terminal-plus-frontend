@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Share card for terminalplus.app (og:image). Regenerate: npm run og:image
+       Colours: the tp-bg, tp-accent and body text values in src/index.css.
+       Every glyph stays inside the centred 630x630 square (x 285 to 915):
+       some apps crop link previews to a square. scripts/og-image.ts checks it. -->
+  <defs>
+    <radialGradient id="glow" cx="600" cy="300" r="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7c6dfa" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#7c6dfa" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g id="bg">
+    <rect width="1200" height="630" fill="#0a0a0f"/>
+    <rect width="1200" height="630" fill="url(#glow)"/>
+  </g>
+  <g id="text" text-anchor="middle">
+    <text x="600" y="282" font-family="DM Serif Display" font-size="124" fill="#f0f0f8">Terminal<tspan fill="#7c6dfa">+</tspan></text>
+    <rect x="570" y="326" width="60" height="3" rx="1.5" fill="#7c6dfa"/>
+    <text x="600" y="410" font-family="DM Sans" font-weight="500" font-size="40" fill="#f0f0f8" fill-opacity="0.86">What to do at Changi:</text>
+    <text x="600" y="462" font-family="DM Sans" font-weight="500" font-size="40" fill="#f0f0f8" fill-opacity="0.86">T1 to T4 and Jewel</text>
+  </g>
+</svg>

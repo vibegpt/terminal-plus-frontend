@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin/
-Sitemap: https://terminal-plus.com/sitemap.xml
+Sitemap: https://terminalplus.app/sitemap.xml

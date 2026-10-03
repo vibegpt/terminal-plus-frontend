@@ -47,6 +47,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        // The share card is for link-preview crawlers; the app never shows it.
+        globIgnores: ['og/**'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/api\./,
@@ -70,8 +72,11 @@ export default defineConfig({
         background_color: '#0A0E27',
         display: 'standalone',
         orientation: 'portrait',
+        // id pins the installed app's identity, so changing start_url doesn't
+        // make it a different app. The UTM marks opens from the home screen.
+        id: '/',
         scope: '/',
-        start_url: '/',
+        start_url: '/?utm_source=homescreen&utm_medium=pwa',
         icons: [
           {
             src: 'icon-192.png',
