@@ -54,6 +54,12 @@ const EVENT_TYPES = new Set([
   'tool_called',
   'flight_not_found',
   'capture_opened',
+  // CC-13 journey trail
+  'outcome_eligible',
+  'outcome_shown',
+  'outcome_response',
+  'gate_prompt_shown',
+  'gate_reached',
 ])
 
 // Where a flight capture was opened from (src/lib/capture.ts CaptureEntry).
@@ -62,6 +68,17 @@ const CAPTURE_ENTRIES = new Set(['gate', 'bar', 'prompt', 'change_flight'])
 const SURFACES = new Set(['app', 'chat', 'mcp'])
 
 const TERMINALS = new Set(['SIN-T1', 'SIN-T2', 'SIN-T3', 'SIN-T4', 'SIN-JEWEL'])
+
+// CC-13 enums (mirror of src/lib/outcomePrompt.ts — keep in sync).
+// outcome_self_reported is a claim, not a position fix: these rows say what a person
+// answered, never where they were.
+const CANDIDATE_TYPES = new Set(['detail_open', 'save', 'directions'])
+const OUTCOMES = new Set(['yes', 'no', 'dismissed'])
+const OUTCOME_REASONS = new Set(['no_time', 'changed_mind'])
+const OUTCOME_SOURCES = new Set(['prompt', 'checkin', 'qr', 'inferred'])
+const SPEND_BANDS = new Set(['none', 'lt_10', '10_30', 'gt_30'])
+const GATE_RE = /^[A-Z0-9-]{1,8}$/
+const MAX_MINUTES = 7 * 24 * 60
 
 type EventRow = {
   anon_id: string
@@ -80,6 +97,54 @@ type EventRow = {
 
 // env and is_test are server-side provenance, stamped in the handler.
 type StampedEventRow = EventRow & { env: string; is_test: boolean }
+
+// gap_minutes / candidate_age_minutes: minutes to 1 decimal, 0 to 7 days.
+function badMinutes(v: unknown, nullable: boolean): boolean {
+  if (v == null) return !nullable
+  return typeof v !== 'number' || !Number.isFinite(v) || v < 0 || v > MAX_MINUTES
+}
+
+function enumOrNull(v: unknown, allowed: Set<string>): boolean {
+  return v == null || (typeof v === 'string' && allowed.has(v))
+}
+
+// The journey-trail events (CC-13). Unknown enum values are rejected, never stored.
+// Returns a rejection reason, or null when the event isn't one of them or is valid.
+function validateTrailEvent(e: Record<string, unknown>, p: Record<string, unknown>): string | null {
+  const type = e.event_type
+  if (type === 'outcome_eligible' || type === 'outcome_shown' || type === 'outcome_response') {
+    if (typeof e.amenity_slug !== 'string' || !e.amenity_slug) return `${type} needs amenity_slug`
+  }
+  switch (type) {
+    case 'outcome_eligible':
+      if (typeof p.candidate_type !== 'string' || !CANDIDATE_TYPES.has(p.candidate_type)) return 'invalid candidate_type'
+      if (badMinutes(p.gap_minutes, false) || badMinutes(p.candidate_age_minutes, false)) return 'invalid gap_minutes or candidate_age_minutes'
+      return null
+    case 'outcome_shown':
+      if (badMinutes(p.gap_minutes, false) || badMinutes(p.candidate_age_minutes, false)) return 'invalid gap_minutes or candidate_age_minutes'
+      return null
+    case 'outcome_response': {
+      if (typeof p.outcome !== 'string' || !OUTCOMES.has(p.outcome)) return 'invalid outcome'
+      if (typeof p.outcome_source !== 'string' || !OUTCOME_SOURCES.has(p.outcome_source)) return 'invalid outcome_source'
+      if (!enumOrNull(p.outcome_reason, OUTCOME_REASONS)) return 'invalid outcome_reason'
+      if (p.outcome_reason != null && p.outcome !== 'no') return 'outcome_reason is only valid with outcome no'
+      if (!enumOrNull(p.spend_band, SPEND_BANDS)) return 'invalid spend_band'
+      if (p.spend_band != null && p.outcome !== 'yes') return 'spend_band is only valid with outcome yes'
+      // A strip answer always has a measured gap; a check-in on the detail page may not.
+      const nullable = p.outcome_source !== 'prompt'
+      if (badMinutes(p.gap_minutes, nullable) || badMinutes(p.candidate_age_minutes, nullable)) return 'invalid gap_minutes or candidate_age_minutes'
+      return null
+    }
+    case 'gate_prompt_shown':
+    case 'gate_reached':
+      if (typeof p.gate !== 'string' || !GATE_RE.test(p.gate)) return 'invalid gate'
+      if (e.terminal_code == null) return `${type} needs terminal_code`
+      if (e.minutes_to_boarding == null) return `${type} needs minutes_to_boarding`
+      return null
+    default:
+      return null
+  }
+}
 
 // Returns a clean row to insert, or a rejection reason string.
 function validateEvent(raw: unknown): { row: EventRow } | { reason: string } {
@@ -144,6 +209,9 @@ function validateEvent(raw: unknown): { row: EventRow } | { reason: string } {
     payload = typeof entry === 'string' && CAPTURE_ENTRIES.has(entry) ? { entry } : {}
   }
 
+  const trailError = validateTrailEvent(e, payload)
+  if (trailError) return { reason: trailError }
+
   // occurred_at deliberately omitted — the DB default (now()) is the source
   // of truth in v1; client timestamps are ignored.
   return {
@@ -206,8 +274,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     else rejected.push({ index, reason: result.reason })
   })
 
+  // Rejection is per row: a 400 on a mixed batch would make the client re-queue
+  // and re-send its valid rows. A batch with nothing valid in it is a 400.
   if (rows.length === 0) {
-    return res.status(200).json({ inserted: 0, rejected })
+    return res.status(400).json({ error: 'No valid events', inserted: 0, rejected })
   }
 
   const supabase = getServiceClient()

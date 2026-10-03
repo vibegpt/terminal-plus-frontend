@@ -358,3 +358,19 @@ Location comes only from the stored journey or an explicit "I'm at / I'm in";
 the place asked about widens the search but never becomes the location, and the
 model's extraction never sets it. The eval checks every reply for placing the
 user anywhere but their known location.
+
+---
+
+## 2026-10-03 — The outcome strip is a biased sample, not a visit log (CC-13)
+
+**Sample bias:** only people who reopen the app can answer "Make it to {venue}?", and
+whether someone reopens correlates with the outcome itself. `outcome_eligible` is
+logged on resume, so even the denominator excludes everyone who never came back.
+
+**Self-report isn't a position fix:** `outcome_self_reported` = 'yes' is a claim made
+by a tap. It isn't a visit and never proves location.
+
+**Rule going forward:** compute rates over eligible candidates (`outcome_eligible`),
+never over answers. Call the outcome self-reported, never "visited". Never infer it
+from dwell time or location. The warning also lives in the migration header and in
+`COMMENT ON VIEW` on both `analytics_journey_trail` views.

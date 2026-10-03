@@ -1,7 +1,7 @@
 // src/pages/AmenityDetailPage.tsx
 // Redesigned: taller hero, richer content, mobile-first hierarchy
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Clock, MapPin, DollarSign, Globe, ExternalLink, ChevronRight, Bookmark, Share2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
@@ -10,6 +10,10 @@ import { AmenityImage } from '../components/AmenityImage';
 import { trackDwell } from '@/lib/telemetry';
 import { sgMinutesOfDay } from '@/lib/sgTime';
 import { usePageMeta } from '@/hooks/usePageMeta';
+import { useJourney, hasDeparted } from '@/context/JourneyContext';
+import { recordCandidate, readLedger, markAsked } from '@/lib/candidateTap';
+import { toMinutes } from '@/lib/outcomePrompt';
+import { SpendChips, SPEND_AUTO_CLOSE_MS, useHeldResponse } from '@/components/OutcomePrompt';
 
 // ── Types ──────────────────────────────────────────────────────────
 interface AmenityData {
@@ -136,6 +140,36 @@ export default function AmenityDetailPage() {
     ? `${amenity.name}, ${TERMINAL_NAMES[amenity.terminal_code] || amenity.terminal_code} · Terminal+`
     : null);
 
+  // "I'm here" (CC-13): a self-reported check-in, written as outcome_response with
+  // outcome_source 'checkin'. It closes this venue for the journey, so the outcome
+  // strip never asks about it.
+  const { journey } = useJourney();
+  const journeyKey = journey?.capturedAt ?? null;
+  const canCheckIn = !!journey && !hasDeparted(journey);
+  const [checkin, setCheckin] = useState<'idle' | 'spend' | 'done'>('idle');
+  const openedAt = useRef(Date.now());
+  const { hold: holdCheckin, commit: commitCheckin } = useHeldResponse(() => setCheckin('done'));
+
+  useEffect(() => {
+    commitCheckin(); // a check-in still held for the previous venue is written first
+    openedAt.current = Date.now();
+    setCheckin(slug && readLedger(journeyKey).asked[slug] === 'checked_in' ? 'done' : 'idle');
+  }, [slug, journeyKey, commitCheckin]);
+
+  const onImHere = () => {
+    if (!amenity) return;
+    markAsked(journeyKey, amenity.amenity_slug, 'checked_in');
+    holdCheckin(amenity.amenity_slug, {
+      outcome: 'yes',
+      outcome_reason: null,
+      outcome_source: 'checkin',
+      spend_band: null,
+      gap_minutes: null,
+      candidate_age_minutes: toMinutes(Date.now() - openedAt.current),
+    }, SPEND_AUTO_CLOSE_MS);
+    setCheckin('spend');
+  };
+
   useEffect(() => {
     let mounted = true;
 
@@ -153,6 +187,9 @@ export default function AmenityDetailPage() {
       if (fetchError || !data) { setError(true); setLoading(false); return; }
 
       setAmenity(data);
+      // Outcome candidate: the most recent detail open (CC-13). Recorded here, after the
+      // load, so every way into this page counts and a bad slug never does.
+      recordCandidate(data.amenity_slug, data.name, 'detail_open');
 
       // Fetch vibe-specific description if we arrived from a vibe context
       if (vibeFromRoute) {
@@ -278,12 +315,16 @@ export default function AmenityDetailPage() {
         {/* Save + Share — overlaid top right */}
         <div className="absolute top-4 right-4 flex gap-2">
           <button
-            onClick={() => amenity && toggleSaved({
-              amenitySlug: amenity.amenity_slug,
-              name: amenity.name,
-              terminalCode: amenity.terminal_code,
-              vibeTag: (amenity.vibe_tags || '').split(',')[0]?.trim() || '',
-            })}
+            onClick={() => {
+              if (!amenity) return;
+              const nowSaved = toggleSaved({
+                amenitySlug: amenity.amenity_slug,
+                name: amenity.name,
+                terminalCode: amenity.terminal_code,
+                vibeTag: (amenity.vibe_tags || '').split(',')[0]?.trim() || '',
+              });
+              if (nowSaved) recordCandidate(amenity.amenity_slug, amenity.name, 'save');
+            }}
             className="p-2 bg-black/40 backdrop-blur-sm rounded-full border border-white/10"
           >
             <Bookmark className={`w-4 h-4 ${saved ? 'text-amber-400 fill-amber-400' : 'text-white'}`} />
@@ -353,6 +394,33 @@ export default function AmenityDetailPage() {
 
       {/* ── Content ── */}
       <div className="px-4 pt-5">
+
+        {/* I'm here: only while a journey is active and before departure */}
+        {canCheckIn && (
+          <div className="mb-5">
+            {checkin === 'idle' && (
+              <button
+                type="button"
+                onClick={onImHere}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-violet-500/15 border border-violet-400/30 text-violet-200 text-sm font-semibold"
+              >
+                <MapPin className="w-4 h-4" />
+                I'm here
+              </button>
+            )}
+            {checkin === 'spend' && (
+              <div className="p-3 rounded-xl bg-violet-500/10 border border-violet-400/25">
+                <p className="text-sm font-semibold text-white mb-2">Spend anything?</p>
+                <div className="flex flex-wrap gap-1.5">
+                  <SpendChips onPick={band => commitCheckin({ spend_band: band })} />
+                </div>
+              </div>
+            )}
+            {checkin === 'done' && (
+              <p className="text-sm text-green-400 text-center py-2">You're here ✓</p>
+            )}
+          </div>
+        )}
 
         {/* Description — vibe-specific if available, otherwise generic */}
         {(vibeDescription || amenity.description) && (
