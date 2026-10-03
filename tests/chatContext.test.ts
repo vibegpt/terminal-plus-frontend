@@ -51,3 +51,10 @@ test('boarding already passed: flight kept, no minutes', () => {
 test('no journey, no context', () => {
   assert.deepEqual(journeyToChatContext(null, NOW), {});
 });
+
+test('the passenger type reaches the chat; skipped and pre-v4 records stay unknown', () => {
+  assert.equal(journeyToChatContext({ ...QF1, journey_type: 'connecting' }, NOW).journeyType, 'connecting');
+  assert.equal(journeyToChatContext({ ...QF1, journey_type: 'just_landed' }, NOW).journeyType, 'just_landed');
+  assert.equal(journeyToChatContext({ ...QF1, journey_type: 'skipped' }, NOW).journeyType, undefined);
+  assert.equal(journeyToChatContext(QF1, NOW).journeyType, undefined); // v3 record: no journey_type
+});

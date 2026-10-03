@@ -14,6 +14,8 @@ export interface ChatMessage {
 
 export interface ChatContext {
   terminal?: string
+  /** Passenger type from the capture (journeys.journey_type); drives the Jewel rule. */
+  journeyType?: 'departing' | 'connecting' | 'just_landed'
   isTransit?: boolean
   departureTime?: string
   availableMinutes?: number

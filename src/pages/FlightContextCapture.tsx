@@ -997,8 +997,11 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
     const walkMinutes = getWalkTime(currentTerminal, departureTerminal);
     const usableWindowMinutes = calcUsableWindow(boardingTime, walkMinutes);
     const jewelViable = usableWindowMinutes > 90;
+    const journeyType: JourneyType =
+      source === 'skipped' && !arrivingFlight ? 'skipped' : segment;
 
     const data: JourneyData = {
+      journey_type: journeyType,
       currentTerminal,
       arrivingFlight,
       departingFlight: flightNumber,
@@ -1024,9 +1027,6 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
 
     setJourney(data);
     setPendingJourney(data);
-
-    const journeyType: JourneyType =
-      source === 'skipped' && !arrivingFlight ? 'skipped' : segment;
 
     // The row id lands on the stored journey so later events carry journey_id.
     // Events fired before it resolves (a second or so) go without it.

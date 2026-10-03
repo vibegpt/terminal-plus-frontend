@@ -66,6 +66,8 @@ function getSupabase() {
 
 interface ChatContext {
   terminal?: string
+  /** Passenger type from the capture. Client-supplied: checked against JOURNEY_TYPES. */
+  journeyType?: string
   isTransit?: boolean
   departureTime?: string
   availableMinutes?: number
@@ -78,6 +80,9 @@ interface ChatContext {
     boardingTime?: string   // ISO 8601
   }
 }
+
+// journeys.journey_type values the chat acts on; 'skipped' means unknown.
+const JOURNEY_TYPES = new Set(['departing', 'connecting', 'just_landed'])
 
 interface ChatRequestBody {
   query: string
@@ -385,9 +390,16 @@ Editorial notes:
 Some amenities have an editorial_note — a concierge-style recommendation from real traveller opinions. When present, weave the insight naturally into your response (don't copy-paste). Use route_context to explain who it's best for. Prefer higher editorial_score amenities when all else is equal. Use specific details (dish names, tips) from editorial notes to make recommendations concrete.
 IMPORTANT: Editorial notes are based on traveller reviews that may be outdated. Never quote specific prices. If asked about prices, say "prices may have changed — check at the venue or on the Changi Airport website." Use general terms like "budget-friendly", "mid-range", or "premium" based on the price field.
 
+Jewel (SIN-JEWEL):
+Jewel is landside, outside immigration. Whether it fits depends on the passenger type and minutes to boarding, both given each turn:
+- connecting: only with 180+ minutes to boarding (they clear immigration out and back).
+- departing: only with 90+ minutes to boarding, and only before they clear immigration: label every Jewel pick "before immigration" in your message.
+- just landed: always.
+- type unknown: treat as connecting unless the user says otherwise.
+When the rule excludes Jewel, leave Jewel amenities out of recommended_slugs, even when asked; say why in one line and suggest something airside.
+
 Key knowledge:
-- Changi has 4 terminals (T1–T4) and Jewel (nature-themed mall, connected airside to T1).
-- Transit passengers can visit Jewel via free shuttle from T1/T2/T3. T4 passengers need a bus to T2 first.
+- Changi has 4 terminals (T1–T4) and Jewel (nature-themed mall, landside).
 - Skytrain connects T1–T2–T3 airside. T4 is a separate bus ride (~10 min).
 - Terminal codes: SIN-T1, SIN-T2, SIN-T3, SIN-T4, SIN-JEWEL.
 - Singapore timezone: SGT (UTC+8).`
@@ -576,11 +588,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const timeContext = availableMinutes !== null
       ? [
-          `Time available: ${availableMinutes} min total, ${availableMinutes - CHANGI_CONFIG.bufferMinutes} min usable (after ${CHANGI_CONFIG.bufferMinutes} min gate buffer).`,
+          `Minutes to boarding: ${availableMinutes} (${availableMinutes - CHANGI_CONFIG.bufferMinutes} usable after a ${CHANGI_CONFIG.bufferMinutes} min gate buffer).`,
           peakLabel ? `Current period: ${peakLabel} — expect longer waits at food venues.` : '',
           `Amenities shown are pre-filtered to those physically feasible in the time available (${feasibleAmenities.length} of ${allAmenities.length} passed).`,
         ].filter(Boolean).join(' ')
-      : `Departure time unknown — show all available options. Consider asking the user when their flight is.`
+      : `Minutes to boarding: unknown — show all available options. Consider asking the user when their flight is.`
+    const journeyType = typeof context?.journeyType === 'string' && JOURNEY_TYPES.has(context.journeyType)
+      ? context.journeyType
+      : null
 
     // Per-turn context, most stable first: the amenity list, then the trip, then the clock.
     const amenityBlock = formatAmenityBlock(feasibleAmenities)
@@ -588,6 +603,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       `Amenities (${feasibleAmenities.length}):${amenityBlock ? `\n${amenityBlock}` : ' none'}`,
       routeMatch && availableMinutes ? buildRouteContext(routeMatch, availableMinutes) : '',
       filters.terminal ? `User terminal: ${filters.terminal}` : '',
+      `Passenger type: ${journeyType ? journeyType.replace('_', ' ') : 'unknown'}`,
       filters.isTransit ? 'User is in transit.' : '',
       filters.gate ? `User gate: ${filters.gate}` : '',
       describeFlight(context?.flight),

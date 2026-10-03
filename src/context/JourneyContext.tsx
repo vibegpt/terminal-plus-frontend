@@ -35,6 +35,8 @@ export interface JourneyData {
   inbound_origin?: string;
   // ── v3: the journeys row this capture wrote (CC-7), so events join to it ──
   journey_id?: string;
+  // ── v4: the passenger type picked at capture (same value as journeys.journey_type) ──
+  journey_type?: 'departing' | 'connecting' | 'just_landed' | 'skipped';
   inbound_arrival_utc?: string;  // scheduled SIN arrival of the inbound leg (AeroDataBox)
 }
 
@@ -81,7 +83,7 @@ export function calcUsableWindow(
 
 const LS_KEY = 'tp_journey_context';
 
-export const JOURNEY_SCHEMA_VERSION = 3;
+export const JOURNEY_SCHEMA_VERSION = 4;
 
 /**
  * Read-time migration, one step per version, then stamp the current version and
@@ -91,6 +93,9 @@ export const JOURNEY_SCHEMA_VERSION = 3;
  *   flight number in it was typed by hand: backfill flight_source accordingly.
  * - v2 → v3: adds journey_id. A v2 record never stored its journeys row id and it
  *   can't be recovered, so it stays absent until the next capture.
+ * - v3 → v4: adds journey_type. A v3 record can't tell connecting from just_landed
+ *   (both carry an inbound flight), so it stays absent (unknown) until the next
+ *   capture rather than being guessed.
  */
 function migrate(data: JourneyData): JourneyData {
   if (data.schema_version === JOURNEY_SCHEMA_VERSION) return data;

@@ -21,6 +21,8 @@ export function journeyToChatContext(
 ): ChatContext {
   if (!journey) return {}
   const ctx: ChatContext = { terminal: journey.currentTerminal }
+  // The Jewel rule depends on it; 'skipped' and pre-v4 records stay unknown.
+  if (journey.journey_type && journey.journey_type !== 'skipped') ctx.journeyType = journey.journey_type
   if (journey.gate) ctx.gate = journey.gate
   if (journey.arrivingFlight) ctx.isTransit = true
   if (!journey.departingFlight || PLACEHOLDER_FLIGHTS.has(journey.departingFlight)) return ctx
