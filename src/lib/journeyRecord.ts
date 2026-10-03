@@ -4,7 +4,7 @@
 //
 // Never throws into app code: onboarding must complete even if the write fails.
 
-import { landingAttribution, testHeaders } from './telemetry';
+import { firstTouchSource, testHeaders } from './telemetry';
 
 export type FlightSource =
   | 'scanned'
@@ -34,31 +34,8 @@ export interface JourneyRecord {
 // their lifecycle (src/lib/telemetry.ts, getAnonId/ensureSession).
 const ANON_KEY = 'anon_id';
 const SESSION_KEY = 'tp_session_id';
-const ACQUISITION_KEY = 'tp_acquisition_src';
 
 const DEV = typeof import.meta !== 'undefined' && import.meta.env?.DEV;
-
-/**
- * Captured once, on the first open that carries ?src=, and never overwritten —
- * later visits must not relabel where a user originally came from.
- * Returns whatever was captured first, for every subsequent call.
- */
-function acquisitionSrc(): string | null {
-  try {
-    const existing = localStorage.getItem(ACQUISITION_KEY);
-    if (existing) return existing;
-
-    const src = new URLSearchParams(window.location.search).get('src');
-    if (!src) return null;
-
-    const clean = src.trim().slice(0, 64);
-    if (!clean) return null;
-    localStorage.setItem(ACQUISITION_KEY, clean);
-    return clean;
-  } catch {
-    return null;
-  }
-}
 
 function deviceTimezone(): string | null {
   try {
@@ -81,10 +58,10 @@ export async function recordJourney(record: JourneyRecord): Promise<string | nul
       anon_id: localStorage.getItem(ANON_KEY),
       onboarding_skipped: record.onboarding_skipped ?? false,
       onboarding_completed_at: new Date().toISOString(),
-      acquisition_src: acquisitionSrc(),
-      // This tab's landing utm_source (or ?src=). The server prefers it over
-      // acquisition_src when it validates.
-      utm_source: landingAttribution().utm_source ?? null,
+      // First touch for this browser (utm_source or ?src=), never overwritten.
+      // Null when the browser never arrived with a source. This visit's own
+      // source goes on session_start only.
+      acquisition_src: firstTouchSource(),
       device_locale: navigator.language || null,
       device_timezone: deviceTimezone(),
     };

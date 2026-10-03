@@ -100,36 +100,76 @@ export function testHeaders(): Record<string, string> {
 }
 
 // ── Landing attribution ─────────────────────────────────────────────
-// Where this tab's visit came from, read once per tab at module load. App.tsx
-// imports this module statically, so this runs before React mounts: in-app
-// navigation (e.g. the catch-all <Navigate to="/" replace>) can't strip the query
-// first. Stored in sessionStorage, so reloads and route changes keep the original
-// landing. Every session_start in the tab carries it. api/events.ts validates
-// and drops anything malformed.
+// Read at module load. App.tsx imports this module statically, so this runs
+// before React mounts: in-app navigation (e.g. the catch-all
+// <Navigate to="/" replace>) can't strip the query first.
+//
+// Two records, two scopes:
+// - This visit: utm_*, ref_host and landing_path, once per tab in sessionStorage.
+//   Every session_start in the tab carries it. api/events.ts validates it.
+// - First touch: the first source this browser ever arrives with, once in
+//   localStorage and never overwritten. Only journeys.acquisition_src reads it
+//   (journeyRecord.ts).
 
 const LANDING_KEY = 'tp_landing';
+const FIRST_TOUCH_KEY = 'tp_first_touch_v1';
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
 const UTM_MAX = 64;         // longer values are dropped server-side anyway
 const PATH_MAX = 128;
+// Same rule as utmValue() in api/lib/attribution.ts, so a malformed parameter
+// can't take the first-touch slot.
+const SOURCE_RE = /^[a-z0-9._~-]{1,64}$/;
 
 export type LandingAttribution = Partial<
   Record<(typeof UTM_KEYS)[number] | 'ref_host' | 'landing_path', string>
 >;
 
-function captureLanding(): void {
+interface FirstTouch {
+  src: string;
+  at: string; // ISO time it was first seen
+}
+
+/** utm_source, else the pre-UTM ?src= that QR and poster links carry. Trimmed. */
+function urlSource(params: URLSearchParams): string | null {
+  for (const key of ['utm_source', 'src']) {
+    const v = params.get(key)?.trim();
+    if (v && v.length <= UTM_MAX) return v;
+  }
+  return null;
+}
+
+function captureFirstTouch(params: URLSearchParams): void {
+  try {
+    if (localStorage.getItem(FIRST_TOUCH_KEY) !== null) return;
+    const src = urlSource(params)?.toLowerCase();
+    if (!src || !SOURCE_RE.test(src)) return;
+    const touch: FirstTouch = { src, at: new Date().toISOString() };
+    localStorage.setItem(FIRST_TOUCH_KEY, JSON.stringify(touch));
+  } catch { /* storage blocked: no first touch */ }
+}
+
+/** The first source this browser arrived with, or null if it never had one. */
+export function firstTouchSource(): string | null {
+  try {
+    const raw = localStorage.getItem(FIRST_TOUCH_KEY);
+    if (!raw) return null;
+    const src = (JSON.parse(raw) as Partial<FirstTouch>).src;
+    return typeof src === 'string' && SOURCE_RE.test(src) ? src : null;
+  } catch {
+    return null;
+  }
+}
+
+function captureLanding(params: URLSearchParams): void {
   try {
     if (sessionStorage.getItem(LANDING_KEY) !== null) return;
-    const params = new URLSearchParams(window.location.search);
     const landing: LandingAttribution = {};
     for (const key of UTM_KEYS) {
       const v = params.get(key)?.trim();
       if (v && v.length <= UTM_MAX) landing[key] = v;
     }
-    // Pre-UTM QR and poster links carry ?src= (journeyRecord.ts reads it for journeys).
-    if (!landing.utm_source) {
-      const src = params.get('src')?.trim();
-      if (src && src.length <= UTM_MAX) landing.utm_source = src;
-    }
+    const source = urlSource(params);
+    if (source) landing.utm_source = source;
     if (document.referrer) {
       const host = new URL(document.referrer).hostname;
       if (host && host !== window.location.hostname) landing.ref_host = host;
@@ -149,7 +189,13 @@ export function landingAttribution(): LandingAttribution {
   }
 }
 
-if (typeof window !== 'undefined') captureLanding();
+if (typeof window !== 'undefined') {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    captureFirstTouch(params);
+    captureLanding(params);
+  } catch { /* non-browser environment */ }
+}
 
 // ── Identity ────────────────────────────────────────────────────────
 

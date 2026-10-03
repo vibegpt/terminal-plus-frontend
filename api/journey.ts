@@ -144,9 +144,9 @@ function validate(raw: unknown, country: string | null): { row: JourneyRow } | {
       onboarding_completed_at: isoOrNull(j.onboarding_completed_at) ?? new Date().toISOString(),
       // Server-side only: the client cannot spoof its own country.
       first_open_country: country,
-      // The tab's landing utm_source (?src= maps into it client-side) when it
-      // validates; else the first-touch ?src= value older clients send.
-      acquisition_src: utmValue(j.utm_source) ?? str(j.acquisition_src, 64),
+      // The browser's first-touch source (src/lib/telemetry.ts firstTouchSource),
+      // held to the utm_source rule. Null when absent or malformed.
+      acquisition_src: utmValue(j.acquisition_src),
       device_locale: str(j.device_locale, 20),
       device_timezone: str(j.device_timezone, 64),
     },

@@ -49,6 +49,15 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         // The share card is for link-preview crawlers; the app never shows it.
         globIgnores: ['og/**'],
+        // Navigations the SW must not answer with the app shell. Workbox tests
+        // pathname + search, so the file patterns are prefixes, not anchored at $.
+        navigateFallbackDenylist: [
+          /^\/api\//,
+          /^\/\.well-known\//,
+          /^\/og\//,
+          /^\/robots\.txt/,
+          /^\/sitemap\.xml/,
+        ],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/api\./,
