@@ -9,6 +9,7 @@ import { smart7Select } from '@/utils/smart7Select';
 import { DISPLAY } from '@/lib/displayConfig';
 import { track, trackImpressionOnce } from '@/lib/telemetry';
 import { sgMinutesOfDay } from '@/lib/sgTime';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 // ── Config ──────────────────────────────────────────────────────────
 const VIBE_CONFIG: Record<string, { icon: string; label: string; gradient: string; dbTag: string }> = {
@@ -51,6 +52,7 @@ export default function VibePage() {
 
   const vibe = VIBE_CONFIG[vibeId?.toLowerCase() || ''];
   const vibeKey = vibe?.dbTag || vibeId || '';
+  usePageMeta(vibe ? `${vibe.label} at Changi · Terminal+` : null);
 
   useEffect(() => {
     let mounted = true;

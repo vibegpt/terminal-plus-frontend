@@ -8,7 +8,8 @@
 //   silent no-ops (DEV-gated debug logs only).
 // - anon_id reuses the localStorage key from the old eventLogger stub.
 // - session_id is a UUID (the endpoint rejects non-UUID ids), rotated after
-//   30min of inactivity; a session_start event fires once per session_id.
+//   30min of inactivity; a session_start event fires once per session_id and
+//   carries the tab's landing attribution (utm_*, ref_host, landing_path).
 
 // ── Contract (mirror of api/events.ts — keep in sync) ──────────────
 
@@ -98,6 +99,58 @@ export function testHeaders(): Record<string, string> {
   return isTestBrowser() ? { 'x-tp-test': '1' } : {};
 }
 
+// ── Landing attribution ─────────────────────────────────────────────
+// Where this tab's visit came from, read once per tab at module load. App.tsx
+// imports this module statically, so this runs before React mounts: in-app
+// navigation (e.g. the catch-all <Navigate to="/" replace>) can't strip the query
+// first. Stored in sessionStorage, so reloads and route changes keep the original
+// landing. Every session_start in the tab carries it. api/events.ts validates
+// and drops anything malformed.
+
+const LANDING_KEY = 'tp_landing';
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const;
+const UTM_MAX = 64;         // longer values are dropped server-side anyway
+const PATH_MAX = 128;
+
+export type LandingAttribution = Partial<
+  Record<(typeof UTM_KEYS)[number] | 'ref_host' | 'landing_path', string>
+>;
+
+function captureLanding(): void {
+  try {
+    if (sessionStorage.getItem(LANDING_KEY) !== null) return;
+    const params = new URLSearchParams(window.location.search);
+    const landing: LandingAttribution = {};
+    for (const key of UTM_KEYS) {
+      const v = params.get(key)?.trim();
+      if (v && v.length <= UTM_MAX) landing[key] = v;
+    }
+    // Pre-UTM QR and poster links carry ?src= (journeyRecord.ts reads it for journeys).
+    if (!landing.utm_source) {
+      const src = params.get('src')?.trim();
+      if (src && src.length <= UTM_MAX) landing.utm_source = src;
+    }
+    if (document.referrer) {
+      const host = new URL(document.referrer).hostname;
+      if (host && host !== window.location.hostname) landing.ref_host = host;
+    }
+    landing.landing_path = window.location.pathname.slice(0, PATH_MAX);
+    sessionStorage.setItem(LANDING_KEY, JSON.stringify(landing));
+  } catch { /* storage blocked or bad referrer: attribution is best-effort */ }
+}
+
+/** This tab's landing attribution, or {} when none was captured. */
+export function landingAttribution(): LandingAttribution {
+  try {
+    const raw = sessionStorage.getItem(LANDING_KEY);
+    return raw ? (JSON.parse(raw) as LandingAttribution) : {};
+  } catch {
+    return {};
+  }
+}
+
+if (typeof window !== 'undefined') captureLanding();
+
 // ── Identity ────────────────────────────────────────────────────────
 
 function getAnonId(): string {
@@ -124,7 +177,7 @@ function ensureSession(): string {
 
   if (sessionStorage.getItem(STARTED_KEY) !== sid) {
     sessionStorage.setItem(STARTED_KEY, sid);
-    enqueue(buildRow('session_start', {}, sid));
+    enqueue(buildRow('session_start', { payload: landingAttribution() }, sid));
   }
   return sid;
 }

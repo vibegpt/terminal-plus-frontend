@@ -3,6 +3,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import { UUID_RE, isTestRequest, telemetryEnv } from './lib/telemetryEnv'
+import { utmValue } from './lib/attribution'
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -143,7 +144,9 @@ function validate(raw: unknown, country: string | null): { row: JourneyRow } | {
       onboarding_completed_at: isoOrNull(j.onboarding_completed_at) ?? new Date().toISOString(),
       // Server-side only: the client cannot spoof its own country.
       first_open_country: country,
-      acquisition_src: str(j.acquisition_src, 64),
+      // The tab's landing utm_source (?src= maps into it client-side) when it
+      // validates; else the first-touch ?src= value older clients send.
+      acquisition_src: utmValue(j.utm_source) ?? str(j.acquisition_src, 64),
       device_locale: str(j.device_locale, 20),
       device_timezone: str(j.device_timezone, 64),
     },

@@ -3,6 +3,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import { UUID_RE, isTestRequest, telemetryEnv } from './lib/telemetryEnv'
+import { sessionStartPayload } from './lib/attribution'
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -130,6 +131,9 @@ function validateEvent(raw: unknown): { row: EventRow } | { reason: string } {
     }
     payload = e.payload as Record<string, unknown>
   }
+
+  // session_start carries landing attribution only: the 7 known keys, validated.
+  if (e.event_type === 'session_start') payload = sessionStartPayload(payload)
 
   // occurred_at deliberately omitted — the DB default (now()) is the source
   // of truth in v1; client timestamps are ignored.

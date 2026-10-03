@@ -11,6 +11,7 @@ import { AmenityImage } from '@/components/AmenityImage';
 import { DISPLAY } from '@/lib/displayConfig';
 import { track, trackImpressionOnce } from '@/lib/telemetry';
 import { sgMinutesOfDay } from '@/lib/sgTime';
+import { usePageMeta, stripEmoji } from '@/hooks/usePageMeta';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 const TERMINAL_SHORT: Record<string, string> = {
@@ -79,6 +80,7 @@ export const CollectionDetailPage: React.FC = () => {
   const [sortBy, setSortBy] = useState<'relevance' | 'distance' | 'name' | 'price'>('relevance');
   const [filterBy, setFilterBy] = useState<'all' | 'open' | 'nearby'>('all');
   const [showFilters, setShowFilters] = useState(false);
+  usePageMeta(collection?.name ? `${stripEmoji(collection.name)} · Terminal+` : null);
 
   // Map vibe slugs to DB vibe_tags values
   const VIBE_DB_TAG: Record<string, string> = {

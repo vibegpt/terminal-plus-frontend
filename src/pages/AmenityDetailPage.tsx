@@ -9,6 +9,7 @@ import { useBookmark } from '../hooks/useBookmarks';
 import { AmenityImage } from '../components/AmenityImage';
 import { trackDwell } from '@/lib/telemetry';
 import { sgMinutesOfDay } from '@/lib/sgTime';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 // ── Types ──────────────────────────────────────────────────────────
 interface AmenityData {
@@ -131,6 +132,9 @@ export default function AmenityDetailPage() {
   const [error, setError] = useState(false);
   const [similarAmenities, setSimilarAmenities] = useState<AmenityData[]>([]);
   const { saved, toggle: toggleSaved } = useBookmark(slug ?? '');
+  usePageMeta(amenity
+    ? `${amenity.name}, ${TERMINAL_NAMES[amenity.terminal_code] || amenity.terminal_code} · Terminal+`
+    : null);
 
   useEffect(() => {
     let mounted = true;

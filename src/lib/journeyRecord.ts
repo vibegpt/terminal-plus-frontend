@@ -4,7 +4,7 @@
 //
 // Never throws into app code: onboarding must complete even if the write fails.
 
-import { testHeaders } from './telemetry';
+import { landingAttribution, testHeaders } from './telemetry';
 
 export type FlightSource =
   | 'scanned'
@@ -82,6 +82,9 @@ export async function recordJourney(record: JourneyRecord): Promise<string | nul
       onboarding_skipped: record.onboarding_skipped ?? false,
       onboarding_completed_at: new Date().toISOString(),
       acquisition_src: acquisitionSrc(),
+      // This tab's landing utm_source (or ?src=). The server prefers it over
+      // acquisition_src when it validates.
+      utm_source: landingAttribution().utm_source ?? null,
       device_locale: navigator.language || null,
       device_timezone: deviceTimezone(),
     };
