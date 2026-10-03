@@ -33,8 +33,8 @@ const LAST_SEEN_KEY = 'tp_last_seen';
 const DEBUG_KEY = 'tp_gap_debug';
 const HEARTBEAT_MS = 30_000;
 
-const env = typeof import.meta !== 'undefined' ? import.meta.env : undefined;
-const DEBUG_BUILD = !!env?.DEV || env?.VITE_TP_DEBUG === '1';
+// Direct import.meta.env reads, so Vite inlines them and production drops the debug path.
+const DEBUG_BUILD = import.meta.env.DEV || import.meta.env.VITE_TP_DEBUG === '1';
 
 let seq = 0;
 let latest: ResumeSnapshot | null = null;
@@ -42,9 +42,14 @@ let deferredBoot: ResumeSnapshot | null = null;
 let heartbeat: ReturnType<typeof setInterval> | null = null;
 const listeners = new Set<(s: ResumeSnapshot) => void>();
 
+// vite.config.ts minifies with terser drop_console, which strips every console.* call,
+// so a debug build keeps its own reference for the eligibility log to survive.
+// Production builds never log: DEBUG_BUILD is false there and this is dead code.
+const debugConsole: Pick<Console, 'info'> | null = DEBUG_BUILD ? console : null;
+
 /** Console diagnostics on DEV and VITE_TP_DEBUG=1 builds only. */
 export function outcomeDebugLog(...args: unknown[]): void {
-  if (DEBUG_BUILD) console.info('[outcome]', ...args);
+  debugConsole?.info('[outcome]', ...args);
 }
 
 /** True when ?tp_gap_debug=1 was seen this tab on a debug build. */
@@ -107,7 +112,7 @@ export function subscribeResume(cb: (s: ResumeSnapshot) => void): () => void {
 
 function install(): void {
   try {
-    if (parseDebugFlag(window.location.search, !!env?.DEV, env?.VITE_TP_DEBUG)) {
+    if (parseDebugFlag(window.location.search, import.meta.env.DEV, import.meta.env.VITE_TP_DEBUG)) {
       sessionStorage.setItem(DEBUG_KEY, '1');
     }
   } catch { /* storage blocked */ }
