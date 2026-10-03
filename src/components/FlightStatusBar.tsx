@@ -70,6 +70,10 @@ function journeyToFlightData(jc: Partial<JourneyData> | null): FlightData | null
   }
 }
 
+function minutesUntil(flight: FlightData | null): number | null {
+  return flight ? Math.round((flight.boardingTime.getTime() - Date.now()) / 60000) : null;
+}
+
 function readJourneyAsFlightData(): FlightData | null {
   try {
     const raw = localStorage.getItem('tp_journey_context');
@@ -83,7 +87,9 @@ export function FlightProvider({ children }: { children: React.ReactNode }) {
   // Reads the journey, so it must sit inside JourneyProvider (see App.tsx).
   const { journey } = useJourney();
   const [flight, setFlightState] = useState<FlightData | null>(() => journeyToFlightData(journey));
-  const [minutesToBoarding, setMinutesToBoarding] = useState<number | null>(null);
+  // Computed on the first render too: children read the departed state in their mount
+  // effects (the outcome strip's capture-bar rule), which run before this provider's.
+  const [minutesToBoarding, setMinutesToBoarding] = useState<number | null>(() => minutesUntil(flight));
 
   // Follow the journey in this tab. Capture, the flight poller and "update flight" all
   // go through JourneyProvider, so the bar changes without a reload. (The storage
@@ -102,10 +108,7 @@ export function FlightProvider({ children }: { children: React.ReactNode }) {
   // Recalculate minutesToBoarding every 60s
   useEffect(() => {
     if (!flight) { setMinutesToBoarding(null); return; }
-    const calc = () => {
-      const mins = Math.round((flight.boardingTime.getTime() - Date.now()) / 60000);
-      setMinutesToBoarding(mins);
-    };
+    const calc = () => setMinutesToBoarding(minutesUntil(flight));
     calc();
     const id = setInterval(calc, 60_000);
     return () => clearInterval(id);
