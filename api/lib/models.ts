@@ -8,7 +8,9 @@
 
 import type Anthropic from '@anthropic-ai/sdk';
 
-export const CHAT_MODEL: string = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-5-20250929';
+// Chosen by the CC-6 eval (tasks/cc-6-report.md): tied claude-sonnet-4-6 on
+// validity and slug quality, faster at p50 (4.5 s vs 6.8 s).
+export const CHAT_MODEL: string = process.env.ANTHROPIC_MODEL || 'claude-sonnet-5-5';
 
 /** Active until at least 17 Feb 2027. */
 export const FALLBACK_MODEL = 'claude-sonnet-4-6';
@@ -34,7 +36,7 @@ export function chatParams(model: string): ChatParams {
   }
 }
 
-/** USD per million tokens, first-party API. Used to cost eval runs. */
+/** USD per million tokens, first-party API. Used to cost eval runs; the 4.5 entry costs the CC-6 baseline. */
 export const PRICE_PER_MTOK: Record<string, { input: number; output: number }> = {
   'claude-sonnet-4-5-20250929': { input: 3, output: 15 },
   'claude-sonnet-4-6': { input: 3, output: 15 },
