@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import type Anthropic from '@anthropic-ai/sdk';
-import { UNREADABLE_REPLY, parseReply, replyText } from '../api/lib/chatPayload';
+import { AMENITY_COLUMNS, UNREADABLE_REPLY, formatAmenityBlock, parseReply, replyText } from '../api/lib/chatPayload';
 
 const text = (t: string) => ({ type: 'text', text: t, citations: null }) as Anthropic.TextBlock;
 const thinking = { type: 'thinking', thinking: '', signature: 'sig' } as Anthropic.ThinkingBlock;
@@ -54,4 +54,46 @@ test('slugs are capped at 10', () => {
   const slugs = Array.from({ length: 15 }, (_, i) => `s${i}`);
   const { reply } = parseReply(JSON.stringify({ message: 'm', recommended_slugs: slugs }));
   assert.equal(reply.recommended_slugs.length, 10);
+});
+
+// ---------- Amenity block ----------
+
+const row = {
+  amenity_slug: 'bacha-coffee-sint3',
+  name: 'Bacha Coffee',
+  terminal_code: 'SIN-T3',
+  opening_hours: '{"Monday-Sunday": "06:00-01:00"}',
+  price_level: '$$',
+  vibe_tags: 'Refuel, Chill',
+  editorial_score: 14,
+  editorial_note: 'n'.repeat(250),
+  route_context: 'Best for | coffee lovers\nwith time',
+  description: 'd'.repeat(120),
+  gate_location: null,
+  zone: null,
+  walking_time_minutes: 5,
+};
+
+test('the amenity block is one header row, then one pipe row per amenity', () => {
+  const lines = formatAmenityBlock([row, { ...row, amenity_slug: 'b', opening_hours: '24/7', editorial_note: null }]).split('\n');
+  assert.equal(lines.length, 3);
+  assert.equal(lines[0], AMENITY_COLUMNS);
+  const cells = lines[1].split('|');
+  assert.equal(cells.length, AMENITY_COLUMNS.split('|').length);
+  assert.equal(cells[0], 'bacha-coffee-sint3');
+  assert.equal(cells[3], 'Monday-Sunday: 06:00-01:00'); // JSON-in-text hours flattened
+  assert.equal(cells[7].length, 200); // editorial_note capped
+  assert.equal(cells[8], 'Best for coffee lovers with time'); // pipes and newlines can't break the row
+  assert.equal(cells[9].length, 80); // description capped
+  assert.equal(lines[2].split('|')[3], '24/7');
+  assert.equal(lines[2].split('|')[7], ''); // null is empty, not "null"
+});
+
+test('dropped fields never reach the block', () => {
+  const block = formatAmenityBlock([{ ...row, gate_location: 'B4', zone: 'Z9', walking_time_minutes: 7 }]);
+  assert.doesNotMatch(block, /B4|Z9|\|7\|/);
+});
+
+test('no amenities, no block', () => {
+  assert.equal(formatAmenityBlock([]), '');
 });

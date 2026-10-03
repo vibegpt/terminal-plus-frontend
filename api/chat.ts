@@ -9,7 +9,7 @@ import { queryRouteMatch } from './lib/agent'
 import type { RouteMatch } from './lib/agent'
 import { logChatTurn } from './lib/agentTelemetry'
 import type { ChatTurnLog } from './lib/agentTelemetry'
-import { parseReply, replyText } from './lib/chatPayload'
+import { AMENITY_COLUMNS, formatAmenityBlock, parseReply, replyText } from './lib/chatPayload'
 import type { ChatReply } from './lib/chatPayload'
 import { CHAT_MODEL, FALLBACK_MODEL, chatParams } from './lib/models'
 import { UUID_RE, isTestRequest } from './lib/telemetryEnv'
@@ -363,29 +363,36 @@ async function queryAmenities(filters: PreFilterResult) {
 
 // ---------- System prompt ----------
 
+// Stable first: rules, then context that never changes. Everything per-turn goes
+// in the last user message, so a cache breakpoint can sit at the end of this later.
 const SYSTEM_PROMPT = `You are the Terminal+ concierge for Singapore Changi Airport (SIN).
+
+Response rules:
+1. Be conversational and warm — 2–3 sentences for the message.
+2. ALWAYS respond with valid JSON (no markdown fences):
+{"message":"your response","recommended_slugs":["slug1","slug2"],"follow_up":"question or null","extracted_context":{"terminal":"SIN-T2","available_minutes":90,"gate":"B12"}}
+3. recommended_slugs MUST only contain slug values from the provided amenity list.
+4. Recommend 3–5 amenities ranked by relevance.
+5. extracted_context: include ONLY fields you can confidently extract from the conversation. Omit fields you cannot determine. Use null for extracted_context if nothing new was found.
+6. When you have time context: be honest about uncertainty. Say "this could take 20–40 min depending on queues" rather than stating a fixed duration. Flag tight connections clearly.
+7. If no amenities match, say so and suggest what the user could try instead.
+8. If you don't know the user's departure time, ask naturally as a follow-up question.
+
+Amenity list:
+Each turn lists the amenities you may recommend: a header row, then one row per amenity, fields separated by "|", empty when unknown:
+${AMENITY_COLUMNS}
+hours is opening hours; price is the price level; vibes are the amenity's tags.
+
+Editorial notes:
+Some amenities have an editorial_note — a concierge-style recommendation from real traveller opinions. When present, weave the insight naturally into your response (don't copy-paste). Use route_context to explain who it's best for. Prefer higher editorial_score amenities when all else is equal. Use specific details (dish names, tips) from editorial notes to make recommendations concrete.
+IMPORTANT: Editorial notes are based on traveller reviews that may be outdated. Never quote specific prices. If asked about prices, say "prices may have changed — check at the venue or on the Changi Airport website." Use general terms like "budget-friendly", "mid-range", or "premium" based on the price field.
 
 Key knowledge:
 - Changi has 4 terminals (T1–T4) and Jewel (nature-themed mall, connected airside to T1).
 - Transit passengers can visit Jewel via free shuttle from T1/T2/T3. T4 passengers need a bus to T2 first.
 - Skytrain connects T1–T2–T3 airside. T4 is a separate bus ride (~10 min).
 - Terminal codes: SIN-T1, SIN-T2, SIN-T3, SIN-T4, SIN-JEWEL.
-- Singapore timezone: SGT (UTC+8).
-
-Editorial notes:
-Some amenities have an editorial_note — a concierge-style recommendation from real traveller opinions. When present, weave the insight naturally into your response (don't copy-paste). Use route_context to explain who it's best for. Prefer higher editorial_score amenities when all else is equal. Use specific details (dish names, tips) from editorial notes to make recommendations concrete.
-IMPORTANT: Editorial notes are based on traveller reviews that may be outdated. Never quote specific prices. If asked about prices, say "prices may have changed — check at the venue or on the Changi Airport website." Use general terms like "budget-friendly", "mid-range", or "premium" based on the price_level field.
-
-Response rules:
-1. Be conversational and warm — 2–3 sentences for the message.
-2. ALWAYS respond with valid JSON (no markdown fences):
-{"message":"your response","recommended_slugs":["slug1","slug2"],"follow_up":"question or null","extracted_context":{"terminal":"SIN-T2","available_minutes":90,"gate":"B12"}}
-3. recommended_slugs MUST only contain amenity_slug values from the provided amenity list.
-4. Recommend 3–5 amenities ranked by relevance.
-5. extracted_context: include ONLY fields you can confidently extract from the conversation. Omit fields you cannot determine. Use null for extracted_context if nothing new was found.
-6. When you have time context: be honest about uncertainty. Say "this could take 20–40 min depending on queues" rather than stating a fixed duration. Flag tight connections clearly.
-7. If no amenities match, say so and suggest what the user could try instead.
-8. If you don't know the user's departure time, ask naturally as a follow-up question.`
+- Singapore timezone: SGT (UTC+8).`
 
 // ---------- Route context builder ----------
 
@@ -577,33 +584,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         ].filter(Boolean).join(' ')
       : `Departure time unknown — show all available options. Consider asking the user when their flight is.`
 
-    const amenityContext = feasibleAmenities.map(a => ({
-      slug: a.amenity_slug,
-      name: a.name,
-      terminal: a.terminal_code,
-      description: (a.description || '').slice(0, 150),
-      vibe_tags: a.vibe_tags,
-      opening_hours: a.opening_hours,
-      price_level: a.price_level,
-      gate_location: a.gate_location,
-      zone: a.zone,
-      available_in_transit: a.available_in_tr,
-      category: a.category ?? null,
-      walk_minutes: a.walking_time_minutes ?? null,
-      editorial_note: a.editorial_note ?? null,
-      editorial_score: a.editorial_score ?? null,
-      route_context: a.route_context ?? null,
-    }))
-
+    // Per-turn context, most stable first: the amenity list, then the trip, then the clock.
+    const amenityBlock = formatAmenityBlock(feasibleAmenities)
     const userMessage = [
-      `Current Singapore time: ${currentSGT}`,
-      describeFlight(context?.flight),
-      timeContext,
+      `Amenities (${feasibleAmenities.length}):${amenityBlock ? `\n${amenityBlock}` : ' none'}`,
+      routeMatch && availableMinutes ? buildRouteContext(routeMatch, availableMinutes) : '',
       filters.terminal ? `User terminal: ${filters.terminal}` : '',
       filters.isTransit ? 'User is in transit.' : '',
       filters.gate ? `User gate: ${filters.gate}` : '',
-      routeMatch && availableMinutes ? buildRouteContext(routeMatch, availableMinutes) : '',
-      `\nAmenities (${amenityContext.length}):\n${JSON.stringify(amenityContext)}`,
+      describeFlight(context?.flight),
+      timeContext,
+      `Current Singapore time: ${currentSGT}`,
       `\nUser: ${query}`,
     ].filter(Boolean).join('\n')
 

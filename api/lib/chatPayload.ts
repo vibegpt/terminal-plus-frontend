@@ -1,8 +1,61 @@
 // api/lib/chatPayload.ts
-// Pure helpers for /api/chat: reading the model's reply. No I/O, so
-// tests/chatPayload.test.ts can pin the behaviour.
+// Pure helpers for /api/chat: the amenity block the model reads, and reading
+// the model's reply. No I/O, so tests/chatPayload.test.ts can pin the behaviour.
 
 import type Anthropic from '@anthropic-ai/sdk';
+
+// ---------- Amenity block ----------
+
+/** Column order of the amenity block. The system prompt describes the same header. */
+export const AMENITY_COLUMNS = 'slug|name|terminal|hours|price|vibes|editorial_score|editorial_note|route_context|description';
+
+const MAX_NOTE = 200;
+const MAX_DESCRIPTION = 80;
+
+/** One cell: no pipes or newlines, whitespace collapsed, null as empty. */
+function cell(v: unknown, max?: number): string {
+  if (v === null || v === undefined) return '';
+  let s = String(v).replace(/[\r\n|]+/g, ' ').replace(/\s+/g, ' ').trim();
+  if (max && s.length > max) s = s.slice(0, max).trimEnd();
+  return s;
+}
+
+/** opening_hours is text; 15 rows hold a JSON object as a string. Flatten those to "day: hours". */
+function hoursCell(v: unknown): string {
+  if (typeof v === 'string' && v.trim().startsWith('{')) {
+    try {
+      const obj = JSON.parse(v) as Record<string, unknown>;
+      return cell(Object.entries(obj).map(([day, h]) => `${day}: ${h}`).join('; '));
+    } catch { /* fall through */ }
+  }
+  return cell(v);
+}
+
+/**
+ * Header once, then one pipe-separated row per amenity. Replaces per-row JSON,
+ * which repeated every key name. gate_location and zone (always null) and
+ * walking_time_minutes (a placeholder 5 on 292 of 378 rows) are left out.
+ */
+export function formatAmenityBlock(rows: Array<Record<string, unknown>>): string {
+  if (!rows.length) return '';
+  return [
+    AMENITY_COLUMNS,
+    ...rows.map(a => [
+      cell(a.amenity_slug),
+      cell(a.name),
+      cell(a.terminal_code),
+      hoursCell(a.opening_hours),
+      cell(a.price_level),
+      cell(a.vibe_tags),
+      cell(a.editorial_score),
+      cell(a.editorial_note, MAX_NOTE),
+      cell(a.route_context),
+      cell(a.description, MAX_DESCRIPTION),
+    ].join('|')),
+  ].join('\n');
+}
+
+// ---------- Reply ----------
 
 export interface ChatReply {
   message: string;
