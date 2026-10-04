@@ -44,14 +44,15 @@ export function UpdatePrompt({ hidden = false }: { hidden?: boolean }) {
         border: '1px solid rgba(124,109,250,0.35)',
         borderRadius: 14,
         boxShadow: '0 8px 24px rgba(0,0,0,0.45)',
-        padding: '6px 6px 6px 14px',
+        padding: '6px 4px 6px 12px',
         display: 'flex',
         alignItems: 'center',
-        gap: 8,
+        gap: 6,
         color: '#f0f0f8',
       }}
     >
-      <span style={{ flex: 1, minWidth: 0, fontSize: 13, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+      {/* Wraps rather than truncating on narrow phones; one line at 375 px. */}
+      <span style={{ flex: 1, minWidth: 0, fontSize: 12.5, lineHeight: 1.3 }}>
         A new version is ready
       </span>
       <button
@@ -64,7 +65,7 @@ export function UpdatePrompt({ hidden = false }: { hidden?: boolean }) {
           color: '#fff',
           border: 'none',
           borderRadius: 999,
-          padding: '6px 12px',
+          padding: '6px 10px',
           fontSize: 12,
           fontWeight: 600,
           fontFamily: 'inherit',
