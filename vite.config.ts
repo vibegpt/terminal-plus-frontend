@@ -44,7 +44,14 @@ export default defineConfig({
     }),
     
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt': a new service worker installs and waits. Open tabs and cold
+      // opens keep running their own build from the old precache until the user
+      // taps Refresh (src/components/UpdatePrompt.tsx) or every tab closes.
+      // 'autoUpdate' without the virtual register (what we had) forced
+      // skipWaiting + clientsClaim and deleted the old chunks under open pages.
+      registerType: 'prompt',
+      // UpdatePrompt registers through virtual:pwa-register/react.
+      injectRegister: false,
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         // The share card is for link-preview crawlers; the app never shows it.

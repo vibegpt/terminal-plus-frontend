@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState, useCallback, useEffect } from "react";
+import React, { Suspense, useState, useCallback, useEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import ChatBubble from './components/ChatBubble';
 import { FlightProvider } from './components/FlightStatusBar';
@@ -13,16 +13,20 @@ import { dismissAddFlightBar, type CaptureEntry } from './lib/capture';
 // Static import on purpose: it pulls in lib/lastSeen, whose resume snapshot has to be
 // taken at module load, before any page can record a new outcome candidate.
 import { OutcomePrompt } from './components/OutcomePrompt';
+import { lazyWithReload } from './lib/chunkReload';
+import { LazyRouteBoundary } from './components/LazyRouteBoundary';
+import { UpdatePrompt } from './components/UpdatePrompt';
 
-// MVP routes — lazy loaded
-const HomePage = lazy(() => import("@/pages/HomePage"));
-const VibePage = lazy(() => import("@/pages/VibePage"));
-const CollectionDetailPage = lazy(() => import("@/pages/CollectionDetailPage"));
-const AmenityDetailPage = lazy(() => import("@/pages/AmenityDetailPage"));
-const SearchPage = lazy(() => import("@/pages/SearchPage"));
-const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
-const MapPage = lazy(() => import("@/pages/MapPage"));
-const SavedPage = lazy(() => import("@/pages/SavedPage"));
+// MVP routes, lazy loaded. lazyWithReload: a chunk removed by a deploy reloads
+// the page once onto the current build instead of leaving it blank.
+const HomePage = lazyWithReload(() => import("@/pages/HomePage"));
+const VibePage = lazyWithReload(() => import("@/pages/VibePage"));
+const CollectionDetailPage = lazyWithReload(() => import("@/pages/CollectionDetailPage"));
+const AmenityDetailPage = lazyWithReload(() => import("@/pages/AmenityDetailPage"));
+const SearchPage = lazyWithReload(() => import("@/pages/SearchPage"));
+const ProfilePage = lazyWithReload(() => import("@/pages/ProfilePage"));
+const MapPage = lazyWithReload(() => import("@/pages/MapPage"));
+const SavedPage = lazyWithReload(() => import("@/pages/SavedPage"));
 
 // Whether this tab session started on a page (deep link) or on Home. Decided
 // once, on the first render, and kept for the session: a visitor who arrives on
@@ -136,35 +140,34 @@ function AppInner() {
     setCaptureEntry(null);
   }, []);
 
-  if (captureEntry) {
-    return (
-      <FlightContextCapture
-        onComplete={handleCaptureComplete}
-        initial={changingFlight ? journey : null}
-        onCancel={changingFlight ? handleCancelChange : undefined}
-      />
-    );
-  }
-
-  return (
+  const screen = captureEntry ? (
+    <FlightContextCapture
+      onComplete={handleCaptureComplete}
+      initial={changingFlight ? journey : null}
+      onCancel={changingFlight ? handleCancelChange : undefined}
+    />
+  ) : (
     <AppShell onEditFlight={handleEditFlight} onChangeFlight={handleChangeFlight} banner={<OutcomePrompt />}>
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          {/* Core MVP flow */}
-          <Route path={HOME_PATH} element={<HomePage />} />
-          <Route path={PAGE_PATHS.vibe} element={<VibePage />} />
-          <Route path={PAGE_PATHS.collection} element={<CollectionDetailPage />} />
-          <Route path={PAGE_PATHS.search} element={<SearchPage />} />
-          <Route path={PAGE_PATHS.profile} element={<ProfilePage />} />
-          <Route path={PAGE_PATHS.map} element={<MapPage />} />
-          <Route path={PAGE_PATHS.saved} element={<SavedPage />} />
-          <Route path={PAGE_PATHS.amenityInTerminal} element={<AmenityDetailPage />} />
-          <Route path={PAGE_PATHS.amenity} element={<AmenityDetailPage />} />
-          <Route path="/sin" element={<Navigate to="/" replace />} />
+      {/* Keyed by path, so a failed page doesn't stick when the user moves on. */}
+      <LazyRouteBoundary key={pathname}>
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            {/* Core MVP flow */}
+            <Route path={HOME_PATH} element={<HomePage />} />
+            <Route path={PAGE_PATHS.vibe} element={<VibePage />} />
+            <Route path={PAGE_PATHS.collection} element={<CollectionDetailPage />} />
+            <Route path={PAGE_PATHS.search} element={<SearchPage />} />
+            <Route path={PAGE_PATHS.profile} element={<ProfilePage />} />
+            <Route path={PAGE_PATHS.map} element={<MapPage />} />
+            <Route path={PAGE_PATHS.saved} element={<SavedPage />} />
+            <Route path={PAGE_PATHS.amenityInTerminal} element={<AmenityDetailPage />} />
+            <Route path={PAGE_PATHS.amenity} element={<AmenityDetailPage />} />
+            <Route path="/sin" element={<Navigate to="/" replace />} />
 
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Suspense>
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
+      </LazyRouteBoundary>
 
       <ChatBubble />
       {toast && (
@@ -176,6 +179,15 @@ function AppInner() {
         />
       )}
     </AppShell>
+  );
+
+  // UpdatePrompt holds the service-worker registration, so it stays mounted
+  // across capture and the shell; it only hides while capture is open.
+  return (
+    <>
+      {screen}
+      <UpdatePrompt hidden={captureEntry !== null} />
+    </>
   );
 }
 
