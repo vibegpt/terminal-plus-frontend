@@ -13,10 +13,12 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { useJourney, hasDeparted } from '../context/JourneyContext';
 import { useFlightContext } from './FlightStatusBar';
 import { track } from '../lib/telemetry';
 import {
+  captureBarShowing,
   evaluateOutcome,
   gapMinMs,
   type Candidate,
@@ -25,6 +27,8 @@ import {
   type SpendBand,
 } from '../lib/outcomePrompt';
 import { markAsked, readLedger } from '../lib/candidateTap';
+import { isPagePath } from '../lib/routes';
+import { isAddFlightBarDismissed } from '../lib/capture';
 import {
   isGapDebug,
   latestResume,
@@ -150,11 +154,12 @@ const RESUME_REPLAY_MS = 10_000;
 export function OutcomePrompt() {
   const { journey } = useJourney();
   const { flight } = useFlightContext();
+  const { pathname } = useLocation();
   const [strip, setStrip] = useState<Strip | null>(null);
 
   // The resume listener is registered once; it reads current state through this ref.
-  const live = useRef({ journey, flight, strip });
-  live.current = { journey, flight, strip };
+  const live = useRef({ journey, flight, pathname, strip });
+  live.current = { journey, flight, pathname, strip };
 
   const close = useCallback(() => setStrip(null), []);
   const { hold, commit } = useHeldResponse(close);
@@ -162,7 +167,7 @@ export function OutcomePrompt() {
   const handleResume = useCallback((s: ResumeSnapshot) => {
     if (s.id <= lastHandledResume) return;
     lastHandledResume = s.id;
-    const { journey: j, flight: f, strip: current } = live.current;
+    const { journey: j, flight: f, pathname: path, strip: current } = live.current;
     if (current) return; // a warm resume over a strip that's still up
 
     const journeyKey = j?.capturedAt ?? null;
@@ -173,7 +178,11 @@ export function OutcomePrompt() {
       candidate: s.candidate,
       asked: ledger.asked,
       shownCount: ledger.shown_count,
-      captureBarShowing: !f, // the flight bar shows "Add your flight" exactly when flight is null
+      captureBarShowing: captureBarShowing({
+        hasFlight: !!f,
+        onPagePath: isPagePath(path),
+        barDismissed: isAddFlightBarDismissed(),
+      }),
       journeyActive: !!j,
       departed: hasDeparted(j),
       gapMinMs: gapMinMs(isGapDebug()),

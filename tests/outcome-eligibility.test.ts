@@ -4,6 +4,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  captureBarShowing,
   evaluateOutcome,
   gapMinMs,
   gateChipVisible,
@@ -162,6 +163,21 @@ test('rule 7: the capture bar holds the strip back but the candidate stays eligi
   assert.equal(v.candidateEligible, true);
   assert.equal(v.showable, false);
   assert.equal(evaluateOutcome(input({ captureBarShowing: false })).showable, true);
+});
+
+test('rule 7 input: a dismissed Add-flight bar is not showing; Home\'s prompt always is', () => {
+  // A flight: no capture bar anywhere
+  assert.equal(captureBarShowing({ hasFlight: true, onPagePath: true, barDismissed: false }), false);
+  assert.equal(captureBarShowing({ hasFlight: true, onPagePath: false, barDismissed: true }), false);
+  // No flight on a page route: the slim bar shows until it's dismissed
+  assert.equal(captureBarShowing({ hasFlight: false, onPagePath: true, barDismissed: false }), true);
+  assert.equal(captureBarShowing({ hasFlight: false, onPagePath: true, barDismissed: true }), false);
+  // No flight on Home: the prompt can't be dismissed
+  assert.equal(captureBarShowing({ hasFlight: false, onPagePath: false, barDismissed: true }), true);
+  assert.equal(captureBarShowing({ hasFlight: false, onPagePath: false, barDismissed: false }), true);
+  // Through the engine: a dismissed bar no longer holds the strip back
+  const dismissed = captureBarShowing({ hasFlight: false, onPagePath: true, barDismissed: true });
+  assert.equal(evaluateOutcome(input({ captureBarShowing: dismissed })).showable, true);
 });
 
 test('rule 8: no journey or a departed journey fails', () => {

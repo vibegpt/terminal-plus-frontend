@@ -129,6 +129,20 @@ export function parseDebugFlag(search: string, isDev: boolean, viteTpDebug: unkn
   }
 }
 
+/**
+ * Rule 7's "flight-capture bar is showing". With no flight, a page route shows the
+ * slim Add-flight bar, which can be dismissed for the session; Home shows its
+ * prompt, which can't. A dismissed bar isn't showing, so the strip doesn't wait on it.
+ */
+export function captureBarShowing(args: {
+  hasFlight: boolean;
+  onPagePath: boolean;
+  barDismissed: boolean;
+}): boolean {
+  if (args.hasFlight) return false;
+  return !(args.onPagePath && args.barDismissed);
+}
+
 export function evaluateOutcome(input: OutcomeInput): OutcomeVerdict {
   const failed: IneligibleReason[] = [];
   const { now, lastSeen, candidate } = input;
