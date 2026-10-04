@@ -163,17 +163,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'OPTIONS') return res.status(204).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
-  let journey: unknown
+  // Parsed once: it holds the journey and, from the tp_test switch, `test: true`.
+  let parsed: Record<string, unknown> | null = null
   try {
     const body = req.body
     if (typeof body === 'string') {
-      journey = (JSON.parse(body) as Record<string, unknown>).journey
+      parsed = JSON.parse(body) as Record<string, unknown>
     } else if (typeof body === 'object' && body !== null) {
-      journey = (body as Record<string, unknown>).journey
+      parsed = body as Record<string, unknown>
     }
   } catch {
     return res.status(400).json({ error: 'Malformed JSON body' })
   }
+  const journey = parsed?.journey
 
   if (!journey) {
     return res.status(400).json({ error: 'Body must be { journey: {...} }' })
@@ -194,7 +196,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Cast at the boundary: the client is untyped (no generated DB types), so its
   // insert() overloads want a bare Record. JourneyRow is the real contract.
-  const row = { ...result.row, env: telemetryEnv(), is_test: isTestRequest(req.headers) }
+  const row = { ...result.row, env: telemetryEnv(), is_test: isTestRequest(req.headers, parsed) }
   const { data, error } = await supabase
     .from('journeys')
     .insert(row as unknown as Record<string, unknown>)

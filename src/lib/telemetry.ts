@@ -84,7 +84,10 @@ function devLog(...args: unknown[]) {
 
 // ── Test switch ─────────────────────────────────────────────────────
 // localStorage.tp_test = '1' flags this browser's rows is_test (manual smoke runs).
-// The server only ever honours it to exclude rows; env is stamped server-side.
+// The flag rides in the body of every send (`test: true`), because the unload
+// flush is a sendBeacon, which can't set headers. The x-tp-test header is kept
+// for fetches. The server only ever honours it to exclude rows; env is stamped
+// server-side.
 
 const TEST_KEY = 'tp_test';
 
@@ -99,6 +102,11 @@ function isTestBrowser(): boolean {
 /** Headers for /api/events and /api/journey: x-tp-test when the switch is on. */
 export function testHeaders(): Record<string, string> {
   return isTestBrowser() ? { 'x-tp-test': '1' } : {};
+}
+
+/** Body fields for /api/events and /api/journey: `test: true` when the switch is on. */
+export function testBody(): { test?: true } {
+  return isTestBrowser() ? { test: true } : {};
 }
 
 // ── Landing attribution ─────────────────────────────────────────────
@@ -323,7 +331,7 @@ async function flush(): Promise<void> {
     const res = await fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...testHeaders() },
-      body: JSON.stringify({ events: batch.map(q => q.row) }),
+      body: JSON.stringify({ events: batch.map(q => q.row), ...testBody() }),
       keepalive: true,
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -344,14 +352,15 @@ async function flush(): Promise<void> {
 }
 
 // Unload path: sendBeacon survives tab close; fetch-keepalive as fallback.
-// sendBeacon can't carry headers, so a test browser goes straight to fetch.
+// sendBeacon can't carry headers, so the test flag travels in the body and a
+// test browser takes the same path as everyone else.
 function flushBeacon() {
   if (queue.length === 0) return;
   const batch = queue.slice(0, MAX_BATCH);
-  const body = JSON.stringify({ events: batch.map(q => q.row) });
+  const body = JSON.stringify({ events: batch.map(q => q.row), ...testBody() });
 
   let sent = false;
-  if (typeof navigator.sendBeacon === 'function' && !isTestBrowser()) {
+  if (typeof navigator.sendBeacon === 'function') {
     sent = navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'application/json' }));
   }
   if (!sent) {

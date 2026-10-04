@@ -4,7 +4,7 @@
 //
 // Never throws into app code: onboarding must complete even if the write fails.
 
-import { firstTouchSource, testHeaders } from './telemetry';
+import { firstTouchSource, testBody, testHeaders } from './telemetry';
 
 export type FlightSource =
   | 'scanned'
@@ -69,7 +69,7 @@ export async function recordJourney(record: JourneyRecord): Promise<string | nul
     const r = await fetch('/api/journey', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...testHeaders() },
-      body: JSON.stringify({ journey }),
+      body: JSON.stringify({ journey, ...testBody() }),
     });
 
     if (!r.ok) {

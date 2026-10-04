@@ -175,17 +175,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'OPTIONS') return res.status(204).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
-  let events: unknown
+  // Parsed once: it holds the events and, from the tp_test switch, `test: true`.
+  let parsed: Record<string, unknown> | null = null
   try {
     const body = req.body
     if (typeof body === 'string') {
-      events = (JSON.parse(body) as Record<string, unknown>).events
+      parsed = JSON.parse(body) as Record<string, unknown>
     } else if (typeof body === 'object' && body !== null) {
-      events = (body as Record<string, unknown>).events
+      parsed = body as Record<string, unknown>
     }
   } catch {
     return res.status(400).json({ error: 'Malformed JSON body' })
   }
+  const events = parsed?.events
 
   if (!Array.isArray(events) || events.length === 0) {
     return res.status(400).json({ error: 'Body must be { events: [...] } with at least one event' })
@@ -195,7 +197,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const env = telemetryEnv()
-  const is_test = isTestRequest(req.headers)
+  const is_test = isTestRequest(req.headers, parsed)
   const rows: StampedEventRow[] = []
   const rejected: Array<{ index: number; reason: string }> = []
   events.forEach((raw, index) => {

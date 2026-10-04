@@ -295,9 +295,10 @@ after the page target closed, outside the interception, so it landed
 `is_test = false`. It was flagged by hand.
 
 **Rule going forward:** in headless runs, set `localStorage.tp_test = '1'` with
-`evaluateOnNewDocument` before any page script runs. The app then uses tagged
-fetches and never sends a beacon. Navigate to `about:blank` and wait before
-closing each page. To prove an empty-storage render, run once untagged, then
+`evaluateOnNewDocument` before any page script runs. Since the body-flag fix
+(`fix/test-flag-in-body`), the app then puts `test: true` in the body of every
+send, beacons included, and the server reads it there. Navigate to `about:blank`
+and wait before closing each page. To prove an empty-storage render, run once untagged, then
 check the event table and flag any untagged row at once.
 
 ---

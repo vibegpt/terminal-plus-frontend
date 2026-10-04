@@ -12,10 +12,15 @@ export function telemetryEnv(): string {
   return process.env.VERCEL_ENV ?? 'development'
 }
 
-/** True when the request carries `x-tp-test: 1`. */
-export function isTestRequest(headers: IncomingHttpHeaders): boolean {
+/**
+ * True when the request carries `x-tp-test: 1` or its JSON body has
+ * `test: true`. The body flag exists because sendBeacon can't set headers, and
+ * the client's unload flush is a beacon. Older clients send only the header.
+ */
+export function isTestRequest(headers: IncomingHttpHeaders, body?: unknown): boolean {
   const v = headers['x-tp-test']
-  return (Array.isArray(v) ? v[0] : v) === '1'
+  if ((Array.isArray(v) ? v[0] : v) === '1') return true
+  return typeof body === 'object' && body !== null && (body as Record<string, unknown>).test === true
 }
 
 /** mcp-session-id values our smoke scripts send. MCP has no other test channel. */
