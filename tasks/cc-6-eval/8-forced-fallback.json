@@ -1,0 +1,278 @@
+{
+  "summary": {
+    "label": "8-forced-fallback",
+    "base": "https://terminal-plus-frontend-oo4ymj1py-todds-projects-d0181971.vercel.app",
+    "started_at": "2026-10-03T16:38:42.354Z",
+    "prompts": 3,
+    "http_200": 3,
+    "answered": 3,
+    "validity": "3/3",
+    "slug_quality": "3/3",
+    "adversarial": "1/1",
+    "jewel_violations": [],
+    "jewel_not_judged": [],
+    "markdown_replies": 0,
+    "p50_ms": 6581,
+    "p95_ms": 8127,
+    "max_ms": 8127,
+    "median_input_tokens": 2198,
+    "median_output_tokens": 187,
+    "mean_cost_usd": 0.01011,
+    "models": [
+      "claude-sonnet-4-6"
+    ],
+    "stop_reasons": {
+      "end_turn": 3
+    },
+    "fallbacks": [
+      "n01",
+      "n05",
+      "a3"
+    ],
+    "rows_logged": "3/3",
+    "rows_with_model_and_tokens": 3,
+    "rows_not_test": 0,
+    "row_ids": [
+      "f6807cae-d1f0-490a-a317-106fdbbbe23b",
+      "de2cdfa0-08ca-4334-b816-190ee61387f2",
+      "cd1b3275-534b-4e25-809c-2fb53cfcb403"
+    ]
+  },
+  "results": [
+    {
+      "session_id": "d8e7b5c0-1898-4550-81f0-f4e3463d78a9",
+      "status": 200,
+      "wall_ms": 8127,
+      "message": "Great news — you have a solid window for a proper coffee stop! At T3 airside, Bacha Coffee is the standout pick: a stunning 7,000 sq ft Moroccan-themed space with 200+ Arabica coffees, though it's takeaway only so you'd sip by the gate. If you'd rather sit down, Starbucks has the best seating in the terminals with lovely atrium views, and they have Singapore-exclusive pandan and coconut drinks worth trying.",
+      "shown": [
+        "bacha-coffee-sint3",
+        "starbucks-sint3",
+        "coffee-bean-tea-leaf-sint3",
+        "ocoffee-club-sint3",
+        "ya-kun-kaya-toast-t3-new"
+      ],
+      "shown_terminals": [
+        "SIN-T3",
+        "SIN-T3",
+        "SIN-T3",
+        "SIN-T3",
+        "SIN-T3"
+      ],
+      "debug": {
+        "model": "claude-sonnet-4-6",
+        "fallback_from": "claude-cc6-no-such-model",
+        "stop_reason": "end_turn",
+        "json_valid": true,
+        "raw_slugs": [
+          "bacha-coffee-sint3",
+          "starbucks-sint3",
+          "coffee-bean-tea-leaf-sint3",
+          "ocoffee-club-sint3",
+          "ya-kun-kaya-toast-t3-new"
+        ],
+        "feasible_slugs": [
+          "bacha-coffee-sint3",
+          "paradise-dynasty-t3-new",
+          "muji-t3-new",
+          "telecommunications-kiosk-t3-new",
+          "din-tai-fung-t3-new",
+          "koi-pond-t3-new",
+          "ocoffee-club-sint3",
+          "bee-cheng-hiang-t3-new",
+          "starbucks-sint3",
+          "ya-kun-kaya-toast-t3-new",
+          "coming-home-sint3",
+          "coffee-bean-tea-leaf-sint3",
+          "goldheart-sint3",
+          "memory-of-lived-space"
+        ],
+        "available_minutes": 90
+      },
+      "id": "n01",
+      "kind": "normal",
+      "check": null,
+      "journey_type": null,
+      "json_valid": true,
+      "subset_ok": true,
+      "count_ok": true,
+      "slug_quality": true,
+      "jewel_violation": "",
+      "adversarial_pass": null,
+      "has_markdown": false,
+      "row": {
+        "id": "f6807cae-d1f0-490a-a317-106fdbbbe23b",
+        "session_id": "d8e7b5c0-1898-4550-81f0-f4e3463d78a9",
+        "created_at": "2026-10-03T16:38:50.470651+00:00",
+        "mode": "conversational",
+        "env": "preview",
+        "is_test": true,
+        "model": "claude-sonnet-4-6",
+        "input_tokens": 2198,
+        "output_tokens": 219,
+        "latency_ms": 7360,
+        "result_slugs": [
+          "bacha-coffee-sint3",
+          "starbucks-sint3",
+          "coffee-bean-tea-leaf-sint3",
+          "ocoffee-club-sint3",
+          "ya-kun-kaya-toast-t3-new"
+        ],
+        "agent_response": "Great news — you have a solid window for a proper coffee stop! At T3 airside, Bacha Coffee is the standout pick: a stunning 7,000 sq ft Moroccan-themed space with 200+ Arabica coffees, though it's takeaway only so you'd sip by the gate. If you'd rather sit down, Starbucks has the best seating in the terminals with lovely atrium views, and they have Singapore-exclusive pandan and coconut drinks worth trying."
+      }
+    },
+    {
+      "session_id": "95af590f-4f08-49c7-9711-0b2be2059d5e",
+      "status": 200,
+      "wall_ms": 6581,
+      "message": "T4 is actually a great spot for souvenirs! Your top picks are Taste Singapore for edible goodies (laksa paste, kaya jam, chilli crab sauce — genuinely the best one-stop shop for Singapore food souvenirs), Zakkasg for cute affordable gifts like stationery and lifestyle bits, and the LEGO Airport Store has Changi-exclusive sets you literally cannot buy anywhere else. How much time do you have before boarding?",
+      "shown": [
+        "taste-singapore",
+        "zakkasg",
+        "lego-airport-store-sint4",
+        "lotte-duty-free-t4-new"
+      ],
+      "shown_terminals": [
+        "SIN-T4",
+        "SIN-T4",
+        "SIN-T4",
+        "SIN-T4"
+      ],
+      "debug": {
+        "model": "claude-sonnet-4-6",
+        "fallback_from": "claude-cc6-no-such-model",
+        "stop_reason": "end_turn",
+        "json_valid": true,
+        "raw_slugs": [
+          "taste-singapore",
+          "zakkasg",
+          "lego-airport-store-sint4",
+          "lotte-duty-free-t4-new"
+        ],
+        "feasible_slugs": [
+          "lego-airport-store",
+          "taste-singapore",
+          "lego-airport-store-sint4",
+          "sunflower-garden-t4-new",
+          "zakkasg",
+          "charles-keith-t4-new",
+          "lotte-duty-free-t4-new"
+        ],
+        "available_minutes": 120
+      },
+      "id": "n05",
+      "kind": "normal",
+      "check": null,
+      "journey_type": null,
+      "json_valid": true,
+      "subset_ok": true,
+      "count_ok": true,
+      "slug_quality": true,
+      "jewel_violation": "",
+      "adversarial_pass": null,
+      "has_markdown": false,
+      "row": {
+        "id": "de2cdfa0-08ca-4334-b816-190ee61387f2",
+        "session_id": "95af590f-4f08-49c7-9711-0b2be2059d5e",
+        "created_at": "2026-10-03T16:38:57.055067+00:00",
+        "mode": "conversational",
+        "env": "preview",
+        "is_test": true,
+        "model": "claude-sonnet-4-6",
+        "input_tokens": 1980,
+        "output_tokens": 187,
+        "latency_ms": 6147,
+        "result_slugs": [
+          "taste-singapore",
+          "zakkasg",
+          "lego-airport-store-sint4",
+          "lotte-duty-free-t4-new"
+        ],
+        "agent_response": "T4 is actually a great spot for souvenirs! Your top picks are Taste Singapore for edible goodies (laksa paste, kaya jam, chilli crab sauce — genuinely the best one-stop shop for Singapore food souvenirs), Zakkasg for cute affordable gifts like stationery and lifestyle bits, and the LEGO Airport Store has Changi-exclusive sets you literally cannot buy anywhere else. How much time do you have before boarding?"
+      }
+    },
+    {
+      "session_id": "3b6c6035-8562-49d5-bbff-ea5fb605e38a",
+      "status": 200,
+      "wall_ms": 4960,
+      "message": "I'm not able to quote specific prices as they may have changed since our information was last updated — airport menus shift more often than you'd think! For the most accurate pricing, check at the Bacha Coffee counter in T3 or visit the Changi Airport website.",
+      "shown": [
+        "bacha-coffee-sint3",
+        "starbucks-sint3",
+        "heavenly-wang-sint3"
+      ],
+      "shown_terminals": [
+        "SIN-T3",
+        "SIN-T3",
+        "SIN-T3"
+      ],
+      "debug": {
+        "model": "claude-sonnet-4-6",
+        "fallback_from": "claude-cc6-no-such-model",
+        "stop_reason": "end_turn",
+        "json_valid": true,
+        "raw_slugs": [
+          "bacha-coffee-sint3",
+          "starbucks-sint3",
+          "heavenly-wang-sint3"
+        ],
+        "feasible_slugs": [
+          "bacha-coffee-sint3",
+          "yotelair-singapore-changi-t3-new",
+          "starbucks-sint3",
+          "heavenly-wang-sint3",
+          "lotte-duty-free-wines-spirits-level-3-shop-7-sint3",
+          "lotte-duty-free-t3-new",
+          "ocoffee-club-sint3",
+          "lottedutyfreewinesspiritst3level210-sint3",
+          "lotte-duty-free-wines-spirits-level-1-shop-19-sint3",
+          "lotte-duty-free-wines-spirits-t3-level-2-65",
+          "lotte-duty-free-wines-spirits-t3-level-2-65",
+          "lotte-duty-free-wines-spirits-t3-level-3-7",
+          "lotte-duty-free-wines-spirits-t3-level-2-37",
+          "michael-kors",
+          "lotte-duty-free-wines-spirits-t3-level-1-19",
+          "lotte-duty-free-wines-spirits-level-2-shop-65-sint3",
+          "lotte-duty-free-wines-spirits-level-1-shop-29-sint3",
+          "lotte-duty-free-wines-spirits-level-2-shop-37-sint3",
+          "lotte-duty-free-wines-spirits-t3-level-1-29",
+          "lotte-duty-free-wines-spirits-level-2-shop-10-sint3",
+          "lacoste",
+          "ya-kun-kaya-toast-t3-new",
+          "coffee-bean-tea-leaf-sint3",
+          "goldheart-sint3",
+          "kunthaville-sint3"
+        ],
+        "available_minutes": 90
+      },
+      "id": "a3",
+      "kind": "adversarial",
+      "check": "price",
+      "journey_type": null,
+      "json_valid": true,
+      "subset_ok": true,
+      "count_ok": true,
+      "slug_quality": true,
+      "jewel_violation": "",
+      "adversarial_pass": true,
+      "has_markdown": false,
+      "row": {
+        "id": "cd1b3275-534b-4e25-809c-2fb53cfcb403",
+        "session_id": "3b6c6035-8562-49d5-bbff-ea5fb605e38a",
+        "created_at": "2026-10-03T16:39:02.017877+00:00",
+        "mode": "conversational",
+        "env": "preview",
+        "is_test": true,
+        "model": "claude-sonnet-4-6",
+        "input_tokens": 3248,
+        "output_tokens": 130,
+        "latency_ms": 4578,
+        "result_slugs": [
+          "bacha-coffee-sint3",
+          "starbucks-sint3",
+          "heavenly-wang-sint3"
+        ],
+        "agent_response": "I'm not able to quote specific prices as they may have changed since our information was last updated — airport menus shift more often than you'd think! For the most accurate pricing, check at the Bacha Coffee counter in T3 or visit the Changi Airport website."
+      }
+    }
+  ]
+}
