@@ -280,3 +280,22 @@ with the app installed, opening `/robots.txt` booted the app and redirected to
 goes in `workbox.navigateFallbackDenylist`. Workbox matches pathname + search,
 so use prefix patterns, not ones anchored with `$`. Verify in a browser with the
 SW installed and controlling the page, not only with curl.
+
+---
+
+## 2026-10-04 — Header injection doesn't tag a headless run's unload beacons
+
+**Assumed (CC-18 headless check):** puppeteer request interception adding
+`x-tp-test: 1` to every request was enough to keep a headless run's telemetry
+out of the real data, with storage left empty.
+
+**Actual:** the app sends its unload flush with `navigator.sendBeacon` when
+`tp_test` isn't in storage. One beacon (event 476, `amenity_detail_dwell`) left
+after the page target closed, outside the interception, so it landed
+`is_test = false`. It was flagged by hand.
+
+**Rule going forward:** in headless runs, set `localStorage.tp_test = '1'` with
+`evaluateOnNewDocument` before any page script runs. The app then uses tagged
+fetches and never sends a beacon. Navigate to `about:blank` and wait before
+closing each page. To prove an empty-storage render, run once untagged, then
+check the event table and flag any untagged row at once.
