@@ -24,7 +24,9 @@ export function journeyToChatContext(
   // The Jewel rule depends on it; 'skipped' and pre-v4 records stay unknown.
   if (journey.journey_type && journey.journey_type !== 'skipped') ctx.journeyType = journey.journey_type
   if (journey.gate) ctx.gate = journey.gate
-  if (journey.arrivingFlight) ctx.isTransit = true
+  // In transit means connecting. A just-landed passenger has an inbound flight
+  // too but is landside; a pre-v4 record has no type, so it keeps the old rule.
+  if (journey.journey_type ? journey.journey_type === 'connecting' : journey.arrivingFlight) ctx.isTransit = true
   if (!journey.departingFlight || PLACEHOLDER_FLIGHTS.has(journey.departingFlight)) return ctx
 
   const boardingMs = Date.parse(journey.boardingTime)

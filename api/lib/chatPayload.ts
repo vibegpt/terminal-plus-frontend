@@ -57,6 +57,44 @@ export function formatAmenityBlock(rows: Array<Record<string, unknown>>): string
   ].join('\n');
 }
 
+// ---------- Location ----------
+// Where the user is and where they're asking about are different things.
+// Mentioning a place ("Can I go to Jewel?", "food in T2") never sets the
+// user's location; only the stored journey or an explicit "I'm at / I'm in" does.
+
+export type PlaceCode = 'SIN-T1' | 'SIN-T2' | 'SIN-T3' | 'SIN-T4' | 'SIN-JEWEL';
+
+const PLACE_CODES = new Set<string>(['SIN-T1', 'SIN-T2', 'SIN-T3', 'SIN-T4', 'SIN-JEWEL']);
+
+/** A client-supplied terminal code, or null if it isn't one we know. */
+export function placeCode(v: unknown): PlaceCode | null {
+  return typeof v === 'string' && PLACE_CODES.has(v) ? (v as PlaceCode) : null;
+}
+
+const PLACE = String.raw`(?:changi\s+)?(?:t([1-4])|terminal\s*([1-4])|(jewel))`;
+const STATED = new RegExp(
+  String.raw`\b(?:i[’']?m|i\s+am|we[’']?re|we\s+are)\s+(?:now\s+|currently\s+|already\s+|still\s+)?(?:at|in)\s+(?:the\s+)?${PLACE}\b`,
+  'i',
+);
+const MENTION = new RegExp(String.raw`\b${PLACE}\b`, 'gi');
+
+function toCode(m: RegExpMatchArray): PlaceCode {
+  return m[3] ? 'SIN-JEWEL' : (`SIN-T${m[1] ?? m[2]}` as PlaceCode);
+}
+
+/** Where the user says they are ("I'm at T3", "we're in Jewel"), or null. */
+export function statedLocation(text: string): PlaceCode | null {
+  const m = text.match(STATED);
+  return m ? toCode(m) : null;
+}
+
+/** The first place the user mentions other than in a statement of where they are. */
+export function mentionedPlace(text: string): PlaceCode | null {
+  const rest = text.replace(STATED, ' ');
+  for (const m of rest.matchAll(MENTION)) return toCode(m);
+  return null;
+}
+
 // ---------- Reply ----------
 
 export interface ChatReply {

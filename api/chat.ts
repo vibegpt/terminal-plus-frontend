@@ -9,7 +9,8 @@ import { queryRouteMatch } from './lib/agent'
 import type { RouteMatch } from './lib/agent'
 import { logChatTurn } from './lib/agentTelemetry'
 import type { ChatTurnLog } from './lib/agentTelemetry'
-import { formatAmenityBlock, parseReply, replyText } from './lib/chatPayload'
+import { formatAmenityBlock, mentionedPlace, parseReply, placeCode, replyText, statedLocation } from './lib/chatPayload'
+import type { PlaceCode } from './lib/chatPayload'
 import type { ChatReply } from './lib/chatPayload'
 import { CHAT_MODEL, FALLBACK_MODEL, chatParams } from './lib/models'
 import { UUID_RE, isTestRequest } from './lib/telemetryEnv'
@@ -94,7 +95,12 @@ interface ChatRequestBody {
 }
 
 interface PreFilterResult {
-  terminal?: string
+  /** Where the user is: the stored journey or an explicit "I'm at / I'm in". Never a mere mention. */
+  userLocation: PlaceCode | null
+  /** A place they asked about that isn't where they are ("Can I go to Jewel?"). */
+  askedAbout: PlaceCode | null
+  /** Terminals the amenity search covers: the place asked about, then where they are. */
+  scope: PlaceCode[]
   keywords: string[]
   wantsOpenNow: boolean
   isTransit: boolean
@@ -295,19 +301,24 @@ const STOP_WORDS = new Set([
   'not', 'that', 'this', 'its', 'how', 'about', 'close',
 ])
 
-function preFilter(query: string, context?: ChatContext): PreFilterResult {
+function preFilter(
+  query: string,
+  context: ChatContext | undefined,
+  history: Array<{ role: string; content: string }>,
+): PreFilterResult {
   const q = query.toLowerCase()
 
-  let terminal = context?.terminal
-  if (!terminal) {
-    const tMatch = q.match(/\bt([1-4])\b/)
-    if (tMatch) terminal = `SIN-T${tMatch[1]}`
-    else {
-      const termMatch = q.match(/\bterminal\s*([1-4])\b/)
-      if (termMatch) terminal = `SIN-T${termMatch[1]}`
-    }
-    if (!terminal && /\bjewel\b/i.test(q)) terminal = 'SIN-JEWEL'
-  }
+  // Location: an explicit statement in this message (newest), then the stored
+  // journey, then the latest explicit statement earlier in the chat.
+  const earlier = history
+    .filter(h => h.role === 'user')
+    .map(h => statedLocation(h.content))
+    .reverse()
+    .find((p): p is PlaceCode => p !== null) ?? null
+  const userLocation = statedLocation(query) ?? placeCode(context?.terminal) ?? earlier
+  const mentioned = mentionedPlace(query)
+  const askedAbout = mentioned && mentioned !== userLocation ? mentioned : null
+  const scope = [askedAbout, userLocation].filter((p): p is PlaceCode => p !== null)
 
   const gateMatch = q.match(/\b(?:gate\s*)?([a-f]\d{1,3})\b/i)
   const gate = gateMatch?.[1]?.toUpperCase() ?? context?.gate
@@ -325,7 +336,7 @@ function preFilter(query: string, context?: ChatContext): PreFilterResult {
     .filter(w => w.length > 2 && !STOP_WORDS.has(w))
     .filter(w => !/^t[1-4]$/.test(w) && w !== 'jewel')
 
-  return { terminal, keywords, wantsOpenNow, isTransit, gate }
+  return { userLocation, askedAbout, scope, keywords, wantsOpenNow, isTransit, gate }
 }
 
 // ---------- Supabase query ----------
@@ -337,7 +348,7 @@ async function queryAmenities(filters: PreFilterResult) {
     .eq('airport_code', 'SIN')
     .order('editorial_score', { ascending: false, nullsFirst: false })
 
-  if (filters.terminal) query = query.eq('terminal_code', filters.terminal)
+  if (filters.scope.length) query = query.in('terminal_code', filters.scope)
   if (filters.isTransit) query = query.eq('available_in_tr', true)
 
   if (filters.keywords.length > 0) {
@@ -357,7 +368,7 @@ async function queryAmenities(filters: PreFilterResult) {
 
   if ((!data || data.length < 3) && filters.keywords.length > 0) {
     let broad = getSupabase().from('amenity_detail').select('*').eq('airport_code', 'SIN')
-    if (filters.terminal) broad = broad.eq('terminal_code', filters.terminal)
+    if (filters.scope.length) broad = broad.in('terminal_code', filters.scope)
     broad = broad.order('editorial_score', { ascending: false, nullsFirst: false })
     const { data: broadData } = await broad.limit(DISPLAY.SEARCH_LIMIT)
     return broadData || []
@@ -382,6 +393,7 @@ Response rules:
 6. When you have time context: be honest about uncertainty. Say "this could take 20–40 min depending on queues" rather than stating a fixed duration. Flag tight connections clearly.
 7. If no amenities match, say so and suggest what the user could try instead.
 8. If you don't know the user's departure time, ask naturally as a follow-up question.
+9. Each turn gives "User location". Never place the user somewhere they only mention or ask about: "Can I go to Jewel?" doesn't mean they're at Jewel. If their location is unknown, don't say where they are.
 
 Amenity list:
 Each turn lists the amenities you may recommend as rows of "|"-separated fields under a header row (empty = unknown). hours is opening hours, price the price level, vibes the amenity's tags; description is given only when there's no editorial_note.
@@ -395,7 +407,7 @@ Jewel is landside, outside immigration. Whether it fits depends on the passenger
 - connecting: only with 180+ minutes to boarding (they clear immigration out and back).
 - departing: only with 90+ minutes to boarding, and only before they clear immigration: label every Jewel pick "before immigration" in your message.
 - just landed: always.
-- type unknown: treat as connecting unless the user says otherwise.
+- type unknown: with minutes to boarding known, treat as connecting; with no minutes, Jewel is fine, but say it's landside, outside immigration.
 When the rule excludes Jewel, leave Jewel amenities out of recommended_slugs, even when asked; say why in one line and suggest something airside.
 
 Key knowledge:
@@ -561,13 +573,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const peakLabel = getPeakLabel(CHANGI_CONFIG)
 
     // Pre-filter and query
-    const filters = preFilter(query, context)
-    turn.terminal = filters.terminal ?? null
+    const filters = preFilter(query, context, history)
+    turn.terminal = filters.scope[0] ?? null
     turn.gate = filters.gate ?? null
     turn.timeUntilBoarding = availableMinutes
 
     // Check for curated route match
-    const routeMatch = await queryRouteMatch(getSupabase(), filters.terminal ?? null, availableMinutes)
+    const routeMatch = await queryRouteMatch(getSupabase(), filters.userLocation ?? filters.askedAbout, availableMinutes)
 
     const allAmenities = await queryAmenities(filters)
 
@@ -602,7 +614,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const userMessage = [
       `Amenities (${feasibleAmenities.length}):${amenityBlock ? `\n${amenityBlock}` : ' none'}`,
       routeMatch && availableMinutes ? buildRouteContext(routeMatch, availableMinutes) : '',
-      filters.terminal ? `User terminal: ${filters.terminal}` : '',
+      `User location: ${filters.userLocation ?? "unknown (don't assume one)"}`,
+      filters.askedAbout ? `Asked about: ${filters.askedAbout}` : '',
       `Passenger type: ${journeyType ? journeyType.replace('_', ' ') : 'unknown'}`,
       filters.isTransit ? 'User is in transit.' : '',
       filters.gate ? `User gate: ${filters.gate}` : '',
@@ -632,10 +645,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const extractedContext: Partial<ChatContext> = {}
     const modelContext = parsed.extracted_context as Partial<ChatContext> | null
     if (modelContext) {
-      if (modelContext.terminal) extractedContext.terminal = modelContext.terminal
       if (modelContext.availableMinutes) extractedContext.availableMinutes = modelContext.availableMinutes
       if (modelContext.gate) extractedContext.gate = modelContext.gate
     }
+    // The client keeps this as the user's location, so it's only ever what they
+    // said ("I'm at T2"), never the model's reading of a place they mentioned.
+    const stated = statedLocation(query)
+    if (stated) extractedContext.terminal = stated
     // Also surface what our own extractor found
     if (availableMinutes && !context?.availableMinutes) {
       extractedContext.availableMinutes = availableMinutes
@@ -657,7 +673,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       amenities: recommendedAmenities,
       followUp: parsed.follow_up || null,
       context: {
-        terminal: filters.terminal,
+        terminal: filters.userLocation ?? undefined,
         isTransit: filters.isTransit,
         totalResults: allAmenities.length,
       },

@@ -58,3 +58,10 @@ test('the passenger type reaches the chat; skipped and pre-v4 records stay unkno
   assert.equal(journeyToChatContext({ ...QF1, journey_type: 'skipped' }, NOW).journeyType, undefined);
   assert.equal(journeyToChatContext(QF1, NOW).journeyType, undefined); // v3 record: no journey_type
 });
+
+test('only a connecting passenger is in transit; just landed is landside', () => {
+  assert.equal(journeyToChatContext({ ...QF1, journey_type: 'connecting' }, NOW).isTransit, true);
+  assert.equal(journeyToChatContext({ ...QF1, journey_type: 'just_landed' }, NOW).isTransit, undefined);
+  assert.equal(journeyToChatContext({ ...QF1, journey_type: 'departing', arrivingFlight: undefined }, NOW).isTransit, undefined);
+  assert.equal(journeyToChatContext(QF1, NOW).isTransit, true); // v3 record with an inbound flight: unchanged
+});
