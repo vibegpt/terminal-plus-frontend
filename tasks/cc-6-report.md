@@ -1,6 +1,6 @@
 # CC-6 report: chat model, payload diet, per-turn telemetry, display fixes
 
-**Status: approved to ship (Todd, 4 Oct: diet+ stays, stall fallback approved).** Branch `cc-6-chat-diet` on `origin/main` `be0fff0`. Round 3 (location fix, unknown-type rule) on preview `30mxwns1s` (`c901626`): eval 27 prompts, SMOKE 13/13 PASS. Production items run after the push.
+**Status: SHIPPED 4 Oct.** `main` fast-forwarded `be0fff0` → `bef1938` (Todd ran the push); production `dpl_BrfGyzpDde7QXzHKpctnoTEcez8a` READY 12:2x UTC; production acceptance PASS. Rollback target: `dpl_9wwzi7axTMgewhmLGJ1VWAVnzktt` (`be0fff0`). Preview `30mxwns1s` (`c901626`): eval 27 prompts, SMOKE 13/13.
 
 ## Summary
 
@@ -156,18 +156,24 @@ SMOKE on `30mxwns1s` (`c901626`), 4 Oct 12:03–12:12Z (20:03 SGT), browser TZ A
 | Median input tokens −≥35% (logged) | PASS with diet+ (−37.5%); the spec'd diet alone −30.0% | Eval table, same model |
 | Eval table: baseline, diet, 5-5, 4-6 | PASS | Above |
 | Forced fallback logs FALLBACK_MODEL | PASS | f6807cae, de2cdfa0, cd1b3275 |
-| Production browser turn: real hours, no `**` | PENDING merge | Passed on preview (above) |
+| Production browser turn: real hours, no `**` | PASS | 4c96e67d (see Production) |
 | 1 row per test turn, model and tokens filled | PASS | Every run `rows_logged n/n`; error turns log `error:<kind>` with null model by design |
 | `npm run test:adversarial` 11/11 | PASS | After the final rebase |
 | No model ID outside `api/lib/models.ts` | PASS | `grep -rnE 'claude-(sonnet\|opus\|haiku\|fable\|mythos\|3\|instant)' api/ src/ scripts/ tests/`: 0 outside it |
-| 0 test rows with `is_test=false` | PASS | 196 rows (191 preview, 5 development), 0 non-test: `tasks/cc-6-eval/agent_interactions-row-ids.txt` |
+| 0 test rows with `is_test=false` | PASS | 198 rows (191 preview, 5 development, 2 production), 0 non-test: `tasks/cc-6-eval/agent_interactions-row-ids.txt` |
 | A mentioned place never sets location (round 3) | PASS | l1 and l2 2/2; 0 location claims in 27; browser turn above |
 
-## After merge (production)
+## Production (4 Oct, after the push)
 
-1. `main` → production deploy. `ANTHROPIC_MODEL` is set in no environment (`vercel env ls`: 0), so production runs `claude-sonnet-5-5`.
-2. Browser on terminalplus.app, `tp_test=1` first: 1 chat turn with real hours and no `**`; its row has `env=production`, `is_test=true`, model and tokens.
-3. SQL: the production rows from that check are `is_test`.
+`ANTHROPIC_MODEL` is set in no environment, so production runs the code default `claude-sonnet-5-5`. Browser on terminalplus.app, 375 px, service worker and caches cleared, `tp_test=1` before the first load, capture skipped:
+
+| Check | Result | Evidence |
+|---|---|---|
+| Real opening hours, no `**` | PASS | "I'm at T3. Where can I get a good coffee? …": cards Bacha Coffee `Monday-Sunday: 06:00-01:00`, Starbucks and The Coffee Bean `Monday-Sunday: 24/7`, Ya Kun `07:30-23:00`, none clipped; 4 names in `<strong>`, no `**` |
+| Location kept, unknown-type Jewel rule | PASS | "Can I go to Jewel?" → "Yes, you can get to Jewel from T3, but it's landside, outside immigration…": location stays T3 (stated in the first turn), the no-minutes caveat is there, no "you're at Jewel" |
+| Rows | PASS | 4c96e67d, e93a937c: `env=production`, `is_test=true`, `claude-sonnet-5-5`, tokens 2,296/349 and 6,951/276, latency 3.8 s and 3.6 s. No other production chat rows yet |
+| Errors | PASS | Runtime log for the deployment: 0 error/warning lines in the 30 min after the deploy |
+| All CC-6 test rows | PASS | 198 rows (`agent_interactions-row-ids.txt`), 0 with `is_test=false` |
 
 Rollback: Vercel Instant Rollback to the current production deployment (`df450f8`). The migration is additive and nullable, so old code ignores it. A v4 `tp_journey_context` read by v3 code is re-stamped v3 and keeps working (the extra `journey_type` field is ignored).
 

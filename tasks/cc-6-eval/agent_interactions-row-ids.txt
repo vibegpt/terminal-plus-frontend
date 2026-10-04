@@ -1,5 +1,5 @@
 # agent_interactions rows created by CC-6 (3-4 Oct 2026)
-# Every conversational row in the table (production chat logged nothing before CC-6) plus the MCP SMOKE calls (smoke-cc6-*).
+# Every conversational row in the table up to the production check (production chat logged nothing before CC-6) plus the MCP SMOKE calls (smoke-cc6-*).
 # id  created_at  env  is_test  model
 
 05cbea30-ba38-4554-a700-98847b87d356  2026-10-03T08:55:04Z  preview  is_test=true  claude-sonnet-4-5-20250929
@@ -198,3 +198,5 @@ f4b40163-485a-48d2-8471-ae34e9d191b5  2026-10-04T12:02:42Z  preview  is_test=tru
 43fcc959-fd23-40a9-884c-a11ecd865b97  2026-10-04T12:05:40Z  preview  is_test=true  claude-sonnet-5-5
 4d59772f-912e-499d-9950-11790e15262b  2026-10-04T12:06:07Z  preview  is_test=true  claude-sonnet-5-5
 621d86da-0899-4d97-9eca-b012bd102741  2026-10-04T12:08:13Z  preview  is_test=true  mcp:get_recommendations
+4c96e67d-9794-4dfb-8c26-3b6e71577f1a  2026-10-04T12:23:41Z  production  is_test=true  claude-sonnet-5-5
+e93a937c-bae1-48d9-bfef-c8262ae5d1ca  2026-10-04T12:24:00Z  production  is_test=true  claude-sonnet-5-5
