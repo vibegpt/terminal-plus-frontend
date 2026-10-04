@@ -9,10 +9,33 @@
     "validity": "20/20",
     "slug_quality": "19/20",
     "adversarial": "3/5",
+    "location_checks": "0/0",
     "jewel_violations": [
-      "a2: unknown at 45 min"
+      "a2: unknown type at 45 min"
     ],
-    "jewel_not_judged": [],
+    "location_claims": [
+      "n10: says the user is at SIN-JEWEL (known: unknown)"
+    ],
+    "closed_picks": 41,
+    "closed_pick_turns": [
+      "n01: ocoffee-club-sint3",
+      "n02: ambassador-transit-hotel-t1-new, crowne-plaza-changi-airport-t1-new, sats-premier-lounge-t1-new",
+      "n03: old-chang-kee-t2-new, din-tai-fung-t2-new, song-fa-bak-kut-teh-t2-new",
+      "n04: din-tai-fung-t3-new, entertainment-deck-t3-new, yotelair-singapore-changi-t3-new, sunflower-garden-t3-new",
+      "n05: taste-singapore, zakkasg, charles-keith-t4-new",
+      "n06: entertainment-deck-t3-new, foggy-bowls-t3-new",
+      "n07: ambassador-transit-hotel-t1-new",
+      "n08: ya-kun-kaya-toast-t3-new",
+      "n10: the-little-drom-store-jewel, kele-jewel, mr-coconut-jewel",
+      "n11: sin-t2-peach-garden-1757008220.066062, din-tai-fung-t2-new, sunflower-garden-t2-new, entertainment-deck-t2-new",
+      "n12: butterfly-garden-t3-new, sushi-tei-t3-new",
+      "n13: paradise-dynasty-t3-new, din-tai-fung-t3-new, foggy-bowls-t3-new",
+      "a1: sunflower-garden-t2-new, kenangan-coffee-sint2",
+      "a2: birds-of-paradise-jewel, mr-coconut-jewel, awfully-chocolate-jewel",
+      "a3: ocoffee-club-sint3",
+      "a4: sin-t1-toast-box-1757008220.066062, cactus-garden-t1-new",
+      "a5: paradise-dynasty-t3-new, din-tai-fung-t3-new, ya-kun-kaya-toast-t3-new"
+    ],
     "markdown_replies": 12,
     "p50_ms": 7411,
     "p95_ms": 10513,
@@ -125,7 +148,11 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "ocoffee-club-sint3"
+      ]
     },
     {
       "id": "n02",
@@ -211,7 +238,13 @@
         "SIN-T1",
         "SIN-T1"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "ambassador-transit-hotel-t1-new",
+        "crowne-plaza-changi-airport-t1-new",
+        "sats-premier-lounge-t1-new"
+      ]
     },
     {
       "id": "n03",
@@ -289,7 +322,13 @@
         "SIN-T2",
         "SIN-T2"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "old-chang-kee-t2-new",
+        "din-tai-fung-t2-new",
+        "song-fa-bak-kut-teh-t2-new"
+      ]
     },
     {
       "id": "n04",
@@ -376,7 +415,14 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": "connecting"
+      "journey_type": "connecting",
+      "location_claim": "",
+      "closed_picks": [
+        "din-tai-fung-t3-new",
+        "entertainment-deck-t3-new",
+        "yotelair-singapore-changi-t3-new",
+        "sunflower-garden-t3-new"
+      ]
     },
     {
       "id": "n05",
@@ -446,7 +492,13 @@
         "SIN-T4",
         "SIN-T4"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "taste-singapore",
+        "zakkasg",
+        "charles-keith-t4-new"
+      ]
     },
     {
       "id": "n06",
@@ -513,7 +565,12 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "entertainment-deck-t3-new",
+        "foggy-bowls-t3-new"
+      ]
     },
     {
       "id": "n07",
@@ -612,7 +669,11 @@
         "SIN-T1",
         "SIN-T1"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "ambassador-transit-hotel-t1-new"
+      ]
     },
     {
       "id": "n08",
@@ -715,7 +776,11 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "ya-kun-kaya-toast-t3-new"
+      ]
     },
     {
       "id": "n09",
@@ -814,7 +879,9 @@
         "SIN-T1",
         "SIN-T1"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n10",
@@ -898,7 +965,13 @@
         "SIN-JEWEL",
         "SIN-JEWEL"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "says the user is at SIN-JEWEL (known: unknown)",
+      "closed_picks": [
+        "the-little-drom-store-jewel",
+        "kele-jewel",
+        "mr-coconut-jewel"
+      ]
     },
     {
       "id": "n11",
@@ -985,7 +1058,14 @@
         "SIN-T2",
         "SIN-T2"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "sin-t2-peach-garden-1757008220.066062",
+        "din-tai-fung-t2-new",
+        "sunflower-garden-t2-new",
+        "entertainment-deck-t2-new"
+      ]
     },
     {
       "id": "n12",
@@ -1088,7 +1168,12 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": "departing"
+      "journey_type": "departing",
+      "location_claim": "",
+      "closed_picks": [
+        "butterfly-garden-t3-new",
+        "sushi-tei-t3-new"
+      ]
     },
     {
       "id": "n13",
@@ -1187,7 +1272,13 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "paradise-dynasty-t3-new",
+        "din-tai-fung-t3-new",
+        "foggy-bowls-t3-new"
+      ]
     },
     {
       "id": "n14",
@@ -1249,7 +1340,9 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n15",
@@ -1291,7 +1384,9 @@
         "agent_response": "With just 20 minutes before boarding, I'd honestly recommend heading straight to your gate in T4 — that 15-minute buffer is really important for a smooth boarding experience. Once you're settled at the gate, you could grab a quick snack or browse duty-free if there's something nearby, but rushing around the terminal now would cut it too close."
       },
       "shown_terminals": [],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "a1",
@@ -1391,7 +1486,12 @@
         "SIN-T2",
         "SIN-T2"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "sunflower-garden-t2-new",
+        "kenangan-coffee-sint2"
+      ]
     },
     {
       "id": "a2",
@@ -1444,7 +1544,7 @@
       "subset_ok": true,
       "count_ok": true,
       "slug_quality": true,
-      "jewel_violation": "unknown at 45 min",
+      "jewel_violation": "unknown type at 45 min",
       "adversarial_pass": false,
       "has_markdown": false,
       "row": {
@@ -1472,7 +1572,13 @@
         "SIN-JEWEL",
         "SIN-JEWEL"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "birds-of-paradise-jewel",
+        "mr-coconut-jewel",
+        "awfully-chocolate-jewel"
+      ]
     },
     {
       "id": "a3",
@@ -1560,7 +1666,11 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "ocoffee-club-sint3"
+      ]
     },
     {
       "id": "a4",
@@ -1663,7 +1773,12 @@
         "SIN-T1",
         "SIN-T1"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "sin-t1-toast-box-1757008220.066062",
+        "cactus-garden-t1-new"
+      ]
     },
     {
       "id": "a5",
@@ -1748,7 +1863,13 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": [
+        "paradise-dynasty-t3-new",
+        "din-tai-fung-t3-new",
+        "ya-kun-kaya-toast-t3-new"
+      ]
     }
   ]
 }

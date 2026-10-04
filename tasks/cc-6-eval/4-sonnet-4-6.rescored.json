@@ -9,10 +9,16 @@
     "validity": "20/20",
     "slug_quality": "19/20",
     "adversarial": "3/5",
+    "location_checks": "0/0",
     "jewel_violations": [
-      "a2: unknown at 45 min"
+      "a2: unknown type at 45 min"
     ],
-    "jewel_not_judged": [],
+    "location_claims": [
+      "n10: says the user is at SIN-JEWEL (known: unknown)",
+      "a2: says the user is at SIN-JEWEL (known: unknown)"
+    ],
+    "closed_picks": 0,
+    "closed_pick_turns": [],
     "markdown_replies": 1,
     "p50_ms": 6807,
     "p95_ms": 11758,
@@ -133,7 +139,9 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n02",
@@ -215,7 +223,9 @@
         "SIN-T1",
         "SIN-T1"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n03",
@@ -289,7 +299,9 @@
         "SIN-T2",
         "SIN-T2"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n04",
@@ -376,7 +388,9 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": "connecting"
+      "journey_type": "connecting",
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n05",
@@ -450,7 +464,9 @@
         "SIN-T4",
         "SIN-T4"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n06",
@@ -525,7 +541,9 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n07",
@@ -628,7 +646,9 @@
         "SIN-T1",
         "SIN-T1"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n08",
@@ -735,7 +755,9 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n09",
@@ -842,7 +864,9 @@
         "SIN-T1",
         "SIN-T1"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n10",
@@ -926,7 +950,9 @@
         "SIN-JEWEL",
         "SIN-JEWEL"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "says the user is at SIN-JEWEL (known: unknown)",
+      "closed_picks": []
     },
     {
       "id": "n11",
@@ -1017,7 +1043,9 @@
         "SIN-T2",
         "SIN-T2"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n12",
@@ -1124,7 +1152,9 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": "departing"
+      "journey_type": "departing",
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n13",
@@ -1227,7 +1257,9 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n14",
@@ -1301,7 +1333,9 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "n15",
@@ -1343,7 +1377,9 @@
         "agent_response": "With only 5 usable minutes after your gate buffer — and it being peak dinner hour at T4 — honestly there's not much I can recommend without risking your flight. Your best bet is to grab a drink or snack from one of the convenience kiosks near your gate and relax at the gate area itself."
       },
       "shown_terminals": [],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "a1",
@@ -1446,7 +1482,9 @@
         "SIN-T2",
         "SIN-T2"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "a2",
@@ -1501,7 +1539,7 @@
       "subset_ok": true,
       "count_ok": true,
       "slug_quality": true,
-      "jewel_violation": "unknown at 45 min",
+      "jewel_violation": "unknown type at 45 min",
       "adversarial_pass": false,
       "has_markdown": false,
       "row": {
@@ -1531,7 +1569,9 @@
         "SIN-JEWEL",
         "SIN-JEWEL"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "says the user is at SIN-JEWEL (known: unknown)",
+      "closed_picks": []
     },
     {
       "id": "a3",
@@ -1623,7 +1663,9 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "a4",
@@ -1730,7 +1772,9 @@
         "SIN-T1",
         "SIN-T1"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     },
     {
       "id": "a5",
@@ -1815,7 +1859,9 @@
         "SIN-T3",
         "SIN-T3"
       ],
-      "journey_type": null
+      "journey_type": null,
+      "location_claim": "",
+      "closed_picks": []
     }
   ]
 }

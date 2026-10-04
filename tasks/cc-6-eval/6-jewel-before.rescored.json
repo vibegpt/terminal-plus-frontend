@@ -1,0 +1,312 @@
+{
+  "summary": {
+    "label": "6-jewel-before",
+    "base": "https://terminal-plus-frontend-ap7epimot-todds-projects-d0181971.vercel.app",
+    "started_at": "2026-10-03T16:30:55.523Z",
+    "prompts": 4,
+    "http_200": 4,
+    "answered": 4,
+    "validity": "4/4",
+    "slug_quality": "3/4",
+    "adversarial": "0/0",
+    "location_checks": "0/0",
+    "jewel_violations": [
+      "j2: departing at 80 min",
+      "j4: departing, no \"before immigration\" label"
+    ],
+    "location_claims": [
+      "j2: says the user is at SIN-JEWEL (known: unknown)",
+      "j3: says the user is at SIN-JEWEL (known: unknown)"
+    ],
+    "closed_picks": 2,
+    "closed_pick_turns": [
+      "j3: mirror-maze-jewel-new, bynd-artisan-jewel"
+    ],
+    "markdown_replies": 0,
+    "p50_ms": 4021,
+    "p95_ms": 6468,
+    "max_ms": 6468,
+    "median_input_tokens": 1680,
+    "median_output_tokens": 280,
+    "mean_cost_usd": 0.0077,
+    "models": [
+      "claude-sonnet-5-5"
+    ],
+    "stop_reasons": {
+      "end_turn": 4
+    },
+    "fallbacks": [],
+    "rows_logged": "4/4",
+    "rows_with_model_and_tokens": 4,
+    "rows_not_test": 0,
+    "row_ids": [
+      "cc6ec9b1-20e8-41f8-ab2e-c817c382e697",
+      "b1528acd-ab6d-4708-9a65-ba9b0be26ffa",
+      "248f08aa-a4d5-489a-939d-c3a66987f20f",
+      "0d57df7e-1bad-4269-a82a-23420060eed6"
+    ]
+  },
+  "results": [
+    {
+      "session_id": "6373736f-9f0b-4161-a769-8cbf421dae6a",
+      "status": 200,
+      "wall_ms": 6468,
+      "message": "With about 2h50m total and roughly 155 minutes usable after a gate buffer, a Jewel trip is doable, but it's a bit of a gamble at this hour. It's just past 12:30 am, so many shops and restaurants inside Jewel will likely be closed, though the Rain Vortex and gardens are usually the main draw. Opening hours and show times can vary, so check the Changi Airport website or signage for what's open tonight. I don't have any specific amenities to recommend right now, as none in my list matched your timing.",
+      "shown": [],
+      "shown_terminals": [],
+      "debug": {
+        "model": "claude-sonnet-5-5",
+        "fallback_from": null,
+        "stop_reason": "end_turn",
+        "json_valid": true,
+        "raw_slugs": [],
+        "feasible_slugs": [],
+        "available_minutes": 170
+      },
+      "id": "j1",
+      "kind": "jewel",
+      "check": null,
+      "journey_type": "connecting",
+      "json_valid": true,
+      "subset_ok": true,
+      "count_ok": true,
+      "slug_quality": true,
+      "jewel_violation": "",
+      "adversarial_pass": null,
+      "has_markdown": false,
+      "row": {
+        "id": "cc6ec9b1-20e8-41f8-ab2e-c817c382e697",
+        "session_id": "6373736f-9f0b-4161-a769-8cbf421dae6a",
+        "created_at": "2026-10-03T16:31:01.98615+00:00",
+        "mode": "conversational",
+        "env": "preview",
+        "is_test": true,
+        "model": "claude-sonnet-5-5",
+        "input_tokens": 1081,
+        "output_tokens": 280,
+        "latency_ms": 5311,
+        "result_slugs": [],
+        "agent_response": "With about 2h50m total and roughly 155 minutes usable after a gate buffer, a Jewel trip is doable, but it's a bit of a gamble at this hour. It's just past 12:30 am, so many shops and restaurants inside Jewel will likely be closed, though the Rain Vortex and gardens are usually the main draw. Opening hours and show times can vary, so check the Changi Airport website or signage for what's open tonight. I don't have any specific amenities to recommend right now, as none in my list matched your timing."
+      },
+      "location_claim": "",
+      "closed_picks": []
+    },
+    {
+      "session_id": "384118de-7573-47f3-a65e-93ee17674dac",
+      "status": 200,
+      "wall_ms": 4021,
+      "message": "Good news: you're already in Jewel, so you can make the most of it. It's about half past midnight, so a lot of the shops and cafes are closed until 10:00 or 11:00. Wang Cafe and A&W are open 24/7, so those are your best bets for a bite, and the rest is better as a look-around for now.",
+      "shown": [
+        "wang-cafe-jewel",
+        "a-w-restaurants"
+      ],
+      "shown_terminals": [
+        "SIN-JEWEL",
+        "SIN-JEWEL"
+      ],
+      "debug": {
+        "model": "claude-sonnet-5-5",
+        "fallback_from": null,
+        "stop_reason": "end_turn",
+        "json_valid": true,
+        "raw_slugs": [
+          "wang-cafe-jewel",
+          "a-w-restaurants"
+        ],
+        "feasible_slugs": [
+          "kele-jewel",
+          "wang-cafe-jewel",
+          "mr-coconut-jewel",
+          "leckerbaer-jewel",
+          "creamier-jewel",
+          "awfully-chocolate-jewel",
+          "sunny-hill-jewel",
+          "ong-shunmugam-jewel",
+          "the-little-drom-store-jewel",
+          "a-w-restaurants",
+          "the-farm-store-jewel",
+          "beyond-the-vines-jewel",
+          "the-singapore-mint-jewel",
+          "weekend-sundries-jewel",
+          "sabrinagoh-jewel"
+        ],
+        "available_minutes": 80
+      },
+      "id": "j2",
+      "kind": "jewel",
+      "check": null,
+      "journey_type": "departing",
+      "json_valid": true,
+      "subset_ok": true,
+      "count_ok": true,
+      "slug_quality": true,
+      "jewel_violation": "departing at 80 min",
+      "adversarial_pass": null,
+      "has_markdown": false,
+      "row": {
+        "id": "b1528acd-ab6d-4708-9a65-ba9b0be26ffa",
+        "session_id": "384118de-7573-47f3-a65e-93ee17674dac",
+        "created_at": "2026-10-03T16:31:06.002572+00:00",
+        "mode": "conversational",
+        "env": "preview",
+        "is_test": true,
+        "model": "claude-sonnet-5-5",
+        "input_tokens": 3406,
+        "output_tokens": 257,
+        "latency_ms": 3739,
+        "result_slugs": [
+          "wang-cafe-jewel",
+          "a-w-restaurants"
+        ],
+        "agent_response": "Good news: you're already in Jewel, so you can make the most of it. It's about half past midnight, so a lot of the shops and cafes are closed until 10:00 or 11:00. Wang Cafe and A&W are open 24/7, so those are your best bets for a bite, and the rest is better as a look-around for now."
+      },
+      "location_claim": "says the user is at SIN-JEWEL (known: unknown)",
+      "closed_picks": []
+    },
+    {
+      "session_id": "1b5258a9-3096-4026-8467-eab3db25815f",
+      "status": 200,
+      "wall_ms": 3804,
+      "message": "Welcome to Singapore! Since you're at Jewel, a fun pick is the Mirror Maze, a garden-style maze with greenery overhead. It's quick (roughly 5-10 minutes), so it's best bundled with a Canopy Park ticket rather than bought on its own. One heads-up: it's after midnight right now, and the Mirror Maze (open 10:00-21:00) and Bynd Artisan (10:00-22:00) are closed until the morning.",
+      "shown": [
+        "mirror-maze-jewel-new",
+        "social-tree-jewel-new",
+        "bynd-artisan-jewel",
+        "travelex-jewel-new"
+      ],
+      "shown_terminals": [
+        "SIN-JEWEL",
+        "SIN-JEWEL",
+        "SIN-JEWEL",
+        "SIN-JEWEL"
+      ],
+      "debug": {
+        "model": "claude-sonnet-5-5",
+        "fallback_from": null,
+        "stop_reason": "end_turn",
+        "json_valid": true,
+        "raw_slugs": [
+          "mirror-maze-jewel-new",
+          "social-tree-jewel-new",
+          "bynd-artisan-jewel",
+          "travelex-jewel-new"
+        ],
+        "feasible_slugs": [
+          "bynd-artisan-jewel",
+          "social-tree-jewel-new",
+          "mirror-maze-jewel-new",
+          "travelex-jewel-new"
+        ],
+        "available_minutes": null
+      },
+      "id": "j3",
+      "kind": "jewel",
+      "check": null,
+      "journey_type": "just_landed",
+      "json_valid": true,
+      "subset_ok": true,
+      "count_ok": true,
+      "slug_quality": true,
+      "jewel_violation": "",
+      "adversarial_pass": null,
+      "has_markdown": false,
+      "row": {
+        "id": "248f08aa-a4d5-489a-939d-c3a66987f20f",
+        "session_id": "1b5258a9-3096-4026-8467-eab3db25815f",
+        "created_at": "2026-10-03T16:31:09.741495+00:00",
+        "mode": "conversational",
+        "env": "preview",
+        "is_test": true,
+        "model": "claude-sonnet-5-5",
+        "input_tokens": 1680,
+        "output_tokens": 294,
+        "latency_ms": 3459,
+        "result_slugs": [
+          "mirror-maze-jewel-new",
+          "social-tree-jewel-new",
+          "bynd-artisan-jewel",
+          "travelex-jewel-new"
+        ],
+        "agent_response": "Welcome to Singapore! Since you're at Jewel, a fun pick is the Mirror Maze, a garden-style maze with greenery overhead. It's quick (roughly 5-10 minutes), so it's best bundled with a Canopy Park ticket rather than bought on its own. One heads-up: it's after midnight right now, and the Mirror Maze (open 10:00-21:00) and Bynd Artisan (10:00-22:00) are closed until the morning."
+      },
+      "location_claim": "says the user is at SIN-JEWEL (known: unknown)",
+      "closed_picks": [
+        "mirror-maze-jewel-new",
+        "bynd-artisan-jewel"
+      ]
+    },
+    {
+      "session_id": "2527c184-ccf2-4630-bb46-77127fd66c15",
+      "status": 200,
+      "wall_ms": 4260,
+      "message": "With about 2.5 hours and Jewel open, you've got time to enjoy it, though it's past midnight so most shops are closed right now. Wang Cafe (open 24/7) is a proper kopitiam stop for kopi-o and half-boiled eggs with toast, and A&W is also open around the clock if you want a rare root beer float. The rest, like Mr Coconut, Creamier, Kélé and SunnyHills, open from about 10am, so they won't help you tonight.",
+      "shown": [
+        "wang-cafe-jewel",
+        "a-w-restaurants"
+      ],
+      "shown_terminals": [
+        "SIN-JEWEL",
+        "SIN-JEWEL"
+      ],
+      "debug": {
+        "model": "claude-sonnet-5-5",
+        "fallback_from": null,
+        "stop_reason": "end_turn",
+        "json_valid": true,
+        "raw_slugs": [
+          "wang-cafe-jewel",
+          "a-w-restaurants"
+        ],
+        "feasible_slugs": [
+          "kele-jewel",
+          "wang-cafe-jewel",
+          "sunny-hill-jewel",
+          "leckerbaer-jewel",
+          "mr-coconut-jewel",
+          "awfully-chocolate-jewel",
+          "champion-bolo-bun-jewel",
+          "creamier-jewel",
+          "ong-shunmugam-jewel",
+          "a-w-restaurants",
+          "the-little-drom-store-jewel",
+          "bynd-artisan-jewel",
+          "the-farm-store-jewel",
+          "beyond-the-vines-jewel",
+          "the-editors-market-jewel",
+          "the-singapore-mint-jewel"
+        ],
+        "available_minutes": 150
+      },
+      "id": "j4",
+      "kind": "jewel",
+      "check": null,
+      "journey_type": "departing",
+      "json_valid": true,
+      "subset_ok": true,
+      "count_ok": false,
+      "slug_quality": false,
+      "jewel_violation": "departing, no \"before immigration\" label",
+      "adversarial_pass": null,
+      "has_markdown": false,
+      "row": {
+        "id": "0d57df7e-1bad-4269-a82a-23420060eed6",
+        "session_id": "2527c184-ccf2-4630-bb46-77127fd66c15",
+        "created_at": "2026-10-03T16:31:14.060882+00:00",
+        "mode": "conversational",
+        "env": "preview",
+        "is_test": true,
+        "model": "claude-sonnet-5-5",
+        "input_tokens": 3594,
+        "output_tokens": 298,
+        "latency_ms": 3993,
+        "result_slugs": [
+          "wang-cafe-jewel",
+          "a-w-restaurants"
+        ],
+        "agent_response": "With about 2.5 hours and Jewel open, you've got time to enjoy it, though it's past midnight so most shops are closed right now. Wang Cafe (open 24/7) is a proper kopitiam stop for kopi-o and half-boiled eggs with toast, and A&W is also open around the clock if you want a rare root beer float. The rest, like Mr Coconut, Creamier, Kélé and SunnyHills, open from about 10am, so they won't help you tonight."
+      },
+      "location_claim": "",
+      "closed_picks": []
+    }
+  ]
+}

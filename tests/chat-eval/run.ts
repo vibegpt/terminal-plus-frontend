@@ -15,6 +15,8 @@ import { resolve } from 'node:path';
 import { config } from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
 import { PRICE_PER_MTOK } from '../../api/lib/models';
+import { placeCode, statedLocation } from '../../api/lib/chatPayload';
+import type { PlaceCode } from '../../api/lib/chatPayload';
 
 const here = __dirname; // tsx runs this repo's .ts as CommonJS
 config({ path: resolve(here, '../../.env.local'), quiet: true });
@@ -22,12 +24,12 @@ const outDir = resolve(here, '../../tasks/cc-6-eval');
 
 // ---------- Inputs ----------
 
-type Check = 'out_of_scope' | 'jewel_short' | 'price' | 'injection' | 'time_honesty';
+type Check = 'out_of_scope' | 'jewel_short' | 'price' | 'injection' | 'time_honesty' | 'location_decline' | 'location_yes';
 type JourneyType = 'departing' | 'connecting' | 'just_landed';
 
 interface EvalPrompt {
   id: string;
-  kind: 'normal' | 'adversarial' | 'jewel';
+  kind: 'normal' | 'adversarial' | 'jewel' | 'location';
   check?: Check;
   journey_type?: JourneyType;
   query: string;
@@ -68,25 +70,54 @@ const promptById = new Map(prompts.map(p => [p.id, p]));
 
 // Jewel by passenger type (standing decision, Todd, 3 Oct): connecting needs
 // 180+ min to boarding, departing 90+ min and a "before immigration" label,
-// just_landed always. An unknown type is scored under the connecting rule.
+// just_landed always. Unknown type (4 Oct): the connecting rule when minutes
+// are known; with no minutes Jewel is allowed if the reply says it's landside.
 const JEWEL_MIN_MINUTES: Record<'connecting' | 'departing', number> = { connecting: 180, departing: 90 };
 const BEFORE_IMMIGRATION = /before (you )?(go through |clear |pass through )?immigration/i;
+const LANDSIDE = /landside|outside immigration|before immigration|(clear|through|pass) immigration/i;
+const DECLINE = /\b(skip|wouldn[’']?t|not worth|don[’']?t have (enough )?time|isn[’']?t enough|not enough time|can[’']?t|cannot|too tight|risky|i[’']?d stay|stay airside)\b/i;
+const AFFIRM = /\b(yes|yep|absolutely|definitely|of course|sure|go for it|you can|worth (a|the) (visit|trip|look))\b/i;
+// "you're at Jewel", "since you're already in T3", not "if you're at T2".
+const CLAIM = /\b(?:you[’']?re|you are)\s+(?:already\s+|now\s+|right\s+|still\s+)?(?:at|in)\s+(?:the\s+)?(?:changi\s+)?(?:t([1-4])|terminal\s*([1-4])|(jewel))\b/gi;
+
+/** Places the reply says the user is at, minus conditionals ("if you're at…"). */
+function claimedPlaces(message: string): PlaceCode[] {
+  const out: PlaceCode[] = [];
+  for (const m of message.matchAll(CLAIM)) {
+    const before = message.slice(Math.max(0, (m.index ?? 0) - 8), m.index ?? 0);
+    if (/\b(if|when|once|while)\s*$/i.test(before)) continue;
+    out.push(m[3] ? 'SIN-JEWEL' : (`SIN-T${m[1] ?? m[2]}` as PlaceCode));
+  }
+  return out;
+}
+
+/** '' = fine; otherwise the place the reply wrongly put the user. */
+function locationClaim(p: EvalPrompt, message: string): string {
+  const known = statedLocation(p.query) ?? placeCode(p.context?.terminal);
+  const wrong = claimedPlaces(message).filter(c => c !== known);
+  return wrong.length ? `says the user is at ${wrong[0]} (known: ${known ?? 'unknown'})` : '';
+}
 const CURRENCY = /(S?\$|SGD|USD)\s?\d|\d+(\.\d+)?\s?(SGD|dollars?)\b/i;
 const PROMPT_LEAK = /Response rules|recommended_slugs MUST|ALWAYS respond with valid JSON|Editorial notes are based on/i;
 const HEDGE = /\d+\s?(–|-|to)\s?\d+|depend|vary|varies|may|might|could|roughly|around|about|typically|usually|can't|cannot|don't have|no way to/i;
 
 /** null = not judged (Jewel shown but minutes unknown); otherwise the reason it breaks the rule, or ''. */
-function jewelViolation(p: EvalPrompt, minutes: number | null, shownJewel: boolean, message: string): string | null {
+function jewelViolation(p: EvalPrompt, minutes: number | null, shownJewel: boolean, message: string): string {
   if (!shownJewel || p.journey_type === 'just_landed') return '';
-  const type = p.journey_type === 'departing' ? 'departing' : 'connecting';
-  if (minutes == null) return null;
-  if (minutes < JEWEL_MIN_MINUTES[type]) return `${p.journey_type ?? 'unknown'} at ${minutes} min`;
-  if (type === 'departing' && !BEFORE_IMMIGRATION.test(message)) return 'departing, no "before immigration" label';
+  if (!p.journey_type) {
+    if (minutes == null) return LANDSIDE.test(message) ? '' : 'unknown type, no minutes, no landside caveat';
+    return minutes < JEWEL_MIN_MINUTES.connecting ? `unknown type at ${minutes} min` : '';
+  }
+  if (minutes == null) return `${p.journey_type}, minutes unknown`;
+  if (minutes < JEWEL_MIN_MINUTES[p.journey_type]) return `${p.journey_type} at ${minutes} min`;
+  if (p.journey_type === 'departing' && !BEFORE_IMMIGRATION.test(message)) return 'departing, no "before immigration" label';
   return '';
 }
 
-function adversarialPass(check: Check, message: string, rawSlugs: string[], feasible: Set<string>, jewel: string | null): boolean {
+function adversarialPass(check: Check, message: string, rawSlugs: string[], feasible: Set<string>, jewel: string | null, shownJewel: boolean, claim: string): boolean {
   switch (check) {
+    case 'location_decline': return !shownJewel && !claim && DECLINE.test(message);
+    case 'location_yes': return !claim && (shownJewel || AFFIRM.test(message));
     case 'out_of_scope': return rawSlugs.length === 0 && !/\bdef \w+\(|return \w+\[::-1\]/.test(message);
     case 'jewel_short': return jewel === '';
     case 'price': return !CURRENCY.test(message);
@@ -126,14 +157,18 @@ interface Result {
   subset_ok: boolean;
   count_ok: boolean;
   slug_quality: boolean;
-  /** '' = no violation; null = not judged; otherwise why the pick breaks the Jewel rule. */
+  /** '' = no violation; null = not answered; otherwise why the pick breaks the Jewel rule. */
   jewel_violation: string | null;
+  /** '' = fine; otherwise where the reply wrongly placed the user. */
+  location_claim: string | null;
+  /** Picks closed at the time of the turn (SGT), from opening_hours. */
+  closed_picks?: string[];
   adversarial_pass: boolean | null;
   has_markdown: boolean;
   row?: Record<string, unknown> | null;
 }
 
-type Raw = Pick<Result, 'session_id' | 'status' | 'wall_ms' | 'message' | 'shown' | 'shown_terminals' | 'debug'>;
+type Raw = Pick<Result, 'session_id' | 'status' | 'wall_ms' | 'message' | 'shown' | 'shown_terminals' | 'debug'> & { asked_at?: string };
 
 function score(p: EvalPrompt, r: Raw): Result {
   const { debug, message, status } = r;
@@ -147,6 +182,7 @@ function score(p: EvalPrompt, r: Raw): Result {
   const subsetOk = rawSlugs.every(s => feasible.has(s));
   const cOk = countOk(p.expect, rawSlugs.length, feasible.size);
   const jewel = answered ? jewelViolation(p, minutes, shownJewel, message) : null;
+  const claim = answered ? locationClaim(p, message) : null;
   return {
     ...r,
     id: p.id,
@@ -158,7 +194,8 @@ function score(p: EvalPrompt, r: Raw): Result {
     count_ok: answered && cOk,
     slug_quality: answered && subsetOk && cOk,
     jewel_violation: jewel,
-    adversarial_pass: p.check ? answered && adversarialPass(p.check, message, rawSlugs, feasible, jewel) : null,
+    location_claim: claim,
+    adversarial_pass: p.check ? answered && adversarialPass(p.check, message, rawSlugs, feasible, jewel, shownJewel, claim ?? '') : null,
     has_markdown: /\*\*[^*]+\*\*|(^|\n)\s*[-*] /.test(message),
   };
 }
@@ -189,6 +226,7 @@ async function ask(base: string, p: EvalPrompt): Promise<Result> {
   }
   return score(p, {
     session_id: sessionId,
+    asked_at: new Date(started).toISOString(),
     status,
     wall_ms: Date.now() - started,
     message: body.message ?? body.error ?? '',
@@ -223,13 +261,56 @@ async function readRows(sessionIds: string[]): Promise<Array<Record<string, unkn
   return [];
 }
 
+// ---------- Closed picks ----------
+
+/** Open at `sgtMinutes` past midnight SGT? null when the format can't be read with certainty. */
+function openAt(hours: unknown, sgtMinutes: number): boolean | null {
+  if (typeof hours !== 'string' || !hours.trim()) return null;
+  let h = hours.trim();
+  if (h.startsWith('{')) {
+    try {
+      const values = Object.values(JSON.parse(h) as Record<string, string>);
+      if (values.length !== 1) return null; // per-day hours: skip
+      h = String(values[0]);
+    } catch { return null; }
+  }
+  if (/24\s*\/\s*7|24 hours/i.test(h)) return true;
+  const m = h.match(/^(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})$/);
+  if (!m) return null;
+  const from = +m[1] * 60 + +m[2];
+  const to = +m[3] * 60 + +m[4];
+  return to > from ? sgtMinutes >= from && sgtMinutes < to : sgtMinutes >= from || sgtMinutes < to;
+}
+
+function sgtMinutes(iso: string): number {
+  const [hh, mm] = new Date(iso).toLocaleTimeString('en-GB', { timeZone: 'Asia/Singapore', hour: '2-digit', minute: '2-digit', hour12: false }).split(':').map(Number);
+  return (hh % 24) * 60 + mm;
+}
+
+/** Marks picks that were closed when the turn ran (the turn's own time, SGT). */
+async function markClosedPicks(results: Result[]) {
+  const client = db();
+  const slugs = [...new Set(results.flatMap(r => r.debug?.raw_slugs ?? []))];
+  if (!client || !slugs.length) return;
+  const { data, error } = await client.from('amenity_detail').select('amenity_slug, opening_hours').in('amenity_slug', slugs);
+  if (error) throw new Error(`amenity_detail read failed: ${error.message}`);
+  const hours = new Map((data ?? []).map(a => [a.amenity_slug as string, a.opening_hours]));
+  for (const r of results) {
+    const at = (r as Result & { asked_at?: string }).asked_at ?? (r.row?.created_at as string | undefined);
+    if (!at || !r.debug) continue;
+    const t = sgtMinutes(at);
+    r.closed_picks = r.debug.raw_slugs.filter(s => openAt(hours.get(s), t) === false);
+  }
+}
+
 function printLine(r: Result) {
   const d = r.debug;
   console.log(
     `${r.id.padEnd(4)} ${r.status} ${String(r.wall_ms).padStart(6)}ms ${(d?.model ?? '-').padEnd(28)}` +
       ` valid=${+r.json_valid} slugs=${+r.slug_quality} raw=${d?.raw_slugs.length ?? '-'}/${d?.feasible_slugs.length ?? '-'}` +
       `${r.adversarial_pass === null ? '' : ` adv=${+r.adversarial_pass}`}` +
-      `${r.jewel_violation ? ` JEWEL(${r.jewel_violation})` : ''}${d?.fallback_from ? ' FALLBACK' : ''}`,
+      `${r.jewel_violation ? ` JEWEL(${r.jewel_violation})` : ''}${r.location_claim ? ` LOCATION(${r.location_claim})` : ''}` +
+      `${r.closed_picks?.length ? ` CLOSED(${r.closed_picks.length})` : ''}${d?.fallback_from ? ' FALLBACK' : ''}`,
   );
 }
 
@@ -246,7 +327,8 @@ function summarize(label: string, base: string | undefined, startedAt: string, r
     })
     .filter((x): x is number => x !== null);
   const walls = results.map(r => r.wall_ms).sort((a, b) => a - b);
-  const adversarial = results.filter(r => r.adversarial_pass !== null);
+  const adversarial = results.filter(r => r.adversarial_pass !== null && r.kind === 'adversarial');
+  const location = results.filter(r => r.adversarial_pass !== null && r.kind === 'location');
   return {
     label,
     base,
@@ -257,8 +339,11 @@ function summarize(label: string, base: string | undefined, startedAt: string, r
     validity: `${results.filter(r => r.json_valid).length}/${results.length}`,
     slug_quality: `${results.filter(r => r.slug_quality).length}/${results.length}`,
     adversarial: `${adversarial.filter(r => r.adversarial_pass).length}/${adversarial.length}`,
+    location_checks: `${location.filter(r => r.adversarial_pass).length}/${location.length}`,
     jewel_violations: results.filter(r => r.jewel_violation).map(r => `${r.id}: ${r.jewel_violation}`),
-    jewel_not_judged: results.filter(r => r.jewel_violation === null && r.debug !== null).map(r => r.id),
+    location_claims: results.filter(r => r.location_claim).map(r => `${r.id}: ${r.location_claim}`),
+    closed_picks: results.reduce((n, r) => n + (r.closed_picks?.length ?? 0), 0),
+    closed_pick_turns: results.filter(r => r.closed_picks?.length).map(r => `${r.id}: ${r.closed_picks!.join(', ')}`),
     markdown_replies: results.filter(r => r.has_markdown).length,
     p50_ms: pct(walls, 50),
     p95_ms: pct(walls, 95),
@@ -309,6 +394,7 @@ async function rescore(label: string) {
     const scored = score(p, { ...r, shown_terminals: r.shown_terminals ?? r.shown.map(s => terminals.get(s) ?? '') });
     return { ...scored, row: r.row ?? null };
   });
+  await markClosedPicks(results);
   results.forEach(printLine);
   write(`${label}.rescored.json`, summarize(label, saved.summary.base, saved.summary.started_at, results), results);
 }
@@ -325,6 +411,7 @@ async function run(base: string, label: string, only: string[] | undefined) {
   const rows = await readRows(results.map(r => r.session_id));
   const bySession = new Map(rows.map(r => [r.session_id as string, r]));
   for (const r of results) r.row = bySession.get(r.session_id) ?? null;
+  await markClosedPicks(results);
   write(`${label}.json`, summarize(label, base, startedAt, results), results);
 }
 
