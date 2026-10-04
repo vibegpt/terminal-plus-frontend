@@ -338,3 +338,22 @@ were logged, which is what gave it away.
 shape (here: the test-only `debug` block), count anything else as a failed
 turn, and cross-check every run against an independent record (the logged
 rows). Wait for the deployment to report READY before an eval, not for a ping.
+
+---
+
+## 2026-10-04 — A place the user mentions isn't where they are
+
+**Assumed (chat pre-filter, kept through CC-6 round 2):** a terminal named in the
+question ("Can I go to Jewel?", "food in T2") was the user's terminal, so it
+went into the prompt as "User terminal".
+
+**Actual (Todd's correction):** replies said "you're already at Jewel" (n10 and a2
+in the 5-5 and 4-6 arms; j2 and j3 before the Jewel rule), and the client then
+kept the model's extracted terminal, so the wrong location stuck for the rest
+of the chat. The round-2 eval scored cards only, so it never saw it.
+
+**Rule going forward:** location and the place asked about are separate fields.
+Location comes only from the stored journey or an explicit "I'm at / I'm in";
+the place asked about widens the search but never becomes the location, and the
+model's extraction never sets it. The eval checks every reply for placing the
+user anywhere but their known location.

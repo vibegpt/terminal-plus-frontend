@@ -1,5 +1,5 @@
 # agent_interactions rows created by CC-6 (3-4 Oct 2026)
-# Every conversational row in the table (production chat logged nothing before CC-6) plus the MCP SMOKE call.
+# Every conversational row in the table (production chat logged nothing before CC-6) plus the MCP SMOKE calls (smoke-cc6-*).
 # id  created_at  env  is_test  model
 
 05cbea30-ba38-4554-a700-98847b87d356  2026-10-03T08:55:04Z  preview  is_test=true  claude-sonnet-4-5-20250929
@@ -168,3 +168,33 @@ cd1b3275-534b-4e25-809c-2fb53cfcb403  2026-10-03T16:39:02Z  preview  is_test=tru
 3e937ccc-f1c1-481a-b051-6dd7b08c0cc3  2026-10-03T16:43:52Z  preview  is_test=true  claude-sonnet-5-5
 0497fa67-d271-4cc8-8012-171b6f7f5ecf  2026-10-04T06:05:07Z  preview  is_test=true  claude-sonnet-5-5
 a40ba5ae-faac-4bf1-ab0a-fc71a9e0a22b  2026-10-04T06:06:40Z  preview  is_test=true  mcp:get_recommendations
+71c70a6e-a6ff-440f-a68e-fea79742e870  2026-10-04T12:00:47Z  preview  is_test=true  claude-sonnet-5-5
+411163ae-ac86-4e1d-88fa-9afd27e7a865  2026-10-04T12:00:55Z  preview  is_test=true  claude-sonnet-5-5
+e96915e4-9314-4d3a-90a2-bce8dc950c9a  2026-10-04T12:00:59Z  preview  is_test=true  claude-sonnet-5-5
+499e0e0e-ef28-4409-843a-b0e88abb6b5f  2026-10-04T12:01:04Z  preview  is_test=true  claude-sonnet-5-5
+4411f2df-2aac-447b-bacf-8368ae2f5531  2026-10-04T12:01:09Z  preview  is_test=true  claude-sonnet-5-5
+d614d1ff-024b-4d3e-afb1-13c1b6ee5f6f  2026-10-04T12:01:19Z  preview  is_test=true  claude-sonnet-5-5
+83a89890-a84b-4f0a-af7d-3a64e5e6d921  2026-10-04T12:01:24Z  preview  is_test=true  claude-sonnet-5-5
+4307d70c-cf0d-460c-9bce-f5a01392322f  2026-10-04T12:01:29Z  preview  is_test=true  claude-sonnet-5-5
+8f38882f-55d8-45d4-8085-4497ffd360c7  2026-10-04T12:01:34Z  preview  is_test=true  claude-sonnet-5-5
+f7d3ee06-57b2-4dca-bf9c-f4d6cd65fccb  2026-10-04T12:01:38Z  preview  is_test=true  claude-sonnet-5-5
+218a656e-175a-4003-ad11-3b739e20860b  2026-10-04T12:01:50Z  preview  is_test=true  claude-sonnet-5-5
+f3c6019b-eade-4a25-ba0d-ffd0df81c787  2026-10-04T12:01:56Z  preview  is_test=true  claude-sonnet-5-5
+49dca09c-a910-4fe5-9376-a31dffa119d9  2026-10-04T12:02:01Z  preview  is_test=true  claude-sonnet-5-5
+ea97c352-f5c1-41a4-9c6f-de007d79dcd6  2026-10-04T12:02:06Z  preview  is_test=true  claude-sonnet-5-5
+1ae75e24-7f49-47a8-a7f9-e60fa260ba92  2026-10-04T12:02:10Z  preview  is_test=true  claude-sonnet-5-5
+c80da2fa-4f42-4fd3-bd72-4c3e86a471f4  2026-10-04T12:02:14Z  preview  is_test=true  claude-sonnet-5-5
+b9ff8d5a-b991-470d-b407-802c2865cadd  2026-10-04T12:02:18Z  preview  is_test=true  claude-sonnet-5-5
+1acc68ff-18c4-48fa-bfeb-7623620a4eda  2026-10-04T12:02:22Z  preview  is_test=true  claude-sonnet-5-5
+974a0542-9dfd-428b-a522-3f2a88dc3313  2026-10-04T12:02:27Z  preview  is_test=true  claude-sonnet-5-5
+8245b3d6-183d-4d22-aff6-d3f64be736bf  2026-10-04T12:02:32Z  preview  is_test=true  claude-sonnet-5-5
+5f1eb242-39a4-474f-9529-3a7d586907db  2026-10-04T12:02:35Z  preview  is_test=true  claude-sonnet-5-5
+7b69e427-75e1-4b32-aed5-00bd01c86158  2026-10-04T12:02:39Z  preview  is_test=true  claude-sonnet-5-5
+f4b40163-485a-48d2-8471-ae34e9d191b5  2026-10-04T12:02:42Z  preview  is_test=true  claude-sonnet-5-5
+38be9d1e-b6b0-4f64-861d-ef000c5ce42d  2026-10-04T12:02:47Z  preview  is_test=true  claude-sonnet-5-5
+047741fa-7793-4452-ada9-caed118e47ab  2026-10-04T12:02:51Z  preview  is_test=true  claude-sonnet-5-5
+2527886c-df1d-4f6c-b27b-bd56c7f2d133  2026-10-04T12:02:55Z  preview  is_test=true  claude-sonnet-5-5
+747f01e8-3347-4c4d-b824-fe70a9ed52ca  2026-10-04T12:02:59Z  preview  is_test=true  claude-sonnet-5-5
+43fcc959-fd23-40a9-884c-a11ecd865b97  2026-10-04T12:05:40Z  preview  is_test=true  claude-sonnet-5-5
+4d59772f-912e-499d-9950-11790e15262b  2026-10-04T12:06:07Z  preview  is_test=true  claude-sonnet-5-5
+621d86da-0899-4d97-9eca-b012bd102741  2026-10-04T12:08:13Z  preview  is_test=true  mcp:get_recommendations
