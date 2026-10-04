@@ -1,7 +1,7 @@
 # CC-18 report: deep links render at once; slim "Add flight" bar
 
-**Status: preview PASS (SMOKE 13/13, all CC-18 acceptance). Shipping follows in the
-"Production" section.**
+**Status: SHIPPED 4 Oct 06:00 UTC (`df450f8`, `dpl_EkSNEjyevV8K6HxdY2y7hKz2bJj7`).
+Preview PASS (SMOKE 13/13, all CC-18 acceptance); production checks PASS.**
 
 Run: 3 to 4 Oct 2026. Worktree `.claude/worktrees/cc-18`, branch `cc-18/deep-links`
 off `2d1d581`. Code commit `8f2e3ee`. Preview `dpl_2QZoPWmrsu9E9gRhf4eNZcwffzqc`
@@ -140,6 +140,21 @@ where id = 476 and anon_id = '800c7378…' and env = 'preview' and event_type =
 'amenity_detail_dwell' and not is_test` → 1 row). Later headless runs set
 `tp_test` before page scripts and navigate to `about:blank` before closing. Lesson
 added to `tasks/lessons.md`.
+
+## Production
+
+Shipped per Todd ("ship when green"). `origin/main` was still `2d1d581`, so this was
+a fast-forward: `git push origin HEAD:main` at 05:59:42 UTC, `2d1d581..df450f8`.
+Deployment `dpl_EkSNEjyevV8K6HxdY2y7hKz2bJj7`, READY 06:00:11 UTC, sin1, aliased to
+`terminalplus.app` and `www.terminalplus.app`.
+
+| Check | Result |
+|---|---|
+| CC-16 card still intact (`curl -A "facebookexternalhit/1.1" https://terminalplus.app/`) | 13 of 13 COPY tags; `rel="canonical"` 0, `og:url` 0, `replit` 0 |
+| og image, robots, sitemap | 200 `image/png` 110,990 B; robots names the sitemap; `/sitemap.xml` 200 `application/xml`, xmllint OK, 41 `<loc>` |
+| CC-18 bundle live | `/assets/index-BX5U7lVD.js` contains the bar copy |
+| Headless, fresh incognito context per URL (tagged), mobile and desktop | `/vibe/refuel` (7 spots), `/collection/refuel/coffee-worth-walk` (7 of 7), `/amenity/grain-traders-jewel`: own h1, title, 1 canonical, bar, no gate. `/`: gate. 0 console errors |
+| Rows | Events 571–586, env `production`, all `is_test`: 8 session_starts (each with its `landing_path`), 2 `capture_opened {gate}` (the two `/` loads), impressions, dwells. Non-test rows since the production watermark (events id > 570, 05:59:51 UTC): **0** |
 
 ## Notes
 
