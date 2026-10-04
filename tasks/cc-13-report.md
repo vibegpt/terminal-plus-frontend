@@ -1,8 +1,114 @@
 # CC-13 Journey trail: report
 
-**Status: DONE on the preview, not merged.** 19 of 21 acceptance checks pass. AC-8 is BLOCKED: it needs a real iPhone home-screen install. AC-21 is this report. Branch `cc-13-journey-trail`: code at `754c858` (3 commits on `d1ccd07`), plus this docs commit. Preview `dpl_G2UAZcNVnbbH41AFzSYqSv6U9xNw` READY. CI is green on all 3 commits. The migration is applied to the production DB; both views read 0 rows until real production rows exist. **Nothing is merged to `main`.** That waits for Todd's go.
+**Status: rebased onto `main` = `be0fff0` (CC-16 + CC-18) and re-smoked on the preview. Preview SMOKE 13/13; CC-16 and CC-18 acceptance for the shared files PASS; CC-13 re-checks PASS. Not merged.** Ship order is CC-16 (shipped), CC-18 (shipped), CC-6, then CC-13. So one more rebase follows once CC-6 is on `main` (see "Next"). AC-8 is still BLOCKED: it needs a real iPhone home-screen install. The migration is applied to the production DB; both views read 0 rows until real production rows exist. **Nothing is merged to `main`.** That waits for Todd's go.
 
-Run date: 2026-10-03. This replaces the 2026-10-01 BLOCKED run (G1 failed then because CC-7 wasn't applied).
+Round 1 ran 2026-10-03 on `d1ccd07` (below, from "Gates"). Round 2 ran 2026-10-04 after the rebase (next section). This replaces the 2026-10-01 BLOCKED run (G1 failed then because CC-7 wasn't applied).
+
+## Round 2: rebase onto `be0fff0` (CC-16 + CC-18), 4 Oct
+
+Branch `cc-13-journey-trail` = `510c828` (4 commits on `be0fff0`): `8756e8c` feature, `f2a0a5e` debug-log fix, `af8022f` replay fix, `510c828` docs. The pre-rebase tips are kept locally as `cc-13-pre-rebase-4b1da26` and `cc-13-rebased-c29ebc0`. Worktree `~/tp-cc-13`. Preview `dpl_HHnzXpw937zv5YvPAnhHctxnT35f` (READY, sin1), tested on the branch alias. CI run `37182273029`: success.
+
+### Conflicts and how they were resolved (both sides kept everywhere)
+
+| File | Resolution |
+|---|---|
+| `api/events.ts` | `EVENT_TYPES`: CC-18's `capture_opened`, then CC-13's 5. Payload handling in order: CC-16's `session_start` sanitiser, CC-18's `capture_opened` sanitiser, then CC-13's `validateTrailEvent` (each applies to its own event types) |
+| `src/lib/telemetry.ts` | The same 17 types in the same order, in both the set and the `EventType` union. CC-16's landing and first-touch attribution unchanged |
+| `src/App.tsx` | CC-18's file kept whole (entry kind, `captureEntry`, `capture_opened`, `PAGE_PATHS`), plus CC-13's static `OutcomePrompt` import and `banner` |
+| `src/components/AppShell.tsx` | Auto-merged: CC-18's `onEditFlight(entry: CaptureEntry)` and CC-13's `banner` |
+| `src/components/FlightStatusBar.tsx` | CC-18's `AddFlightBar` branch and `onAddFlight('bar' \| 'prompt')`, plus CC-13's `GateChip` and first-render `minutesToBoarding`. One `JourneyContext` import carries `hasDeparted` |
+| `src/pages/AmenityDetailPage.tsx` | CC-16's `usePageMeta` title, plus CC-13's candidate recording and "I'm here" |
+| `tasks/lessons.md` | CC-16's 2 and CC-18's lessons, then CC-13's 3 |
+
+`tp_journey_context` is untouched by CC-13. CC-13 keeps its own versioned keys (`tp_outcome_candidate`, `tp_outcome_ledger`, both v1), so CC-6's v3 → v4 bump needs no renumbering here. CC-13 reads only `capturedAt`, `journey_id`, `gate`, `boardingTime`, `scheduledDeparture` and `departureTerminal`, which CC-6's migration carries over unchanged.
+
+### Local checks on the rebased tree
+
+| Check | Result |
+|---|---|
+| Mirrored `EVENT_TYPES` | 17 = 17, identical order |
+| `npx tsx --test tests/*.test.ts` | 37/37 |
+| `npx tsc --noEmit -p api/tsconfig.json` | 0 errors |
+| Reachable-file typecheck (esbuild trace from `src/main.tsx`; 42 files on `be0fff0`, 46 on the branch) | 35 errors on `be0fff0`, 34 on the branch. 0 new; the 1 fewer is the now-used `MapPin` import |
+| `npm run build` | exit 0 |
+
+### What CC-18 changes for CC-13 (observed)
+
+- **Deep links mount the strip at once.** On `/vibe/refuel` with empty storage, the strip mounted at once and refused with `no_candidate, first_session, capture_bar, no_journey`. Rule 7's "capture bar" is now CC-18's slim `AddFlightBar` on pages and the old prompt on Home. Both show exactly when `flight` is null, so `!flight` still matches.
+- **No journey, no strip.** Grain Traders opened from a deep link, then a 23 s resume: `capture_bar, no_journey`, no strip, no `outcome_eligible`. "I'm here" stays hidden without a journey.
+- **Bar → capture → same page, no replay.** Add flight → typed QF1 → back on `/amenity/grain-traders-jewel` with "I'm here" now shown. No replay: the strip had already judged that resume before capture opened. The next resume showed "Make it to Grain Traders?" on the new journey.
+- **Rule 7 errs safe after a dismissal.** A dismissed `AddFlightBar` (`tp_add_flight_bar_dismissed`) still counts as "capture bar showing", because `flight` is null. This only matters between boarding + 35 min and departure; outside that window rule 8 (`no_journey`/`departed`) refuses anyway. The strip waits; it never shows wrongly.
+- **Capture remount refreshes the candidate.** Capture replaces the shell, so the amenity page remounts afterwards and records its candidate again with a fresh time (candidate age 0 on the next resume). That's a re-open in effect, and it only makes rule 4 more lenient for the venue on screen.
+
+### Preview SMOKE (`tasks/release-2026-09-report.md`)
+
+Browser 375×812, browser TZ Asia/Jerusalem. Clean origin (no storage, no SW, no caches) with `tp_test=1` set from `/robots.txt` before any app load. The browser lost its storage during a pause, so the run was redone from a clean origin at 11:55 UTC; lines 3, 4 and 8 to 11 come from the 06:16 UTC part on the same build.
+
+| # | Line | Result | Evidence |
+|---|---|---|---|
+| 1 | Capture gate shows | PASS | First visit `/?utm_source=test&…`: "What brings you to Changi?", `tp_entry_kind = home`, `capture_opened {gate}` **638** after session_start **637** |
+| 2 | Skip works | PASS | Skip → Home with its prompt. Journey `5167b1e9-130a-4801-83f6-d17fea92f55f` `skipped`, `onboarding_skipped`, `acquisition_src = test` |
+| 3 | Typed QF1 | PASS | From the collection's Add-flight bar: T1 → Enter manually → QF1 → "Terminal T1 · Gate D46 · Boards 22:45 → LHR" → Looks right. Back on `/collection/refuel/coffee-worth-walk`, bar "2h 47m to board · QF1 · SIN → LHR · D46 · T1". Journey `e162511a-0920-4adc-9b8a-9a8a55fb15a4` `typed` (also `8e0da87a-1cba-4ec0-889b-73a42433756f` earlier) |
+| 4 | Board picker | PASS | Change flight → board → SQ194 (T2, 15:00). Bar "4 min to board · SQ194 · SIN → HAN · E6 · T2", still on `/amenity/bacha-coffee-sint3`. Journey `bb2ef728-8319-46fd-bb4e-37a2b313b2cb` `picker`, `capture_opened {change_flight}` **628** |
+| 5 | Home | PASS | 7 rows (Refuel, Shop, Chill, Explore, Comfort, Quick, Work), 31 of 31 images (forced eager), 0 broken, 32 count cards |
+| 6 | `/vibe/refuel` | PASS | "7 spots across all terminals" |
+| 7 | Collection, amenity, search | PASS | coffee-worth-walk "7 of 7 spots"; grain-traders-jewel renders; "laksa" → Kopitiam (T1) |
+| 8 | Change flight → Keep QF1 | PASS | One "Keep QF1"; back on the same path; `tp_journey_context` byte-identical. `capture_opened {change_flight}` **626** |
+| 9 | Hours follow SGT | PASS (real clock) | Local 09:21 (Jerusalem), SGT 14:21: Grain Traders (11:00–22:00) "Open · Until 22:00". A local reading would say closed |
+| 10 | Chat uses the flight | PASS | `POST /api/chat` 200 twice. SQ194 boarding: "you're boarding in just 3 minutes at gate E6 … SQ194". QF1: "plenty of time … your gate at D46", cards Starbucks (T1), Crystal Jade Go (T1). The bold markdown shows raw and stray `{`/`0` glyphs appear in the cards; CC-13 changes no chat file (0-line diff vs `main`), and CC-6 rewrites `ChatPanel.tsx`/`chatFormat.ts`. Re-check after the CC-6 rebase |
+| 11 | MCP | PASS | initialize 200 (`2025-03-26`, `terminal-plus`); tools/list: get_airport_context, get_recommendations, get_disruption_status, get_route; `get_recommendations {refuel, SIN-T1}` → 7. agent_interactions `e23058ef-d74e-4497-a3d8-056ab99a9b44`, `is_test`, key `smoke-cc13-20261004` |
+| 12 | Recent events | PASS | session_start, recommendation_impression, capture_opened, amenity_tapped, amenity_detail_dwell, flight_not_found, outcome_* |
+| 13 | Typed journey row | PASS | `e162511a…` QF1 `typed` `departing` |
+
+### CC-16 acceptance for the shared files (`telemetry.ts`, `api/events.ts`, `AmenityDetailPage.tsx`)
+
+| Item | Result | Evidence |
+|---|---|---|
+| UTM link on first visit | PASS | session_start **637** `{utm_source: test, utm_medium: qa, utm_campaign: cc13, landing_path: /}`; `tp_first_touch_v1 = {src: test}` |
+| Legacy `?src=` in a new session | PASS | `/vibe/refuel?src=cc13_legacy`: session_start **646** `{utm_source: cc13_legacy, landing_path: /vibe/refuel}`; first touch unchanged (`test`) |
+| First touch drives `acquisition_src` | PASS | Both journeys from that browser: `acquisition_src = test` (`5167b1e9`, `e162511a`) |
+| Junk session_start | PASS | 300-char utm_source, `<script>` campaign and path, bad ref_host, unknown key, valid utm_medium → stored **669** `{utm_medium: qa}` only |
+| Amenity title and canonical | PASS | "Grain Traders, Jewel Changi · Terminal+", 1 canonical `…/amenity/grain-traders-jewel`; "Wang Cafe, Jewel Changi · Terminal+"; "Bacha Coffee, Terminal 3 · Terminal+" |
+| Other event types unchanged | PASS | recommendation_impression keeps `{slugs, placement}` / `{slugs, collection}` |
+| SW leaves static files alone | PASS | With `sw.js` controlling the tab, `/robots.txt` serves the text file |
+
+### CC-18 acceptance for the shared files (`App.tsx`, `AppShell.tsx`, `FlightStatusBar.tsx`, `telemetry.ts`, `api/events.ts`)
+
+| Item | Result | Evidence |
+|---|---|---|
+| Deep link renders at once | PASS | `/vibe/refuel`, empty storage: h1 "Refuel", title "Refuel at Changi · Terminal+", 1 canonical, Add-flight bar, no gate, `tp_entry_kind = page` |
+| `/` shows the gate | PASS | SMOKE 1; `capture_opened {gate}` **638** |
+| Bar → capture → back on the same page | PASS | Twice: `/amenity/grain-traders-jewel` (`capture_opened {bar}` **618**) and `/collection/refuel/coffee-worth-walk` (**658**). URL unchanged throughout, Add-flight bar gone afterwards |
+| Dismiss lasts the session only | PASS | ✕ → hidden, `tp_add_flight_bar_dismissed = 1`; reload → still hidden; new tab → back |
+| Deep-link visitor taps Home | PASS | Vibes → `/`: Home prompt, static title, 0 canonicals, no gate (`tp_entry_kind = page`) |
+| Change flight returns in place | PASS | Keep QF1 and the SQ194 pick both returned to `/amenity/bacha-coffee-sint3`; `capture_opened {change_flight}` **626**, **628** |
+| `capture_opened` validation | PASS | Direct POST: `{entry: "<script>", evil}` → **666** `{}`; `{entry: "bar", evil}` → **667** `{"entry":"bar"}`; `{entry: "GATE"}` → **668** `{}` |
+| Console errors | PASS | Only the 3 intentional 400s from the API checks. Caveat: the built-in browser's console reader captures from its first call |
+
+### CC-13 re-checks on the rebased build
+
+| Item | Result | Evidence |
+|---|---|---|
+| Strip, Yes + spend | PASS | "Make it to Grain Traders?" → Yes → S$10-30: **620** eligible, **621** shown, **622** `yes` / `10_30` / `prompt`, journey `8e0da87a…` |
+| Strip, No + reason | PASS | "Make it to Wang Cafe?" → No → No time: **662**, **663**, **664** `no` / `no_time`, journey `e162511a…` |
+| "I'm here" | PASS | Bacha Coffee: spend chips inline → Under S$10 → "You're here ✓"; **624** `yes` / `checkin` / `lt_10`, `gap_minutes null` |
+| Gate chip on live data | PASS | SQ194 gate E6, 4 min to board: "At Gate E6? Tap when you arrive". **629** `gate_prompt_shown` (E6, SIN-T2, 4); tap → **630** `gate_reached`; chip gone, bar not toggled |
+| Refusals | PASS | Console: `first_session`, `no_candidate`, `capture_bar`, `no_journey`, `gap_below_min` as expected (see above) |
+| API enums | PASS | `outcome: visited` → 400; reason with `yes` → 400; gate `<b>` → 400; mixed batch → 200, 1 inserted (**665**), `collection_open` rejected |
+
+### Round 2 test rows (all `is_test = true`, env `preview`)
+
+- Browser anons: `da25562b-2bf1-4ba6-94e1-5a36d138790b` (06:16 UTC part), `d0940990-19f0-42aa-a2b6-2d12cc65400c` (11:55 UTC part). Events from them: 56 rows, ids 612–669.
+- journeys: `8e0da87a-1cba-4ec0-889b-73a42433756f`, `bb2ef728-8319-46fd-bb4e-37a2b313b2cb`, `5167b1e9-130a-4801-83f6-d17fea92f55f`, `e162511a-0920-4adc-9b8a-9a8a55fb15a4`.
+- agent_interactions: `e23058ef-d74e-4497-a3d8-056ab99a9b44`.
+- Also this run's: event **607** (`session_start {}`, anon `ddda47a0…` from round 1). The round-1 build's service worker answered `/robots.txt` with the app shell before I cleared it, so the app booted once; `tp_test` was still set, so the row is `is_test`.
+- Not this run's: 608–611, 614–615 and the rest of 607–636 from other anons (other sessions' previews, e.g. `119de8d1…`). Production non-test rows at both watermarks: 0.
+
+### Next (round 2)
+
+1. When CC-6 is on `main`: rebase. Expected: `src/lib/telemetry.ts` merges on its own (CC-6 adds `telemetryIds()` after `init()`, away from CC-13's edits), and `tasks/lessons.md` needs the usual append-both.
+2. Re-run the preview SMOKE, plus the checks for `telemetry.ts`: CC-13 events, CC-16 attribution, CC-18 `capture_opened`, and CC-6's chat telemetry ids. Also check a v3 `tp_journey_context` migrating to v4 with the CC-13 ledger intact (same `capturedAt`), and look again at the chat card glyphs.
+3. Ask Todd before pushing anything to `main`.
 
 ## Gates
 
