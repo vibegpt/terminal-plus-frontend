@@ -320,3 +320,21 @@ wall-clock slice of a model that is still streaming. Measure the latency
 distribution before choosing any cutoff, and test every fallback path (slow,
 stalled, overloaded, unknown model, over budget) against a local mock of the
 API before trusting the one path a preview can force.
+
+---
+
+## 2026-10-03 — An eval that scores a 200 has to check it got the answer it asked for
+
+**Assumed (CC-6 eval runner):** a 200 from `/api/chat` is a chat reply, so scoring
+can start from the status code.
+
+**Actual:** the first claude-sonnet-4-6 run hit the preview while it was still
+rolling out. Every request came back 200 in ~0.4 s with no chat body (the SPA
+shell), and the runner scored 20/20 on slug quality and 4/5 adversarial,
+because an empty slug list satisfies most count and subset checks. 0 rows
+were logged, which is what gave it away.
+
+**Rule going forward:** score a turn only when the response carries its own
+shape (here: the test-only `debug` block), count anything else as a failed
+turn, and cross-check every run against an independent record (the logged
+rows). Wait for the deployment to report READY before an eval, not for a ping.

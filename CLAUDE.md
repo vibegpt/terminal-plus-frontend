@@ -12,7 +12,7 @@ Root: ~/terminal-plus-frontend · Remote: github.com/vibegpt/terminal-plus-front
 - Frontend: React 18, TypeScript, Vite 6, Tailwind, Framer Motion, React Router 7, TanStack Query, vite-plugin-pwa.
 - API: `api/` on Vercel, region sin1.
 - DB: Supabase `bpbyhdjdezynyiclqezy`, region eu-central-1. The region stays (decided 25 Sep).
-- LLM: Anthropic. Model IDs live only in api/lib/models.ts once CC-6 lands.
+- LLM: Anthropic. Model IDs live only in api/lib/models.ts. `ANTHROPIC_MODEL` overrides `CHAT_MODEL` per Vercel environment.
 - Flights: AeroDataBox via api.market. `AERODATABOX_API_KEY` is server-only (api/flight-status.ts, api/flights/board.ts); never add a VITE_ copy.
 
 ## Live code map
@@ -30,7 +30,7 @@ Root: ~/terminal-plus-frontend · Remote: github.com/vibegpt/terminal-plus-front
 - localStorage key `tp_journey_context`: never rename it. Version it with `schema_version` and a read-time migration.
 
 ## Standing rules
-- Telemetry tables (events, journeys, agent_interactions) are service-role only. Write them through the validating routes (api/events.ts, api/journey.ts). Never add anon INSERT policies.
+- Telemetry tables (events, journeys, agent_interactions) are service-role only. Write them through the validating routes (api/events.ts, api/journey.ts) or server code (api/chat.ts and MCP telemetry log agent_interactions). Never add anon INSERT policies.
 - All timestamps are timestamptz. Every analytics view filters out test and non-production rows.
 - DB changes:
   - Write the migration file in supabase/migrations/ first, then apply it.
@@ -42,7 +42,7 @@ Root: ~/terminal-plus-frontend · Remote: github.com/vibegpt/terminal-plus-front
 - .env.local: never run `vercel env pull .env.local`, because it overwrites local-only keys. Pull to /tmp and merge by hand.
 - Latency: every uncached DB call from sin1 to Frankfurt costs ~160 ms. Read the catalogue through the cache (api/lib/catalogue.ts once CC-3 lands), run independent queries in parallel, and keep telemetry writes off the response path.
 - Segment by corridor (LHR→SIN→SYD), never by nationality or locale.
-- Jewel is landside. One Jewel rule applies to every surface.
+- Jewel is landside. One Jewel rule applies to every surface (decided 3 Oct), by journeys.journey_type: connecting only with 180+ min to boarding; departing only with 90+ min, labelled "before immigration"; just_landed always. CC-5 owns the hard filter.
 - No blank text box in the MVP. Order changes; visibility doesn't.
 
 ## Verify (Always Works)
