@@ -404,7 +404,9 @@ for its string, in both a debug and a production build.
   no longer existed came back as `index.html` and blanked the page.
 
 **Rule going forward:** after each push, compare the loaded `assets/index-*.js` with the
-one the server returns (`fetch('/', {cache: 'no-store'})`) before trusting a result. On a
+one the server returns (`fetch('/?x=' + Date.now(), {cache: 'no-store'})`) before trusting
+a result. A plain `fetch('/')` from a page the service worker controls is answered by its
+precache, not the server (seen in CC-19's G2). On a
 test origin, unregister the service worker and clear caches when they differ.
 
 ---
@@ -422,3 +424,46 @@ and skews which candidates get shown.
 **Rule going forward:** a rule about visible UI reads the UI's real state, including
 dismissals (`isAddFlightBarDismissed()`), not the data condition that would render it.
 Keep it as a pure function of explicit inputs, so a test covers every state.
+
+---
+
+## 2026-10-04 — A vercel.json header rule lands on 404s too
+
+**Assumed (CC-19, first cut):** a `headers` rule on `/assets/(.*)` setting
+`public, max-age=31536000, immutable` would only ever reach the real hashed files.
+
+**Actual:** on the preview, a missing `/assets/…js` returned `404` carrying the
+same year-long `immutable` header. Vercel applies `headers` to the matched path
+whatever the status, so a browser or CDN could keep that 404 for a year, including
+for a chunk a rollback brings back. Todd dropped the header; the 404 stayed.
+
+**Rule going forward:** a long-lived cache header needs a rule that only matches
+files that exist. On the preview, check a missing path's headers as well as a real
+file's.
+
+---
+
+## 2026-10-04 — A page's `load` event undercounts reloads
+
+**Assumed:** counting `load` events (or puppeteer's `framenavigated`) counts the
+documents a page went through.
+
+**Actual (CC-19 forced loop):** the first document reloaded itself before its own
+`load` fired, so `load` saw 1 while 2 documents ran (2 document requests).
+`framenavigated` counted 3 in the no-SW run because it also fires on pushState.
+
+**Rule going forward:** count documents from inside the page: an
+`evaluateOnNewDocument` counter in sessionStorage (it runs once per new document,
+reloads included), cross-checked against main-frame document requests.
+
+---
+
+## 2026-10-04 — A new file's name can already belong to a dead file
+
+**Actual (CC-19):** I wrote a new `src/components/RouteErrorBoundary.tsx` and
+overwrote an existing dead file of the same name (react-router `errorElement`
+style, no importers). Restored from HEAD; the new boundary became
+`LazyRouteBoundary.tsx`.
+
+**Rule going forward:** with most of `src/` dead and many near-duplicate names,
+check that a path doesn't exist (`git ls-files <path>`) before creating a file.
