@@ -1,6 +1,26 @@
 # CC-13 Journey trail: report
 
-**Status: rebased once onto `main` = `388078a` (CC-6 + the test-flag fix), with the dismissed-bar fix and the status-pill fix. Preview SMOKE 13/13; the `telemetry.ts` checks (CC-13, CC-16, CC-18, CC-6, test flag) PASS; pill checked at 320 and 375 px. Ready to ship, not merged.** Ship order: CC-16, CC-18, CC-6 and the test-flag fix are all on `main`; CC-13 is next. AC-8 is still BLOCKED: it needs a real iPhone home-screen install. The migration is applied to the production DB. **Nothing is merged to `main`.** That waits for Todd's go.
+**Status: SHIPPED 5 Oct.** Todd's go, then `git push origin cc-13-journey-trail:main`, `388078a..2184300` (fast-forward). Production `dpl_64oNwdbPQtkfvxg25vv81LmytRwv` READY 05:12:51 UTC on `terminalplus.app`, sin1. CI on `main` run `37266731247`: success. Production checks PASS (see "Production"). AC-8 is still BLOCKED: it needs a real iPhone home-screen install. Rollback target: `dpl_E1aszheD1qWhjWzCnuGRqTxdLMR9` (`388078a`).
+
+## Production, 5 Oct
+
+Watermark: events id > 900 at 05:13 UTC; production non-test rows then 8 events, 0 journeys (real traffic, not this run's). Browser on `terminalplus.app`: origin cleared (no SW, no caches) and `tp_test=1` set from `/robots.txt` before any app load. 375×812 and 320×700.
+
+| Check | Result | Evidence |
+|---|---|---|
+| Deployment and alias | PASS | `dpl_64oNwdbPQtkfvxg25vv81LmytRwv` READY, `githubCommitSha 2184300`, aliases `terminalplus.app` and `www.terminalplus.app`. The tab loaded `index-COlFho3H.js`, the same as the server's |
+| Debug path off in production | PASS | Bundle has 0 `[outcome]` strings and still contains the strip and gate chip. `/amenity/grain-traders-jewel?tp_gap_debug=1` set no `tp_gap_debug` flag |
+| Deep link, no journey | PASS | Amenity page renders: title "Grain Traders, Jewel Changi · Terminal+", Add-flight bar, "I'm here" hidden, candidate recorded. 0 console errors |
+| Bar → capture → same page | PASS | Add flight → T1 → QF1 typed → "Terminal T1 · Boards 22:45 → LHR" → back on `/amenity/grain-traders-jewel`; "I'm here" now shown. Journey `7519a1bd-f33c-4779-bf03-5596f8bda9d4` (v4 `departing`) |
+| Status pill | PASS | 375 px: beside "QF1 · SIN → LHR", x 129–218, gate from 298, 0 overlaps, bar 62 px. 320 px: x 129–218, gate from 243, 0 overlaps, bar 62 px |
+| Enum validation live | PASS | Flag in the body only (no header): `outcome: visited` → 400 `invalid outcome`; mixed batch → 200, 1 inserted, `collection_open` rejected |
+| Test rows stay out of the data | PASS | This browser's events **901–906** (session_start, capture_opened, flight_not_found, amenity_detail_dwell, outcome_eligible) and journey `7519a1bd…`: all `is_test`, env `production`. `analytics_journey_trail` 0 rows, `_k5` 0 rows; anon SELECT on both: false. Production non-test rows unchanged (8 events, 0 journeys) |
+
+Production test rows (all `is_test`, env `production`): anon `ffe9a7e1-4b6e-4ef9-8bf4-d646d23e48cb`, events 901–906, journey `7519a1bd-f33c-4779-bf03-5596f8bda9d4`.
+
+## Before shipping (round 3)
+
+Rebased once onto `main` = `388078a` (CC-6 + the test-flag fix), with the dismissed-bar fix and the status-pill fix. Preview SMOKE 13/13; the `telemetry.ts` checks (CC-13, CC-16, CC-18, CC-6, test flag) PASS; pill checked at 320 and 375 px.
 
 Round 1 ran 2026-10-03 on `d1ccd07` (below, from "Gates"). Round 2 ran 2026-10-04 on `be0fff0`. Round 3 ran 2026-10-05 on `388078a` (next section). This replaces the 2026-10-01 BLOCKED run (G1 failed then because CC-7 wasn't applied).
 
