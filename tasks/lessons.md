@@ -467,3 +467,18 @@ style, no importers). Restored from HEAD; the new boundary became
 
 **Rule going forward:** with most of `src/` dead and many near-duplicate names,
 check that a path doesn't exist (`git ls-files <path>`) before creating a file.
+
+---
+
+## 2026-10-05 — `apply_migration` names the version, not the file
+
+**Assumed (CC-20):** the timestamp in the migration's file name becomes its version in
+the database.
+
+**Actual:** `apply_migration` records the time it ran (`20261005180720`), not the file's
+`20261005180512`. A repo file whose name doesn't match `list_migrations` breaks the
+history the next time anything compares the two (the history already lacks
+`20260706093000`).
+
+**Rule going forward:** after applying, read the version from `list_migrations` and
+rename the file to match before committing.
