@@ -1,16 +1,18 @@
 # CC-19 report: a deploy no longer blanks an open tab or a cold-opened PWA
 
-**Status: READY TO SHIP, waiting on its turn (ship order: test-flag fix → CC-13 → CC-19)
-and Todd's go. Preview PASS: both repro cases, the ship handover from today's
-service worker, toast + Refresh, the no-SW path, the forced loop, CC-16 and CC-18
-regressions, SMOKE 13/13, 0 untagged rows. Not on main.**
+**Status: READY TO SHIP, waiting on Todd's go. Rebased 5 Oct onto `26e831b` (CC-13 +
+the test-flag fix); fresh preview `dpl_4d9GHdeM8wasj7EGWDgmrBaxE7XF` re-check PASS
+(update toast + Refresh beside CC-13's strip, no-SW path, forced loop, CC-16 and
+CC-18) and SMOKE 13/13, 0 untagged rows. First round (4 Oct, on `bef1938`) PASS:
+both repro cases, the ship handover from today's service worker, toast + Refresh,
+the no-SW path, the forced loop, CC-16 and CC-18 regressions, SMOKE 13/13. Not on main.**
 
 Run: 4 Oct 2026. Worktree `~/tp-cc-19`, branch `cc-19/sw-stale-shell` off `bef1938`
 (CC-6 on main). Commits `ae2f5b5` (fix), `4bf9805` (drop the immutable header),
 `20b2b21` (toast fits at 375 px). Preview `dpl_HbeYPSAvRhnQbTCXab6YpghExcBJ`
 (`terminal-plus-frontend-h02xuwuuh-…vercel.app`, alias `…-git-cc-19-df18ca-…`),
-READY, sin1. No DB change. `origin/main` has since moved to `c667d95` (docs only,
-`tasks/cc-6-*`), so rebase before shipping; no shared files.
+READY, sin1. No DB change. Rebased 5 Oct onto `26e831b`: `ee35b01` (fix), `5342bc6`
+(vercel.json), `959dfc4` (toast), then the docs (see "Rebase onto `26e831b`").
 
 ## Why
 
@@ -170,6 +172,92 @@ and every `session_start` from this run carries `landing_path`, which a CC-16+ b
 leaves out only when sessionStorage is blocked. Not tagged by hand (not this run's).
 Preview rows never reach the analytics views (`env = 'production'`).
 
+## Rebase onto `26e831b` (CC-13 + test flag), 5 Oct
+
+`git rebase origin/main` (`26e831b` = CC-13 `2184300` + the test-flag production-checks
+docs). Two conflicts, both resolved by keeping both sides:
+
+- `src/App.tsx`: CC-13 added a static `OutcomePrompt` import and
+  `banner={<OutcomePrompt />}` on `AppShell`; CC-19 replaced the lazy imports and
+  wrapped the routes. Result: both sets of imports, and CC-19's `screen` structure with
+  CC-13's banner on its `AppShell`.
+- `tasks/lessons.md`: both appended. Kept both, CC-13's first, and corrected CC-13's
+  "Check which build the tab is actually running" rule: compare against
+  `fetch('/?x=' + Date.now())`, because a plain `fetch('/')` from a controlled page is
+  answered by the precache (G2 above).
+
+### Local checks (`098b807`)
+
+| Check | Result |
+|---|---|
+| `npx tsc --noEmit -p api/tsconfig.json` | exit 0 |
+| Reachable-file typecheck, list regenerated from `src/main.tsx` (51 files: CC-13's 4 new, CC-19's 3 new) | 34 errors on `26e831b` and on the branch, identical set; 0 in CC-19's files |
+| `npm run build` | exit 0, precache 26 |
+| `dist/sw.js` | `self.skipWaiting()` only in the `SKIP_WAITING` handler; 0 `clientsClaim`; no `registerSW.js` |
+| Entry chunk | reload guard, `vite:preloadError`, and CC-13's strip all present |
+| `npm run test:adversarial` | 11/11 |
+
+A preview build no longer hashes like a plain local build: CC-13 reads
+`VITE_TP_DEBUG`, which is set on Preview only. A local build with `VITE_TP_DEBUG=1`
+gives `index-Bdu9pnPP.js`, the preview's.
+
+### Preview `dpl_4d9GHdeM8wasj7EGWDgmrBaxE7XF`
+
+`098b807`, alias `…-git-cc-19-df18ca-…`, READY, sin1, serving `index-Bdu9pnPP.js`.
+Watermark: events id > 907, 10:51:18 UTC. The update flow ran on a throwaway branch,
+`cc-19/verify2`: V1 `ab7357b` (`098b807` + an empty commit, `index-Bdu9pnPP`), V2
+`2661dda` (bump, `index-BN7tu_k-`).
+
+| Check | Result | Evidence |
+|---|---|---|
+| Missing `/assets/*` | PASS | `.js` and `.css`: `404 text/plain`, `public, max-age=0, must-revalidate` |
+| Existing files, other paths | PASS | Index 200; all 12 chunks the entry imports 200; `/`, `/vibe/refuel` html; `/robots.txt` text/plain; `/sitemap.xml` xml; share card png; `/api/events` GET 405 |
+| Update toast + Refresh | PASS | V1 tab: SW in control, journey QF1, Grain Traders as CC-13's candidate. After V2 and `registration.update()`: V2 worker `installed`/waiting, 0 `controllerchange`, V1 and V2 both cached (36 entries), toast shown, no reload. Refresh → navigation `reload`, loaded = server `index-BN7tu_k-`, same page, journey kept, toast gone, nothing waiting, 0 console errors |
+| Toast beside CC-13's strip | PASS | Backgrounded 23 s and resumed (`?tp_gap_debug=1`): "Make it to Grain Traders?" in the header at y131–159 (header ends at y221) while the toast sits at y696–740, x16–287, left of the chat bubble (screenshot). Debug log `eligibility true: all rules pass`. Still 0 `controllerchange` |
+| No-SW path (V1 → V2) | PASS | Exactly 1 new document after the route tap (in-page counter, 1 document request), navigation `reload`, final index = V2, Profile shown, no boundary. Only console error: the 404 for V1's chunk |
+| Forced loop | PASS | 2 documents (in-page counter 2, 2 document requests), 2 chunk attempts in 20 s, boundary with "Terminal+ was updated while it was open." and Reload |
+| CC-16 with the SW in control | PASS | `/robots.txt` text/plain, `/sitemap.xml` application/xml (41 URLs), no app boot |
+| CC-18 deep links | PASS | `/vibe/refuel`, the collection and the amenity: own title, 1 canonical, Add-flight bar, no gate. `/`: the gate. 0 console errors |
+
+Testing note: a page loaded while the tab is hidden defers CC-13's boot snapshot and
+replays it on the first `visible`. That snapshot predates the page's own candidate
+(`no_candidate`), so the strip needs a second hide and show.
+
+### SMOKE, 11:29–11:33 UTC (19:29 SGT), 375×812, TZ Asia/Jerusalem except line 9
+
+| # | Line | Result | Evidence |
+|---|---|---|---|
+| 1 | `/` capture gate | PASS | Fresh storage: "What brings you to Changi?", Departing / Connecting / Just landed / Skip |
+| 2 | Skip | PASS | Home with "Add your flight for personalised recommendations"; journey `0fbfed16-032c-422a-8d50-1fbbca116346` `skipped` |
+| 3 | Typed QF1 | PASS | Departing → T1 → Enter manually → QF1 → Looks right. Bar "9h 25m to board · On Time, QF1 · SIN → LHR, T1"; `schema_version: 4`, `typed` |
+| 4 | Board picker | PASS | 141 board rows; TR466 → "23 min to board · On Time, TR466 · SIN → KUL, C19, T1"; `picker`. CC-13's gate chip "At Gate C19? Tap when you arrive" also shown |
+| 5 | Home: 7 vibe rows | PASS | Refuel, Shop, Chill, Explore, Comfort, Quick, Work; 31 images, 0 broken; 32 cards with a count |
+| 6 | `/vibe/refuel` | PASS | "7 spots across all terminals" |
+| 7 | Collection, amenity, search | PASS | coffee-worth-walk "7 of 7 spots"; grain-traders-jewel renders with "More like this"; "laksa" → Kopitiam (T1) |
+| 8 | Change flight → Keep QF1 | PASS | "Change flight" heading, "Keep QF1" once; `tp_journey_context` byte-identical afterwards (`capturedAt` 11:29:44.330Z) |
+| 9 | Non-Singapore TZ follows SGT | PASS | Headless Chrome, TZ America/Los_Angeles: local 04:30, SGT 19:30, Grain Traders (11:00–22:00) shows **Open**. In the pane (Asia/Jerusalem, 14:30) every venue with simple hours is open by both clocks at this hour, so it can't tell them apart |
+| 10 | Chat | PASS | `POST /api/chat` 200: "You're in T1 with a long wait before your 04:55 boarding …"; row `7e16c55e-de4c-4ade-bfb0-1668b377b76e`, `claude-sonnet-5-5`, `SIN-T1` |
+| 11 | MCP | PASS | `smoke-cc19r-202610051132`: initialize 200 `2025-03-26` `terminal-plus`; tools/list 4; `get_recommendations {refuel, SIN-T1}` → 7. Row `1c845b17-610f-426d-891a-75d7f497325e` |
+| 12 | Recent events | PASS | `session_start`, `recommendation_impression`, `capture_opened`, `search_performed`, `amenity_detail_dwell`, `flight_not_found`, `gate_prompt_shown` |
+| 13 | Typed journeys row | PASS | Exactly 1: `e0ca29b0-d1d6-4647-83b3-4674befdcad8`, QF1, typed |
+
+### Test rows (all `is_test = true`, env `preview`)
+
+| Run | anon | events | other |
+|---|---|---|---|
+| Forced loop | `e7d4084d…` | 908 | |
+| Deep links: vibe, collection, amenity, `/` | `cebe754d…`, `27986f43…`, `df73fcc1…`, `b74b7640…` | 909–916 | |
+| verify2 update flow + strip (pane) | `7c65eae9…` | 917–919, 922–924 (incl. `outcome_eligible`, `outcome_shown`) | journey `5c53d121-cfc7-4759-a780-701132011020` |
+| verify2 no-SW | `bb4c75fa…` | 920, 921 | |
+| CC-16 SW check (pane) | `0c9b5ced…` | 925–927 | |
+| SMOKE 1, 2, 5 | `57397781…` | 928–936 | journey `0fbfed16-032c-422a-8d50-1fbbca116346` |
+| SMOKE 3, 6–8, 10 | `24b70146…` | 937–947, 950–955 | journey `e0ca29b0-d1d6-4647-83b3-4674befdcad8`; chat `7e16c55e-de4c-4ade-bfb0-1668b377b76e` |
+| SMOKE 9 (Los Angeles TZ) | `e647a895…` | 948, 949 | |
+| SMOKE 4 | `29124be7…` | 956–965 | journey `6d533c90-3bfe-404d-a139-5688627775ce` |
+| SMOKE 11 | | | MCP `1c845b17-610f-426d-891a-75d7f497325e` |
+
+0 untagged across these anons, and no other rows since the watermark.
+
 ## Skew Protection (findings, not adopted)
 
 - Available on our plan (Pro). Whether it's on isn't visible through the API; the
@@ -197,17 +285,19 @@ Preview rows never reach the analytics views (`env = 'production'`).
   mode). Expected; the SW-dependent checks above used a second load.
 - **Seen in passing, not CC-19 (no file in this diff):**
   - `/map`, `/saved` and `/profile` keep the default title and have no canonical,
-    on production too. CC-18 gave its own title and canonical to vibe, collection and
-    amenity only.
-  - At 375 px the flight bar's status pill ("Good timing", "Plenty of time") overlaps
-    the text beneath it.
-- Throwaway branches `cc-19/repro` (`4ebea52`) and `cc-19/verify` (`ca4f8c4`) are
-  on origin. Never merge; delete with Todd's OK.
+    on production too. Now CC-18b (Todd, 5 Oct): own titles for all three, a canonical
+    for `/map`, `noindex` and no canonical for `/saved` and `/profile`; `/map` stays
+    out of the sitemap until CC-14.
+  - At 375 px the flight bar's status pill overlapped the text beneath it. Fixed by
+    CC-13 (`d4a7df4`, on main); seen fixed on this preview.
+- Throwaway branches `cc-19/repro` and `cc-19/verify` were deleted 5 Oct (Todd's OK).
+  `cc-19/verify2` (`2661dda`, worktree `~/tp-cc-19-verify2`) ran the rebase re-check.
+  Never merge; delete with Todd's OK.
 
 ## Ship
 
-1. After the test-flag fix and CC-13 land: rebase onto `origin/main`, re-run the local
-   checks, push, preview SMOKE.
+1. Done 5 Oct: rebased onto `26e831b`, local checks, fresh preview, SMOKE 13/13
+   (section above).
 2. Ask Todd; Todd pushes to main.
 3. Production: G1 re-check; a tab opened before the deploy keeps working on its own
    build (no toast: the old build has none); after all tabs close, loaded index =
