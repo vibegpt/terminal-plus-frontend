@@ -449,8 +449,8 @@ export function FlightStatusBar({
           animation: isPulsing ? 'tp-pulse-urgent 1.2s infinite' : 'tp-pulse 2.5s infinite',
         }} />
 
-        {/* Flight info */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        {/* Flight info: takes the row's free width, so the status pill can wrap inside it */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 1, flex: 1, minWidth: 0 }}>
           <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.04em', color: config.timeColor }}>
             {urgency === 'boarding' ? '⚡ BOARDING NOW' : `${timeLabel} to board`}
             {flight.status === 'on-time' && urgency !== 'boarding' && (
@@ -460,9 +460,26 @@ export function FlightStatusBar({
               <span style={{ color: '#f59e0b', fontWeight: 400, marginLeft: 6 }}>· Delayed</span>
             )}
           </span>
-          <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)' }}>
-            {flight.flightNumber} · {flight.origin} → {flight.destination}
-          </span>
+          {/* Status pill in the flow, after the route. Absolutely placed at the top right
+              it ran over the time and gate text on phones; here it sits beside the route
+              when there's room and wraps to its own line when there isn't. */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', columnGap: 6, rowGap: 3 }}>
+            <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', whiteSpace: 'nowrap' }}>
+              {flight.flightNumber} · {flight.origin} → {flight.destination}
+            </span>
+            <span style={{
+              fontSize: 10,
+              fontWeight: 700,
+              padding: '1px 8px',
+              borderRadius: 20,
+              background: config.labelBg,
+              color: config.labelColor,
+              letterSpacing: '0.04em',
+              whiteSpace: 'nowrap',
+            }}>
+              {config.label}
+            </span>
+          </div>
         </div>
 
         {/* Gate */}
@@ -591,23 +608,6 @@ export function FlightStatusBar({
         opacity: 0.4,
         transition: 'width 60s linear',
       }} />
-
-      {/* Status label pill */}
-      <span style={{
-        position: 'absolute',
-        top: 10,
-        right: expanded ? 32 : 48,
-        fontSize: 10,
-        fontWeight: 700,
-        padding: '2px 8px',
-        borderRadius: 20,
-        background: config.labelBg,
-        color: config.labelColor,
-        letterSpacing: '0.04em',
-        transition: 'all 0.2s',
-      }}>
-        {config.label}
-      </span>
 
       <style>{`
         @keyframes tp-pulse {
