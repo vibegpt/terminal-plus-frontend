@@ -3,6 +3,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import { UUID_RE, isTestRequest, telemetryEnv } from './lib/telemetryEnv'
+import { isBotRequest } from './lib/crawler'
 import { sessionStartPayload } from './lib/attribution'
 
 // ---------- Load .env.local for vercel dev ----------
@@ -95,8 +96,8 @@ type EventRow = {
   payload: Record<string, unknown>
 }
 
-// env and is_test are server-side provenance, stamped in the handler.
-type StampedEventRow = EventRow & { env: string; is_test: boolean }
+// env, is_test and is_bot are server-side provenance, stamped in the handler.
+type StampedEventRow = EventRow & { env: string; is_test: boolean; is_bot: boolean }
 
 // gap_minutes / candidate_age_minutes: minutes to 1 decimal, 0 to 7 days.
 function badMinutes(v: unknown, nullable: boolean): boolean {
@@ -266,11 +267,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const env = telemetryEnv()
   const is_test = isTestRequest(req.headers, parsed)
+  const is_bot = isBotRequest(req.headers)
   const rows: StampedEventRow[] = []
   const rejected: Array<{ index: number; reason: string }> = []
   events.forEach((raw, index) => {
     const result = validateEvent(raw)
-    if ('row' in result) rows.push({ ...result.row, env, is_test })
+    if ('row' in result) rows.push({ ...result.row, env, is_test, is_bot })
     else rejected.push({ index, reason: result.reason })
   })
 

@@ -3,6 +3,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import { UUID_RE, isTestRequest, telemetryEnv } from './lib/telemetryEnv'
+import { isBotRequest } from './lib/crawler'
 import { utmValue } from './lib/attribution'
 
 // ---------- Load .env.local for vercel dev ----------
@@ -196,7 +197,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // Cast at the boundary: the client is untyped (no generated DB types), so its
   // insert() overloads want a bare Record. JourneyRow is the real contract.
-  const row = { ...result.row, env: telemetryEnv(), is_test: isTestRequest(req.headers, parsed) }
+  const row = {
+    ...result.row,
+    env: telemetryEnv(),
+    is_test: isTestRequest(req.headers, parsed),
+    is_bot: isBotRequest(req.headers),
+  }
   const { data, error } = await supabase
     .from('journeys')
     .insert(row as unknown as Record<string, unknown>)
