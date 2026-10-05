@@ -1,8 +1,9 @@
 # Test flag in the body of every send
 
-**Status: READY TO SHIP. Rebased onto `c667d95` (5 Oct); fresh preview
+**Status: SHIPPED 5 Oct 03:08 UTC (`388078a`, `dpl_E1aszheD1qWhjWzCnuGRqTxdLMR9`);
+production checks PASS. Rebased onto `c667d95`; fresh preview
 `dpl_3Z3kWBpwpK7u9Kmq1VxS5DbjpnVh` (code `9753b61`): telemetry checks PASS and SMOKE
-13/13. Waiting on Todd's go for main.**
+13/13. Rollback target: `dpl_GpyABRCLVqKVJHBnte2UNB7SxcMi` (`c667d95`).**
 
 Branch `fix/test-flag-in-body`, worktree `.claude/worktrees/test-flag-body`. First run
 4 Oct on `be0fff0` (`3024ada`, preview `dpl_CHm5quhuxwMor2wHuZ1yAKuFfWr9`); rebased
@@ -109,4 +110,17 @@ browsers, 02:38–02:54 UTC on 5 Oct. Each is one `session_start` plus one impre
 landing on a sitemap URL (`/vibe/comfort`, `/collection/quick/grab-and-go`,
 `/collection/discover/jewel-experience`) with no referrer and no UTM. That fits a
 crawler that runs JavaScript; it isn't proven. The analytics views count them today.
+
+## Production (5 Oct)
+
+Todd pushed `388078a` to main. `dpl_E1aszheD1qWhjWzCnuGRqTxdLMR9` READY 03:08:45 UTC,
+sin1, aliased to terminalplus.app; the site serves `index-vxoiZoCr.js` (the preview's
+build). Watermark: events id > 824, 03:09:06 UTC.
+
+| Check | Result |
+|---|---|
+| Browser, `tp_test` set on `/robots.txt` first, tab hidden | First load came from the old `autoUpdate` worker's precache (`index-48osyDTw.js`, the `c667d95` build); after its update the reload ran `index-vxoiZoCr.js` = server. Tap Grain Traders and back: 2 sends to `/api/events`, both `via: beacon`, body `"test": true` (`amenity_tapped`, `amenity_detail_dwell`). 0 console errors |
+| Rows, anon `ee72c883…` | events 825–829 (session_start from the old shell's header, 2 impressions, amenity_tapped, amenity_detail_dwell): all `env = production`, `is_test` |
+| Direct POST, flag only in the body | `/api/events` JSON → **830**, `text/plain` → **831**, `/api/journey` → `c01f5d7b-8ca7-4076-b6e5-5cbbe3fd18ae`: all production, `is_test` |
+| Rows since the watermark | 8, all from the two anons above, all `is_test` |
 
