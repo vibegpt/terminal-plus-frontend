@@ -1,11 +1,10 @@
 # CC-19 report: a deploy no longer blanks an open tab or a cold-opened PWA
 
-**Status: READY TO SHIP, waiting on Todd's go. Rebased 5 Oct onto `26e831b` (CC-13 +
-the test-flag fix); fresh preview `dpl_4d9GHdeM8wasj7EGWDgmrBaxE7XF` re-check PASS
-(update toast + Refresh beside CC-13's strip, no-SW path, forced loop, CC-16 and
-CC-18) and SMOKE 13/13, 0 untagged rows. First round (4 Oct, on `bef1938`) PASS:
-both repro cases, the ship handover from today's service worker, toast + Refresh,
-the no-SW path, the forced loop, CC-16 and CC-18 regressions, SMOKE 13/13. Not on main.**
+**Status: SHIPPED 5 Oct 11:41 UTC (`b043514`, `dpl_Du8umkWFpSsgbV51cn7RMGfRBtJR`);
+production checks PASS. A tab open on the previous build kept working through the
+deploy (the 3 Oct failure), and a cold open after closing it landed on the new build.
+Rebased onto `26e831b` (CC-13 + the test-flag fix); preview re-check PASS and SMOKE
+13/13. Rollback target: `dpl_27GKcxswxHi7zYrmdCoXUJfS7jkZ` (`26e831b`).**
 
 Run: 4 Oct 2026. Worktree `~/tp-cc-19`, branch `cc-19/sw-stale-shell` off `bef1938`
 (CC-6 on main). Commits `ae2f5b5` (fix), `4bf9805` (drop the immutable header),
@@ -298,8 +297,28 @@ replays it on the first `visible`. That snapshot predates the page's own candida
 
 1. Done 5 Oct: rebased onto `26e831b`, local checks, fresh preview, SMOKE 13/13
    (section above).
-2. Ask Todd; Todd pushes to main.
-3. Production: G1 re-check; a tab opened before the deploy keeps working on its own
-   build (no toast: the old build has none); after all tabs close, loaded index =
-   server index; robots/sitemap with the SW in control; test rows. The toast itself
-   first shows in production on the deploy after this one.
+2. Todd's go; pushed `26e831b..b043514` to main.
+3. Production, below.
+
+## Production (5 Oct)
+
+`dpl_Du8umkWFpSsgbV51cn7RMGfRBtJR` (`b043514`) READY, sin1, aliased to terminalplus.app.
+G1 before the push: production was `26e831b` (`dpl_27GKcxswxHi7zYrmdCoXUJfS7jkZ`) =
+main. Production serves `index-um99xWy9.js`, the same as a plain local build
+(production has no `VITE_TP_DEBUG`).
+
+| Check | Result | Evidence |
+|---|---|---|
+| Tab open across the deploy | PASS | Browser pane, `tp_test` set on `/robots.txt` first. Opened `/vibe/refuel` at 11:40:59 on the previous build (`index-COlFho3H.js`, with the old `registerSW.js`); its `autoUpdate` worker took control, precache 26 including `ProfilePage-Czmnhku3.js`. The deploy went live at 11:41:20. In the same tab, `registration.update()`: the new worker `installed` and waiting, 0 `controllerchange` in 15 s, the old build's files kept beside the new (39 entries), no toast (the old build has none). Opening Profile in-app rendered it from `ProfilePage-Czmnhku3.js` (SW, 200), no reload, 0 console errors |
+| Cold open | PASS | That tab closed, a new one opened: new build in control, loaded `index-um99xWy9.js` = server, no `registerSW.js`, old entries cleaned (26 left, 0 from the old build), nothing waiting, no toast. Map opened in-app with no reload |
+| Static files with the SW in control | PASS | `/robots.txt` text/plain, `/sitemap.xml` application/xml (41 URLs), no app boot |
+| Headers | PASS | Missing `/assets/ProfilePage-missing0.js`: `404 text/plain`, `max-age=0`. Index 200; all 12 chunks the entry imports 200. `/sw.js`: 1 `SKIP_WAITING`, 0 `clientsClaim` |
+| Rows | PASS | Anon `1bcd964a…`: events 966–969 (2 session_start, 2 impressions), `env = production`, all `is_test`. No other rows in the window |
+
+The toast itself first shows in production on the next deploy, for tabs opened on
+this build.
+
+Rollback note (not tested): rolling back to `26e831b` reinstates the `autoUpdate`
+worker, which takes over open tabs at once and drops this build's precache. A page on
+this build would then hit a missing chunk, which `lazyWithReload` turns into one
+reload onto the rolled-back build, instead of the blank page the old code showed.
