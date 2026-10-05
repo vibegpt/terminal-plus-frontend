@@ -1,8 +1,103 @@
 # CC-13 Journey trail: report
 
-**Status: rebased onto `main` = `be0fff0` (CC-16 + CC-18) and re-smoked on the preview. Preview SMOKE 13/13; CC-16 and CC-18 acceptance for the shared files PASS; CC-13 re-checks PASS. Not merged.** Ship order is CC-16 (shipped), CC-18 (shipped), CC-6, then CC-13. So one more rebase follows once CC-6 is on `main` (see "Next"). AC-8 is still BLOCKED: it needs a real iPhone home-screen install. The migration is applied to the production DB; both views read 0 rows until real production rows exist. **Nothing is merged to `main`.** That waits for Todd's go.
+**Status: rebased once onto `main` = `388078a` (CC-6 + the test-flag fix), with the dismissed-bar fix and the status-pill fix. Preview SMOKE 13/13; the `telemetry.ts` checks (CC-13, CC-16, CC-18, CC-6, test flag) PASS; pill checked at 320 and 375 px. Ready to ship, not merged.** Ship order: CC-16, CC-18, CC-6 and the test-flag fix are all on `main`; CC-13 is next. AC-8 is still BLOCKED: it needs a real iPhone home-screen install. The migration is applied to the production DB. **Nothing is merged to `main`.** That waits for Todd's go.
 
-Round 1 ran 2026-10-03 on `d1ccd07` (below, from "Gates"). Round 2 ran 2026-10-04 after the rebase (next section). This replaces the 2026-10-01 BLOCKED run (G1 failed then because CC-7 wasn't applied).
+Round 1 ran 2026-10-03 on `d1ccd07` (below, from "Gates"). Round 2 ran 2026-10-04 on `be0fff0`. Round 3 ran 2026-10-05 on `388078a` (next section). This replaces the 2026-10-01 BLOCKED run (G1 failed then because CC-7 wasn't applied).
+
+## Round 3: rebase onto `388078a` (CC-6 + test flag in body), dismissed-bar fix, status pill, 5 Oct
+
+Branch `cc-13-journey-trail`, 7 commits on `388078a`. Code: `58619ae` feature, `360a66c` debug log, `7998068` replay, `79aaed0` dismissed bar, `d4a7df4` pill. Then this docs commit. Pre-rebase tip kept locally as `cc-13-pre-rebase-748bb59`. Preview `dpl_AUkSSSQS3PGHTfJfNskSuPf1R1bx` (READY, sin1), branch alias; CI run `37262808718`: success.
+
+### Rebase
+
+One rebase, onto both. `tasks/lessons.md` was the only conflict (CC-6's and the test-flag lessons, then CC-13's). `src/lib/telemetry.ts` and `api/events.ts` auto-merged, and all of these were checked present afterwards:
+
+| What | Where |
+|---|---|
+| Event lists | 17 = 17, identical order |
+| CC-6 | `telemetryIds()` |
+| Test-flag fix | `testBody()` in the flush and unload bodies; `sendBeacon` for every browser; server `isTestRequest(req.headers, parsed)` |
+| CC-16 | First-touch and landing attribution; `session_start` sanitiser |
+| CC-18 | `capture_opened` sanitiser |
+| CC-13 | `validateTrailEvent` and the all-rejected 400 |
+
+CC-6's new dependency needed `npm ci` (`@vercel/functions`).
+
+| Local check | Result |
+|---|---|
+| `npx tsx --test tests/*.test.ts` | 60/60 (CC-13's 21, including the new dismissed-bar test) |
+| `npx tsc --noEmit -p api/tsconfig.json` | 0 errors |
+| Reachable-file typecheck (43 files on `388078a`, 47 on the branch) | 35 vs 34: 0 new, 1 fewer (the now-used `MapPin`) |
+| `npm run build` | exit 0 |
+
+### Changes this round
+
+| Commit | Change |
+|---|---|
+| `79aaed0` | Rule 7 reads `captureBarShowing({hasFlight, onPagePath, barDismissed})` (pure, in `outcomePrompt.ts`). A dismissed Add-flight bar isn't showing, so the strip doesn't wait on it. Home's prompt can't be dismissed and still counts |
+| `d4a7df4` | `FlightStatusBar`: the status pill ("Plenty of time", "Good timing", "Board soon!", "BOARDING NOW") moves from `position: absolute; top: 10; right: 48` into the flow, beside the route in a wrapping row. The info column is `flex: 1; min-width: 0`. It sits beside the route where there's room and wraps to its own line where there isn't |
+
+### Status pill at 320 and 375 px (bounding boxes measured in the page)
+
+| Case | 375 px | 320 px |
+|---|---|---|
+| QF1, no gate, "Plenty of time" | Beside the route, x 129–218; gate column from 298; 0 overlaps; bar 62 px | Beside the route, x 129–218; gate from 243; 0 overlaps; bar 62 px |
+| SQ322, gate D46, Delayed, "Good timing" (synthetic boarding +50) | Beside the route, x 143–223; gate from 284; 0 overlaps; bar 62 px | Wraps to its own line (y 88–105); 0 overlaps; bar 80 px |
+| SQ322, D46, "BOARDING NOW" with the gate chip (synthetic boarding −2) | Beside the route, x 143–242; chip below; 0 overlaps; bar 110 px | Wraps (y 100–117); chip below; 0 overlaps; bar 128 px |
+| Live SQ916, F58, "Board soon!" | Beside the route; 0 overlaps | (not repeated) |
+
+Overlaps were checked pill against the time line, the route, the gate column and the chevron, plus time line against gate. Screenshots were taken at each size.
+
+### Dismissed-bar fix, observed
+
+Journey QF1 with boarding moved 40 min into the past (departure still ahead), so the page shows the Add-flight bar, on `/amenity/kinokuniya-t3-new`:
+
+1. Resume with the bar showing: `eligibility false: capture_bar {candidateEligible: true}`, no strip, `outcome_eligible` **863**.
+2. ✕ on the bar (`tp_add_flight_bar_dismissed = 1`), then resume: `eligibility true: all rules pass`, "Make it to Kinokuniya?" in the header slot. **864** shown, **865** `dismissed`.
+
+### `telemetry.ts` checks
+
+| Check | Result | Evidence |
+|---|---|---|
+| Test flag on every transport (test-flag fix) | PASS | Spy on `sendBeacon` and `fetch`: `outcome_eligible` + `outcome_shown` went by fetch with header and body `test: true`. The held Yes, written on hide, went by **beacon** with body `test: true`. Rows **859**, **860**, **861** all `is_test`. Every row from this browser since the watermark is `is_test` |
+| CC-6 chat ids | PASS | `agent_interactions` `0b8ffd0d-35cd-4c2b-ae87-d1c6744f4b81`: `session_id` = the events' `51f6d384…`, `journey_id` = `229e1536…`, model `claude-sonnet-5-5`, tokens 6677/322, `is_test`, `preview` |
+| CC-6 v4 with the CC-13 ledger | PASS | Stored record turned back to v3 (no `journey_type`), reload: `schema_version 4`, `journey_type` absent (unknown, per CC-6), `capturedAt` unchanged, ledger byte-identical. Next 0.4-min resume on Bacha Coffee: `already_asked`, no re-ask |
+| CC-16 attribution | PASS | session_start **833** `{utm_source: test, utm_medium: qa, utm_campaign: cc13r3, landing_path: /}`; first touch `test`; all 3 journeys `acquisition_src = test` |
+| CC-18 `capture_opened` | PASS | gate **832**, **878**; bar **887**; change_flight **890** |
+| CC-13 events | PASS | Above, plus live gate chip F58: **888** shown, **889** reached |
+| Chat cards | PASS | The raw `**` and stray `{`/`0` glyphs from round 2 are gone after CC-6: cards Toast Box, dnata Lounge, Starbucks, SATS Premier Lounge with terminal and hours |
+
+### Preview SMOKE
+
+| # | Result | Evidence |
+|---|---|---|
+| 1 | PASS | `/` first visit: gate; `capture_opened {gate}` |
+| 2 | PASS | New tab, no journey: gate → Skip → Home prompt; journey `418e7655-ba54-4f36-97f3-7f860919971d` `skipped` |
+| 3 | PASS | Gate → T1 → QF1 typed → "Terminal T1 · Boards 22:45 → LHR" → Home, bar "10h 25m to board · QF1 · SIN → LHR"; journey `229e1536-161d-4591-8fc3-b4edd44c729f` `typed`, v4 `departing` |
+| 4 | PASS | From `/vibe/refuel`'s Add-flight bar → board → SQ916 (T2, 13:30): back on `/vibe/refuel`, bar "25 min to board · SQ916 · SIN → MNL · F58"; journey `6daaa9d7-46d8-4ec5-b93d-e9a626267d2c` `picker` |
+| 5 | PASS | 7 rows, 31 of 31 images, 0 broken, 32 count cards |
+| 6 | PASS | `/vibe/refuel` "7 spots across all terminals" |
+| 7 | PASS | coffee-worth-walk "7 of 7 spots"; grain-traders-jewel renders; "laksa" → Kopitiam (T1) |
+| 8 | PASS | Change flight → one "Keep SQ916" → same path, context byte-identical; `capture_opened {change_flight}` **890** |
+| 9 | PASS (real clock) | Local 07:27 (Jerusalem), SGT 12:27: Grain Traders (11:00–22:00) "Open · Until 22:00" |
+| 10 | PASS | `POST /api/chat` 200; reply uses T1 and the 22:45 boarding; 4 cards |
+| 11 | PASS | initialize 200 (`2025-03-26`, `terminal-plus`); 4 tools; `get_recommendations {refuel, SIN-T1}` → 7. agent_interactions `8f80d70c-3a55-4c7a-9b29-52068b81ff52`, key `smoke-cc13r3-20261005`, `is_test` |
+| 12 | PASS | session_start, recommendation_impression, capture_opened, outcome_*, gate_*, search_performed, flight_not_found |
+| 13 | PASS | `229e1536…` QF1 `typed` |
+
+Console errors across `/vibe/refuel`, a collection, an amenity, `/` and `/search`: none.
+
+### Observations (not CC-13 failures)
+
+- **Event order on a hidden first load.** With the test-flag fix, a tab that loads hidden sends each event as its own beacon. Here `capture_opened` **832** got a lower id than `session_start` **833** (same second); a visible tab batched them in order (877 → 878). CC-18's "after session_start" holds by `occurred_at`, not by id, on hidden loads.
+- **Production traffic has started.** At the 04:17 UTC watermark there were 8 non-test production events (0 journeys). They aren't from this run (all of this run's rows are `preview`, `is_test`).
+- **Clipboard.** The browser reported a clipboard write during the synthetic click on "Look up flight". No reachable source writes the clipboard (the only callers are dead files), and CC-13 adds none; it came from the test browser's synthetic input.
+
+### Round 3 test rows (all `is_test = true`, env `preview`)
+
+- Browser anon `d6d3347f-ee38-454c-8a71-280278803351`: events 832–890 from that anon (the gate, bar, strip, gate-chip, change-flight and search rows above; impressions 835–886, 40 rows). **849** `gate_prompt_shown` D46 came from the synthetic boarding state used for the pill test.
+- journeys: `229e1536-161d-4591-8fc3-b4edd44c729f`, `418e7655-ba54-4f36-97f3-7f860919971d`, `6daaa9d7-46d8-4ec5-b93d-e9a626267d2c`.
+- agent_interactions: `0b8ffd0d-35cd-4c2b-ae87-d1c6744f4b81`, `8f80d70c-3a55-4c7a-9b29-52068b81ff52`.
 
 ## Round 2: rebase onto `be0fff0` (CC-16 + CC-18), 4 Oct
 
@@ -37,7 +132,7 @@ Branch `cc-13-journey-trail` = `510c828` (4 commits on `be0fff0`): `8756e8c` fea
 - **Deep links mount the strip at once.** On `/vibe/refuel` with empty storage, the strip mounted at once and refused with `no_candidate, first_session, capture_bar, no_journey`. Rule 7's "capture bar" is now CC-18's slim `AddFlightBar` on pages and the old prompt on Home. Both show exactly when `flight` is null, so `!flight` still matches.
 - **No journey, no strip.** Grain Traders opened from a deep link, then a 23 s resume: `capture_bar, no_journey`, no strip, no `outcome_eligible`. "I'm here" stays hidden without a journey.
 - **Bar → capture → same page, no replay.** Add flight → typed QF1 → back on `/amenity/grain-traders-jewel` with "I'm here" now shown. No replay: the strip had already judged that resume before capture opened. The next resume showed "Make it to Grain Traders?" on the new journey.
-- **Rule 7 errs safe after a dismissal.** A dismissed `AddFlightBar` (`tp_add_flight_bar_dismissed`) still counts as "capture bar showing", because `flight` is null. This only matters between boarding + 35 min and departure; outside that window rule 8 (`no_journey`/`departed`) refuses anyway. The strip waits; it never shows wrongly.
+- **Rule 7 errs safe after a dismissal.** (Superseded in round 3: Todd ruled that a dismissed bar isn't showing; fixed in `79aaed0`.) A dismissed `AddFlightBar` (`tp_add_flight_bar_dismissed`) still counts as "capture bar showing", because `flight` is null. This only matters between boarding + 35 min and departure; outside that window rule 8 (`no_journey`/`departed`) refuses anyway. The strip waits; it never shows wrongly.
 - **Capture remount refreshes the candidate.** Capture replaces the shell, so the amenity page remounts afterwards and records its candidate again with a fresh time (candidate age 0 on the next resume). That's a re-open in effect, and it only makes rule 4 more lenient for the venue on screen.
 
 ### Preview SMOKE (`tasks/release-2026-09-report.md`)

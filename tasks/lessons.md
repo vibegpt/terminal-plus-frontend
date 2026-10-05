@@ -406,3 +406,19 @@ for its string, in both a debug and a production build.
 **Rule going forward:** after each push, compare the loaded `assets/index-*.js` with the
 one the server returns (`fetch('/', {cache: 'no-store'})`) before trusting a result. On a
 test origin, unregister the service worker and clear caches when they differ.
+
+---
+
+## 2026-10-05 — "Showing" means what's on screen, not the condition that would show it
+
+**Assumed (CC-13 round 2):** rule 7 ("the flight-capture bar is showing") could read
+`flight === null`, and a dismissed Add-flight bar still counting as "showing" was a safe
+error, because the strip only waited.
+
+**Actual (Todd's correction):** a bar the user has dismissed isn't on screen, so it
+can't conflict with the strip. Treating it as showing withholds a prompt for no reason
+and skews which candidates get shown.
+
+**Rule going forward:** a rule about visible UI reads the UI's real state, including
+dismissals (`isAddFlightBarDismissed()`), not the data condition that would render it.
+Keep it as a pure function of explicit inputs, so a test covers every state.
