@@ -11,7 +11,7 @@ import { track, trackImpressionOnce } from '@/lib/telemetry';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { useEligibility } from '@/lib/eligibility';
 import { AccessChip, LandsideNotice, OpensChip } from '@/components/EligibilityChips';
-import { landsideAccess, pickEligible } from '../../shared/ranking/policy';
+import { hoursLabel, landsideAccess, openNow, pickEligible } from '../../shared/ranking/policy';
 
 // ── Config ──────────────────────────────────────────────────────────
 const VIBE_CONFIG: Record<string, { icon: string; label: string; gradient: string; dbTag: string }> = {
@@ -230,7 +230,7 @@ export default function VibePage() {
                     {amenity.opening_hours && (
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
-                        {amenity.opening_hours === '24/7' ? '24/7' : amenity.opening_hours}
+                        {hoursLabel(openNow({ openingHours: amenity.opening_hours, nowSgt: eligibility.nowSgt }), amenity.opening_hours)}
                       </span>
                     )}
                     {amenity.price_level && amenity.price_level !== 'unknown' && (

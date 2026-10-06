@@ -443,7 +443,7 @@ function buildRouteContext(route: RouteMatch, availableMinutes: number): string 
     }
   }
   lines.push('')
-  lines.push('INSTRUCTIONS: Use this curated route as the backbone of your response. Present stops as a numbered sequence with timing. Use editorial notes for personality — rephrase in your own voice, don\'t copy verbatim. Mention the gate buffer at the end. If optional stops were stripped, don\'t mention them. If the user asks about something not on the route, answer from the amenity list below.')
+  lines.push('INSTRUCTIONS: Use this curated route as the backbone of your response. Present stops as a numbered sequence with timing. Use editorial notes for personality — rephrase in your own voice, don\'t copy verbatim. Mention the gate buffer at the end. If optional stops were stripped, don\'t mention them. If the user asks about something not on the route, answer from the amenity list below. + ' A stop whose editorial starts with a landside label ("Before immigration", "Landside: …") is outside immigration: say so for that stop.')
   lines.push('')
   return lines.filter(Boolean).join('\n')
 }

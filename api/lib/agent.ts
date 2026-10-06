@@ -155,24 +155,30 @@ export async function queryRouteMatch(
     }
   }
 
-  // Landside stops this passenger can't reach in time leave the route.
-  const allowed = (s: any) => !s.amenity_slug || landsideAccess({
-    isLandside: landsideSlugs.has(s.amenity_slug),
+  // Landside stops this passenger can't reach in time leave the route; the
+  // ones kept carry their label at the front of the note (MCP passes
+  // editorial_note through by name, as it does route_context).
+  const accessOf = (s: any) => landsideAccess({
+    isLandside: !!s.amenity_slug && landsideSlugs.has(s.amenity_slug),
     journeyType: access.journeyType ?? null,
     minutesToBoarding: timeMinutes,
-  }).show;
+  });
 
   // Build stops with terminal codes
-  let stops: RouteStop[] = rawStops.filter(allowed).map((s: any) => ({
-    order: s.stop_order,
-    name: s.name,
-    amenitySlug: s.amenity_slug || '',
-    terminalCode: amenityTerminals[s.amenity_slug] || s.area || terminal,
-    stopType: s.stop_type,
-    durationMinutes: s.duration_minutes,
-    isOptional: s.is_optional ?? false,
-    editorialNote: s.editorial_note || '',
-  }));
+  let stops: RouteStop[] = rawStops.filter((s: any) => accessOf(s).show).map((s: any) => {
+    const label = accessOf(s).label;
+    const note = s.editorial_note || '';
+    return {
+      order: s.stop_order,
+      name: s.name,
+      amenitySlug: s.amenity_slug || '',
+      terminalCode: amenityTerminals[s.amenity_slug] || s.area || terminal,
+      stopType: s.stop_type,
+      durationMinutes: s.duration_minutes,
+      isOptional: s.is_optional ?? false,
+      editorialNote: label ? (note ? `${label}. ${note}` : label) : note,
+    };
+  });
 
   if (stops.length === 0) return null;
 
