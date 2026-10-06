@@ -167,3 +167,25 @@ old code wrote them, so `is_bot` is the default `false` and their agent is unkno
 `analytics_acquisition` and `analytics_funnel` each show them as 2 direct sessions on
 6 Oct (SGT); they were at 0 rows when checked on 5 Oct 18:07–18:14 UTC, before these
 visits. Not flagged by guess. From now on the route classifies every visit.
+
+**Follow-up (6 Oct): events 1007, 1008, 1009.** Event 1008 (`session_start`, empty
+payload, `env = 'unknown'`, anon `eb17ae05…`) landed 2 ms after 1007/1009. Its source:
+Vercel's runtime log shows two `POST /api/events` at 19:35:05 UTC, one on production
+(`dpl_3cetFfttKhU3j7Gv6XY53WC6kg3G`, wrote 1007 and 1009) and one on the old CC-1
+preview `dpl_AQsPsED4G2WphmJdk78swbXTDQtV` (`release/2026-09`, `e0b9e60`). That build's
+pre-CC-7 `api/events.ts` doesn't stamp `env`, so the column default `'unknown'` landed.
+It's the only `'unknown'` row since CC-7, and no view ever counted it
+(`env = 'production'`). The 01:14 visit (1010, 1011) hit production only. No user agent
+survives (Vercel observability isn't available on this plan).
+
+Todd's call: one non-user client. Migration `20261006094248` (guarded: exactly these
+rows in their current state) marked 1007, 1008 and 1009 `is_test` and set 1008's `env`
+to `'preview'`. After it: `analytics_acquisition` 1 row (6 Oct SGT, direct, 1 session)
+and `analytics_funnel` 1 row (6 Oct SGT, app, 1 session, 0 impressions); the session
+is the 01:14 visit, the only production rows still counted (1010, 1011). 0 untagged
+`'unknown'` rows.
+
+**Risk seen here:** every old deployment URL still runs its own API code against the
+production database with the service role. `release/2026-09`'s preview writes rows
+with no `env`, no body test flag and no `is_bot`, and pre-CC-2B builds hold older
+validation. Fix options are in the hand-off.
