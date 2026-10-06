@@ -1,15 +1,17 @@
 // src/pages/VibePage.tsx
 // Full list view for a single vibe - what users see when they tap "All >"
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Clock, MapPin } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { smart7Select } from '@/utils/smart7Select';
+import { smart7Select, type AmenityRow } from '@/utils/smart7Select';
 import { DISPLAY } from '@/lib/displayConfig';
 import { track, trackImpressionOnce } from '@/lib/telemetry';
-import { sgMinutesOfDay } from '@/lib/sgTime';
 import { usePageMeta } from '@/hooks/usePageMeta';
+import { useEligibility } from '@/lib/eligibility';
+import { AccessChip, LandsideNotice, OpensChip } from '@/components/EligibilityChips';
+import { landsideAccess, pickEligible } from '../../shared/ranking/policy';
 
 // ── Config ──────────────────────────────────────────────────────────
 const VIBE_CONFIG: Record<string, { icon: string; label: string; gradient: string; dbTag: string }> = {
@@ -27,28 +29,14 @@ const TERMINAL_SHORT: Record<string, string> = {
   'SIN-T1': 'T1', 'SIN-T2': 'T2', 'SIN-T3': 'T3', 'SIN-T4': 'T4', 'SIN-JEWEL': 'Jewel',
 };
 
-function isOpenNow(hours: string): boolean {
-  if (!hours || hours === '24/7') return true;
-  const match = hours.match(/(\d{2}):(\d{2})\s*[-–]\s*(\d{2}):(\d{2})/);
-  if (!match) return true;
-  const [, openH, openM, closeH, closeM] = match.map(Number);
-  const currentMinutes = sgMinutesOfDay();
-  const openMinutes = openH * 60 + openM;
-  let closeMinutes = closeH * 60 + closeM;
-  if (closeMinutes <= openMinutes) {
-    closeMinutes += 24 * 60;
-    if (currentMinutes < openMinutes) return currentMinutes + 24 * 60 < closeMinutes;
-  }
-  return currentMinutes >= openMinutes && currentMinutes < closeMinutes;
-}
-
 // ── Component ──────────────────────────────────────────────────────
 export default function VibePage() {
   const { vibeId } = useParams<{ vibeId: string }>();
   const navigate = useNavigate();
-  const [amenities, setAmenities] = useState<any[]>([]);
+  const [pool, setPool] = useState<AmenityRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [terminalFilter, setTerminalFilter] = useState('all');
+  const eligibility = useEligibility();
 
   const vibe = VIBE_CONFIG[vibeId?.toLowerCase() || ''];
   const vibeKey = vibe?.dbTag || vibeId || '';
@@ -62,7 +50,7 @@ export default function VibePage() {
 
       let query = supabase
         .from('amenity_detail')
-        .select('id, amenity_slug, name, description, terminal_code, opening_hours, price_level, vibe_tags, logo_url, editorial_score')
+        .select('id, amenity_slug, name, description, terminal_code, opening_hours, price_level, vibe_tags, logo_url, editorial_score, is_landside')
         .eq('airport_code', 'SIN')
         .ilike('vibe_tags', `%${vibeKey}%`)
         // RANKING: editorial_score DESC — keep in sync with api/lib
@@ -77,24 +65,8 @@ export default function VibePage() {
       const { data, error } = await query;
 
       if (mounted) {
-        if (error) {
-          console.error('Error loading vibe amenities:', error);
-          setAmenities([]);
-        } else {
-          const userTerminal = sessionStorage.getItem('tp_user_terminal') || null;
-          const result = terminalFilter !== 'all'
-            ? (data || []).sort((a, b) => {
-                // RANKING: editorial_score DESC — keep in sync with api/lib
-                const scoreDiff = (b.editorial_score ?? 0) - (a.editorial_score ?? 0);
-                if (scoreDiff !== 0) return scoreDiff;
-                const aOpen = isOpenNow(a.opening_hours);
-                const bOpen = isOpenNow(b.opening_hours);
-                if (aOpen !== bOpen) return aOpen ? -1 : 1;
-                return a.name.localeCompare(b.name);
-              }).slice(0, DISPLAY.COLLECTION_VISIBLE)
-            : smart7Select(data || [], userTerminal, DISPLAY.COLLECTION_VISIBLE);
-          setAmenities(result);
-        }
+        if (error) console.error('Error loading vibe amenities:', error);
+        setPool(error ? [] : (data as AmenityRow[]) || []);
         setLoading(false);
       }
     };
@@ -102,6 +74,28 @@ export default function VibePage() {
     load();
     return () => { mounted = false; };
   }, [vibeKey, terminalFilter]);
+
+  // Both eligibility rules, then the top 7 (shared/ranking/policy.ts).
+  const amenities = useMemo(() => {
+    if (terminalFilter === 'all') {
+      const userTerminal = sessionStorage.getItem('tp_user_terminal') || null;
+      return smart7Select(pool, userTerminal, DISPLAY.COLLECTION_VISIBLE, eligibility);
+    }
+    return pickEligible(pool, eligibility, DISPLAY.COLLECTION_VISIBLE, (rows, n) =>
+      [...rows].sort((a, b) => {
+        // RANKING: editorial_score DESC — keep in sync with api/lib
+        const scoreDiff = (b.editorial_score ?? 0) - (a.editorial_score ?? 0);
+        if (scoreDiff !== 0) return scoreDiff;
+        return a.name.localeCompare(b.name);
+      }).slice(0, n),
+      a => a.amenity_slug,
+    );
+  }, [pool, terminalFilter, eligibility]);
+
+  // The Jewel tab, when the rule keeps Jewel out of this passenger's lists.
+  const jewelReason = terminalFilter === 'SIN-JEWEL'
+    ? landsideAccess({ isLandside: true, ...eligibility }).reason
+    : null;
 
   // Impression: keyed on list content, not renders — telemetry dedups
   // identical ordered slug lists per session
@@ -184,12 +178,15 @@ export default function VibePage() {
             <div key={i} className="h-20 bg-[#13131a] rounded-xl animate-pulse" />
           ))
         ) : amenities.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-sm">No {vibe.label.toLowerCase()} spots found</p>
-          </div>
+          jewelReason ? (
+            <div className="py-6"><LandsideNotice text={jewelReason} /></div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-sm">No {vibe.label.toLowerCase()} spots found</p>
+            </div>
+          )
         ) : (
           amenities.map((amenity, index) => {
-            const open = isOpenNow(amenity.opening_hours);
             const termShort = TERMINAL_SHORT[amenity.terminal_code] || amenity.terminal_code;
 
             return (
@@ -203,9 +200,7 @@ export default function VibePage() {
                   });
                   navigate(`/amenity/${amenity.amenity_slug}`, { state: { vibe: vibeId } });
                 }}
-                className={`w-full flex items-center gap-3 p-3.5 bg-[#13131a] rounded-xl text-left transition-colors hover:bg-white/5 active:bg-white/10 ${
-                  !open ? 'opacity-60' : ''
-                }`}
+                className="w-full flex items-center gap-3 p-3.5 bg-[#13131a] rounded-xl text-left transition-colors hover:bg-white/5 active:bg-white/10"
               >
                 {amenity.logo_url ? (
                   <img
@@ -222,12 +217,11 @@ export default function VibePage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <p className="text-sm font-semibold text-white truncate">{amenity.name}</p>
-                    {!open && (
-                      <span className="text-[10px] text-red-400 font-medium bg-red-500/15 px-1.5 py-0.5 rounded flex-shrink-0">
-                        Closed
-                      </span>
-                    )}
+                    <OpensChip label={amenity.opens_label} />
                   </div>
+                  {amenity.access_label && (
+                    <div className="mb-1"><AccessChip label={amenity.access_label} /></div>
+                  )}
                   <div className="flex items-center gap-3 text-xs text-gray-400">
                     <span className="flex items-center gap-1">
                       <MapPin className="w-3 h-3" />

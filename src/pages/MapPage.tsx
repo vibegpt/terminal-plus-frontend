@@ -5,6 +5,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, MapPin, Compass, ExternalLink } from 'lucide-react';
 import { useJourney } from '../context/JourneyContext';
+import { useEligibility } from '@/lib/eligibility';
+import { LandsideNotice } from '@/components/EligibilityChips';
+import { landsideAccess } from '../../shared/ranking/policy';
 
 const TERMINAL_MAPS: Record<string, { url: string; imageUrl?: string }> = {
   'SIN-T1':    { url: 'https://www.changiairport.com/en/airport-guide/terminal-guides/terminal-1.html' },
@@ -48,8 +51,11 @@ export default function MapPage() {
   const navigate = useNavigate();
   const { journey } = useJourney();
   const [selected, setSelected] = useState(getDefaultTerminal);
+  const eligibility = useEligibility();
 
   const terminal = TERMINALS.find(t => t.code === selected) ?? TERMINALS[2];
+  // Jewel is landside: say whether this trip leaves time for it.
+  const jewelAccess = selected === 'SIN-JEWEL' ? landsideAccess({ isLandside: true, ...eligibility }) : null;
 
   return (
     <div className="min-h-screen" style={{ background: '#0a0a0f', color: '#f0f0f8' }}>
@@ -151,6 +157,15 @@ export default function MapPage() {
             })()}
           </div>
         </div>
+
+        {jewelAccess && (jewelAccess.reason || jewelAccess.label) && (
+          <div className="px-4 mt-3">
+            <LandsideNotice
+              text={jewelAccess.reason ?? jewelAccess.label}
+              tone={jewelAccess.reason ? 'reason' : 'label'}
+            />
+          </div>
+        )}
 
         {/* Quick info bar */}
         <div className="px-4 mt-4">

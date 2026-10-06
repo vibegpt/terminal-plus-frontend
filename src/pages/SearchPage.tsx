@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { track, trackImpressionOnce } from '@/lib/telemetry';
+import { useEligibility } from '@/lib/eligibility';
+import { AccessChip, LandsideNotice, OpensChip } from '@/components/EligibilityChips';
+import { eligibility as eligibilityOf, pickEligible, type EligibilityContext, type EligibleLabels } from '../../shared/ranking/policy';
+import { LIST_COPY } from '../../shared/ranking/landsideCopy';
 
 interface SearchResult {
   name: string;
@@ -13,7 +17,32 @@ interface SearchResult {
   terminal_code: string;
   vibe_tags: string | null;
   price_level: string | null;
-  opening_hours: Record<string, string> | null;
+  opening_hours: string | null;
+  is_landside: boolean | null;
+}
+
+// Matches fetched, then the ones the rules allow, up to SHOW.
+const FETCH = 40;
+const SHOW = 20;
+
+interface Picked {
+  shown: Array<SearchResult & EligibleLabels>;
+  /** Why landside matches aren't shown (the first hidden one's reason). */
+  landsideReason: string | null;
+  closedHidden: number;
+}
+
+function pickResults(rows: SearchResult[], ctx: EligibilityContext): Picked {
+  // Editorial order from the query, kept within each fill tier.
+  const shown = pickEligible(rows, ctx, SHOW, (tier, n) => tier.slice(0, n), r => r.amenity_slug);
+  let landsideReason: string | null = null;
+  let closedHidden = 0;
+  for (const r of rows) {
+    const e = eligibilityOf(r, ctx);
+    if (!e.access.show) { if (!landsideReason) landsideReason = e.access.reason; }
+    else if (!e.tier) closedHidden++;
+  }
+  return { shown, landsideReason, closedHidden };
 }
 
 const TERMINAL_SHORT: Record<string, string> = {
@@ -31,7 +60,14 @@ export default function SearchPage() {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<SearchResult[]>([]);
+  const [rows, setRows] = useState<SearchResult[]>([]);
+  const eligibility = useEligibility();
+  const { shown: results, landsideReason, closedHidden } = React.useMemo(
+    () => pickResults(rows, eligibility),
+    [rows, eligibility],
+  );
+  const eligibilityRef = useRef(eligibility);
+  eligibilityRef.current = eligibility;
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
   const lastLoggedQuery = useRef('');
@@ -42,7 +78,7 @@ export default function SearchPage() {
   // Debounced search
   useEffect(() => {
     if (query.trim().length < 2) {
-      setResults([]);
+      setRows([]);
       setSearched(false);
       return;
     }
@@ -53,13 +89,13 @@ export default function SearchPage() {
       const q = query.trim();
       const { data } = await supabase
         .from('amenity_detail')
-        .select('name, amenity_slug, terminal_code, vibe_tags, price_level, opening_hours')
+        .select('name, amenity_slug, terminal_code, vibe_tags, price_level, opening_hours, is_landside')
         .or(`name.ilike.%${q}%,description.ilike.%${q}%`)
         // RANKING: editorial_score DESC — keep in sync with api/lib
         .order('editorial_score', { ascending: false, nullsFirst: false })
-        .limit(20);
+        .limit(FETCH);
 
-      setResults(data ?? []);
+      setRows(data ?? []);
       setSearched(true);
       setLoading(false);
 
@@ -68,13 +104,14 @@ export default function SearchPage() {
       settleTimer = setTimeout(() => {
         if (q !== lastLoggedQuery.current) {
           lastLoggedQuery.current = q;
+          const settled = pickResults(data ?? [], eligibilityRef.current).shown;
           track('search_performed', {
-            payload: { query_len: q.length, results_count: (data ?? []).length },
+            payload: { query_len: q.length, results_count: settled.length },
           });
           // The settled result list, not every keystroke's.
           trackImpressionOnce({
             vibe: null,
-            slugs: (data ?? []).map(r => r.amenity_slug),
+            slugs: settled.map(r => r.amenity_slug),
             placement: 'search',
           });
         }
@@ -143,7 +180,7 @@ export default function SearchPage() {
         )}
 
         {/* No results */}
-        {searched && !loading && results.length === 0 && (
+        {searched && !loading && results.length === 0 && !landsideReason && !closedHidden && (
           <p className="text-[13px] mt-8 text-center" style={{ color: 'rgba(255,255,255,0.3)' }}>
             Nothing found for &lsquo;{query.trim()}&rsquo; — try something else
           </p>
@@ -184,12 +221,26 @@ export default function SearchPage() {
                           {r.price_level}
                         </span>
                       )}
+                      <OpensChip label={r.opens_label} />
                     </div>
+                    {r.access_label && <div className="mt-1.5"><AccessChip label={r.access_label} /></div>}
                   </div>
                   <span className="text-white/20 text-[18px]">&rsaquo;</span>
                 </button>
               );
             })}
+          </div>
+        )}
+
+        {/* Matches the rules leave out, and why */}
+        {searched && !loading && (landsideReason || closedHidden > 0) && (
+          <div className="flex flex-col gap-2 mt-3">
+            <LandsideNotice text={landsideReason} />
+            {closedHidden > 0 && (
+              <p className="text-[12px] text-center" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                {LIST_COPY.closedHidden(closedHidden)}
+              </p>
+            )}
           </div>
         )}
       </div>

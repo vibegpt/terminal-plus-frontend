@@ -6,17 +6,19 @@
 // Run: npm run test:adversarial
 // Uses the anon key (see helpers.ts) — same privileges as the shipped UI.
 
-// Pin the process to SGT: venue hours are Singapore wall-clock, and the
-// open-now tiebreak in smart7Select uses process-local time while
-// api/lib/ranking.ts pins Asia/Singapore internally. Same zone → test 11's
-// parity comparison (and tests 7–9's ordering) is deterministic anywhere.
+// Pin the process to SGT. Both layers read Singapore time from UTC
+// (src/lib/sgTime.ts), so this is belt and braces. Since CC-17 both layers drop
+// closed venues and fill open → unknown hours → opening soon
+// (shared/ranking/policy.ts), so tests 8 and 9 derive their expectations from
+// the same policy at the same clock: they hold at any hour.
 process.env.TZ = 'Asia/Singapore';
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { queryAmenities, queryRouteMatch } from '../../api/lib/agent';
 import { queryRankedAmenities } from '../../api/lib/ranking';
-import { smart7Select } from '../../src/utils/smart7Select';
+import { anonymousEligibility, smart7Select } from '../../src/utils/smart7Select';
+import { eligibility } from '../../shared/ranking/policy';
 import { DISPLAY } from '../../src/lib/displayConfig';
 import { getAnonClient, ctx, isNonIncreasing } from './helpers';
 
@@ -149,20 +151,25 @@ test('8. ranking is ordered editorial_score DESC on both agent and UI layers', T
   assert.ok(isNonIncreasing(matchBlock.map(r => r.editorial_score)), 'terminal block not editorial_score DESC');
   assert.ok(isNonIncreasing(restBlock.map(r => r.editorial_score)), 'remainder block not editorial_score DESC');
 
-  // UI layer: smart7Select must emit editorial_score non-increasing (primary key)
-  const picked = smart7Select(rows, 'SIN-T1', 7);
-  assert.ok(picked.length >= 3);
-  assert.ok(
-    isNonIncreasing(picked.map(p => p.editorial_score ?? 0)),
-    `smart7Select output not editorial_score DESC: ${picked.map(p => p.editorial_score).join(',')}`,
-  );
+  // UI layer: smart7Select fills open → unknown hours → opening soon, and must
+  // emit editorial_score non-increasing (primary key) within each of those tiers.
+  const elig = anonymousEligibility();
+  const picked = smart7Select(rows as Parameters<typeof smart7Select>[0], 'SIN-T1', 7, elig);
+  assert.ok(picked.length >= 1, 'nothing eligible in the T1 Refuel pool');
+  const tiers = picked.map(p => eligibility(p, elig).tier);
+  const order = ['open', 'unknown', 'soon'];
+  assert.ok(isNonIncreasing(tiers.map(t => -order.indexOf(t!))), `tiers out of fill order: ${tiers.join(',')}`);
+  for (const tier of order) {
+    const scores = picked.filter((_, i) => tiers[i] === tier).map(p => p.editorial_score ?? 0);
+    assert.ok(isNonIncreasing(scores), `smart7Select ${tier} tier not editorial_score DESC: ${scores.join(',')}`);
+  }
 });
 
 // 9. Requested count > pool size → available results only, no padding, no dupes
 test('9. requesting 7 from a smaller pool returns available without padding or duplicates', T, async () => {
   const { data, error } = await supabase
     .from('amenity_detail')
-    .select('id, amenity_slug, name, terminal_code, opening_hours, price_level, vibe_tags, editorial_score')
+    .select('id, amenity_slug, name, terminal_code, opening_hours, price_level, vibe_tags, editorial_score, is_landside')
     .eq('airport_code', 'SIN')
     .eq('terminal_code', 'SIN-T4')
     .ilike('vibe_tags', '%Refuel%');
@@ -170,9 +177,11 @@ test('9. requesting 7 from a smaller pool returns available without padding or d
   const pool = (data ?? []) as Parameters<typeof smart7Select>[0];
   assert.ok(pool.length > 0 && pool.length < 7, `test needs a pool smaller than 7, got ${pool.length} (data changed? pick a narrower filter)`);
 
-  const picked = smart7Select(pool, 'SIN-T4', 7);
-  const uniqueNames = new Set(pool.map(p => p.name.toLowerCase().trim()));
-  assert.equal(picked.length, uniqueNames.size, 'must return exactly the deduped pool, no padding');
+  const elig = anonymousEligibility();
+  const picked = smart7Select(pool, 'SIN-T4', 7, elig);
+  // Every distinct name the rules allow right now, and nothing else.
+  const uniqueNames = new Set(pool.filter(p => eligibility(p, elig).tier).map(p => p.name.toLowerCase().trim()));
+  assert.equal(picked.length, uniqueNames.size, 'must return exactly the deduped eligible pool, no padding');
   const slugs = picked.map(p => p.amenity_slug);
   assert.equal(new Set(slugs).size, slugs.length, 'no duplicate slugs');
   const poolSlugs = new Set(pool.map(p => p.amenity_slug));

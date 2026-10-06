@@ -1,10 +1,36 @@
 // src/pages/SavedPage.tsx
 // Bookmarked amenities — reads from localStorage, offline-first
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { useSavedAmenities } from '../hooks/useBookmarks';
+import { supabase } from '@/lib/supabase';
+import { useEligibility } from '@/lib/eligibility';
+import { AccessChip } from '@/components/EligibilityChips';
+import { hoursLabel, landsideAccess, openNow } from '../../shared/ranking/policy';
+
+// Bookmarks hold only slug, name, terminal and vibe; hours and landside come from the catalogue.
+interface VenueFacts { opening_hours: string | null; is_landside: boolean | null }
+
+function useVenueFacts(slugs: string[]): Record<string, VenueFacts> {
+  const [facts, setFacts] = useState<Record<string, VenueFacts>>({});
+  const key = [...slugs].sort().join(',');
+  useEffect(() => {
+    if (!key) { setFacts({}); return; }
+    let mounted = true;
+    supabase
+      .from('amenity_detail')
+      .select('amenity_slug, opening_hours, is_landside')
+      .in('amenity_slug', key.split(','))
+      .then(({ data }) => {
+        if (!mounted || !data) return;
+        setFacts(Object.fromEntries(data.map(r => [r.amenity_slug, { opening_hours: r.opening_hours, is_landside: r.is_landside }])));
+      });
+    return () => { mounted = false; };
+  }, [key]);
+  return facts;
+}
 
 const TERMINAL_NAMES: Record<string, string> = {
   'SIN-T1': 'Terminal 1', 'SIN-T2': 'Terminal 2', 'SIN-T3': 'Terminal 3',
@@ -26,6 +52,8 @@ const DEFAULT_VIBE = { bg: 'rgba(255,255,255,0.08)', text: 'rgba(255,255,255,0.5
 export default function SavedPage() {
   const navigate = useNavigate();
   const { items, remove } = useSavedAmenities();
+  const eligibility = useEligibility();
+  const facts = useVenueFacts(items.map(i => i.amenitySlug));
 
   // Sort most recent first
   const sorted = [...items].sort((a, b) => b.savedAt.localeCompare(a.savedAt));
@@ -70,6 +98,10 @@ export default function SavedPage() {
           <div className="flex flex-col gap-2">
             {sorted.map(item => {
               const vc = VIBE_COLORS[item.vibeTag] ?? DEFAULT_VIBE;
+              // Saved items never hide: they say why a landside venue isn't suggested, and when it opens.
+              const f = facts[item.amenitySlug];
+              const access = f ? landsideAccess({ isLandside: f.is_landside, ...eligibility }) : null;
+              const open = f ? openNow({ openingHours: f.opening_hours, nowSgt: eligibility.nowSgt }) : null;
               return (
                 <div
                   key={item.amenitySlug}
@@ -93,7 +125,20 @@ export default function SavedPage() {
                           {item.vibeTag}
                         </span>
                       )}
+                      {open && f && (
+                        <span
+                          data-testid="saved-hours"
+                          className={`text-[10px] ${open.state === 'open' ? 'text-green-400' : open.state === 'closed' ? 'text-red-400' : 'text-white/40'}`}
+                        >
+                          {hoursLabel(open, f.opening_hours)}
+                        </span>
+                      )}
                     </div>
+                    {access?.reason ? (
+                      <p data-testid="landside-reason" className="text-[11px] leading-snug mt-1.5 text-amber-200/90">{access.reason}</p>
+                    ) : access?.label ? (
+                      <div className="mt-1.5"><AccessChip label={access.label} /></div>
+                    ) : null}
                   </button>
 
                   {/* Remove button */}

@@ -17,7 +17,7 @@ export interface JourneyData {
   boardingTime: string;          // ISO-8601 with timezone
   walkMinutes: number;           // inter-terminal walk time
   usableWindowMinutes: number;   // time to boarding minus walk
-  jewelViable: boolean;          // usable > 90 min
+  jewelViable: boolean;          // landside rule allows Jewel at capture (shared/ranking/policy.ts)
   capturedAt: string;            // ISO-8601 — when context was captured
   // AeroDataBox enrichment (optional — existing localStorage data won't break)
   gate?: string | null;

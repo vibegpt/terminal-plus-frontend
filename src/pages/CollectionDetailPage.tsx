@@ -10,45 +10,16 @@ import { getUserContext, selectScoredAmenities, type ScoredAmenity } from '@/uti
 import { AmenityImage } from '@/components/AmenityImage';
 import { DISPLAY } from '@/lib/displayConfig';
 import { track, trackImpressionOnce } from '@/lib/telemetry';
-import { sgMinutesOfDay } from '@/lib/sgTime';
 import { usePageMeta, stripEmoji } from '@/hooks/usePageMeta';
+import { useEligibility } from '@/lib/eligibility';
+import { AccessChip, LandsideNotice, OpensChip } from '@/components/EligibilityChips';
+import { hoursLabel, landsideAccess, openNow } from '../../shared/ranking/policy';
+import { LIST_COPY } from '../../shared/ranking/landsideCopy';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 const TERMINAL_SHORT: Record<string, string> = {
   'SIN-T1': 'T1', 'SIN-T2': 'T2', 'SIN-T3': 'T3', 'SIN-T4': 'T4', 'SIN-JEWEL': 'Jewel',
 };
-
-function isOpenNow(hours: string): { open: boolean; label: string } {
-  if (!hours) return { open: true, label: 'Hours unknown' };
-  if (hours === '24/7') return { open: true, label: 'Open 24/7' };
-
-  const match = hours.match(/(\d{2}):(\d{2})\s*[-–]\s*(\d{2}):(\d{2})/);
-  if (!match) return { open: true, label: hours };
-
-  const [, openH, openM, closeH, closeM] = match.map(Number);
-  const currentMinutes = sgMinutesOfDay();
-  const openMinutes = openH * 60 + openM;
-  let closeMinutes = closeH * 60 + closeM;
-
-  if (closeMinutes <= openMinutes) {
-    closeMinutes += 24 * 60;
-    if (currentMinutes < openMinutes) {
-      const isOpen = currentMinutes + 24 * 60 < closeMinutes;
-      return {
-        open: isOpen,
-        label: isOpen
-          ? `Open until ${String(closeH).padStart(2,'0')}:${String(closeM).padStart(2,'0')}`
-          : `Opens at ${String(openH).padStart(2,'0')}:${String(openM).padStart(2,'0')}`
-      };
-    }
-  }
-
-  const open = currentMinutes >= openMinutes && currentMinutes < closeMinutes;
-  if (open) {
-    return { open: true, label: `Open until ${String(closeH).padStart(2,'0')}:${String(closeM).padStart(2,'0')}` };
-  }
-  return { open: false, label: `Closed · Opens ${String(openH).padStart(2,'0')}:${String(openM).padStart(2,'0')}` };
-}
 
 const VIBE_GRADIENT: Record<string, string> = {
   comfort:  'linear-gradient(160deg, #4C1D95 0%, #7C3AED 100%)',
@@ -80,6 +51,12 @@ export const CollectionDetailPage: React.FC = () => {
   const [sortBy, setSortBy] = useState<'relevance' | 'distance' | 'name' | 'price'>('relevance');
   const [filterBy, setFilterBy] = useState<'all' | 'open' | 'nearby'>('all');
   const [showFilters, setShowFilters] = useState(false);
+  const eligibility = useEligibility();
+  // Set when the collection has venues but the rules leave none to suggest.
+  const [emptyNote, setEmptyNote] = useState<string | null>(null);
+  // The list is picked once per load; the clock and journey it was picked with.
+  const eligibilityRef = React.useRef(eligibility);
+  eligibilityRef.current = eligibility;
   usePageMeta(collection?.name ? `${stripEmoji(collection.name)} · Terminal+` : null);
 
   // Map vibe slugs to DB vibe_tags values
@@ -104,6 +81,8 @@ export const CollectionDetailPage: React.FC = () => {
           .single();
 
         let rawAmenities: any[] = [];
+        let junctionRows = 0;
+        let note: string | null = null;
 
         if (collectionData) {
           // Try junction table using the collection's UUID (id)
@@ -122,14 +101,21 @@ export const CollectionDetailPage: React.FC = () => {
             .order('priority', { ascending: true });
 
           const mappedAmenities = amenityData?.map(item => item.amenity_detail) || [];
+          junctionRows = mappedAmenities.length;
           const ctx = getUserContext({ selectedVibe: vibeSlug || '' });
-          const scored = selectScoredAmenities(mappedAmenities, ctx, DISPLAY.COLLECTION_VISIBLE);
+          const scored = selectScoredAmenities(mappedAmenities, ctx, DISPLAY.COLLECTION_VISIBLE, eligibilityRef.current);
           rawAmenities = scored.map(s => s.amenity);
           if (mounted) setScoredMeta(scored);
+          if (junctionRows > 0 && scored.length === 0) {
+            const hidden = mappedAmenities
+              .map(a => landsideAccess({ isLandside: a.is_landside, ...eligibilityRef.current }))
+              .find(a => !a.show);
+            note = hidden?.reason ?? LIST_COPY.nothingOpen;
+          }
         }
 
         // Fallback: if no junction data, query amenity_detail by vibe
-        if (rawAmenities.length === 0 && vibeSlug) {
+        if (junctionRows === 0 && vibeSlug) {
           const vibeTag = VIBE_DB_TAG[vibeSlug.toLowerCase()] || vibeSlug;
           const { data: vibeAmenities } = await supabase
             .from('amenity_detail')
@@ -142,7 +128,7 @@ export const CollectionDetailPage: React.FC = () => {
             .limit(50);
 
           const ctx = getUserContext({ selectedVibe: vibeSlug || '' });
-          const scored = selectScoredAmenities(vibeAmenities || [], ctx, DISPLAY.COLLECTION_VISIBLE);
+          const scored = selectScoredAmenities(vibeAmenities || [], ctx, DISPLAY.COLLECTION_VISIBLE, eligibilityRef.current);
           rawAmenities = scored.map(s => s.amenity);
           if (mounted) setScoredMeta(scored);
         }
@@ -153,6 +139,7 @@ export const CollectionDetailPage: React.FC = () => {
             description: `${VIBE_DB_TAG[vibeSlug?.toLowerCase() || ''] || vibeSlug} spots at Changi`,
           });
           setAmenities(rawAmenities);
+          setEmptyNote(note);
         }
       } catch (error) {
         if (mounted) {
@@ -186,7 +173,7 @@ export const CollectionDetailPage: React.FC = () => {
 
     // Status filter
     if (filterBy === 'open') {
-      filtered = filtered.filter(amenity => isOpenNow(amenity.opening_hours).open);
+      filtered = filtered.filter(amenity => amenity.open_state === 'open');
     }
 
     // Sort
@@ -372,7 +359,7 @@ export const CollectionDetailPage: React.FC = () => {
       <div className="px-4 pt-4 space-y-2">
         {filteredAndSortedAmenities.length > 0 ? (
           filteredAndSortedAmenities.map((amenity, index) => {
-            const openStatus = isOpenNow(amenity.opening_hours);
+            const hours = hoursLabel(openNow({ openingHours: amenity.opening_hours, nowSgt: eligibility.nowSgt }), amenity.opening_hours);
             const termShort = TERMINAL_SHORT[amenity.terminal_code] || amenity.terminal_code;
             const devScore = import.meta.env.DEV
               ? scoredMeta.find(s => s.amenity.id === amenity.id)?.debugLabel
@@ -390,9 +377,7 @@ export const CollectionDetailPage: React.FC = () => {
                   });
                   navigate(`/amenity/${amenity.amenity_slug}`, { state: { vibe: vibeSlug } });
                 }}
-                className={`w-full bg-[#13131a] rounded-xl text-left overflow-hidden transition-colors hover:bg-white/5 active:bg-white/10 ${
-                  !openStatus.open ? 'opacity-60' : ''
-                }`}
+                className="w-full bg-[#13131a] rounded-xl text-left overflow-hidden transition-colors hover:bg-white/5 active:bg-white/10"
               >
                 {/* Amenity image */}
                 <AmenityImage
@@ -411,12 +396,11 @@ export const CollectionDetailPage: React.FC = () => {
                     {devScore && (
                       <span className="text-[10px] text-yellow-400/70 font-mono">{devScore}</span>
                     )}
-                    {!openStatus.open && (
-                      <span className="text-[10px] text-red-400 font-medium bg-red-500/15 px-1.5 py-0.5 rounded flex-shrink-0">
-                        Closed
-                      </span>
-                    )}
+                    <OpensChip label={amenity.opens_label} />
                   </div>
+                  {amenity.access_label && (
+                    <div className="mb-1"><AccessChip label={amenity.access_label} /></div>
+                  )}
                   <div className="flex items-center gap-3 text-xs text-gray-400">
                     <span className="flex items-center gap-1">
                       <MapPin className="w-3 h-3" />
@@ -425,7 +409,7 @@ export const CollectionDetailPage: React.FC = () => {
                     {amenity.opening_hours && (
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
-                        {openStatus.label}
+                        {hours}
                       </span>
                     )}
                     {amenity.price_level && amenity.price_level !== 'unknown' && (
@@ -456,6 +440,8 @@ export const CollectionDetailPage: React.FC = () => {
               Clear search
             </button>
           </div>
+        ) : emptyNote ? (
+          <div className="py-6"><LandsideNotice text={emptyNote} /></div>
         ) : (
           <div className="p-8 text-center text-gray-400">
             <MapPin className="w-12 h-12 mx-auto mb-3 text-gray-500" />

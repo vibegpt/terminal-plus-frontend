@@ -302,6 +302,10 @@ function AmenityMiniCard({
   // whatever AmenityDetail's type says.
   const hoursLines = formatHours(amenity.opening_hours as unknown);
   const imageUrl = amenity.logo_url;
+  // Set by /api/chat from shared/ranking/policy.ts: the landside label, and
+  // "Opens HH:MM" for a venue suggested because it opens soon.
+  const { access_label: accessLabel, opens_label: opensLabel } =
+    amenity as AmenityDetail & { access_label?: string | null; opens_label?: string | null };
 
   // Simple terminal label: "SIN-T3" → "T3"
   const terminalLabel = terminal.replace('SIN-', '');
@@ -336,6 +340,12 @@ function AmenityMiniCard({
             </span>
           </span>
         </div>
+        {opensLabel && (
+          <p data-testid="opens-label" className="mt-1 text-[10px] font-medium text-sky-700 dark:text-sky-300">{opensLabel}</p>
+        )}
+        {accessLabel && (
+          <p data-testid="access-label" className="mt-1 text-[10px] leading-snug font-medium text-amber-700 dark:text-amber-300">{accessLabel}</p>
+        )}
       </div>
     </button>
   );

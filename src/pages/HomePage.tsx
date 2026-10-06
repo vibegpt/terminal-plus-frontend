@@ -14,6 +14,8 @@ import { useJourney } from '../context/JourneyContext';
 import { AmenityImage } from '../components/AmenityImage';
 import { track, trackImpressionOnce } from '@/lib/telemetry';
 import { sgHour } from '@/lib/sgTime';
+import { useEligibility } from '@/lib/eligibility';
+import { countEligible, type EligibilityFields } from '../../shared/ranking/policy';
 
 // ── Vibe Configuration ─────────────────────────────────────────────
 const VIBES = [
@@ -228,8 +230,7 @@ const VibeSection: React.FC<{
     });
   }, [vibe.serviceKey, collectionIds]);
 
-  if (collections.length === 0) return null;
-
+  // The section stays when the rules leave none of its collections; "See all" still works.
   return (
     <section className="py-4">
       <div className="px-4 flex items-center justify-between mb-3">
@@ -249,7 +250,7 @@ const VibeSection: React.FC<{
         </button>
       </div>
 
-      <div className="relative">
+      {collections.length > 0 && <div className="relative">
         <div
           className="flex gap-3 overflow-x-auto px-4 pb-1 scrollbar-hide"
           style={{ WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory' }}
@@ -270,7 +271,7 @@ const VibeSection: React.FC<{
           className="absolute right-0 top-0 bottom-1 w-10 pointer-events-none"
           style={{ background: 'linear-gradient(to left, #0a0a0f, transparent)' }}
         />
-      </div>
+      </div>}
     </section>
   );
 };
@@ -282,6 +283,10 @@ export const HomePage: React.FC = () => {
   const { journey } = useJourney();
   const [sections, setSections] = useState<{ vibe: typeof VIBES[number]; collections: Collection[] }[]>([]);
   const [loading, setLoading] = useState(true);
+  // Read at load time (loads already follow the minute tick below).
+  const eligibility = useEligibility();
+  const eligibilityRef = React.useRef(eligibility);
+  eligibilityRef.current = eligibility;
 
   // Compute current time bucket — re-evaluated every 60s
   const computeMinutes = useCallback(() => {
@@ -345,19 +350,25 @@ export const HomePage: React.FC = () => {
 
       const { data } = await supabase
         .from('collections')
-        .select('collection_id, name, hero_image_url, collection_amenities(count)')
+        .select('collection_id, name, hero_image_url, collection_amenities(amenity_detail(name, is_landside, opening_hours))')
         .in('collection_id', slugs);
 
-      const collections: Collection[] = mappings.map(mapping => {
+      // "N spots" counts the venues the rules let this passenger see now; a card with none hides.
+      const collections: Collection[] = mappings.flatMap(mapping => {
         const db = data?.find(c => c.collection_id === mapping.collection_slug);
-        return {
+        const venues = (db?.collection_amenities ?? [])
+          .map((ca: { amenity_detail: unknown }) => ca.amenity_detail as EligibilityFields | null)
+          .filter((a): a is EligibilityFields => !!a);
+        const amenity_count = db ? countEligible(venues, eligibilityRef.current) : undefined;
+        if (db && venues.length > 0 && amenity_count === 0) return [];
+        return [{
           collection_id: mapping.collection_slug,
           name: db?.name || mapping.collection_name,
           hero_image_url: db?.hero_image_url ?? undefined,
-          amenity_count: db?.collection_amenities?.[0]?.count,
+          amenity_count,
           is_dynamic: mapping.isDynamic,
           time_relevance: mapping.time_relevance,
-        };
+        }];
       });
 
       // Sort collections within each vibe by contextual score (reads fresh minutesToBoarding)
