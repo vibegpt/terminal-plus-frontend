@@ -86,7 +86,7 @@ const promptById = new Map(prompts.map(p => [p.id, p]));
 // just_landed always. Unknown type (4 Oct): the connecting rule when minutes
 // are known; with no minutes Jewel is allowed if the reply says it's landside.
 const JEWEL_MIN_MINUTES: Record<'connecting' | 'departing', number> = LANDSIDE_MIN_MINUTES;
-const BEFORE_IMMIGRATION = /before (you )?(go through |clear |pass through )?immigration/i;
+const BEFORE_IMMIGRATION = /before (you )?(go through |going through |clear |clearing |pass through |passing through )?immigration/i;
 const LANDSIDE = /landside|outside immigration|before immigration|(clear|through|pass) immigration/i;
 const DECLINE = /\b(skip|wouldn[’']?t|not worth|not with (this|that|your)|not this time|short answer: no|don[’']?t have (enough )?time|isn[’']?t enough|not enough time|can[’']?t|cannot|too tight|risky|i[’']?d stay|stay airside)\b|^\s*no\b/i;
 const AFFIRM = /\b(yes|yep|absolutely|definitely|of course|sure|go for it|you can|worth (a|the) (visit|trip|look))\b/i;

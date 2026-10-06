@@ -16,7 +16,7 @@ import { CHAT_MODEL, FALLBACK_MODEL, chatParams } from './lib/models'
 import { UUID_RE, isTestRequest, telemetryEnv } from './lib/telemetryEnv'
 import { DISPLAY } from '../src/lib/displayConfig'
 import { sgMinutesOfDay } from '../src/lib/sgTime'
-import { LANDSIDE_MIN_MINUTES, eligibility, pickEligible, type EligibilityContext } from '../shared/ranking/policy'
+import { LANDSIDE_MIN_MINUTES, eligibility, hoursLabel, openNow, pickEligible, type EligibilityContext } from '../shared/ranking/policy'
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -403,7 +403,7 @@ Response rules:
 9. Each turn gives "User location". Never place the user somewhere they only mention or ask about: "Can I go to Jewel?" doesn't mean they're at Jewel. If their location is unknown, don't say where they are.
 
 Amenity list:
-Each turn lists the amenities you may recommend as rows of "|"-separated fields under a header row (empty = unknown). hours is opening hours, price the price level, vibes the amenity's tags; description is given only when there's no editorial_note. Every venue listed is open now, unless access says "Opens HH:MM" (closed, opens soon: say when) or its hours can't be read. access also carries a landside venue's label ("Before immigration", or that it's landside): mention it when you recommend that venue.
+Each turn lists the amenities you may recommend as rows of "|"-separated fields under a header row (empty = unknown). hours is the venue's hours as of the current Singapore time ("Open until 01:00", "Open 24 hours", "Closed · Opens 11:30", or as written when they can't be read), price the price level, vibes the amenity's tags; description is given only when there's no editorial_note. Every venue listed is open now, unless its hours say "Closed · Opens HH:MM" (opens soon: say when) or can't be read. access carries a landside venue's label ("Before immigration", or that it's landside) and "Opens HH:MM" for one that opens soon: mention it when you recommend that venue.
 
 Editorial notes:
 Some amenities have an editorial_note — a concierge-style recommendation from real traveller opinions. When present, weave the insight naturally into your response (don't copy-paste). Use route_context to explain who it's best for. Prefer higher editorial_score amenities when all else is equal. Use specific details (dish names, tips) from editorial notes to make recommendations concrete.
@@ -602,7 +602,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       getSupabase(),
       filters.userLocation ?? filters.askedAbout,
       availableMinutes,
-      { journeyType: eligibilityCtx.journeyType },
+      { journeyType: eligibilityCtx.journeyType, nowSgt: eligibilityCtx.nowSgt },
     )
 
     const allAmenities = await queryAmenities(filters)
@@ -627,7 +627,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       Math.max(ready, DISPLAY.COLLECTION_VISIBLE),
       rows => rows,
       a => String(a.amenity_slug),
-    )
+    ).map(a => ({
+      ...a,
+      // What the model reads as hours: the state now ("Open until 01:00"), so a
+      // range past midnight can't be misread as closed.
+      hours_now: hoursLabel(openNow({ openingHours: a.opening_hours, nowSgt: eligibilityCtx.nowSgt }), a.opening_hours),
+    }))
 
     // Build context string for Claude
     const currentSGT = new Date().toLocaleString('en-SG', {

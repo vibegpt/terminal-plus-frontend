@@ -3,7 +3,9 @@
  */
 
 import type { SupabaseClient } from '@supabase/supabase-js';
-import { landsideAccess } from '../../shared/ranking/policy';
+import { eligibility } from '../../shared/ranking/policy';
+import { HOURS_COPY } from '../../shared/ranking/landsideCopy';
+import { sgMinutesOfDay } from '../../src/lib/sgTime';
 
 // ---------- Types ----------
 
@@ -97,16 +99,17 @@ export async function queryAmenities(
 const GATE_BUFFER_MINUTES = 15;
 
 /**
- * A curated route for this terminal and time. Stops at landside venues are
- * dropped when shared/ranking/policy.ts wouldn't suggest them to this passenger
- * (`journeyType` unknown, as from MCP, follows the policy's "type unknown" rows,
- * with `timeMinutes` as minutes to boarding).
+ * A curated route for this terminal and time. A stop at a venue that
+ * shared/ranking/policy.ts wouldn't suggest is dropped: landside and out of reach
+ * for this passenger (`journeyType` unknown, as from MCP, follows the policy's
+ * "type unknown" rows, with `timeMinutes` as minutes to boarding), or closed at
+ * `nowSgt` and not opening within the hour.
  */
 export async function queryRouteMatch(
   supabase: SupabaseClient,
   terminal: string | null,
   timeMinutes: number | null,
-  access: { journeyType?: string | null } = {},
+  access: { journeyType?: string | null; nowSgt?: number } = {},
 ): Promise<RouteMatch | null> {
   if (!terminal || !timeMinutes) return null;
 
@@ -138,35 +141,40 @@ export async function queryRouteMatch(
 
   if (sErr || !rawStops || rawStops.length === 0) return null;
 
-  // Look up terminal_code and is_landside for each stop via amenity_detail
+  // Look up terminal_code, is_landside and hours for each stop via amenity_detail
   const slugs = rawStops.map((s: any) => s.amenity_slug).filter(Boolean);
   let amenityTerminals: Record<string, string> = {};
-  const landsideSlugs = new Set<string>();
+  const venues = new Map<string, { is_landside: boolean; opening_hours: unknown }>();
   if (slugs.length > 0) {
     const { data: amenities } = await supabase
       .from('amenity_detail')
-      .select('amenity_slug, terminal_code, is_landside')
+      .select('amenity_slug, terminal_code, is_landside, opening_hours')
       .in('amenity_slug', slugs);
     if (amenities) {
       for (const a of amenities) {
         amenityTerminals[a.amenity_slug] = a.terminal_code;
-        if (a.is_landside) landsideSlugs.add(a.amenity_slug);
+        venues.set(a.amenity_slug, { is_landside: !!a.is_landside, opening_hours: a.opening_hours });
       }
     }
   }
 
-  // Landside stops this passenger can't reach in time leave the route; the
-  // ones kept carry their label at the front of the note (MCP passes
-  // editorial_note through by name, as it does route_context).
-  const accessOf = (s: any) => landsideAccess({
-    isLandside: !!s.amenity_slug && landsideSlugs.has(s.amenity_slug),
-    journeyType: access.journeyType ?? null,
-    minutesToBoarding: timeMinutes,
-  });
+  // Stops the rules leave out are dropped. The ones kept carry their labels at
+  // the front of the note ("Opens 11:30", "Before immigration"): MCP passes
+  // editorial_note through by name, as it does route_context. A stop with no
+  // venue (restrooms, "walk to gate") always stays.
+  const ctx = { journeyType: access.journeyType ?? null, minutesToBoarding: timeMinutes, nowSgt: access.nowSgt ?? sgMinutesOfDay() };
+  const eligibilityOf = (s: any) => {
+    const v = s.amenity_slug ? venues.get(s.amenity_slug) : undefined;
+    return v ? eligibility(v, ctx) : null;
+  };
 
   // Build stops with terminal codes
-  let stops: RouteStop[] = rawStops.filter((s: any) => accessOf(s).show).map((s: any) => {
-    const label = accessOf(s).label;
+  let stops: RouteStop[] = rawStops.filter((s: any) => eligibilityOf(s)?.tier !== null).map((s: any) => {
+    const e = eligibilityOf(s);
+    const label = [
+      e?.tier === 'soon' && e.open.opensAt ? HOURS_COPY.opensAt(e.open.opensAt) : null,
+      e?.access.label ?? null,
+    ].filter(Boolean).join('. ');
     const note = s.editorial_note || '';
     return {
       order: s.stop_order,
