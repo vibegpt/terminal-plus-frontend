@@ -467,3 +467,56 @@ style, no importers). Restored from HEAD; the new boundary became
 
 **Rule going forward:** with most of `src/` dead and many near-duplicate names,
 check that a path doesn't exist (`git ls-files <path>`) before creating a file.
+
+---
+
+## 2026-10-06 — Only the api typecheck loads api/chat.ts
+
+**Assumed (CC-17):** a scripted string edit to `api/chat.ts` was safe because the
+reachable-src typecheck, 79 unit tests and the adversarial suite all passed.
+
+**Actual:** none of them loads `api/chat.ts`. The edit left a string literal open,
+the next sentence parsed as code (`with a landside label…`), and the preview's
+`/api/chat` failed to load (`SyntaxError: Strict mode code may not include a with
+statement`, `FUNCTION_INVOCATION_FAILED`). 30 eval turns came back 500 before the
+runtime log showed why. `npx tsc --noEmit -p api/tsconfig.json` had been run, but
+before that edit, not after it.
+
+**Rule going forward:** after every edit under `api/`, and again right before
+every push, run `npx tsc --noEmit -p api/tsconfig.json && npx esbuild api/chat.ts
+api/mcp.ts --format=cjs --platform=node --log-level=error --outdir=<scratch>`.
+After a push, make one real call to each changed route before starting an eval.
+
+---
+
+## 2026-10-06 — A test journey ages while the test runs
+
+**Assumed (CC-17 browser cases):** building each case's `tp_journey_context`
+(boarding = now + N min) up front was fine.
+
+**Actual:** every journey was built when the queue started. "departing 95"
+ran 9 minutes later as departing 86, crossed the 90-minute line halfway through,
+and its list pages (labelled) disagreed with its detail pages (hidden). It
+looked like an app bug for a while.
+
+**Rule going forward:** build a time-based fixture when its case starts (pass a
+factory, not a value), record the time with the result, and keep cases near a
+threshold short or re-check them on their own.
+
+---
+
+## 2026-10-06 — Filter before the database limit, not after it
+
+**Assumed (CC-17, first cut):** applying the landside rule to the rows a query
+returned was enough ("filter before top-N" meant before the surface's slice).
+
+**Actual:** chat's keyword query takes the top 40 by editorial score, and for a
+connecting passenger with 170 minutes most of the 40 were Jewel. After the rule
+dropped them, 20 were left and none was a T1 restaurant (eval c1). The airside
+Din Tai Fung never made the top 50 of the Explore feed for the same reason.
+
+**Rule going forward:** when a rule removes a whole class of rows for this
+request (every landside venue), put it in the query (`is_landside = false`) so
+the limit fills with rows that can be shown. Filter after the query only for
+what can't be expressed there (open now, per-row labels), and size the fetch
+for it.
