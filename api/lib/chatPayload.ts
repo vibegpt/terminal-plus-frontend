@@ -7,7 +7,7 @@ import type Anthropic from '@anthropic-ai/sdk';
 // ---------- Amenity block ----------
 
 /** Column order of the amenity block. The system prompt describes the same header. */
-export const AMENITY_COLUMNS = 'slug|name|terminal|hours|price|vibes|editorial_score|editorial_note|route_context|description';
+export const AMENITY_COLUMNS = 'slug|name|terminal|hours|price|vibes|editorial_score|editorial_note|route_context|description|access';
 
 const MAX_NOTE = 200;
 const MAX_DESCRIPTION = 80;
@@ -53,6 +53,8 @@ export function formatAmenityBlock(rows: Array<Record<string, unknown>>): string
       cell(a.editorial_note, MAX_NOTE),
       cell(a.route_context),
       cell(cell(a.editorial_note) ? null : a.description, MAX_DESCRIPTION),
+      // The eligibility labels (shared/ranking/policy.ts): "Opens HH:MM", a landside label, or both.
+      cell([a.opens_label, a.access_label].filter(v => typeof v === 'string' && v).join('; ')),
     ].join('|')),
   ].join('\n');
 }

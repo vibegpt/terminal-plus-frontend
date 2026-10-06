@@ -8,8 +8,11 @@ import { supabase } from '@/lib/supabase';
 import { useBookmark } from '../hooks/useBookmarks';
 import { AmenityImage } from '../components/AmenityImage';
 import { trackDwell } from '@/lib/telemetry';
-import { sgMinutesOfDay } from '@/lib/sgTime';
 import { usePageMeta } from '@/hooks/usePageMeta';
+import { useEligibility } from '@/lib/eligibility';
+import { LandsideNotice } from '@/components/EligibilityChips';
+import { hoursLabel, landsideAccess, openNow, pickEligible } from '../../shared/ranking/policy';
+import { HOURS_COPY } from '../../shared/ranking/landsideCopy';
 import { useJourney, hasDeparted } from '@/context/JourneyContext';
 import { recordCandidate, readLedger, markAsked } from '@/lib/candidateTap';
 import { toMinutes } from '@/lib/outcomePrompt';
@@ -35,6 +38,7 @@ interface AmenityData {
   editorial_note?: string;
   editorial_score?: number;
   route_context?: string;
+  is_landside?: boolean | null;
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────
@@ -72,47 +76,6 @@ const CATEGORY_EMOJI: Record<string, string> = {
   'Finance': '💱',
 };
 
-function isOpenNow(hours: string): { open: boolean; label: string } {
-  if (!hours) return { open: true, label: 'Hours not listed' };
-  if (hours === '24/7') return { open: true, label: 'Open 24 hours' };
-
-  const match = hours.match(/(\d{2}):(\d{2})\s*[-–]\s*(\d{2}):(\d{2})/);
-  if (!match) return { open: true, label: hours };
-
-  const [, openH, openM, closeH, closeM] = match.map(Number);
-  const currentMinutes = sgMinutesOfDay();
-  const openMinutes = openH * 60 + openM;
-  let closeMinutes = closeH * 60 + closeM;
-
-  if (closeMinutes <= openMinutes) {
-    closeMinutes += 24 * 60;
-    if (currentMinutes < openMinutes) {
-      const isOpen = currentMinutes + 24 * 60 < closeMinutes;
-      return {
-        open: isOpen,
-        label: isOpen
-          ? `Open until ${String(closeH).padStart(2,'0')}:${String(closeM).padStart(2,'0')}`
-          : `Opens ${String(openH).padStart(2,'0')}:${String(openM).padStart(2,'0')}`
-      };
-    }
-  }
-
-  const isOpen = currentMinutes >= openMinutes && currentMinutes < closeMinutes;
-  if (isOpen) {
-    return { open: true, label: `Open until ${String(closeH).padStart(2,'0')}:${String(closeM).padStart(2,'0')}` };
-  } else {
-    // How long until opening?
-    const minsUntilOpen = openMinutes > currentMinutes
-      ? openMinutes - currentMinutes
-      : (openMinutes + 24 * 60) - currentMinutes;
-    const hoursUntil = Math.floor(minsUntilOpen / 60);
-    const soonLabel = hoursUntil < 2
-      ? `Opens in ${minsUntilOpen}min`
-      : `Opens ${String(openH).padStart(2,'0')}:${String(openM).padStart(2,'0')}`;
-    return { open: false, label: `Closed · ${soonLabel}` };
-  }
-}
-
 function getPriceLabel(price: string): string {
   if (!price || price === 'unknown') return '';
   const map: Record<string, string> = {
@@ -134,7 +97,13 @@ export default function AmenityDetailPage() {
   const [vibeDescription, setVibeDescription] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [similarAmenities, setSimilarAmenities] = useState<AmenityData[]>([]);
+  const [similarPool, setSimilarPool] = useState<AmenityData[]>([]);
+  const eligibility = useEligibility();
+  // "More like this" suggests, so it follows both rules; this venue itself never hides.
+  const similarAmenities = React.useMemo(
+    () => pickEligible(similarPool, eligibility, 4, rows => rows, a => a.amenity_slug),
+    [similarPool, eligibility],
+  );
   const { saved, toggle: toggleSaved } = useBookmark(slug ?? '');
   usePageMeta(amenity
     ? `${amenity.name}, ${TERMINAL_NAMES[amenity.terminal_code] || amenity.terminal_code} · Terminal+`
@@ -210,7 +179,7 @@ export default function AmenityDetailPage() {
       if (primaryVibe) {
         const { data: similar } = await supabase
           .from('amenity_detail')
-          .select('id, amenity_slug, name, terminal_code, opening_hours, price_level, vibe_tags, logo_url, category')
+          .select('id, amenity_slug, name, terminal_code, opening_hours, price_level, vibe_tags, logo_url, category, is_landside')
           .eq('airport_code', 'SIN')
           .eq('terminal_code', data.terminal_code)
           .ilike('vibe_tags', `%${primaryVibe}%`)
@@ -218,7 +187,7 @@ export default function AmenityDetailPage() {
           .limit(8);
 
         if (mounted && similar) {
-          setSimilarAmenities(similar.sort(() => Math.random() - 0.5).slice(0, 4));
+          setSimilarPool((similar as AmenityData[]).sort(() => Math.random() - 0.5));
         }
       }
 
@@ -280,7 +249,9 @@ export default function AmenityDetailPage() {
   // ── Derived ──────────────────────────────────────────────────────
   const vibes = amenity.vibe_tags?.split(',').map(v => v.trim()).filter(Boolean) || [];
   const terminalName = TERMINAL_NAMES[amenity.terminal_code] || amenity.terminal_code;
-  const openStatus = isOpenNow(amenity.opening_hours);
+  const open = openNow({ openingHours: amenity.opening_hours, nowSgt: eligibility.nowSgt });
+  const hoursLine = hoursLabel(open, amenity.opening_hours);
+  const access = landsideAccess({ isLandside: amenity.is_landside, ...eligibility });
   const isTransit = amenity.available_in_tr === 'true' || amenity.available_in_tr === 'TRUE';
   const priceLabel = getPriceLabel(amenity.price_level);
   const categoryEmoji = CATEGORY_EMOJI[amenity.category || ''] || '📍';
@@ -360,11 +331,20 @@ export default function AmenityDetailPage() {
       <div className="flex items-center gap-0 border-b border-white/10 bg-[#13131a]">
         {/* Open status */}
         <div className="flex-1 flex flex-col items-center py-3 border-r border-white/10">
-          <div className={`flex items-center gap-1.5 text-sm font-semibold ${openStatus.open ? 'text-green-400' : 'text-red-400'}`}>
-            <div className={`w-2 h-2 rounded-full ${openStatus.open ? 'bg-green-500' : 'bg-red-400'}`} />
-            {openStatus.open ? 'Open' : 'Closed'}
+          <div className={`flex items-center gap-1.5 text-sm font-semibold ${
+            open.state === 'open' ? 'text-green-400' : open.state === 'closed' ? 'text-red-400' : 'text-gray-300'
+          }`}>
+            <div className={`w-2 h-2 rounded-full ${
+              open.state === 'open' ? 'bg-green-500' : open.state === 'closed' ? 'bg-red-400' : 'bg-gray-500'
+            }`} />
+            {HOURS_COPY.state[open.state]}
           </div>
-          <p className="text-xs text-gray-500 mt-0.5">{openStatus.label.replace('Open until ', 'Until ').replace('Closed · ', '')}</p>
+          <p className="text-xs text-gray-500 mt-0.5" data-testid="hours-short">
+            {open.is24h ? HOURS_COPY.allDay
+              : open.state === 'open' ? HOURS_COPY.until(open.closesAt!)
+              : open.state === 'closed' ? HOURS_COPY.opensAt(open.opensAt!)
+              : HOURS_COPY.seeBelow}
+          </p>
         </div>
 
         {/* Price */}
@@ -394,6 +374,13 @@ export default function AmenityDetailPage() {
 
       {/* ── Content ── */}
       <div className="px-4 pt-5">
+
+        {/* Landside: why it isn't suggested on this trip, or its label */}
+        {access.reason ? (
+          <div className="mb-4"><LandsideNotice text={access.reason} /></div>
+        ) : access.label ? (
+          <div className="mb-4"><LandsideNotice text={access.label} tone="label" /></div>
+        ) : null}
 
         {/* I'm here: only while a journey is active and before departure */}
         {canCheckIn && (
@@ -449,11 +436,9 @@ export default function AmenityDetailPage() {
         <div className="flex items-center gap-3 p-4 bg-[#13131a] rounded-xl mb-3">
           <Clock className="w-5 h-5 text-gray-500 flex-shrink-0" />
           <div>
-            <p className="text-sm font-medium text-white">
-              {amenity.opening_hours === '24/7' ? 'Open 24 hours, every day' : amenity.opening_hours || 'Hours not confirmed'}
-            </p>
-            {amenity.opening_hours !== '24/7' && (
-              <p className="text-xs text-gray-500 mt-0.5">Daily</p>
+            <p className="text-sm font-medium text-white" data-testid="hours-line">{hoursLine}</p>
+            {!open.is24h && open.state !== 'unknown' && (
+              <p className="text-xs text-gray-500 mt-0.5">{amenity.opening_hours} daily</p>
             )}
           </div>
         </div>
@@ -490,7 +475,8 @@ export default function AmenityDetailPage() {
             <p className="text-xs text-gray-500 mb-3">Same vibe, same terminal</p>
             <div className="space-y-2">
               {similarAmenities.map(sim => {
-                const simOpen = isOpenNow(sim.opening_hours);
+                const simHours = sim.opens_label
+                  ?? hoursLabel(openNow({ openingHours: sim.opening_hours, nowSgt: eligibility.nowSgt }), sim.opening_hours);
                 const simEmoji = CATEGORY_EMOJI[sim.category || ''] || '📍';
                 return (
                   <button
@@ -513,8 +499,8 @@ export default function AmenityDetailPage() {
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-white truncate">{sim.name}</p>
                       <p className="text-xs mt-0.5">
-                        <span className={simOpen.open ? 'text-green-400' : 'text-red-400'}>
-                          {simOpen.label}
+                        <span className={sim.open_state === 'open' ? 'text-green-400' : sim.open_state === 'closed' ? 'text-sky-300' : 'text-gray-400'}>
+                          {simHours}
                         </span>
                         {sim.price_level && sim.price_level !== 'unknown' && (
                           <span className="text-gray-500"> · {sim.price_level}</span>

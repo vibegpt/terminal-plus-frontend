@@ -13,8 +13,10 @@ import { formatAmenityBlock, mentionedPlace, parseReply, placeCode, replyText, s
 import type { PlaceCode } from './lib/chatPayload'
 import type { ChatReply } from './lib/chatPayload'
 import { CHAT_MODEL, FALLBACK_MODEL, chatParams } from './lib/models'
-import { UUID_RE, isTestRequest } from './lib/telemetryEnv'
+import { UUID_RE, isTestRequest, telemetryEnv } from './lib/telemetryEnv'
 import { DISPLAY } from '../src/lib/displayConfig'
+import { sgMinutesOfDay } from '../src/lib/sgTime'
+import { LANDSIDE_MIN_MINUTES, eligibility, pickEligible, type EligibilityContext } from '../shared/ranking/policy'
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -113,7 +115,6 @@ interface PreFilterResult {
 interface VenueConfig {
   airportCode: string
   bufferMinutes: number
-  maxWalkMinutes: number
   minDwellByCategory: Record<string, number>
   peakHours: Array<{ start: number; end: number; label: string }>
   timezone: string
@@ -122,7 +123,6 @@ interface VenueConfig {
 const CHANGI_CONFIG: VenueConfig = {
   airportCode: 'SIN',
   bufferMinutes: 15,
-  maxWalkMinutes: 8,
   minDwellByCategory: {
     coffee: 5,
     cafe: 5,
@@ -190,6 +190,7 @@ function getWalkMinutes(amenity: any, gate?: string): number {
 // ---------- Smart 7 filter ----------
 // Uses MINIMUM dwell time as a hard floor only.
 // Does not pretend to know actual duration — that's Claude's job.
+// Where a venue is (landside or not) is the eligibility policy's call, not a walk limit.
 
 function applySmart7(
   amenities: any[],
@@ -204,11 +205,16 @@ function applySmart7(
 
   return amenities.filter(a => {
     const walkTo = getWalkMinutes(a, gate)
-    if (walkTo > config.maxWalkMinutes) return false
     const minDwell = getMinDwell(a, config)
     const walkBack = walkTo
     return (walkTo + minDwell + walkBack) <= usable
   })
+}
+
+// Test requests outside production may set the Singapore clock: x-tp-now: HH:MM.
+function parseTestClock(v: string | string[] | undefined): number | null {
+  const m = (Array.isArray(v) ? v[0] : v)?.match(/^([01]\d|2[0-3]):([0-5]\d)$/)
+  return m ? Number(m[1]) * 60 + Number(m[2]) : null
 }
 
 // ---------- Extract departure time from conversation ----------
@@ -349,7 +355,8 @@ async function queryAmenities(filters: PreFilterResult) {
     .order('editorial_score', { ascending: false, nullsFirst: false })
 
   if (filters.scope.length) query = query.in('terminal_code', filters.scope)
-  if (filters.isTransit) query = query.eq('available_in_tr', true)
+  // In transit used to mean available_in_tr = true. Every row that isn't is
+  // landside (CC-17), so the landside rule in the handler decides instead.
 
   if (filters.keywords.length > 0) {
     const orParts = filters.keywords.flatMap(kw => {
@@ -396,18 +403,18 @@ Response rules:
 9. Each turn gives "User location". Never place the user somewhere they only mention or ask about: "Can I go to Jewel?" doesn't mean they're at Jewel. If their location is unknown, don't say where they are.
 
 Amenity list:
-Each turn lists the amenities you may recommend as rows of "|"-separated fields under a header row (empty = unknown). hours is opening hours, price the price level, vibes the amenity's tags; description is given only when there's no editorial_note.
+Each turn lists the amenities you may recommend as rows of "|"-separated fields under a header row (empty = unknown). hours is opening hours, price the price level, vibes the amenity's tags; description is given only when there's no editorial_note. Every venue listed is open now, unless access says "Opens HH:MM" (closed, opens soon: say when) or its hours can't be read. access also carries a landside venue's label ("Before immigration", or that it's landside): mention it when you recommend that venue.
 
 Editorial notes:
 Some amenities have an editorial_note — a concierge-style recommendation from real traveller opinions. When present, weave the insight naturally into your response (don't copy-paste). Use route_context to explain who it's best for. Prefer higher editorial_score amenities when all else is equal. Use specific details (dish names, tips) from editorial notes to make recommendations concrete.
 IMPORTANT: Editorial notes are based on traveller reviews that may be outdated. Never quote specific prices. If asked about prices, say "prices may have changed — check at the venue or on the Changi Airport website." Use general terms like "budget-friendly", "mid-range", or "premium" based on the price field.
 
-Jewel (SIN-JEWEL):
-Jewel is landside, outside immigration. Whether it fits depends on the passenger type and minutes to boarding, both given each turn:
-- connecting: only with 180+ minutes to boarding (they clear immigration out and back).
-- departing: only with 90+ minutes to boarding, and only before they clear immigration: label every Jewel pick "before immigration" in your message.
+Jewel (SIN-JEWEL) and other landside venues:
+Jewel, arrival halls and shops before security are landside, outside immigration. Whether they fit depends on the passenger type and minutes to boarding, both given each turn; the amenity list already leaves out landside venues the rule excludes. The rule:
+- connecting: only with ${LANDSIDE_MIN_MINUTES.connecting}+ minutes to boarding (they clear immigration out and back).
+- departing: only with ${LANDSIDE_MIN_MINUTES.departing}+ minutes to boarding, and only before they clear immigration: label every landside pick "before immigration" in your message.
 - just landed: always.
-- type unknown: with minutes to boarding known, treat as connecting; with no minutes, Jewel is fine, but say it's landside, outside immigration.
+- type unknown: with minutes to boarding known, treat as connecting; with no minutes, landside venues are fine, but say they're landside, outside immigration.
 When the rule excludes Jewel, leave Jewel amenities out of recommended_slugs, even when asked; say why in one line and suggest something airside.
 
 Key knowledge:
@@ -536,7 +543,7 @@ const REFUSAL_REPLY: ChatReply = {
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-tp-test')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-tp-test, x-tp-now')
 
   if (req.method === 'OPTIONS') return res.status(204).end()
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
@@ -578,17 +585,48 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     turn.gate = filters.gate ?? null
     turn.timeUntilBoarding = availableMinutes
 
+    const journeyType = typeof context?.journeyType === 'string' && JOURNEY_TYPES.has(context.journeyType)
+      ? context.journeyType
+      : null
+    // Landside and open-now rules (shared/ranking/policy.ts). "I'm in transit"
+    // with no passenger type from the capture counts as connecting.
+    const testClock = isTest && telemetryEnv() !== 'production' ? parseTestClock(req.headers['x-tp-now']) : null
+    const eligibilityCtx: EligibilityContext = {
+      journeyType: journeyType ?? (filters.isTransit ? 'connecting' : null),
+      minutesToBoarding: availableMinutes,
+      nowSgt: testClock ?? sgMinutesOfDay(),
+    }
+
     // Check for curated route match
-    const routeMatch = await queryRouteMatch(getSupabase(), filters.userLocation ?? filters.askedAbout, availableMinutes)
+    const routeMatch = await queryRouteMatch(
+      getSupabase(),
+      filters.userLocation ?? filters.askedAbout,
+      availableMinutes,
+      { journeyType: eligibilityCtx.journeyType },
+    )
 
     const allAmenities = await queryAmenities(filters)
 
     // Smart 7 — hard floor filter only
-    const feasibleAmenities = applySmart7(
+    const dwellFeasible = applySmart7(
       allAmenities,
       availableMinutes,
       filters.gate ?? context?.gate,
       CHANGI_CONFIG,
+    )
+
+    // Then the eligibility rules: open venues and unreadable hours in editorial
+    // order; venues opening within the hour only when those can't fill a list.
+    const ready = dwellFeasible.filter(a => {
+      const tier = eligibility(a, eligibilityCtx).tier
+      return tier === 'open' || tier === 'unknown'
+    }).length
+    const feasibleAmenities = pickEligible(
+      dwellFeasible,
+      eligibilityCtx,
+      Math.max(ready, DISPLAY.COLLECTION_VISIBLE),
+      rows => rows,
+      a => String(a.amenity_slug),
     )
 
     // Build context string for Claude
@@ -598,6 +636,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       timeStyle: 'short',
     })
 
+    const currentClock = testClock !== null
+      ? `${String(Math.floor(testClock / 60)).padStart(2, '0')}:${String(testClock % 60).padStart(2, '0')} (test clock)`
+      : currentSGT
+
     const timeContext = availableMinutes !== null
       ? [
           `Minutes to boarding: ${availableMinutes} (${availableMinutes - CHANGI_CONFIG.bufferMinutes} usable after a ${CHANGI_CONFIG.bufferMinutes} min gate buffer).`,
@@ -605,10 +647,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           `Amenities shown are pre-filtered to those physically feasible in the time available (${feasibleAmenities.length} of ${allAmenities.length} passed).`,
         ].filter(Boolean).join(' ')
       : `Minutes to boarding: unknown — show all available options. Consider asking the user when their flight is.`
-    const journeyType = typeof context?.journeyType === 'string' && JOURNEY_TYPES.has(context.journeyType)
-      ? context.journeyType
-      : null
-
     // Per-turn context, most stable first: the amenity list, then the trip, then the clock.
     const amenityBlock = formatAmenityBlock(feasibleAmenities)
     const userMessage = [
@@ -621,7 +659,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       filters.gate ? `User gate: ${filters.gate}` : '',
       describeFlight(context?.flight),
       timeContext,
-      `Current Singapore time: ${currentSGT}`,
+      `Current Singapore time: ${currentClock}`,
       `\nUser: ${query}`,
     ].filter(Boolean).join('\n')
 
@@ -690,6 +728,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               raw_slugs: parsed.recommended_slugs,
               feasible_slugs: feasibleAmenities.map(a => a.amenity_slug),
               available_minutes: availableMinutes,
+              journey_type: eligibilityCtx.journeyType,
+              now_sgt: eligibilityCtx.nowSgt,
+              landside_hidden: dwellFeasible.filter(a => !eligibility(a, eligibilityCtx).access.show).map(a => a.amenity_slug),
+              closed_hidden: dwellFeasible.filter(a => {
+                const e = eligibility(a, eligibilityCtx)
+                return e.access.show && !e.tier
+              }).length,
+              route_stops: routeMatch?.stops.map(s => s.amenitySlug).filter(Boolean) ?? null,
             },
           }
         : {}),

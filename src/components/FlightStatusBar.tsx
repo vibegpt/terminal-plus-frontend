@@ -13,6 +13,9 @@ import type { CaptureEntry } from '@/lib/capture';
 import { track } from '../lib/telemetry';
 import { readLedger, updateLedger } from '../lib/candidateTap';
 import { gateChipVisible, normalizeGate } from '../lib/outcomePrompt';
+import { useEligibility } from '../lib/eligibility';
+import { landsideAccess } from '../../shared/ranking/policy';
+import { JEWEL_COPY } from '../../shared/ranking/landsideCopy';
 
 // ─── TYPES ────────────────────────────────────────────────────────────────────
 
@@ -204,9 +207,10 @@ const URGENCY_CONFIG = {
   },
 };
 
-function getCTAText(urgency: UrgencyLevel, gate: string): string {
+// Relaxed suggests Jewel only when the landside rule allows it for this passenger.
+function getCTAText(urgency: UrgencyLevel, gate: string, jewelAllowed: boolean): string {
   switch (urgency) {
-    case 'relaxed': return 'Explore Jewel →';
+    case 'relaxed': return jewelAllowed ? JEWEL_COPY.ctaShown : JEWEL_COPY.ctaHidden;
     case 'moderate': return `Stay in terminal →`;
     case 'urgent': return `⚡ Gate ${gate} →`;
     case 'boarding': return `🏃 Gate ${gate} NOW`;
@@ -320,6 +324,7 @@ export function FlightStatusBar({
   className = '',
 }: FlightStatusBarProps) {
   const { flight, urgency, minutesToBoarding } = useFlightContext();
+  const eligibility = useEligibility();
   const [expanded, setExpanded] = useState(false);
   const { pathname } = useLocation();
   const config = URGENCY_CONFIG[urgency];
@@ -365,7 +370,7 @@ export function FlightStatusBar({
     );
   }
 
-  const ctaText = getCTAText(urgency, flight.gate);
+  const ctaText = getCTAText(urgency, flight.gate, landsideAccess({ isLandside: true, ...eligibility }).show);
   const timeLabel = minutesToBoarding !== null ? formatMinutes(minutesToBoarding) : '—';
   const isPulsing = urgency === 'urgent' || urgency === 'boarding';
 

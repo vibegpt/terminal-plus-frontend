@@ -1,9 +1,10 @@
 // src/utils/contextualScoring.ts
 // Multi-factor contextual scoring for collections and amenities at Changi Airport
 
-import type { AmenityRow } from './smart7Select';
+import { anonymousEligibility, type AmenityRow } from './smart7Select';
 import { DISPLAY } from '@/lib/displayConfig';
-import { sgHour, sgMinutesOfDay } from '@/lib/sgTime';
+import { sgHour } from '@/lib/sgTime';
+import { pickEligible, type EligibilityContext } from '../../shared/ranking/policy';
 
 // ── Types ──────────────────────────────────────────────────────────
 
@@ -31,8 +32,6 @@ export interface ScoredAmenity {
   amenity: AmenityRow;
   contextScore: number;      // 0-100 weighted final
   scoreBreakdown: ScoreBreakdown;
-  isFiltered: boolean;
-  filterReason?: string;
   debugLabel?: string;       // dev mode: "dinner time + T3 + 90min"
 }
 
@@ -117,21 +116,6 @@ function getAvailableMinutes(context: UserContext): number {
   return Math.max(0, context.minutesToBoarding - context.gateWalkMinutes);
 }
 
-function isOpenNow(hours: string): boolean {
-  if (!hours || hours === '24/7') return true;
-  const match = hours.match(/(\d{2}):(\d{2})\s*[-–]\s*(\d{2}):(\d{2})/);
-  if (!match) return true;
-  const [, openH, openM, closeH, closeM] = match.map(Number);
-  const cur = sgMinutesOfDay();
-  const open = openH * 60 + openM;
-  let close = closeH * 60 + closeM;
-  if (close <= open) {
-    close += 1440;
-    if (cur < open) return cur + 1440 < close;
-  }
-  return cur >= open && cur < close;
-}
-
 // ── getUserContext ──────────────────────────────────────────────────
 // Reads all available context from sessionStorage — no React dependency
 
@@ -208,21 +192,18 @@ function factorBodyClock(context: UserContext, period: MealPeriod): number {
 function factorTimeAvailable(amenity: AmenityRow, availableMinutes: number): number {
   const isQuick = (amenity.vibe_tags || '').toLowerCase().includes('quick');
 
-  // Hard filter: Jewel requires 75+ min
-  if (amenity.terminal_code === 'SIN-JEWEL' && availableMinutes > 0 && availableMinutes < 75) return 0;
-
   if (availableMinutes < 30) return isQuick ? 90 : 25;
   if (availableMinutes < 60) return isQuick ? 80 : 65;
   if (availableMinutes < 120) return isQuick ? 70 : 85;
   return isQuick ? 60 : 90; // 120+ min: full-experience venues score highest
 }
 
-function factorProximity(amenity: AmenityRow, context: UserContext, availableMinutes: number): number {
+// Whether a landside venue may be suggested at all is shared/ranking/policy.ts's call, not a score.
+function factorProximity(amenity: AmenityRow, context: UserContext): number {
   const at = amenity.terminal_code;
   const ut = context.terminal;
   if (!at) return 50;
   if (at === ut) return 100;
-  if (at === 'SIN-JEWEL') return availableMinutes > 75 ? 70 : 15;
   if (at === 'SIN-T4' && ut !== 'SIN-T4') return 30;
   if (ut === 'SIN-T4' && at !== 'SIN-T4') return 30;
   const connected = CONNECTED_TERMINALS[ut] || [];
@@ -238,16 +219,13 @@ export function scoreAmenity(amenity: AmenityRow, context: UserContext): ScoredA
   const timeOfDay       = factorTimeOfDay(amenity, period);
   const bodyClockOffset = factorBodyClock(context, period);
   const timeAvailable   = factorTimeAvailable(amenity, available);
-  const proximity       = factorProximity(amenity, context, available);
+  const proximity       = factorProximity(amenity, context);
 
   const contextScore =
     timeOfDay       * 0.35 +
     bodyClockOffset * 0.20 +
     timeAvailable   * 0.25 +
     proximity       * 0.20;
-
-  const isFiltered = timeAvailable === 0;
-  const filterReason = isFiltered ? `Jewel needs 75+ min (${available} available)` : undefined;
 
   const scoreBreakdown: ScoreBreakdown = { timeOfDay, bodyClockOffset, timeAvailable, proximity };
 
@@ -261,7 +239,7 @@ export function scoreAmenity(amenity: AmenityRow, context: UserContext): ScoredA
     debugLabel = parts.join(' · ');
   }
 
-  return { amenity, contextScore, scoreBreakdown, isFiltered, filterReason, debugLabel };
+  return { amenity, contextScore, scoreBreakdown, debugLabel };
 }
 
 // ── scoreCollection ─────────────────────────────────────────────────
@@ -285,11 +263,6 @@ export function scoreCollection(
     if (isQuickCollection) return 90 + 40; // +40 Quick bonus
     return 25; // Non-Quick hard capped
   }
-
-  // ── ONE STOP (30-60 min): walk penalty, single-venue boost ─────
-  // Walk time > 10 min gets -30 penalty (Jewel, T4 transfers)
-  const isJewelCollection = nameL.includes('jewel');
-  const walkPenalty = (available >= 30 && available < 60 && isJewelCollection) ? -30 : 0;
 
   // Factor 1: time-of-day — use service's time_relevance if available
   let timeOfDay: number;
@@ -315,44 +288,44 @@ export function scoreCollection(
   const proximity = 50;
 
   const base = timeOfDay * 0.35 + bodyClockOffset * 0.20 + timeAvailable * 0.25 + proximity * 0.20;
-  return Math.max(0, base + walkPenalty);
+  return Math.max(0, base);
 }
 
 // ── selectScoredAmenities ───────────────────────────────────────────
-// Drop-in replacement for smart7Select that uses contextual scoring.
-// Deduplicates by name, keeps highest-scored duplicate, returns top N.
+// Drop-in replacement for smart7Select that uses contextual scoring. Both
+// eligibility rules (shared/ranking/policy.ts) come first; within each fill tier
+// it dedupes by name, keeping the highest-scored copy, and returns the top N.
 
 export function selectScoredAmenities(
   pool: AmenityRow[],
   context: UserContext,
-  limit = DISPLAY.COLLECTION_VISIBLE
+  limit = DISPLAY.COLLECTION_VISIBLE,
+  eligibilityCtx: EligibilityContext = anonymousEligibility(),
 ): ScoredAmenity[] {
   if (!pool?.length) return [];
 
-  // Score everything
-  const scored = pool.map(a => scoreAmenity(a, context));
+  const scores = new Map<AmenityRow, ScoredAmenity>(pool.map(a => [a, scoreAmenity(a, context)]));
+  const scoreOf = (a: AmenityRow) => scores.get(a)!;
 
-  // Dedup by name: keep highest-scored entry per name
-  const bestByName = new Map<string, ScoredAmenity>();
-  for (const s of scored) {
-    const key = s.amenity.name.toLowerCase().trim();
-    const prev = bestByName.get(key);
-    if (!prev || s.contextScore > prev.contextScore) {
-      bestByName.set(key, s);
+  const picked = pickEligible(pool, eligibilityCtx, limit, (rows, n) => {
+    // Dedup by name: keep highest-scored entry per name
+    const bestByName = new Map<string, AmenityRow>();
+    for (const a of rows) {
+      const key = a.name.toLowerCase().trim();
+      const prev = bestByName.get(key);
+      if (!prev || scoreOf(a).contextScore > scoreOf(prev).contextScore) bestByName.set(key, a);
     }
-  }
+    return Array.from(bestByName.values())
+      .sort((a, b) => {
+        // RANKING: editorial_score DESC — keep in sync with api/lib
+        const editorialDiff = (b.editorial_score ?? 0) - (a.editorial_score ?? 0);
+        if (editorialDiff !== 0) return editorialDiff;
+        return scoreOf(b).contextScore - scoreOf(a).contextScore;
+      })
+      .slice(0, n);
+  });
 
-  return Array.from(bestByName.values())
-    .filter(s => !s.isFiltered)
-    .sort((a, b) => {
-      // RANKING: editorial_score DESC — keep in sync with api/lib
-      const editorialDiff = (b.amenity.editorial_score ?? 0) - (a.amenity.editorial_score ?? 0);
-      if (editorialDiff !== 0) return editorialDiff;
-      // Open items always above closed
-      const aOpen = isOpenNow(a.amenity.opening_hours);
-      const bOpen = isOpenNow(b.amenity.opening_hours);
-      if (aOpen !== bOpen) return aOpen ? -1 : 1;
-      return b.contextScore - a.contextScore;
-    })
-    .slice(0, limit);
+  // pickEligible returns labelled copies; find each one's score by slug.
+  const bySlug = new Map(pool.map(a => [a.amenity_slug, scoreOf(a)]));
+  return picked.map(a => ({ ...bySlug.get(a.amenity_slug)!, amenity: a }));
 }

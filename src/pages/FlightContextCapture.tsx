@@ -19,6 +19,9 @@ import {
 } from '../services/flightService';
 import { FlightPicker, type BoardFlight } from '../components/FlightPicker';
 import { recordJourney, type FlightSource, type JourneyType } from '../lib/journeyRecord';
+import { eligibilityFromJourney, minutesToBoarding } from '../lib/eligibility';
+import { landsideAccess } from '../../shared/ranking/policy';
+import { JEWEL_COPY } from '../../shared/ranking/landsideCopy';
 
 // ── Constants ──────────────────────────────────────────────────────
 
@@ -776,6 +779,8 @@ function Step3({ journey, onComplete }: Step3Props) {
   };
 
   const sameTerminal = journey.currentTerminal === journey.departureTerminal;
+  // Jewel is landside: the same rule every list applies (shared/ranking/policy.ts).
+  const jewel = landsideAccess({ isLandside: true, ...eligibilityFromJourney(journey) });
 
   return (
     <div style={{ padding: '28px 24px 28px' }}>
@@ -845,10 +850,10 @@ function Step3({ journey, onComplete }: Step3Props) {
 
         {/* Jewel viability */}
         <div style={{
-          background: journey.jewelViable
+          background: jewel.show
             ? 'rgba(52,211,153,0.08)'
             : 'rgba(255,255,255,0.03)',
-          border: `1px solid ${journey.jewelViable ? 'rgba(52,211,153,0.2)' : 'rgba(255,255,255,0.06)'}`,
+          border: `1px solid ${jewel.show ? 'rgba(52,211,153,0.2)' : 'rgba(255,255,255,0.06)'}`,
           borderRadius: 14,
           padding: '12px 16px',
           display: 'flex',
@@ -857,13 +862,11 @@ function Step3({ journey, onComplete }: Step3Props) {
         }}>
           <span style={{ fontSize: 20 }}>💎</span>
           <div>
-            <p style={{ margin: 0, fontWeight: 600, fontSize: 14, color: journey.jewelViable ? '#34d399' : 'rgba(255,255,255,0.4)' }}>
-              Jewel Changi {journey.jewelViable ? 'is viable' : 'not recommended'}
+            <p style={{ margin: 0, fontWeight: 600, fontSize: 14, color: jewel.show ? '#34d399' : 'rgba(255,255,255,0.4)' }}>
+              {jewel.show ? JEWEL_COPY.captureShownTitle : JEWEL_COPY.captureHiddenTitle}
             </p>
-            <p style={{ margin: 0, fontSize: 12, color: 'rgba(255,255,255,0.3)', marginTop: 2 }}>
-              {journey.jewelViable
-                ? 'You have enough time to explore'
-                : 'Need 90+ min — skip it this trip'}
+            <p data-testid="capture-jewel-detail" style={{ margin: 0, fontSize: 12, color: 'rgba(255,255,255,0.3)', marginTop: 2 }}>
+              {jewel.show ? (jewel.label ?? JEWEL_COPY.captureShownDetail) : jewel.reason}
             </p>
           </div>
         </div>
@@ -996,9 +999,13 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
   ) {
     const walkMinutes = getWalkTime(currentTerminal, departureTerminal);
     const usableWindowMinutes = calcUsableWindow(boardingTime, walkMinutes);
-    const jewelViable = usableWindowMinutes > 90;
     const journeyType: JourneyType =
       source === 'skipped' && !arrivingFlight ? 'skipped' : segment;
+    const jewelViable = landsideAccess({
+      isLandside: true,
+      journeyType,
+      minutesToBoarding: minutesToBoarding({ departingFlight: flightNumber, boardingTime }),
+    }).show;
 
     const data: JourneyData = {
       journey_type: journeyType,

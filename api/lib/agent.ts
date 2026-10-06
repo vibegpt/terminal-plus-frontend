@@ -3,6 +3,7 @@
  */
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { landsideAccess } from '../../shared/ranking/policy';
 
 // ---------- Types ----------
 
@@ -95,10 +96,17 @@ export async function queryAmenities(
 
 const GATE_BUFFER_MINUTES = 15;
 
+/**
+ * A curated route for this terminal and time. Stops at landside venues are
+ * dropped when shared/ranking/policy.ts wouldn't suggest them to this passenger
+ * (`journeyType` unknown, as from MCP, follows the policy's "type unknown" rows,
+ * with `timeMinutes` as minutes to boarding).
+ */
 export async function queryRouteMatch(
   supabase: SupabaseClient,
   terminal: string | null,
   timeMinutes: number | null,
+  access: { journeyType?: string | null } = {},
 ): Promise<RouteMatch | null> {
   if (!terminal || !timeMinutes) return null;
 
@@ -130,23 +138,32 @@ export async function queryRouteMatch(
 
   if (sErr || !rawStops || rawStops.length === 0) return null;
 
-  // Look up terminal_code for each stop via amenity_detail
+  // Look up terminal_code and is_landside for each stop via amenity_detail
   const slugs = rawStops.map((s: any) => s.amenity_slug).filter(Boolean);
   let amenityTerminals: Record<string, string> = {};
+  const landsideSlugs = new Set<string>();
   if (slugs.length > 0) {
     const { data: amenities } = await supabase
       .from('amenity_detail')
-      .select('amenity_slug, terminal_code')
+      .select('amenity_slug, terminal_code, is_landside')
       .in('amenity_slug', slugs);
     if (amenities) {
       for (const a of amenities) {
         amenityTerminals[a.amenity_slug] = a.terminal_code;
+        if (a.is_landside) landsideSlugs.add(a.amenity_slug);
       }
     }
   }
 
+  // Landside stops this passenger can't reach in time leave the route.
+  const allowed = (s: any) => !s.amenity_slug || landsideAccess({
+    isLandside: landsideSlugs.has(s.amenity_slug),
+    journeyType: access.journeyType ?? null,
+    minutesToBoarding: timeMinutes,
+  }).show;
+
   // Build stops with terminal codes
-  let stops: RouteStop[] = rawStops.map((s: any) => ({
+  let stops: RouteStop[] = rawStops.filter(allowed).map((s: any) => ({
     order: s.stop_order,
     name: s.name,
     amenitySlug: s.amenity_slug || '',
@@ -156,6 +173,8 @@ export async function queryRouteMatch(
     isOptional: s.is_optional ?? false,
     editorialNote: s.editorial_note || '',
   }));
+
+  if (stops.length === 0) return null;
 
   // Time-tight logic: strip optional stops if needed
   const isTimeTight = timeMinutes < best.min_minutes + 15;

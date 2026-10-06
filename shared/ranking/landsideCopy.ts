@@ -27,6 +27,12 @@ export const LANDSIDE_COPY = {
 } as const;
 
 export const HOURS_COPY = {
+  /** One-word status; unknown hours are never called open or closed. */
+  state: { open: 'Open', closed: 'Closed', unknown: 'Hours' },
+  /** The short line under the status on a venue's page. */
+  allDay: '24 hours',
+  until: (hhmm: string) => `Until ${hhmm}`,
+  seeBelow: 'See below',
   open24: 'Open 24 hours',
   openUntil: (hhmm: string) => `Open until ${hhmm}`,
   /** A venue that's closed now (amenity page, saved, any list that shows it). */
@@ -49,6 +55,8 @@ export const JEWEL_COPY = {
 } as const;
 
 export const LIST_COPY = {
+  /** A collection whose venues are all closed now (and none opens soon). */
+  nothingOpen: 'Nothing here is open right now. Check back later.',
   /** Search, when matches were left out because they're closed. */
   closedHidden: (n: number) => `${n} closed ${n === 1 ? 'match' : 'matches'} not shown.`,
 } as const;
