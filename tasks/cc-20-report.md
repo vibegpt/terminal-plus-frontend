@@ -1,11 +1,10 @@
 # CC-20 report: crawler visits are stored but flagged, and the analytics views leave them out
 
-**Status: READY TO SHIP, waiting on Todd's go. Migration applied (`20261005180720`);
-preview `dpl_8zqtSeeby5buJ3FfwDf9LTUGuXTV` PASS: a Googlebot agent stores
-`is_bot = true`, an iPhone Safari agent `false`, on both routes; every recreated view
-has `security_invoker` on, excludes `is_bot` and grants nothing to anon or
-authenticated; `analytics_acquisition` and `analytics_funnel` return 0 rows; SMOKE
-13/13; 0 untagged rows. Not on main.**
+**Status: SHIPPED 6 Oct 07:13 UTC (`adc551a`, `dpl_2i7boFFFAMFPyDYimenEYWdD3ETm`);
+production checks PASS. Migration `20261005180720` applied 5 Oct. In production a
+Googlebot agent stores `is_bot = true` and an iPhone Safari agent `false`, on both
+routes. Preview PASS and SMOKE 13/13 (5 Oct). Rollback target:
+`dpl_3cetFfttKhU3j7Gv6XY53WC6kg3G` (`1e77134`); the column stays (see Rollback).**
 
 Run: 5 Oct 2026. Worktree `~/tp-cc-20`, branch `cc-20/crawler-flag` off `1e77134`.
 Commits `61415e7` (migration), `6d21c40` (routes). Preview alias
@@ -143,7 +142,28 @@ Watermark: events id > 969, 18:10:14 UTC. Every request carried `x-tp-test: 1`
 
 ## Ship
 
-1. Ask Todd; Todd pushes `cc-20/crawler-flag` to main (fast-forward on `1e77134`).
-2. Production: deploy READY; one Googlebot-agent and one Safari-agent `POST /api/events`
-   with `x-tp-test: 1` → `is_bot` true and false, `env = production`; views still
-   exclude both.
+1. Todd's go; pushed `1e77134..adc551a` to main (6 Oct 07:13 UTC). CC-17 hadn't
+   landed, so no rebase was needed; CC-17 now rebases onto `adc551a`.
+2. Production, below.
+
+## Production (6 Oct)
+
+`dpl_2i7boFFFAMFPyDYimenEYWdD3ETm` (`adc551a`) READY, sin1, aliased to
+terminalplus.app. G1 before the push: production `dpl_3cetFfttKhU3j7Gv6XY53WC6kg3G`
+(`1e77134`) = main. Watermark: events id > 1191, 07:14:25 UTC.
+
+| Check | Result | Evidence |
+|---|---|---|
+| App unchanged | PASS | `index-um99xWy9.js` before and after; `sw.js` byte-identical (same checksum as CC-19's), so no open tab is offered an update |
+| `POST /api/events` + `/api/journey`, Googlebot agent, `x-tp-test: 1` | PASS | event **1192** and journey `10b611c7-b58b-42b8-ae61-3b31d1c2fb63`: `env = production`, `is_test`, `is_bot = true` |
+| Same, iPhone Safari agent | PASS | event **1193** and journey `10924eee-a539-4e5c-83f2-97ea3cb08331`: `env = production`, `is_test`, `is_bot = false` |
+| Views | PASS | All 4 rows are `is_test`, so no view counts them |
+
+**Two unclassified visits.** After the preview checks and before this deploy, two
+production sessions landed on `/` and saw the capture screen (`session_start` +
+`capture_opened`, no referrer, no UTM, no journey): anon `02b9416e…` (events 1007,
+1009; 5 Oct 19:35 UTC) and anon `960d712d…` (events 1010, 1011; 6 Oct 01:14 UTC). The
+old code wrote them, so `is_bot` is the default `false` and their agent is unknown.
+`analytics_acquisition` and `analytics_funnel` each show them as 2 direct sessions on
+6 Oct (SGT); they were at 0 rows when checked on 5 Oct 18:07–18:14 UTC, before these
+visits. Not flagged by guess. From now on the route classifies every visit.
