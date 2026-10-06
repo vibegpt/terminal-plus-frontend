@@ -88,7 +88,7 @@ const promptById = new Map(prompts.map(p => [p.id, p]));
 const JEWEL_MIN_MINUTES: Record<'connecting' | 'departing', number> = LANDSIDE_MIN_MINUTES;
 const BEFORE_IMMIGRATION = /before (you )?(go through |going through |clear |clearing |pass through |passing through )?immigration/i;
 const LANDSIDE = /landside|outside immigration|before immigration|(clear|through|pass) immigration/i;
-const DECLINE = /\b(skip|wouldn[’']?t|not worth|not with (this|that|your)|not this time|short answer: no|don[’']?t have (enough )?time|isn[’']?t enough|not enough time|can[’']?t|cannot|too tight|risky|i[’']?d stay|stay airside)\b|^\s*no\b/i;
+const DECLINE = /\b(skip|wouldn[’']?t|not worth|not with (this|that|your)|not this time|short answer: no|don[’']?t have (enough )?time|isn[’']?t enough|not enough time|can[’']?t|cannot|too tight|risky|i[’']?d stay|stay airside|keep you airside|just short of)\b|^\s*no\b/i;
 const AFFIRM = /\b(yes|yep|absolutely|definitely|of course|sure|go for it|you can|worth (a|the) (visit|trip|look))\b/i;
 // "you're at Jewel", "since you're already in T3", not "if you're at T2".
 const CLAIM = /\b(?:you[’']?re|you are)\s+(?:already\s+|now\s+|right\s+|still\s+)?(?:at|in)\s+(?:the\s+)?(?:changi\s+)?(?:t([1-4])|terminal\s*([1-4])|(jewel))\b/gi;
