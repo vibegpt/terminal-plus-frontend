@@ -4,10 +4,13 @@
 //   NODE_OPTIONS=--dns-result-order=ipv4first \
 //     npx tsx tests/chat-eval/run.ts --base https://<preview>.vercel.app --label diet [--only n01,a2]
 //   npx tsx tests/chat-eval/run.ts --rescore 3-sonnet-5-5   # re-score a saved run with today's rules
+//   ... --now 00:30 --dir cc-17-eval   # CC-17: the server's test clock (preview only) and output folder
 //
 // Every request carries x-tp-test: 1, so its row is is_test = true. Reading the
 // rows needs SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (.env.local); SELECT only.
-// Output: tasks/cc-6-eval/<label>.json (or <label>.rescored.json) and a summary.
+// Output: tasks/<dir, default cc-6-eval>/<label>.json (or <label>.rescored.json) and a summary.
+// --now HH:MM sends x-tp-now, which /api/chat honours for test requests outside
+// production; closed picks are then judged at that Singapore time.
 
 import { randomUUID } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -17,10 +20,10 @@ import { createClient } from '@supabase/supabase-js';
 import { PRICE_PER_MTOK } from '../../api/lib/models';
 import { placeCode, statedLocation } from '../../api/lib/chatPayload';
 import type { PlaceCode } from '../../api/lib/chatPayload';
+import { LANDSIDE_MIN_MINUTES, OPENS_SOON_MINUTES, openNow } from '../../shared/ranking/policy';
 
 const here = __dirname; // tsx runs this repo's .ts as CommonJS
 config({ path: resolve(here, '../../.env.local'), quiet: true });
-const outDir = resolve(here, '../../tasks/cc-6-eval');
 
 // ---------- Inputs ----------
 
@@ -48,11 +51,17 @@ interface ChatDebug {
   raw_slugs: string[];
   feasible_slugs: string[];
   available_minutes: number | null;
+  /** CC-17: the Singapore time the server decided with (minutes since midnight). */
+  now_sgt?: number;
+  journey_type?: string | null;
+  landside_hidden?: string[];
+  closed_hidden?: number;
+  route_stops?: string[] | null;
 }
 
 interface ChatBody {
   message?: string;
-  amenities?: Array<{ amenity_slug: string; terminal_code: string; opening_hours: unknown }>;
+  amenities?: Array<{ amenity_slug: string; terminal_code: string; opening_hours: unknown; is_landside?: boolean | null; access_label?: string | null; opens_label?: string | null }>;
   followUp?: string | null;
   debug?: ChatDebug;
   error?: string;
@@ -63,6 +72,10 @@ function arg(name: string): string | undefined {
   return i > -1 ? process.argv[i + 1] : undefined;
 }
 
+const outDir = resolve(here, '../../tasks', arg('dir') ?? 'cc-6-eval');
+const testClock = arg('now');
+if (testClock && !/^([01]\d|2[0-3]):[0-5]\d$/.test(testClock)) throw new Error('--now takes HH:MM');
+
 const { prompts } = JSON.parse(readFileSync(resolve(here, 'prompts.json'), 'utf8')) as { prompts: EvalPrompt[] };
 const promptById = new Map(prompts.map(p => [p.id, p]));
 
@@ -72,7 +85,7 @@ const promptById = new Map(prompts.map(p => [p.id, p]));
 // 180+ min to boarding, departing 90+ min and a "before immigration" label,
 // just_landed always. Unknown type (4 Oct): the connecting rule when minutes
 // are known; with no minutes Jewel is allowed if the reply says it's landside.
-const JEWEL_MIN_MINUTES: Record<'connecting' | 'departing', number> = { connecting: 180, departing: 90 };
+const JEWEL_MIN_MINUTES: Record<'connecting' | 'departing', number> = LANDSIDE_MIN_MINUTES;
 const BEFORE_IMMIGRATION = /before (you )?(go through |clear |pass through )?immigration/i;
 const LANDSIDE = /landside|outside immigration|before immigration|(clear|through|pass) immigration/i;
 const DECLINE = /\b(skip|wouldn[’']?t|not worth|not with (this|that|your)|not this time|short answer: no|don[’']?t have (enough )?time|isn[’']?t enough|not enough time|can[’']?t|cannot|too tight|risky|i[’']?d stay|stay airside)\b|^\s*no\b/i;
@@ -161,21 +174,30 @@ interface Result {
   jewel_violation: string | null;
   /** '' = fine; otherwise where the reply wrongly placed the user. */
   location_claim: string | null;
-  /** Picks closed at the time of the turn (SGT), from opening_hours. */
+  /** Picks closed at the time of the turn (SGT), from opening_hours, and not opening within the hour. */
   closed_picks?: string[];
+  /** Picks closed now that open within OPENS_SOON_MINUTES: allowed, labelled "Opens HH:MM". */
+  opens_soon_picks?: string[];
   adversarial_pass: boolean | null;
   has_markdown: boolean;
   row?: Record<string, unknown> | null;
 }
 
-type Raw = Pick<Result, 'session_id' | 'status' | 'wall_ms' | 'message' | 'shown' | 'shown_terminals' | 'debug'> & { asked_at?: string };
+type Raw = Pick<Result, 'session_id' | 'status' | 'wall_ms' | 'message' | 'shown' | 'shown_terminals' | 'debug'> & {
+  asked_at?: string;
+  /** CC-17: shown picks flagged is_landside (Jewel and its copies, arrival halls, before security). */
+  shown_landside?: string[];
+  /** CC-17: each shown card's labels from the server ("Before immigration", "Opens 10:00"). */
+  shown_labels?: string[];
+};
 
 function score(p: EvalPrompt, r: Raw): Result {
   const { debug, message, status } = r;
   const feasible = new Set(debug?.feasible_slugs ?? []);
   const rawSlugs = debug?.raw_slugs ?? [];
   const minutes = p.minutes_to_boarding ?? debug?.available_minutes ?? null;
-  const shownJewel = r.shown_terminals.includes('SIN-JEWEL');
+  // Since CC-17 the rule covers every landside venue, not only SIN-JEWEL rows.
+  const shownJewel = r.shown_terminals.includes('SIN-JEWEL') || (r.shown_landside?.length ?? 0) > 0;
   // A 200 without a debug block isn't a chat reply (e.g. a deployment still
   // rolling out serves the SPA shell); it counts as a failed turn.
   const answered = status === 200 && debug !== null;
@@ -215,7 +237,7 @@ async function ask(base: string, p: EvalPrompt): Promise<Result> {
   try {
     const res = await fetch(`${base}/api/chat`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-tp-test': '1' },
+      headers: { 'Content-Type': 'application/json', 'x-tp-test': '1', ...(testClock ? { 'x-tp-now': testClock } : {}) },
       body: JSON.stringify({ query: p.query, context, conversationHistory: p.history ?? [], session_id: sessionId }),
       signal: AbortSignal.timeout(40_000),
     });
@@ -232,6 +254,8 @@ async function ask(base: string, p: EvalPrompt): Promise<Result> {
     message: body.message ?? body.error ?? '',
     shown: (body.amenities ?? []).map(a => a.amenity_slug),
     shown_terminals: (body.amenities ?? []).map(a => a.terminal_code),
+    shown_landside: (body.amenities ?? []).filter(a => a.is_landside).map(a => a.amenity_slug),
+    shown_labels: (body.amenities ?? []).map(a => [a.access_label, a.opens_label].filter(Boolean).join('; ')),
     debug: body.debug ?? null,
   });
 }
@@ -263,23 +287,15 @@ async function readRows(sessionIds: string[]): Promise<Array<Record<string, unkn
 
 // ---------- Closed picks ----------
 
-/** Open at `sgtMinutes` past midnight SGT? null when the format can't be read with certainty. */
-function openAt(hours: unknown, sgtMinutes: number): boolean | null {
-  if (typeof hours !== 'string' || !hours.trim()) return null;
-  let h = hours.trim();
-  if (h.startsWith('{')) {
-    try {
-      const values = Object.values(JSON.parse(h) as Record<string, string>);
-      if (values.length !== 1) return null; // per-day hours: skip
-      h = String(values[0]);
-    } catch { return null; }
-  }
-  if (/24\s*\/\s*7|24 hours/i.test(h)) return true;
-  const m = h.match(/^(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})$/);
-  if (!m) return null;
-  const from = +m[1] * 60 + +m[2];
-  const to = +m[3] * 60 + +m[4];
-  return to > from ? sgtMinutes >= from && sgtMinutes < to : sgtMinutes >= from || sgtMinutes < to;
+/**
+ * Closed at `sgtMinutes` past midnight SGT, by the same parser the app uses
+ * (shared/ranking/policy.ts)? Unreadable hours are never closed. A venue that
+ * opens within OPENS_SOON_MINUTES is the policy's labelled fill, not a miss.
+ */
+function closedAt(hours: unknown, sgtMinutes: number): 'closed' | 'soon' | null {
+  const o = openNow({ openingHours: hours, nowSgt: sgtMinutes });
+  if (o.state !== 'closed') return null;
+  return (o.minutesUntilOpen ?? Infinity) <= OPENS_SOON_MINUTES ? 'soon' : 'closed';
 }
 
 function sgtMinutes(iso: string): number {
@@ -298,8 +314,10 @@ async function markClosedPicks(results: Result[]) {
   for (const r of results) {
     const at = (r as Result & { asked_at?: string }).asked_at ?? (r.row?.created_at as string | undefined);
     if (!at || !r.debug) continue;
-    const t = sgtMinutes(at);
-    r.closed_picks = r.debug.raw_slugs.filter(s => openAt(hours.get(s), t) === false);
+    // The server's own clock for the turn when it reports one (CC-17, --now), else the turn's time.
+    const t = r.debug.now_sgt ?? sgtMinutes(at);
+    r.closed_picks = r.debug.raw_slugs.filter(s => closedAt(hours.get(s), t) === 'closed');
+    r.opens_soon_picks = r.debug.raw_slugs.filter(s => closedAt(hours.get(s), t) === 'soon');
   }
 }
 
@@ -344,6 +362,8 @@ function summarize(label: string, base: string | undefined, startedAt: string, r
     location_claims: results.filter(r => r.location_claim).map(r => `${r.id}: ${r.location_claim}`),
     closed_picks: results.reduce((n, r) => n + (r.closed_picks?.length ?? 0), 0),
     closed_pick_turns: results.filter(r => r.closed_picks?.length).map(r => `${r.id}: ${r.closed_picks!.join(', ')}`),
+    opens_soon_picks: results.reduce((n, r) => n + (r.opens_soon_picks?.length ?? 0), 0),
+    test_clock: testClock ?? null,
     markdown_replies: results.filter(r => r.has_markdown).length,
     p50_ms: pct(walls, 50),
     p95_ms: pct(walls, 95),
