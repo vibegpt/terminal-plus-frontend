@@ -38,6 +38,10 @@ export default function VibePage() {
   const [terminalFilter, setTerminalFilter] = useState('all');
   const eligibility = useEligibility();
 
+  // When the rule hides every landside venue for this passenger, the query leaves
+  // them out so they don't take slots in the 50-row pool (filter before top-N).
+  const landsideHidden = !landsideAccess({ isLandside: true, ...eligibility }).show;
+
   const vibe = VIBE_CONFIG[vibeId?.toLowerCase() || ''];
   const vibeKey = vibe?.dbTag || vibeId || '';
   usePageMeta(vibe ? `${vibe.label} at Changi · Terminal+` : null);
@@ -61,6 +65,7 @@ export default function VibePage() {
       if (terminalFilter !== 'all') {
         query = query.eq('terminal_code', terminalFilter);
       }
+      if (landsideHidden) query = query.eq('is_landside', false);
 
       const { data, error } = await query;
 
@@ -73,7 +78,7 @@ export default function VibePage() {
 
     load();
     return () => { mounted = false; };
-  }, [vibeKey, terminalFilter]);
+  }, [vibeKey, terminalFilter, landsideHidden]);
 
   // Both eligibility rules, then the top 7 (shared/ranking/policy.ts).
   const amenities = useMemo(() => {

@@ -13,7 +13,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { DISPLAY } from '../../src/lib/displayConfig';
 import { sgMinutesOfDay } from '../../src/lib/sgTime';
-import { pickEligible, type EligibilityContext, type EligibleLabels } from '../../shared/ranking/policy';
+import { landsideAccess, pickEligible, type EligibilityContext, type EligibleLabels } from '../../shared/ranking/policy';
 
 export interface RankedAmenityRow {
   id: number;
@@ -109,12 +109,21 @@ export async function queryRankedAmenities(supabase: SupabaseClient, opts: RankQ
     .select(AGENT_SELECT)
     .eq('airport_code', 'SIN');
 
+  const minutes = opts.timeUntilBoardingMinutes;
+  const ctx: EligibilityContext = {
+    journeyType: null,
+    minutesToBoarding: typeof minutes === 'number' && Number.isFinite(minutes) ? minutes : null,
+    nowSgt: sgMinutesOfDay(),
+  };
+
   if (opts.vibe) query = query.ilike('vibe_tags', `%${opts.vibe}%`);
   if (opts.userTerminal && opts.timeUntilBoardingMinutes !== undefined && opts.timeUntilBoardingMinutes < 30) {
     query = query.eq('terminal_code', opts.userTerminal);
   }
-  // The caller asked for no Jewel: leave out everything landside, not just SIN-JEWEL rows.
-  if (opts.excludeJewel) query = query.eq('is_landside', false);
+  // The caller asked for no Jewel, or the landside rule hides every landside
+  // venue at these minutes: leave them out of the pool, so they don't take its
+  // slots (filter before top-N). Not just SIN-JEWEL rows: everything landside.
+  if (opts.excludeJewel || !landsideAccess({ isLandside: true, ...ctx }).show) query = query.eq('is_landside', false);
 
   const { data, error } = await query
     .order('editorial_score', { ascending: false, nullsFirst: false })
@@ -122,12 +131,6 @@ export async function queryRankedAmenities(supabase: SupabaseClient, opts: RankQ
     .limit(DISPLAY.VIBE_POOL);
 
   const pool = (data ?? []) as unknown as RankedAmenityRow[];
-  const minutes = opts.timeUntilBoardingMinutes;
-  const ctx: EligibilityContext = {
-    journeyType: null,
-    minutesToBoarding: typeof minutes === 'number' && Number.isFinite(minutes) ? minutes : null,
-    nowSgt: sgMinutesOfDay(),
-  };
   const ranked = rankAmenities(pool, opts.userTerminal ?? null, opts.limit, ctx).map(withAccessLabel);
   return { pool, ranked, error };
 }
