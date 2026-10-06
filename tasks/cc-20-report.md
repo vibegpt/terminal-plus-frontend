@@ -188,4 +188,23 @@ is the 01:14 visit, the only production rows still counted (1010, 1011). 0 untag
 **Risk seen here:** every old deployment URL still runs its own API code against the
 production database with the service role. `release/2026-09`'s preview writes rows
 with no `env`, no body test flag and no `is_bot`, and pre-CC-2B builds hold older
-validation. Fix options are in the hand-off.
+validation.
+
+**Guard (Todd, 6 Oct, option 2): a write with no `env` is refused.** Migration
+`20261006095549` drops the `'unknown'` default from `events.env` and `journeys.env`
+(both stay `not null`). Caller gate: the only writers are `api/events.ts` and
+`api/journey.ts` on main (`adc551a`) and on `cc-17/landside-open-now`, and both stamp
+`env = telemetryEnv()` on every row; the edge functions can't write these tables.
+`agent_interactions.env` keeps its default (out of scope).
+
+| Check | Result |
+|---|---|
+| Defaults | `events.env`, `journeys.env`: no default, not null |
+| Production still writes | `POST /api/events` and `/api/journey` on terminalplus.app (`x-tp-test: 1`): 200; event **1194** and journey `407bde73-6540-41c5-99eb-c8151147d4cb`, `env = production`, `is_test` |
+| Old preview is refused | Same POSTs to `dpl_AQsPsED4G2WphmJdk78swbXTDQtV`: 500 on both; its runtime log shows `23502 null value in column "env" … violates not-null constraint` for `events` and `journeys`; no row for that anon |
+
+This closes the path for every pre-CC-7 build. Builds from CC-7 on still write when
+reached at their own URL, but they stamp the true `env` and `is_test`, so preview rows
+stay out of the views. An old production build's URL would stamp `env = production`
+without the newer checks (`is_bot`); Vercel Deployment Protection is the fix for that
+if it ever shows up.
