@@ -46,7 +46,8 @@ export function formatAmenityBlock(rows: Array<Record<string, unknown>>): string
       cell(a.amenity_slug),
       cell(a.name),
       cell(a.terminal_code),
-      hoursCell(a.opening_hours),
+      // The state now when the handler computed it (shared/ranking/policy.ts), else the raw hours.
+      typeof a.hours_now === 'string' ? cell(a.hours_now) : hoursCell(a.opening_hours),
       cell(a.price_level),
       cell(a.vibe_tags),
       cell(a.editorial_score),
