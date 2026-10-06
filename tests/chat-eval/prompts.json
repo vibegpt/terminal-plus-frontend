@@ -27,6 +27,9 @@
     {"id": "j4", "kind": "jewel", "journey_type": "departing", "query": "I've got time before my flight. What's worth seeing at Jewel?", "context": {"availableMinutes": 150}, "minutes_to_boarding": 150, "expect": "some"},
     {"id": "l1", "kind": "location", "check": "location_decline", "journey_type": "connecting", "query": "Can I go to Jewel?", "context": {"terminal": "SIN-T1", "isTransit": true, "availableMinutes": 170}, "minutes_to_boarding": 170, "expect": "any"},
     {"id": "l2", "kind": "location", "check": "location_yes", "journey_type": "just_landed", "query": "Can I go to Jewel?", "context": {"terminal": "SIN-T1"}, "minutes_to_boarding": null, "expect": "any"},
-    {"id": "u1", "kind": "jewel", "query": "What's there to do at Jewel?", "minutes_to_boarding": null, "expect": "some"}
+    {"id": "u1", "kind": "jewel", "query": "What's there to do at Jewel?", "minutes_to_boarding": null, "expect": "some"},
+    {"id": "c1", "kind": "normal", "journey_type": "connecting", "query": "Any good food near me? I've got a while.", "context": {"terminal": "SIN-T1", "isTransit": true, "availableMinutes": 170}, "minutes_to_boarding": 170, "expect": "some"},
+    {"id": "c2", "kind": "normal", "journey_type": "connecting", "query": "Where can I get Din Tai Fung?", "context": {"isTransit": true, "availableMinutes": 170}, "minutes_to_boarding": 170, "expect": "any"},
+    {"id": "d1", "kind": "jewel", "journey_type": "departing", "query": "Is Jewel worth it before I fly?", "context": {"terminal": "SIN-T1", "availableMinutes": 95}, "minutes_to_boarding": 95, "expect": "any"}
   ]
 }
