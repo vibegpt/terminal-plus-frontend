@@ -16,7 +16,7 @@ import { CHAT_MODEL, FALLBACK_MODEL, chatParams } from './lib/models'
 import { UUID_RE, isTestRequest, telemetryEnv } from './lib/telemetryEnv'
 import { DISPLAY } from '../src/lib/displayConfig'
 import { sgMinutesOfDay } from '../src/lib/sgTime'
-import { LANDSIDE_MIN_MINUTES, eligibility, hoursLabel, openNow, pickEligible, type EligibilityContext } from '../shared/ranking/policy'
+import { LANDSIDE_MIN_MINUTES, eligibility, hoursLabel, landsideAccess, openNow, pickEligible, type EligibilityContext } from '../shared/ranking/policy'
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -347,7 +347,10 @@ function preFilter(
 
 // ---------- Supabase query ----------
 
-async function queryAmenities(filters: PreFilterResult) {
+// excludeLandside: the landside rule hides every landside venue for this
+// passenger, so leave them out of the query and its 40-row limit; otherwise
+// they'd take slots and be dropped afterwards (filter before top-N).
+async function queryAmenities(filters: PreFilterResult, excludeLandside: boolean) {
   let query = getSupabase()
     .from('amenity_detail')
     .select('*')
@@ -356,7 +359,8 @@ async function queryAmenities(filters: PreFilterResult) {
 
   if (filters.scope.length) query = query.in('terminal_code', filters.scope)
   // In transit used to mean available_in_tr = true. Every row that isn't is
-  // landside (CC-17), so the landside rule in the handler decides instead.
+  // landside (CC-17), so the landside rule decides instead.
+  if (excludeLandside) query = query.eq('is_landside', false)
 
   if (filters.keywords.length > 0) {
     const orParts = filters.keywords.flatMap(kw => {
@@ -376,6 +380,7 @@ async function queryAmenities(filters: PreFilterResult) {
   if ((!data || data.length < 3) && filters.keywords.length > 0) {
     let broad = getSupabase().from('amenity_detail').select('*').eq('airport_code', 'SIN')
     if (filters.scope.length) broad = broad.in('terminal_code', filters.scope)
+    if (excludeLandside) broad = broad.eq('is_landside', false)
     broad = broad.order('editorial_score', { ascending: false, nullsFirst: false })
     const { data: broadData } = await broad.limit(DISPLAY.SEARCH_LIMIT)
     return broadData || []
@@ -415,6 +420,7 @@ Jewel, arrival halls and shops before security are landside, outside immigration
 - departing: only with ${LANDSIDE_MIN_MINUTES.departing}+ minutes to boarding, and only before they clear immigration: label every landside pick "before immigration" in your message.
 - just landed: always.
 - type unknown: with minutes to boarding known, treat as connecting; with no minutes, landside venues are fine, but say they're landside, outside immigration.
+The minutes in this rule are the minutes to boarding given each turn, before any gate buffer. Every landside venue in the amenity list already meets the rule for this passenger.
 When the rule excludes Jewel, leave Jewel amenities out of recommended_slugs, even when asked; say why in one line and suggest something airside.
 
 Key knowledge:
@@ -605,7 +611,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       { journeyType: eligibilityCtx.journeyType, nowSgt: eligibilityCtx.nowSgt },
     )
 
-    const allAmenities = await queryAmenities(filters)
+    const landsideHidden = !landsideAccess({ isLandside: true, ...eligibilityCtx }).show
+    const allAmenities = await queryAmenities(filters, landsideHidden)
 
     // Smart 7 — hard floor filter only
     const dwellFeasible = applySmart7(
@@ -734,6 +741,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
               feasible_slugs: feasibleAmenities.map(a => a.amenity_slug),
               available_minutes: availableMinutes,
               journey_type: eligibilityCtx.journeyType,
+              landside_excluded_in_query: landsideHidden,
               now_sgt: eligibilityCtx.nowSgt,
               landside_hidden: dwellFeasible.filter(a => !eligibility(a, eligibilityCtx).access.show).map(a => a.amenity_slug),
               closed_hidden: dwellFeasible.filter(a => {
