@@ -206,3 +206,96 @@ Three added to `tasks/lessons.md`:
 - only the api typecheck loads `api/chat.ts`;
 - a test journey ages while the test runs;
 - filter before the database limit.
+
+---
+
+# CC-17S · Ship CC-17 (12 Oct)
+
+**Status: preview PASS on the rebased branch. Waiting for Todd's OK on the new copy before pushing to main.**
+
+## Gates
+
+| Gate | Result | Evidence |
+|---|---|---|
+| G1 worktree | PASS | `~/tp-eligibility` on `cc-17/landside-open-now` @ `e09e72e`, `git status` clean, `git fetch origin` ok |
+| G2 heads | PASS | origin/main `9b03dce`; production `dpl_8P4AXdBmgxjcHmsu5dL7JWwQ3dh3` (READY, `9b03dce`) = rollback target |
+| G3 earlier preview | PASS | Report line 3: "**Status: READY TO PUSH (Todd).** Preview acceptance PASS, preview SMOKE 13/13, 0 non-test rows." Line 140: "### Preview SMOKE 13/13 (`dpl_7KmzKNMPKrPXtV2f5SjGKA5cahoE` / `44fc038`; lines 6, 10, 11 re-run on `d471aed`)" |
+| G4 migration | PASS | `list_migrations`: `20261006015308 amenity_is_landside`; the repo file is `supabase/migrations/20261006015308_amenity_is_landside.sql`. Same version, so no rename and no re-apply (`318ca1b` is the commit, not the version) |
+
+## Rebase
+
+`git rebase origin/main`: 9 commits replayed onto `9b03dce`, new head `9a4761c` (was `e09e72e`).
+
+| Conflict | Resolution |
+|---|---|
+| `tasks/lessons.md` (last commit, `e09e72e`) | Both sides appended. Kept main's "2026-10-05 · `apply_migration` names the version, not the file" (CC-20), then the branch's three 2026-10-06 lessons, separated by `---`. 0 markers left |
+
+No other conflicts. The branch touches none of CC-20's or CC-21's files (`api/events.ts`, `api/journey.ts`, `api/lib/crawler.ts`, `package*.json`, `vercel.json`, `api/cron/keepalive.ts`, CC-20's migrations). `api/mcp.ts`: 0 changes on the branch.
+
+## Checks on `9a4761c`
+
+| Check | Result |
+|---|---|
+| `npm ci` | ok (CC-20 changed `package*.json`) |
+| `npm run build` | exit 0 |
+| `npx tsc --noEmit -p api/tsconfig.json` | exit 0, 0 errors |
+| `npx tsc --noEmit -p tsconfig.json` (blind) | 33 errors on both the branch and main (`9b03dce`), identical lines, 0 new. Blind, so not proof |
+| Unit tests (`npx tsx --test tests/*.test.ts`) | 79/79, 0 skipped |
+| `npm run test:adversarial` | 11/11 |
+| Push | `git push --force-with-lease=cc-17/landside-open-now:e09e72e origin cc-17/landside-open-now`: `e09e72e...9a4761c` |
+
+## Preview, `dpl_EazyvHRPrLAMnab5e6reZ5jgTN4i` (`9a4761c`)
+
+- **Setup:** branch alias `terminal-plus-frontend-git-cc-17-ee67fe-…`, bundle `index-B0-Ci4IL.js`. 12 Oct 08:10–08:30 UTC (16:10–16:30 SGT).
+- **Browser:** built-in browser at 375×812, TZ Asia/Jerusalem. The SW was unregistered and caches cleared first, and `tp_test = '1'` was set on `/robots.txt` before the first load.
+- **Passenger cases:** `tp_journey_context` v4 written per case (boarding = now + N, `journey_type` set), as in CC-17.
+
+### SMOKE 13/13
+
+| # | Line | Result |
+|---|---|---|
+| 1 | Capture gate | PASS: "What brings you to Changi?" |
+| 2 | Skip | PASS: Home with "Add your flight for personalised recommendations"; journeys `44ff46b8-bf4c-441d-a785-674e1b0235fb` (`skipped`) |
+| 3 | Typed QF1 | PASS: departing → T1 → manual → "Terminal T1 · Boards 22:45 → LHR" → bar "6h 33m to board · On Time, QF1 · SIN → LHR, T1"; stored v4, `typed`, `departing`; journeys `ba2a0f0a-50ff-4558-834c-889f84a9db7a` |
+| 4 | Board picker | PASS: TR188 → "BOARDING NOW, TR188 · SIN → HGH, C24, T1"; journeys `3cce9356-ec27-4bf5-9e3e-876fb7b8d11d` (`picker`) |
+| 5 | Home | PASS: 7 vibe rows, 31 images, 0 broken, 32 counts |
+| 6 | `/vibe/refuel` | PASS: Kopitiam, T2 Food Gallery, Fossa Chocolate, Grain Traders, Kélé, Wang Cafe, TWG Tea (the CC-1 seven), labelled for the skipped passenger |
+| 7 | Collection, amenity, search | PASS: `coffee-worth-walk` "7 of 7 spots"; `grain-traders-jewel` renders; "laksa" → Kopitiam (T1) |
+| 8 | Change flight → "Keep QF1" | PASS: "Keep QF1" appears once; `tp_journey_context` byte-identical afterwards |
+| 9 | Non-SG TZ | PASS: browser 11:10, SGT 16:10; Sushi Tei T1 (11:30–22:00) "Open · Until 22:00" (a local reading would say closed). Grain Traders couldn't tell the readings apart at this hour |
+| 10 | Chat | PASS: the reply uses T1 and 22:45 boarding; cards Toast Box ("Before immigration"), Starbucks, dnata Lounge; agent_interactions `ec776af6-c8a9-4714-a09a-d61fe256befc` |
+| 11 | MCP | PASS: `smoke-cc17s-202610120820`: initialize 200 `2025-03-26` `terminal-plus`; tools/list 4; `get_recommendations {refuel, SIN-T1}` 7 |
+| 12 | Events | PASS: session_start 6, recommendation_impression 73 (ids 1242–1334) |
+| 13 | Typed journeys row | PASS: `ba2a0f0a-…` (`typed`, QF1, `departing`) |
+
+### CC-17 cases
+
+| Case | Result | Evidence |
+|---|---|---|
+| connecting 170 | PASS | `/vibe/explore` "7 spots": Paradise Dynasty T1, Fish Spa T1, Sushi Tei T1, Bacha Coffee T3, Kinokuniya T3, Bee Cheng Hiang T1, Din Tai Fung T1; SQL: all 7 rows `is_landside = false`. Home 32 counts (normal). Search "canopy": 0 results plus "This is landside. A connection under 3 hours doesn't leave time to clear immigration both ways." |
+| connecting 185 | PASS | Explore 4 of 7, refuel 6 of 7, search 4 of 4 Canopy Park, each "Landside: clear immigration both ways (visa rules apply)" (same counts as CC-17) |
+| departing 80 | PASS | Explore 7 and refuel 7 with 0 landside labels; search "canopy" shows only "This is landside. With under 90 minutes to boarding, it's time to go through immigration." Home 32 |
+| departing 95 | PASS | "Before immigration" on explore 4, refuel 6, search 4 of 4 |
+| just_landed | PASS | Landside shown (refuel: Kopitiam, Fossa, Grain Traders, Kélé, Wang Cafe; search 4 Canopy Park), 0 labels |
+| skipped | PASS | "Landside: outside immigration" on refuel 6 of 7 (TWG T4 none), explore, Grain Traders page, search "laksa" |
+| Canopy deep link, connecting 60 | PASS | `/amenity/canopy-park-jewel-new` renders in full (title "Canopy Park, Jewel Changi · Terminal+", "Open · Until 21:00", description) with the banner "This is landside. A connection under 3 hours doesn't leave time to clear immigration both ways." Screenshot in session |
+| Clock 00:30 SGT (`tp_clock_sgt`), `/vibe/refuel` | PASS | 7, 0 closed: Kopitiam, T2 Food Gallery, Wang Cafe, A&W Restaurants (24 h, "outside" label), TWG Tea and Bacha Coffee (until 01:00), A&W Root Beer (24 h). No "Opens HH:MM" fill was needed. Same list as CC-17 |
+| MCP 170 (`limit 12`) | PASS | 8 results, 0 landside, `total_available` 12: TWG Tea, A&W Root Beer, Bacha Coffee, Starbucks T3, Coffee Bean T3, Ya Kun T3, Hudsons T2, McDonald's T2 Transit |
+| MCP 200 (`limit 12`) | PASS | 12 results, 9 landside, `total_available` 44; each landside `route_context` starts "Landside: clear immigration both ways (visa rules apply)." With the default limit (7): 170 → 7 airside, 200 → 6 landside of 7 |
+| MCP `access_note` | n/a | No such field: the response keys are `recommendations`, `total_available`, `filters_applied`, and `access_note` appears nowhere in `api/` or `shared/`. The access label is the `route_context` prefix |
+| `/api/cron/keepalive`, no header | PASS | 401 `{"ok":false,"error":"Unauthorized"}` (CC-21 intact) |
+
+### Test rows (preview, all `is_test = true`, `env = 'preview'`, `is_bot = false`)
+
+| Table | Ids |
+|---|---|
+| events | 1242–1334 (session_start 6, recommendation_impression 73, search_performed 7, capture_opened 4, amenity_detail_dwell 2, flight_not_found 1) |
+| journeys | `44ff46b8-bf4c-441d-a785-674e1b0235fb` (skipped), `ba2a0f0a-50ff-4558-834c-889f84a9db7a` (typed QF1), `3cce9356-ec27-4bf5-9e3e-876fb7b8d11d` (picker TR188) |
+| agent_interactions | `ec776af6-c8a9-4714-a09a-d61fe256befc` (chat); 5 MCP rows `smoke-cc17s-202610120820` (`9071422c-…` to `e475294e-…`) |
+
+## Follow-ups (Todd, 12 Oct)
+
+1. **CC-17b:** `api/mcp.ts:199` and `get_route`'s flight-match branch apply the landside rule. The `api/mcp.ts` zero-edit rule is lifted for this one fix only. It ships before any MCP registry listing.
+2. **"Jewel Experience" for connecting under 180 min:** hide the row on Home. The collection page shows the reason banner instead of filling with terminal shops.
+3. **Search by exact venue name:** a closed venue shows with "Closed · Opens HH:MM" instead of disappearing.
+4. **d1 (chat argues against Jewel at departing 95): CC-6b.** Chat follows the server's eligibility verdict.
