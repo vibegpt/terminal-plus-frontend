@@ -15,6 +15,10 @@
     {
       "path": "/api/cron/sync-reviews",
       "schedule": "0 3 * * 1"
+    },
+    {
+      "path": "/api/cron/keepalive",
+      "schedule": "17 3 * * *"
     }
   ],
   "headers": [
