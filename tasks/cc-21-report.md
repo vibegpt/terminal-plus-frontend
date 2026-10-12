@@ -1,6 +1,6 @@
 # CC-21 · Supabase keep-alive cron
 
-**Status: READY TO PUSH (12 Oct). Preview acceptance PASS, preview SMOKE 13/13. Not on main.**
+**Status: SHIPPED 12 Oct. `9b03dce` READY in production as `dpl_8P4AXdBmgxjcHmsu5dL7JWwQ3dh3`. Preview acceptance PASS, preview SMOKE 13/13, production checks PASS. The dashboard "Run once" press is still open (Todd).**
 
 Branch `cc-21/keepalive` (worktree `~/tp-cc-21`): `92e4958` handler, `729f2d5` vercel.json, plus this report. It fast-forwards origin/main `1b1360e`.
 Preview: `dpl_E17pvSBSCx1fcBArHupHMet5kJwt` (sha `729f2d5`), alias `terminal-plus-frontend-git-cc-21-0c14af-todds-projects-d0181971.vercel.app`.
@@ -49,7 +49,9 @@ Spec deviation: the prompt says `select slug`. `amenity_detail` has no `slug` co
 | Preview, with secret | PASS | 200 `{"ok":true,"ms":915}` cold, then 200 `{"ok":true,"ms":269}` warm. The secret came from `vercel env pull` into a 0600 scratch file, was never printed, and the file was deleted after use |
 | 0 new telemetry rows | PASS | Before (03:28:20 UTC): events 1144 rows (max id 1203), journeys 105, agent_interactions 419. After the 5 preview calls (03:29:05 UTC): identical |
 | `npx tsc --noEmit -p api/tsconfig.json` | PASS | 0 errors before and after |
-| After merge: Cron Jobs lists the job, Run once, logs 200 | PENDING | Needs the push to main |
+| After merge: the job is registered | PASS | Project `crons.definitions` (Vercel API) list `/api/cron/keepalive` `17 3 * * *` and `/api/cron/sync-reviews` `0 3 * * 1`, both on `dpl_8P4AXdBmgxjcHmsu5dL7JWwQ3dh3` |
+| After merge: production call | PASS | Deployment URL: no header 401, with the production secret 200 `{"ok":true,"ms":924}`, `no-store`, `sin1`. `terminalplus.app/api/cron/keepalive` with no header: 401. 0 new rows in events, journeys and agent_interactions (03:49:26 → 03:49:58 UTC: 1179 / 108 / 421) |
+| After merge: dashboard Run once | OPEN (Todd) | Needs a dashboard login. Runtime logs show nothing for a 200, because the route logs only on failure; a failure would show `[keepalive]` at error level. The first scheduled run is 13 Oct 03:17 UTC |
 
 ## Preview SMOKE (`tasks/release-2026-09-report.md`)
 
@@ -73,9 +75,12 @@ Spec deviation: the prompt says `select slug`. `amenity_detail` has no `slug` co
 
 Every SMOKE row is `is_test = true`, `env = 'preview'`, `is_bot = false` (events 1204–1238, the 3 journeys and 2 agent_interactions above).
 
-## After the push (Todd's go)
+## Production
 
-1. `git push origin cc-21/keepalive:main`, then wait for READY.
-2. Vercel → Settings → Cron Jobs: confirm `/api/cron/keepalive` `17 3 * * *` is listed. Press Run once and check that the runtime logs show 200.
-3. SQL: 0 new rows in events, journeys and agent_interactions from the run.
-4. Watch the Supabase project status after 16 Oct. If it pauses despite the cron, a REST read doesn't count as activity and this bridge doesn't work.
+Pushed 12 Oct with Todd's go: `1b1360e..9b03dce`, READY as `dpl_8P4AXdBmgxjcHmsu5dL7JWwQ3dh3`. Rollback: `dpl_9eyNRrcpjgZ8wdyxTAhLUp6JRhRS` (`1b1360e`).
+
+## Follow-ups
+
+1. Todd: Vercel → Settings → Cron Jobs → Run once on keepalive.
+2. 13 Oct after 03:17 UTC: check that the scheduled run left no `[keepalive]` error in the runtime logs.
+3. Watch the Supabase project status after 16 Oct. If it pauses despite the cron, a REST read doesn't count as activity and this bridge doesn't work.
