@@ -535,3 +535,20 @@ request (every landside venue), put it in the query (`is_landside = false`) so
 the limit fills with rows that can be shown. Filter after the query only for
 what can't be expressed there (open now, per-row labels), and size the fetch
 for it.
+
+---
+
+## 2026-10-14 — Clipboard writes in headless tests come from the test browser
+
+**Assumed (CC-22):** the page wrote to the clipboard when the flight field was
+focused (seen in browser tests 2 Oct and 14 Oct).
+
+**Actual:** nothing in the app touches the clipboard. 0 clipboard APIs in the
+53 files reachable from `src/main.tsx` or in any of the 22 production chunks.
+A wrapper over `Clipboard.prototype`, the `navigator.clipboard` getter,
+`execCommand`, copy/cut/paste events and `permissions.query` logged 0 calls
+through the whole capture flow on a preview. CC-13 reached the same verdict.
+
+**Rule going forward:** clipboard writes seen in headless browser tests come
+from the test browser's simulated input, not the app (CC-13, CC-22). Don't
+re-investigate without a wrapper log that shows a call.
