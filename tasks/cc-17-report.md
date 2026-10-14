@@ -181,7 +181,7 @@ Rows with `is_test = false` written since the baseline: **0** in all three table
 2. **Closed venues asked for by name.** Search says "5 closed matches not shown." The 00:30 chat for "Where can I get Din Tai Fung?" says it can't see one. Both follow the spec. Do you want named lookups to show a closed venue with "Closed · Opens 11:00" instead?
 3. **"Jewel Experience" collection** holds airside Kinokuniya, Muji and Zara copies. Connecting 170 sees "Jewel Experience (3 spots)" made of terminal shops, by the "0 eligible hides" rule. Rename or recurate (CC-3)?
 4. **`api/mcp.ts:199`** still suggests Jewel when a delay is over 120 min. The MCP `get_route` flight-match branch (mcp.ts) builds stops without the rule. Both need an `mcp.ts` edit.
-5. **New copy, beyond your two reasons and three labels**, all in `landsideCopy.ts`, for approval:
+5. **New copy, beyond your two reasons and three labels**, all in `landsideCopy.ts`. **Approved (Todd, 14 Oct).**
    - `reason.noTime`: "This is landside. Add your onward flight to see if there's time to clear immigration." (departing or connecting with a skipped onward flight)
    - Flight bar "Explore the terminal →" when Jewel is out.
    - Capture "Jewel Changi is within reach / Jewel Changi: not this time" (the old text quoted "90+ min").
@@ -211,7 +211,7 @@ Three added to `tasks/lessons.md`:
 
 # CC-17S · Ship CC-17 (12 Oct)
 
-**Status: preview PASS on the rebased branch. Waiting for Todd's OK on the new copy before pushing to main.**
+**Status: preview PASS on the rebased branch. Copy approved (Todd, 14 Oct). Ready to push to main on Todd's go.**
 
 ## Gates
 
