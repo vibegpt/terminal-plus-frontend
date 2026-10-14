@@ -400,3 +400,22 @@ Baseline 09:10:51 UTC: `max(events.id)` 1337, 111 journeys rows, 427 agent_inter
 | agent_interactions | `18092e51-…` (chat); `ffcb590d-…`, `22cd3694-…`, `131cec21-…` (MCP `smoke-cc17-20261014`) |
 
 Rows with `is_test = false`: 0.
+
+## Production (14 Oct): shipped, checks PASS
+
+- **Ship.** `git push origin cc-17/landside-open-now:main`, a fast-forward: `9b03dce..962e384`, 13 commits.
+  - G2 was re-checked just before the push: origin/main `9b03dce`, production `dpl_8P4AXdBmgxjcHmsu5dL7JWwQ3dh3`.
+- **Deployment.** `dpl_5dJdcDC75k1nJ6YJdbi9CjQmdtw1` (`962e384`) READY in sin1, aliased to terminalplus.app.
+  - It serves `index-BCW3fUe7.js`, the same as a plain local build of `9d48722`; production has no `VITE_TP_DEBUG`.
+- **Rollback target.** `dpl_8P4AXdBmgxjcHmsu5dL7JWwQ3dh3` (`9b03dce`). The `is_landside` column can stay, because older code ignores it.
+- **Browser.** terminalplus.app at 375×812, TZ Asia/Jerusalem. The SW was unregistered and caches cleared, and `tp_test = '1'` was set on `/robots.txt` before the first app load.
+
+| Check | Result |
+|---|---|
+| skipped (`SQ000`) | PASS: explore 7 (2 labelled "Landside: outside immigration"); refuel = Kopitiam, T2 Food Gallery, Fossa Chocolate, Grain Traders, Kélé, Wang Cafe, TWG Tea (6 labelled); Home 7 sections, 32 counts; search "canopy" 4, all labelled |
+| connecting 170 | PASS: explore 7 and refuel 7 (TWG Tea, A&W Root Beer, Bacha Coffee, Starbucks, Coffee Bean, Ya Kun, Hudsons) with 0 landside; Home 7 sections, 32 counts, Jewel Experience 3 spots; search "canopy" 0 results plus "This is landside. A connection under 3 hours doesn't leave time to clear immigration both ways." |
+| Canopy deep link, connecting 60 | PASS: `/amenity/canopy-park-jewel-new` renders in full ("Open · Until 21:00", description) with that banner (screenshot in session) |
+
+**Rows.** Events 1439–1450 (12): `env = production`, `is_test = true`, `is_bot = false`. No journeys or agent_interactions rows. Rows with `is_test = false`: 0.
+
+This docs commit is on the branch, not main.
