@@ -74,6 +74,8 @@ async function lookupFlight(
 // ── Shared styles ──────────────────────────────────────────────────
 
 const S = {
+  // The overlay is the only scroll container in capture. Its content starts at
+  // the top; the logo's and card's auto margins centre it when it fits.
   screen: {
     position: 'fixed' as const,
     inset: 0,
@@ -81,7 +83,10 @@ const S = {
     display: 'flex',
     flexDirection: 'column' as const,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    overflowY: 'auto' as const,
+    overscrollBehavior: 'contain' as const,
+    WebkitOverflowScrolling: 'touch' as const,
     padding: '24px 20px',
     zIndex: 200,
     fontFamily: '"DM Sans", system-ui, sans-serif',
@@ -90,6 +95,8 @@ const S = {
   card: {
     width: '100%',
     maxWidth: 440,
+    flexShrink: 0, // never shrink to the screen and clip (CC-23)
+    marginBottom: 'auto',
     background: 'rgba(19,19,26,0.98)',
     border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: 24,
@@ -899,7 +906,28 @@ interface FlightContextCaptureProps {
   onCancel?: () => void;
 }
 
+// iOS keyboards shrink the visual viewport, not the layout viewport, so a fixed
+// inset-0 overlay keeps its full height behind the keyboard. Track the visible
+// area so the overlay (and its scroll range) ends where the keyboard begins.
+function useVisibleArea(): React.CSSProperties {
+  const [box, setBox] = useState<{ top: number; height: number } | null>(null);
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const update = () => setBox({ top: vv.offsetTop, height: vv.height });
+    update();
+    vv.addEventListener('resize', update);
+    vv.addEventListener('scroll', update);
+    return () => {
+      vv.removeEventListener('resize', update);
+      vv.removeEventListener('scroll', update);
+    };
+  }, []);
+  return box ? { inset: 'auto', top: box.top, left: 0, right: 0, height: box.height } : {};
+}
+
 export function FlightContextCapture({ onComplete, initial, onCancel }: FlightContextCaptureProps) {
+  const visibleArea = useVisibleArea();
   const { setJourney, attachJourneyId } = useJourney();
   const changing = !!(initial && onCancel);
   const [step, setStep] = useState<0 | 1 | 2 | 3>(changing ? 2 : 0);
@@ -1059,9 +1087,9 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
   console.log('[FlightCapture] render — step:', step, 'currentTerminal:', currentTerminal);
 
   return (
-    <div style={S.screen}>
+    <div style={{ ...S.screen, ...visibleArea }}>
       {/* Logo */}
-      <div style={{ marginBottom: 8, fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.05em' }}>
+      <div style={{ marginTop: 'auto', marginBottom: 8, fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.05em' }}>
         TERMINAL+
       </div>
 

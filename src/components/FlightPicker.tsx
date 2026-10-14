@@ -5,7 +5,7 @@
 // The board is fetched ONCE on mount and filtered client-side, so typing in the
 // filter never issues a network request.
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Plane, Search, ScanLine, Loader2 } from 'lucide-react';
 import { track } from '@/lib/telemetry';
 import type { FlightSource } from '@/lib/journeyRecord';
@@ -44,6 +44,26 @@ interface FlightPickerProps {
 
 const SIN_TZ = 'Asia/Singapore';
 
+// Runs fn once the visual viewport stops resizing (the iOS keyboard animating
+// open), or after waitMs if it never resizes (keyboard already open, desktop).
+function afterViewportSettles(fn: () => void, waitMs = 350, quietMs = 150): () => void {
+  const vv = window.visualViewport;
+  let timer = window.setTimeout(done, waitMs);
+  function onResize() {
+    window.clearTimeout(timer);
+    timer = window.setTimeout(done, quietMs);
+  }
+  function done() {
+    vv?.removeEventListener('resize', onResize);
+    fn();
+  }
+  vv?.addEventListener('resize', onResize);
+  return () => {
+    window.clearTimeout(timer);
+    vv?.removeEventListener('resize', onResize);
+  };
+}
+
 function timeAtChangi(iso: string): string {
   try {
     return new Intl.DateTimeFormat('en-GB', {
@@ -71,6 +91,20 @@ export function FlightPicker({
   const [fixture, setFixture] = useState(false);
   const [filter, setFilter] = useState('');
   const [scanNote, setScanNote] = useState(false);
+
+  // On focus and on every filter change, put the filter at the top of the
+  // visible area so the results fill the space below it (CC-23). Capture's
+  // overlay is the scroll container that moves.
+  const filterRef = useRef<HTMLDivElement>(null);
+  const cancelPin = useRef<(() => void) | null>(null);
+  const pinFilter = () => {
+    cancelPin.current?.();
+    cancelPin.current = afterViewportSettles(() => {
+      cancelPin.current = null;
+      filterRef.current?.scrollIntoView({ block: 'start' });
+    });
+  };
+  useEffect(() => () => cancelPin.current?.(), []);
 
   // Deps are [direction] only — the filter below must never refetch.
   useEffect(() => {
@@ -185,7 +219,7 @@ export function FlightPicker({
       </div>
 
       {!degraded && (
-        <div style={{ position: 'relative', marginBottom: 12 }}>
+        <div ref={filterRef} style={{ position: 'relative', marginBottom: 12, scrollMarginTop: 12 }}>
           <Search
             size={15}
             style={{
@@ -213,7 +247,11 @@ export function FlightPicker({
             }}
             placeholder="Filter by flight number or airline"
             value={filter}
-            onChange={(e) => setFilter(e.target.value)}
+            onFocus={pinFilter}
+            onChange={(e) => {
+              setFilter(e.target.value);
+              pinFilter();
+            }}
             autoComplete="off"
           />
         </div>
@@ -255,7 +293,8 @@ export function FlightPicker({
       )}
 
       {!loading && !degraded && (
-        <div style={{ maxHeight: 320, overflowY: 'auto', margin: '0 -4px', padding: '0 4px' }}>
+        // Not a scroll container: capture's overlay scrolls the whole step (CC-23).
+        <div style={{ margin: '0 -4px', padding: '0 4px' }}>
           {visible.length === 0 && (
             <p
               style={{
