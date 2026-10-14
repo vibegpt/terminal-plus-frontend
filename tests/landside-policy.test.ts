@@ -18,7 +18,7 @@ import {
   pickEligible,
   type EligibilityContext,
 } from '../shared/ranking/policy';
-import { LANDSIDE_COPY } from '../shared/ranking/landsideCopy';
+import { HOURS_COPY, JEWEL_COPY, LANDSIDE_COPY } from '../shared/ranking/landsideCopy';
 
 const DEP = LANDSIDE_MIN_MINUTES.departing;
 const CONN = LANDSIDE_MIN_MINUTES.connecting;
@@ -40,6 +40,16 @@ test('the numbers and the copy are the ones Todd set', () => {
   assert.deepEqual(LANDSIDE_COPY.label, L);
   assert.equal(LANDSIDE_COPY.reason.connecting(CONN), R.connecting);
   assert.equal(LANDSIDE_COPY.reason.departing(DEP), R.departing);
+});
+
+test('copy approved with Todd\'s 14 Oct edits', () => {
+  assert.equal(LANDSIDE_COPY.reason.noTime, "This is landside. Add your flight to see if there's time to clear immigration.");
+  assert.equal(HOURS_COPY.state.unknown, 'Check hours');
+  assert.equal(JEWEL_COPY.captureShownDetail('connecting'), 'Allow time to clear immigration both ways (visa rules apply).');
+  assert.equal(JEWEL_COPY.captureShownDetail('departing'), "It's before immigration, so go there first.");
+  for (const t of ['just_landed', 'skipped', null, undefined]) {
+    assert.equal(JEWEL_COPY.captureShownDetail(t), 'You have time to explore.');
+  }
 });
 
 test('airside venues always show, unlabelled, for every passenger', () => {

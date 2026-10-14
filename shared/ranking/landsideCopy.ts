@@ -22,13 +22,13 @@ export const LANDSIDE_COPY = {
     departing: (minMinutes: number) =>
       `This is landside. With under ${durationText(minMinutes)} to boarding, it's time to go through immigration.`,
     /** Departing or connecting with no boarding time (the onward flight was skipped). */
-    noTime: "This is landside. Add your onward flight to see if there's time to clear immigration.",
+    noTime: "This is landside. Add your flight to see if there's time to clear immigration.",
   },
 } as const;
 
 export const HOURS_COPY = {
   /** One-word status; unknown hours are never called open or closed. */
-  state: { open: 'Open', closed: 'Closed', unknown: 'Hours' },
+  state: { open: 'Open', closed: 'Closed', unknown: 'Check hours' },
   /** The short line under the status on a venue's page. */
   allDay: '24 hours',
   until: (hhmm: string) => `Until ${hhmm}`,
@@ -50,7 +50,11 @@ export const JEWEL_COPY = {
   ctaHidden: 'Explore the terminal →',
   /** Capture, last step. */
   captureShownTitle: 'Jewel Changi is within reach',
-  captureShownDetail: 'You have time to explore',
+  /** The line under it, by passenger type ('skipped', null and anything else: the last one). */
+  captureShownDetail: (journeyType: string | null | undefined): string =>
+    journeyType === 'connecting' ? 'Allow time to clear immigration both ways (visa rules apply).'
+    : journeyType === 'departing' ? "It's before immigration, so go there first."
+    : 'You have time to explore.',
   captureHiddenTitle: 'Jewel Changi: not this time',
 } as const;
 

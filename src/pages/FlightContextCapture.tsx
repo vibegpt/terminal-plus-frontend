@@ -780,7 +780,8 @@ function Step3({ journey, onComplete }: Step3Props) {
 
   const sameTerminal = journey.currentTerminal === journey.departureTerminal;
   // Jewel is landside: the same rule every list applies (shared/ranking/policy.ts).
-  const jewel = landsideAccess({ isLandside: true, ...eligibilityFromJourney(journey) });
+  const eligibility = eligibilityFromJourney(journey);
+  const jewel = landsideAccess({ isLandside: true, ...eligibility });
 
   return (
     <div style={{ padding: '28px 24px 28px' }}>
@@ -866,7 +867,7 @@ function Step3({ journey, onComplete }: Step3Props) {
               {jewel.show ? JEWEL_COPY.captureShownTitle : JEWEL_COPY.captureHiddenTitle}
             </p>
             <p data-testid="capture-jewel-detail" style={{ margin: 0, fontSize: 12, color: 'rgba(255,255,255,0.3)', marginTop: 2 }}>
-              {jewel.show ? (jewel.label ?? JEWEL_COPY.captureShownDetail) : jewel.reason}
+              {jewel.show ? JEWEL_COPY.captureShownDetail(eligibility.journeyType) : jewel.reason}
             </p>
           </div>
         </div>
