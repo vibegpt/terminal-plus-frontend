@@ -91,3 +91,26 @@ Switch set by `?tp_test=1`, session `1efe7347…`, browser TZ Asia/Jerusalem.
 The switch persists with no expiry. A hand-built link carrying `?tp_test=1` would hide that visitor
 from analytics until they open `?tp_test=0` or clear storage. Copying from the address bar is safe,
 because the parameter is stripped at load.
+
+## Production (15 Oct)
+
+- **Before the push:** the migration files match the applied versions. Last 3 of `list_migrations`:
+  `20261006095549` env_no_default, `20261015075543` mark_prelaunch_visits_test, `20261015081552`
+  restore_real_visits. Last 3 of `ls supabase/migrations`: the same three, `.sql`. The `…090000`
+  name was never committed: `390e32a` added the file as `20261015081552_…`. Lesson added (`55a336a`).
+- **Push:** `b00dc23..55a336a main` (fast-forward), approved by Todd.
+- **Deployment:** `dpl_HJ7EYkVrWCw5xXf5TbHFqBvstqKv`, target production, sha `55a336a`, READY.
+- **Rollback target:** `dpl_2sxqfY9pNibnpXPzCPAM5W7n3djn` (`b00dc23`). Not used.
+- **Bundle:** `/?x=…` serves `assets/index-CvvEIQiM.js`, the same as a plain local build of `55a336a`.
+  Production `sw.js` precaches it. It contains the switch and 0 readout strings.
+
+Checks on https://terminalplus.app (Chrome 375×812, storage, service worker and caches cleared):
+
+| Check | Result | Evidence |
+|---|---|---|
+| `/?tp_test=1` | PASS | Address bar → `/`; `tp_test = '1'`; pill at (2,2)–(41,18). Session `1a631c58…`: events 1580 session_start, 1581 capture_opened, both production `is_test=true` |
+| `/saved?tp_test=0` (same tab session, a page that sends no event on load) | PASS | Address bar → `/saved`; `tp_test` removed; no pill (screenshot). No row written |
+| Restored | n/a | `/saved?tp_test=1` turns the switch back on in this browser for later checks |
+
+After the checks: events since 1580 are only 1580–1581, both test. The production rows with
+`not is_test and not is_bot` are exactly the 6 restored (1010–1011, 1198–1201); journeys 0.
