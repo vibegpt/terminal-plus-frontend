@@ -572,3 +572,18 @@ toolbars or touch scrolling, emulators only show that nothing broke elsewhere.
 They are not evidence for the bug or the fix. Ship a preview-only readout of
 the real numbers (viewport sizes, container heights, element rects, the loaded
 bundle), and treat the real-device result as the acceptance.
+
+---
+
+## 2026-10-15 — An MCP-applied migration gets its own timestamp
+
+**Assumed:** the repo file's timestamp is the migration's version.
+
+**Actual:** `apply_migration` records the migration under the time it ran
+(`20261015075543`, `20261015081552`), not the file's prefix (`…075500`, `…090000`).
+A file whose name differs from the applied version looks unapplied to
+`supabase db push`, and the history no longer lines up with the repo.
+
+**Rule going forward:** a migration applied through the MCP gets its own
+timestamp. Rename the repo file to the applied version before committing, and
+prove it with `list_migrations` next to `ls supabase/migrations`.
