@@ -101,13 +101,30 @@ function devLog(...args: unknown[]) {
 // server-side.
 
 const TEST_KEY = 'tp_test';
+const TEST_PARAM = 'tp_test';
 
-function isTestBrowser(): boolean {
+export function isTestBrowser(): boolean {
   try {
     return localStorage.getItem(TEST_KEY) === '1';
   } catch {
     return false;
   }
+}
+
+// ?tp_test=1 turns the switch on for this browser, ?tp_test=0 turns it off; any
+// other value changes nothing. The parameter always comes off the address bar, so
+// a copied URL never carries it. Runs at module load, before React mounts and
+// before the first event (CC-24).
+function applyTestParam(): void {
+  const url = new URL(window.location.href);
+  if (!url.searchParams.has(TEST_PARAM)) return;
+  const value = url.searchParams.get(TEST_PARAM);
+  try {
+    if (value === '1') localStorage.setItem(TEST_KEY, '1');
+    else if (value === '0') localStorage.removeItem(TEST_KEY);
+  } catch { /* storage blocked: the switch stays as it was */ }
+  url.searchParams.delete(TEST_PARAM);
+  window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
 }
 
 /** Headers for /api/events and /api/journey: x-tp-test when the switch is on. */
@@ -212,6 +229,7 @@ export function landingAttribution(): LandingAttribution {
 
 if (typeof window !== 'undefined') {
   try {
+    applyTestParam();
     const params = new URLSearchParams(window.location.search);
     captureFirstTouch(params);
     captureLanding(params);

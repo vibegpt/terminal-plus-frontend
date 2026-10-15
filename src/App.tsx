@@ -16,6 +16,7 @@ import { OutcomePrompt } from './components/OutcomePrompt';
 import { lazyWithReload } from './lib/chunkReload';
 import { LazyRouteBoundary } from './components/LazyRouteBoundary';
 import { UpdatePrompt } from './components/UpdatePrompt';
+import { TestPill } from './components/TestPill';
 
 // MVP routes, lazy loaded. lazyWithReload: a chunk removed by a deploy reloads
 // the page once onto the current build instead of leaving it blank.
@@ -187,6 +188,7 @@ function AppInner() {
     <>
       {screen}
       <UpdatePrompt hidden={captureEntry !== null} />
+      <TestPill />
     </>
   );
 }
