@@ -130,34 +130,39 @@ All preview, all `is_test=true`. 0 rows with `is_test=false` since 08:38 UTC.
 
 ## Report SQL: board pick vs manual, split by `from`
 
-Each journey takes the last manual tap in its session between the previous and the next journey. A
+Taps are matched to journeys by `session_id` first, then by time: each journey takes the last tap in
+its session between that session's previous and next journey. A
 later board pick doesn't inherit an earlier tap, and a tap whose batched event lands a few seconds after
 its journey still counts: `occurred_at` is the server's insert time (`api/events.ts:224`). Session
 `e0188b12` had the tap at 13:07:20 and the journey at 13:07:17.
 
 ```sql
+with j as (                       -- each journey, with its session's previous and next journey times
+  select id, session_id, flight_source, journey_type, created_at,
+         lag(created_at)  over (partition by session_id order by created_at) as prev_at,
+         lead(created_at) over (partition by session_id order by created_at) as next_at
+  from journeys
+  where not is_test and not is_bot and env = 'production'
+),
+taps as (                         -- every manual tap, keyed by session
+  select session_id, occurred_at, coalesce(payload->>'from', '(before CC-23b)') as manual_from
+  from events
+  where event_type = 'flight_not_found' and not is_test and not is_bot and env = 'production'
+),
+matched as (                      -- 1) same session_id, 2) tap between the previous and the next journey
+  select distinct on (j.id) j.id, t.manual_from     --    (occurred_at is server insert time; events are batched)
+  from j join taps t on t.session_id = j.session_id
+  where t.occurred_at > coalesce(j.prev_at, '-infinity')
+    and t.occurred_at <= coalesce(j.next_at, 'infinity')
+  order by j.id, t.occurred_at desc
+)
 select case when j.flight_source in ('picker', 'picker_ungrouped') then 'board pick'
             when j.flight_source = 'typed' then 'manual from the board'
             else j.flight_source end as route,
-       coalesce(f.manual_from, '(no manual tap)') as manual_from,
+       coalesce(m.manual_from, '(no manual tap)') as manual_from,
        count(*) as journeys
-from journeys j
-left join lateral (
-  select coalesce(e.payload->>'from', '(before CC-23b)') as manual_from
-  from events e
-  where e.session_id = j.session_id
-    and e.event_type = 'flight_not_found'
-    -- occurred_at is the server's insert time and events are batched, so a tap can land
-    -- seconds after its journey: take the taps between the previous and the next journey.
-    and e.occurred_at > coalesce((select max(p.created_at) from journeys p
-                                  where p.session_id = j.session_id and p.created_at < j.created_at), '-infinity')
-    and e.occurred_at <= coalesce((select min(n.created_at) from journeys n
-                                   where n.session_id = j.session_id and n.created_at > j.created_at), 'infinity')
-  order by e.occurred_at desc
-  limit 1
-) f on true
-where not j.is_test and not j.is_bot and j.env = 'production'
-  and j.journey_type <> 'skipped'
+from j left join matched m on m.id = j.id
+where j.journey_type <> 'skipped'
 group by 1, 2
 order by 3 desc;
 ```
@@ -184,9 +189,6 @@ tap".
 - **`on_board` (Todd's addition 3):** no event fires after a successful typed lookup, so there's nowhere
   to put `on_board` without a new event type. Candidate: a `flight_confirmed` event, or a field on
   the journey row, carrying `on_board` (was that flight number in the loaded board). Needs a plan.
-- **Copy order when the board is unavailable:** the button sits above the "live board isn't
-  available … enter your flight number yourself" message, so the explanation reads after the
-  action. Swap them, or fold the message into the button, if you want.
 
 ## Real iPhone: BLOCKED (Todd)
 
@@ -196,3 +198,32 @@ On the preview alias, keyboard open and closed:
 - "ZZZ" shows the empty state, and its button opens manual entry.
 
 No push to main before this.
+
+## Round 2 (15 Oct, before the iPhone check)
+
+**1. Allowlist on the redeployed preview** (`fabd68d`, bundle `index-DYg80EiL.js`). Direct POST with
+`x-tp-test: 1`, payload `{"from":"hack","extra":"x"}`, response `{"inserted":1,"rejected":[]}`. Stored
+row:
+
+| id | event_type | payload | is_test | env | occurred_at |
+|---|---|---|---|---|---|
+| 1606 | flight_not_found | `{}` | true | preview | 2026-10-15 08:52:58.574+00 |
+
+**2. Board unavailable: message first** (`fabd68d`). Forced 503 (test-only fetch override in the page),
+Chrome 375×812:
+- no filter;
+- message at y 557–655, then the button at 663–693, in view;
+- tapping it opens manual entry; event 1609 `{"from":"board_unavailable"}`.
+
+Rows: session `b572a570…`, events 1607–1609, `is_test`.
+
+**3. Report SQL rewritten** (above): join on `session_id`, then the time window from `lag`/`lead` over
+that session's journeys. Re-proved on the test rows since 14 Oct (`is_test`, preview + production):
+- board pick / (no manual tap): 12;
+- manual from the board / `(before CC-23b)`: 7;
+- manual from the board / (no manual tap): 5;
+- manual from the board / `under_filter`: 1.
+
+These are the same counts as the earlier version.
+
+0 rows with `is_test=false` from this round.
