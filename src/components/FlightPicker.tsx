@@ -219,7 +219,7 @@ export function FlightPicker({
       </div>
 
       {!degraded && (
-        <div ref={filterRef} style={{ position: 'relative', marginBottom: 12, scrollMarginTop: 12 }}>
+        <div ref={filterRef} data-tp-layout="filter" style={{ position: 'relative', marginBottom: 12, scrollMarginTop: 12 }}>
           <Search
             size={15}
             style={{
@@ -294,7 +294,7 @@ export function FlightPicker({
 
       {!loading && !degraded && (
         // Not a scroll container: capture's overlay scrolls the whole step (CC-23).
-        <div style={{ margin: '0 -4px', padding: '0 4px' }}>
+        <div data-tp-layout="list" data-tp-component="FlightPicker" style={{ margin: '0 -4px', padding: '0 4px' }}>
           {visible.length === 0 && (
             <p
               style={{

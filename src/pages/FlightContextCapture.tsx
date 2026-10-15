@@ -18,6 +18,7 @@ import {
   type FlightData as ServiceFlightData,
 } from '../services/flightService';
 import { FlightPicker, type BoardFlight } from '../components/FlightPicker';
+import { LayoutDebug } from '../components/LayoutDebug';
 import { recordJourney, type FlightSource, type JourneyType } from '../lib/journeyRecord';
 import { eligibilityFromJourney, minutesToBoarding } from '../lib/eligibility';
 import { landsideAccess } from '../../shared/ranking/policy';
@@ -1087,7 +1088,8 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
   console.log('[FlightCapture] render — step:', step, 'currentTerminal:', currentTerminal);
 
   return (
-    <div style={{ ...S.screen, ...visibleArea }}>
+    <div data-tp-layout="overlay" style={{ ...S.screen, ...visibleArea }}>
+      <LayoutDebug />
       {/* Logo */}
       <div style={{ marginTop: 'auto', marginBottom: 8, fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.05em' }}>
         TERMINAL+
@@ -1096,7 +1098,7 @@ export function FlightContextCapture({ onComplete, initial, onCancel }: FlightCo
       <StepDots current={step} />
 
       {/* Plain keyed div — no AnimatePresence, no pointer-events interference */}
-      <div key={step} style={{ ...S.card, animation: 'tp-fadein 0.18s ease-out' }}>
+      <div key={step} data-tp-layout="card" style={{ ...S.card, animation: 'tp-fadein 0.18s ease-out' }}>
         {step === 0 && (
           <Step0 onPick={handleSegment} onSkip={handleSkipAll} />
         )}
