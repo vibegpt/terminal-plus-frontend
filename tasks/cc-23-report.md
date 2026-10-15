@@ -238,3 +238,43 @@ The readout's clip lines now list 2 scrollers: `overlay` and `list … maxH=420p
 | 1522–1525 | preview | no | 07:00 UTC; matches Todd's desktop Safari screenshot of the preview (10:00); that browser had no `tp_test` |
 
 Real iPhone: still BLOCKED (Todd), on the preview link with `?tp_layout=1`.
+
+## Round 4 (15 Oct): real iPhone PASS; pre-launch rows marked test
+
+**Real iPhone on the preview: PASS (Todd, 15 Oct).** The list box shows about 5 rows and scrolls.
+
+**Data (Todd: "all the visitors are test visitors so far").** Migration
+`20261015075543_mark_prelaunch_visits_test` (applied, version `20261015075543`) set `is_test` on every
+events and journeys row that was not test and not bot:
+- events 775, 1010–1011, 1198–1201, 1455–1473, 1518–1519, 1522–1525, 1529–1532 (36);
+- journeys `38a2ed1f-e30e-4213-a7f0-18580ca47a47` and `f59fc56e-0cc2-4cdd-919f-cfba9d955789`.
+
+Each update asserts its exact count. Bot rows (16) are left alone; the views already exclude them.
+agent_interactions had 0. After applying: 0 rows with `not is_test and not is_bot` in events and
+journeys, 0 non-test in agent_interactions. Rollback: set `is_test = false` on exactly those ids.
+
+**SMOKE re-run on the current preview** (`f2ba6ac`/`acb58cf`, bundle `index-CKIRLKQN.js`, Chrome
+375×812, `tp_test` on). Only the lines that pass through capture were re-run, because the code since
+SMOKE 13/13 only touched capture (`FlightPicker.tsx`, `FlightContextCapture.tsx`, preview-only
+`LayoutDebug.tsx`):
+
+| # | Result | Evidence |
+|---|---|---|
+| 1 | PASS | Gate: "What brings you to Changi?", 3 options, Skip |
+| 2 | PASS | Skip → Home; journeys `57a014fb…` skipped |
+| 3 | PASS | T1 → Enter manually → QF1 → Looks right; bar "6h 48m to board · QF1 · SIN → LHR"; `flight_source=typed`, v4 |
+| 4 | PASS | Change flight → "SQ" (87 rows) → list box scrolled to its end (6410/6410) → last row SQ968 tapped → bar "SQ968 · SIN → CGK", `flight_source=picker`, journey `0b625360…` |
+| 8 | PASS | Change flight → "Change flight" heading, "Keep QF1" once → `capturedAt` unchanged |
+| 12 | PASS | Session `29bd7c84…`: events 1533–1545 include session_start and recommendation_impression |
+| 13 | PASS | `30340414-89d9-45d9-bbf7-34363e8225f1`: QF1, typed |
+
+Lines 5–7 and 9–11 (Home, vibe, collection, amenity, search, hours, chat, MCP) are outside capture
+and were last run on `7a041cb` (PASS).
+
+Rows: events 1533–1545, journeys `57a014fb…`, `30340414…`, `0b625360…`. All preview, all `is_test`.
+
+**Observation (not blocking).** With `overscroll-behavior: contain`, a swipe that starts on the list
+box scrolls only the list, even at its end. To reach "Enter manually" or "Keep …" below the box when
+they're off screen, the passenger swipes outside the box (heading or side margin). At 375×812 they
+were one short scroll below. Removing `contain` would let a swipe at the list's end carry on to the
+page.
