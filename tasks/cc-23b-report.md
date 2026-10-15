@@ -1,6 +1,6 @@
 # CC-23b report: "Enter manually" always in reach on the board picker
 
-**Status: preview PASS, SMOKE 13/13. Real-iPhone check BLOCKED (Todd). Not on main.**
+**Status: preview PASS, SMOKE 13/13, real iPhone PASS (Todd, 15 Oct, all 4 checks). Shipping to main.**
 
 - Branch `cc-23b/manual-entry` off main `55a336a`.
 - Commits:
@@ -186,11 +186,17 @@ tap".
 
 ## Follow-ups
 
+- **Events lost when the app closes right after capture (Todd, 15 Oct):** the 5 typed journeys with no
+  tap event lost theirs because the browser closed before the batch was sent. Check that the
+  telemetry flush on `visibilitychange` → hidden and on `pagehide` runs on iOS Safari (tab closed,
+  app switched, home-screen app swiped away), so a passenger who closes the app straight after
+  capture doesn't lose events. Needs a real-iPhone check: Playwright can't stand in for it.
+
 - **`on_board` (Todd's addition 3):** no event fires after a successful typed lookup, so there's nowhere
   to put `on_board` without a new event type. Candidate: a `flight_confirmed` event, or a field on
   the journey row, carrying `on_board` (was that flight number in the loaded board). Needs a plan.
 
-## Real iPhone: BLOCKED (Todd)
+## Real iPhone: PASS (Todd, 15 Oct, all 4 checks)
 
 On the preview alias, keyboard open and closed:
 - "Enter manually" is visible under the filter without scrolling;
