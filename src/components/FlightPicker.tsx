@@ -242,9 +242,6 @@ export function FlightPicker({
         <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
       </div>
 
-      {/* No filter when the board is unavailable: the manual entry sits under the divider. */}
-      {degraded && <div style={{ marginBottom: 12 }}>{manualButton('board_unavailable')}</div>}
-
       {!degraded && (
         // Pinned to the top on focus. "Enter manually" is part of the pinned block, so
         // it stays in view with the keyboard open (CC-23b).
@@ -306,21 +303,24 @@ export function FlightPicker({
         </div>
       )}
 
+      {/* No filter when the board is unavailable: the message, then the manual entry. */}
       {!loading && degraded && (
-        <div
-          style={{
-            padding: '18px 16px',
-            borderRadius: 12,
-            background: 'rgba(37,37,53,0.5)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            fontSize: 13,
-            color: 'rgba(255,255,255,0.55)',
-            lineHeight: 1.55,
-            marginBottom: 12,
-          }}
-        >
-          The live board isn't available right now. You can still enter your flight number
-          yourself.
+        <div style={{ marginBottom: 12 }}>
+          <div
+            style={{
+              padding: '18px 16px',
+              borderRadius: 12,
+              background: 'rgba(37,37,53,0.5)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              fontSize: 13,
+              color: 'rgba(255,255,255,0.55)',
+              lineHeight: 1.55,
+            }}
+          >
+            The live board isn't available right now. You can still enter your flight number
+            yourself.
+          </div>
+          {manualButton('board_unavailable')}
         </div>
       )}
 
