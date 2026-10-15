@@ -278,3 +278,56 @@ box scrolls only the list, even at its end. To reach "Enter manually" or "Keep �
 they're off screen, the passenger swipes outside the box (heading or side margin). At 375×812 they
 were one short scroll below. Removing `contain` would let a swipe at the list's end carry on to the
 page.
+
+## Production (15 Oct)
+
+- **Push:** `f6f0b2a..b00dc23 main` (fast-forward), approved by Todd. `git ls-remote`: `refs/heads/main` = `b00dc237…`.
+- **Deployment:** `dpl_2sxqfY9pNibnpXPzCPAM5W7n3djn`, target production, sha `b00dc23`, READY.
+- **Rollback target:** `dpl_9GVEgRDd65rRDjAwp7aA7zatBWj8` (`f6f0b2a`). Not used.
+- **Bundle:** `fetch /?x=…` serves `assets/index-uzOUSjLw.js`, the same as a plain local build of
+  `b00dc23`, and production `sw.js` precaches it. The production bundle has 0 readout strings (`ovY=`,
+  `tp_layout`) and has the list cap (`tp-visible-h`).
+
+Capture checks on https://terminalplus.app (Chrome 375×812, `tp_test` set before the first load,
+service worker and caches cleared):
+
+| # | Result | Evidence |
+|---|---|---|
+| 1 | PASS | Gate shows, bundle `index-uzOUSjLw.js`, overlay `overflow-y: auto`, no readout box |
+| 2 | PASS | Skip → Home ("Add your flight for personalised recommendations"); journey `ad4087e1…` skipped |
+| 3 | PASS | T1 → board (list box 420 px, 142 rows) → Enter manually → QF1 → Looks right; bar "6h 38m to board · QF1 · SIN → LHR"; `flight_source=typed`, v4, journey `32cccd8b…` |
+| 4 | PASS | Change flight → "SQ" (86 rows) → list box scrolled to its end (6331/6331) → last row NH844 tapped → bar "NH844 · SIN → HND", `flight_source=picker`, journey `8eae24ff…` |
+| 8 | PASS | Change flight → "Change flight" heading, "Keep QF1" once → `capturedAt` unchanged |
+
+Rows: events 1546–1558 and journeys `ad4087e1-2d55-40fa-a50c-510acc1af13e`,
+`32cccd8b-b5b0-4ffe-a14e-48e413d0cef7`, `8eae24ff-bec3-4930-9eda-dfdca85a0be9`: all production,
+all `is_test`. After the run there are 0 rows with `not is_test and not is_bot`.
+
+Test-harness note: a screenshot taken 1 s after a step click can still show the previous step. The
+DOM had already moved on, so the click had worked. Read the DOM, not the screenshot, before
+re-clicking.
+
+## Follow-up (Todd, 15 Oct; not in this ship)
+
+CC-23b, the swipe fix:
+- "Enter manually" moves directly under the filter.
+- `overscroll-behavior: contain` comes off the list, so a swipe at the list's end carries on to the
+  page.
+
+Acceptance: a real-iPhone check for both.
+
+## Migration 20261015075543: rows changed, by session (for Todd to confirm)
+
+| Session | Env | First – last (UTC) | Rows | Landing |
+|---|---|---|---|---|
+| `5b305a2b…` | preview | 10-04 18:27:49 | 775 session_start | none recorded |
+| `8acc9d03…` | production | 10-06 01:14:44 | 1010 session_start, 1011 capture_opened | `/` |
+| `3f97f75c…` | production | 10-09 02:58:42 | 1198 session_start, 1199 capture_opened | `/` |
+| `517a7e64…` | production | 10-09 08:29:05 | 1200 session_start, 1201 capture_opened | `/` |
+| `150816bf…` | production | 10-14 10:19:38 – 10:21:57 | 1455–1473 (session_start, 4 capture_opened, 14 recommendation_impression) + journeys TR266, UA2 (picker, Asia/Jerusalem) | `/` |
+| `e73b693d…` | production | 10-15 06:47:43 | 1518 session_start, 1519 capture_opened | `/` |
+| `d601675a…` | preview | 10-15 07:00:35 – 07:00:55 | 1522–1525 (2× session_start, 2× capture_opened) | `/` |
+| `7939bc97…` | production | 10-15 07:48:39 | 1529 session_start, 1530 capture_opened | `/` |
+| `20151b47…` | preview | 10-15 07:48:51 | 1531 session_start, 1532 capture_opened | `/` |
+
+No session carries a utm source or a referrer host.
