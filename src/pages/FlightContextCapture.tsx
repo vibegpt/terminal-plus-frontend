@@ -924,7 +924,10 @@ function useVisibleArea(): React.CSSProperties {
       vv.removeEventListener('scroll', update);
     };
   }, []);
-  return box ? { inset: 'auto', top: box.top, left: 0, right: 0, height: box.height } : {};
+  // --tp-visible-h lets the board list cap itself to the visible area (FlightPicker).
+  return box
+    ? ({ inset: 'auto', top: box.top, left: 0, right: 0, height: box.height, '--tp-visible-h': `${box.height}px` } as React.CSSProperties)
+    : {};
 }
 
 export function FlightContextCapture({ onComplete, initial, onCancel }: FlightContextCaptureProps) {

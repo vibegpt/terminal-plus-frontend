@@ -293,8 +293,22 @@ export function FlightPicker({
       )}
 
       {!loading && !degraded && (
-        // Not a scroll container: capture's overlay scrolls the whole step (CC-23).
-        <div data-tp-layout="list" data-tp-component="FlightPicker" style={{ margin: '0 -4px', padding: '0 4px' }}>
+        // Its own scroll box: about 5½ rows (the half row shows there's more), never
+        // taller than the visible area below the pinned filter, so with the iOS keyboard
+        // open it shrinks instead of sitting behind it (CC-23). 87 = filter top (12) +
+        // filter (51) + gap (12) + bottom margin (12).
+        <div
+          data-tp-layout="list"
+          data-tp-component="FlightPicker"
+          style={{
+            maxHeight: 'min(420px, calc(var(--tp-visible-h, 100vh) - 87px))',
+            overflowY: 'auto',
+            overscrollBehavior: 'contain',
+            WebkitOverflowScrolling: 'touch',
+            margin: '0 -4px',
+            padding: '0 4px',
+          }}
+        >
           {visible.length === 0 && (
             <p
               style={{
