@@ -144,12 +144,36 @@ export function FlightPicker({
     );
   }, [flights, filter]);
 
-  const handleManual = () => {
-    track('flight_not_found', {
-      payload: { direction, filter_length: filter.trim().length, board_size: flights.length },
-    });
+  // Which "Enter manually" was tapped (CC-23b). api/events.ts keeps only this field.
+  const boardReady = !loading && !degraded;
+  const handleManual = (from: 'under_filter' | 'empty_state' | 'board_unavailable') => {
+    track('flight_not_found', { payload: { from } });
     onManual();
   };
+
+  const manualButton = (from: 'under_filter' | 'board_unavailable') => (
+    <button
+      type="button"
+      data-tp-layout="manual"
+      onClick={() => handleManual(from)}
+      style={{
+        display: 'block',
+        width: '100%',
+        marginTop: 8,
+        padding: '6px 0',
+        background: 'none',
+        border: 'none',
+        color: 'rgba(255,255,255,0.42)',
+        fontSize: 12,
+        fontFamily: 'inherit',
+        textDecoration: 'underline',
+        textAlign: 'center',
+        cursor: 'pointer',
+      }}
+    >
+      Can't find it? Enter manually
+    </button>
+  );
 
   return (
     <div style={{ padding: '28px 24px 24px' }}>
@@ -218,42 +242,50 @@ export function FlightPicker({
         <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
       </div>
 
+      {/* No filter when the board is unavailable: the manual entry sits under the divider. */}
+      {degraded && <div style={{ marginBottom: 12 }}>{manualButton('board_unavailable')}</div>}
+
       {!degraded && (
-        <div ref={filterRef} data-tp-layout="filter" style={{ position: 'relative', marginBottom: 12, scrollMarginTop: 12 }}>
-          <Search
-            size={15}
-            style={{
-              position: 'absolute',
-              left: 14,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: 'rgba(255,255,255,0.3)',
-              pointerEvents: 'none',
-            }}
-          />
-          <input
-            style={{
-              width: '100%',
-              background: 'rgba(37,37,53,0.8)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: 12,
-              padding: '13px 16px 13px 40px',
-              color: '#f0f0f8',
-              fontSize: 15,
-              fontWeight: 600,
-              fontFamily: 'inherit',
-              outline: 'none',
-              boxSizing: 'border-box',
-            }}
-            placeholder="Filter by flight number or airline"
-            value={filter}
-            onFocus={pinFilter}
-            onChange={(e) => {
-              setFilter(e.target.value);
-              pinFilter();
-            }}
-            autoComplete="off"
-          />
+        // Pinned to the top on focus. "Enter manually" is part of the pinned block, so
+        // it stays in view with the keyboard open (CC-23b).
+        <div ref={filterRef} data-tp-layout="filter" style={{ marginBottom: 12, scrollMarginTop: 12 }}>
+          <div style={{ position: 'relative' }}>
+            <Search
+              size={15}
+              style={{
+                position: 'absolute',
+                left: 14,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: 'rgba(255,255,255,0.3)',
+                pointerEvents: 'none',
+              }}
+            />
+            <input
+              style={{
+                width: '100%',
+                background: 'rgba(37,37,53,0.8)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: 12,
+                padding: '13px 16px 13px 40px',
+                color: '#f0f0f8',
+                fontSize: 15,
+                fontWeight: 600,
+                fontFamily: 'inherit',
+                outline: 'none',
+                boxSizing: 'border-box',
+              }}
+              placeholder="Filter by flight number or airline"
+              value={filter}
+              onFocus={pinFilter}
+              onChange={(e) => {
+                setFilter(e.target.value);
+                pinFilter();
+              }}
+              autoComplete="off"
+            />
+          </div>
+          {manualButton(boardReady ? 'under_filter' : 'board_unavailable')}
         </div>
       )}
 
@@ -295,31 +327,45 @@ export function FlightPicker({
       {!loading && !degraded && (
         // Its own scroll box: about 5½ rows (the half row shows there's more), never
         // taller than the visible area below the pinned filter, so with the iOS keyboard
-        // open it shrinks instead of sitting behind it (CC-23). 87 = filter top (12) +
-        // filter (51) + gap (12) + bottom margin (12).
+        // open it shrinks instead of sitting behind it (CC-23). 122 = filter top (12) +
+        // filter (51) + "Enter manually" (35) + gap (12) + bottom margin (12). A swipe at
+        // either end carries on to the page (no overscroll containment, CC-23b).
         <div
           data-tp-layout="list"
           data-tp-component="FlightPicker"
           style={{
-            maxHeight: 'min(420px, calc(var(--tp-visible-h, 100vh) - 87px))',
+            maxHeight: 'min(420px, calc(var(--tp-visible-h, 100vh) - 122px))',
             overflowY: 'auto',
-            overscrollBehavior: 'contain',
             WebkitOverflowScrolling: 'touch',
             margin: '0 -4px',
             padding: '0 4px',
           }}
         >
           {visible.length === 0 && (
-            <p
-              style={{
-                fontSize: 13,
-                color: 'rgba(255,255,255,0.4)',
-                textAlign: 'center',
-                padding: '24px 0',
-              }}
-            >
-              No flights match "{filter.trim()}".
-            </p>
+            <div style={{ textAlign: 'center', padding: '20px 0 12px' }}>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', margin: 0 }}>
+                No flights match "{filter.trim()}".
+              </p>
+              <button
+                type="button"
+                data-tp-layout="manual-empty"
+                onClick={() => handleManual('empty_state')}
+                style={{
+                  marginTop: 12,
+                  padding: '10px 18px',
+                  borderRadius: 12,
+                  border: '1px solid rgba(124,109,250,0.45)',
+                  background: 'rgba(124,109,250,0.14)',
+                  color: '#c4b5fd',
+                  fontSize: 14,
+                  fontWeight: 700,
+                  fontFamily: 'inherit',
+                  cursor: 'pointer',
+                }}
+              >
+                Enter manually
+              </button>
+            </div>
           )}
 
           {visible.map((f) => (
@@ -392,22 +438,6 @@ export function FlightPicker({
           ))}
         </div>
       )}
-
-      <div
-        style={{
-          textAlign: 'center',
-          fontSize: 12,
-          color: 'rgba(255,255,255,0.42)',
-          cursor: 'pointer',
-          marginTop: 14,
-          padding: '4px 0',
-          userSelect: 'none',
-          textDecoration: 'underline',
-        }}
-        onClick={handleManual}
-      >
-        Can't find it? Enter manually
-      </div>
 
       <div
         style={{

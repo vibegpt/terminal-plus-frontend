@@ -111,6 +111,9 @@ function enumOrNull(v: unknown, allowed: Set<string>): boolean {
 
 // The journey-trail events (CC-13). Unknown enum values are rejected, never stored.
 // Returns a rejection reason, or null when the event isn't one of them or is valid.
+// flight_not_found: which "Enter manually" the passenger tapped on the board step.
+const MANUAL_FROM = new Set(['under_filter', 'empty_state', 'board_unavailable'])
+
 function validateTrailEvent(e: Record<string, unknown>, p: Record<string, unknown>): string | null {
   const type = e.event_type
   if (type === 'outcome_eligible' || type === 'outcome_shown' || type === 'outcome_response') {
@@ -204,6 +207,11 @@ function validateEvent(raw: unknown): { row: EventRow } | { reason: string } {
 
   // session_start carries landing attribution only: the 7 known keys, validated.
   if (e.event_type === 'session_start') payload = sessionStartPayload(payload)
+  // flight_not_found carries only which "Enter manually" was tapped (CC-23b).
+  if (e.event_type === 'flight_not_found') {
+    const from = payload.from
+    payload = typeof from === 'string' && MANUAL_FROM.has(from) ? { from } : {}
+  }
   // capture_opened carries only its entry point, and only a known one.
   if (e.event_type === 'capture_opened') {
     const entry = payload.entry
