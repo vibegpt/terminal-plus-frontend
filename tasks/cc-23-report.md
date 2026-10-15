@@ -143,3 +143,59 @@ Not this work: events 1455–1473 and 2 journeys (TR266, UA2, both picker) are p
 - Chat at T3 for a T1 flight suggests T3 coffee and asks the passenger to confirm the terminal. Not
   related to this change.
 - The departures board lists flights up to 03:00 when SGT is 21:10 ("next 6 hours").
+
+## Round 2 (15 Oct): real iPhone FAILS; layout readout
+
+Todd, real iPhone, preview: after filtering "SQ", about 75% of the first row shows and the other
+rows sit below a hard line. The list scrolls, but the rows stay hidden. Closing the keyboard doesn't
+help. Per Todd, the WebKit results above don't count as evidence for this bug (lesson, 15 Oct).
+
+### Entry paths
+
+All of them render the same container:
+- Gate on `/`: initial state, `App.tsx:101`.
+- Add-flight bar and the top-bar prompt: `onEditFlight` → `App.tsx:131`.
+- Flight bar → Change flight: `App.tsx:137`.
+
+Each sets `captureEntry`, and `App.tsx:143` renders `<FlightContextCapture>` *instead of* `AppShell`.
+`FlightPicker` is rendered only there (`:345` arrivals, `:559` departures), always inside
+`S.screen` (fixed overlay) → `S.card`. No path skips the fixed container.
+
+### Readout (`581b038`)
+
+`src/components/LayoutDebug.tsx` only shows on a `VITE_TP_DEBUG=1` build when the tab has opened
+`?tp_layout=1` (kept in sessionStorage). Production builds compile it out: 0 matches in a plain
+`npm run build`. It updates every 250 ms and on visual-viewport resize or scroll. It shows:
+- the loaded bundle, and whether a service worker controls the page;
+- `innerHeight`, and the visual viewport's height and offsetTop;
+- the overlay's applied height and top, and its clientHeight, scrollHeight and scrollTop;
+- the top and bottom of the card, filter and list, and the component rendering the list;
+- what sits at the bottom of the visible area;
+- every element in the overlay that clips or scrolls (`clip …` lines).
+
+Hooks: `data-tp-layout` = overlay, card, filter, list.
+
+Browser check, Chrome 375×664 (Add-flight bar path, "SQ"):
+
+```
+bundle index-Cd24p1tF.js sw:none
+inner 664 vv 664 @0
+ov h=664px top=0px ch=664 sh=7896 st=537
+card -454–7335
+filter 12–63
+list 75–7210 by FlightPicker
+bottom: list > span (static)
+clip overlay ovY=auto maxH=none 664/7896 st=537
+```
+
+### Suspects and the readout line that settles each
+
+| Suspect | What the readout shows if it's the cause |
+|---|---|
+| Stale build: the old `maxHeight: 320` list in a clipped card ("the list scrolls" matches the old code, not this one) | A bundle other than `index-Cd24p1tF.js`, or no yellow box at all (production and older builds don't have it). `clip` lines naming `list … maxH=320px` and `card ovY=hidden` |
+| Height measured with the keyboard open, never reset | After the keyboard closes, `ov h` stays below `vv` height (e.g. 330 vs 664) |
+| `100dvh` vs Safari's toolbar | No viewport units in the capture chain. The only `100vh` is in `AppShell` (`:441`, `:474`, `:503`), which isn't rendered while capture is open. The overlay height comes from `visualViewport`; a mismatch shows as `ov h` ≠ `vv` height |
+| An ancestor still `overflow: hidden` or max-height capped | A `clip` line other than `overlay` |
+| A fixed element covering the bottom | The `bottom:` line names something other than the overlay's content |
+
+Rows from this check: events 1520–1521 (`839495bc…`), preview, `is_test`.

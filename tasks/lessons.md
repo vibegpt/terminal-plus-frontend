@@ -552,3 +552,23 @@ through the whole capture flow on a preview. CC-13 reached the same verdict.
 **Rule going forward:** clipboard writes seen in headless browser tests come
 from the test browser's simulated input, not the app (CC-13, CC-22). Don't
 re-investigate without a wrapper log that shows a call.
+
+---
+
+## 2026-10-15 — Playwright WebKit is not iOS Safari
+
+**Assumed (CC-23):** WebKit with the iPhone 13 profile, plus a 340 px height
+standing in for the keyboard, was enough to call the board-scroll fix a PASS.
+
+**Actual (Todd, real iPhone, 15 Oct):** the preview still failed on the phone,
+with rows hidden below a hard line, while every WebKit and Chrome check passed.
+Playwright's WebKit is the desktop engine with an iPhone user agent and
+viewport. It has no on-screen keyboard, no Safari toolbars, and no difference
+between the layout and visual viewports, and Playwright can't drag a finger in
+it. Shrinking the window shrinks both viewports, which a real keyboard never does.
+
+**Rule going forward:** for anything that depends on the iOS keyboard, Safari
+toolbars or touch scrolling, emulators only show that nothing broke elsewhere.
+They are not evidence for the bug or the fix. Ship a preview-only readout of
+the real numbers (viewport sizes, container heights, element rects, the loaded
+bundle), and treat the real-device result as the acceptance.
