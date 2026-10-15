@@ -233,3 +233,28 @@ that session's journeys. Re-proved on the test rows since 14 Oct (`is_test`, pre
 These are the same counts as the earlier version.
 
 0 rows with `is_test=false` from this round.
+
+## Production (15 Oct)
+
+- **Push:** `55a336a..afb5dc2 main` (fast-forward), after Todd's real-iPhone PASS.
+- **Deployment:** `dpl_GfrDKorW2rF2yuKQokhNNwnCx3D2`, target production, sha `afb5dc2`, READY.
+- **Rollback target:** `dpl_HJ7EYkVrWCw5xXf5TbHFqBvstqKv` (`55a336a`), the production deployment
+  before the push. Not used.
+- **Bundle:** `/?x=…` serves `assets/index-Cu_QCv1U.js`, the same as a plain local build of
+  `afb5dc2`; production `sw.js` precaches it.
+
+Checks on https://terminalplus.app, `?tp_test=1` (pill shown, address bar stripped to `/`), Chrome 375×812,
+service worker and caches cleared:
+
+| Check | Result | Evidence |
+|---|---|---|
+| "Enter manually" under the filter | PASS | `<button>` at 608–638 under the filter (549–600), in view without scrolling; list `overscroll-behavior: auto` |
+| "ZZZ" empty state | PASS | `No flights match "ZZZ".` plus an "Enter manually" button (in view); tap opens manual entry with the flight field focused; event `flight_not_found {from: empty_state}` |
+| Swipe past the list end reaches Keep | PASS | After QF1 (typed, journey `81c0aa8f…`) → Change flight → "SQ", page reset to the top. Wheeling only over the list: list 5625/5625, then page 0 → 306/306; "Keep QF1" from y 1019 (off-screen) to 713 (in view); tapping it leaves `capturedAt` unchanged |
+
+Rows: session `09cb75f8…`, events 1614–1624 and journey `81c0aa8f-9bac-4faf-9bfa-749ffa7c75f2`, all
+production `is_test`. After the run, the production rows with `not is_test and not is_bot` are still
+exactly the 6 restored (1010–1011, 1198–1201).
+
+Events 1610–1613 (preview, 09:01 UTC, session `f929a0d2…` untagged, then `cda9c025…` tagged) fall
+between runs and aren't Claude's; most likely Todd's iPhone check. Preview rows stay as they are.
