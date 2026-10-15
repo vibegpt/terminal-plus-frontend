@@ -199,3 +199,42 @@ clip overlay ovY=auto maxH=none 664/7896 st=537
 | A fixed element covering the bottom | The `bottom:` line names something other than the overlay's content |
 
 Rows from this check: events 1520–1521 (`839495bc…`), preview, `is_test`.
+
+## Round 3 (15 Oct): the screenshots, and a list capped at about 5 rows
+
+**Todd's iPhone screenshots (9:57)** were taken on `terminalplus.app`, which is production on
+`f6f0b2a` with the old code. No readout box. The hard line is the old card's clipped bottom edge.
+They show the original bug, not the preview.
+
+**Todd's desktop Safari on the preview (10:00):** the readout shows `index-Cd24p1tF.js`, the overlay
+is the only scroller, and nothing else clips. The fix holds. Todd then asked for a design change:
+"5 or so entries visible", with the rest scrolling.
+
+**`f2ba6ac`:** the list is its own scroll box again, this time inside a card that never clips.
+- `maxHeight: min(420px, calc(var(--tp-visible-h) - 87px))`, `overflowY: auto`,
+  `overscrollBehavior: contain`.
+- The overlay sets `--tp-visible-h` from `visualViewport`.
+- 87 px = filter top 12 + filter 51 + gap 12 + bottom margin 12.
+
+Checked in Chrome on the preview (bundle `index-CKIRLKQN.js`). Regression only; the iPhone decides:
+- **375×664, "SQ" (88 rows):** the list box is 420 px with 5 rows fully inside plus half of a 6th.
+  "Enter manually" and Skip sit right below it, in view.
+- **Wheel over the list:** it scrolls to its end (6488/6488), the last row VN656 sits inside the box,
+  and the overlay doesn't move.
+- **375×340:** the box shrinks to 253 px (340 − 87), so with the keyboard open it can't extend
+  behind the keyboard.
+- **Board API:** one browser load got the "live board isn't available" fallback. A direct call to
+  the preview API a minute later returned 142 flights in 2.6 s. Production returned 142 in 2.7 s
+  twice, after one curl run cut off at 30 s. Transient.
+
+The readout's clip lines now list 2 scrollers: `overlay` and `list … maxH=420px`.
+
+**Rows, 15 Oct:**
+
+| Ids | Env | Tagged | Whose |
+|---|---|---|---|
+| 1520–1521, 1526–1528 | preview | yes | Claude, test sessions |
+| 1518–1519 | production | no | 06:47 UTC; matches Todd's iPhone screenshots on terminalplus.app (9:57) |
+| 1522–1525 | preview | no | 07:00 UTC; matches Todd's desktop Safari screenshot of the preview (10:00); that browser had no `tp_test` |
+
+Real iPhone: still BLOCKED (Todd), on the preview link with `?tp_layout=1`.
