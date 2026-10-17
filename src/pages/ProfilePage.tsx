@@ -143,6 +143,9 @@ export default function ProfilePage() {
           <p className="text-[12px] font-semibold" style={{ color: 'rgba(255,255,255,0.2)' }}>Terminal+</p>
           <p className="text-[10px] mt-1" style={{ color: 'rgba(255,255,255,0.15)' }}>v1.0.0 MVP</p>
           <p className="text-[10px] mt-0.5" style={{ color: 'rgba(255,255,255,0.12)' }}>Singapore Changi Airport</p>
+          <p className="text-[10px] mt-2">
+            <a href="/privacy" style={{ color: 'rgba(255,255,255,0.25)' }}>Privacy</a>
+          </p>
         </div>
       </div>
     </div>
