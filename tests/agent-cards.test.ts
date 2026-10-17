@@ -392,3 +392,22 @@ test('chat seed: hidden user turn first, capped at 600 chars; visible assistant 
   assert.ok(!a.hidden);
   assert.ok(a.content.includes('A'));
 });
+
+// ── slot: primed during render, still published afterwards ─────────
+
+import { getSlot, primeSlot, setSlot, subscribeSlot } from '../src/lib/agentCards';
+
+test('slot: primeSlot is read at once but still published by the next setSlot', () => {
+  const seenStates: boolean[] = [];
+  const off = subscribeSlot(s => seenStates.push(s.cardAbove));
+  primeSlot({ cardAbove: true });
+  assert.equal(getSlot().cardAbove, true); // a strip mounting now starts hidden
+  setSlot({ cardAbove: true }); // the provider's effect: subscribers must still hear it
+  assert.deepEqual(seenStates, [true]);
+  setSlot({ cardAbove: true }); // no change, no repeat
+  assert.deepEqual(seenStates, [true]);
+  primeSlot({ cardAbove: false });
+  setSlot({ cardAbove: false });
+  assert.deepEqual(seenStates, [true, false]);
+  off();
+});

@@ -333,13 +333,25 @@ export interface SlotState {
 let slot: SlotState = { stripPending: false, cardAbove: false };
 const slotBus = bus<SlotState>();
 export function getSlot(): SlotState { return slot; }
+/** The last state subscribers were told about (primeSlot changes `slot` silently). */
+let published: SlotState = slot;
 export function setSlot(patch: Partial<SlotState>): void {
-  const next = { ...slot, ...patch };
-  if (next.stripPending === slot.stripPending && next.cardAbove === slot.cardAbove) return;
-  slot = next;
+  slot = { ...slot, ...patch };
+  if (slot.stripPending === published.stripPending && slot.cardAbove === published.cardAbove) return;
+  published = slot;
   slotBus.emit(slot);
 }
 export const subscribeSlot = slotBus.on;
+/**
+ * Set the slot without notifying anyone. The card provider calls this while it
+ * renders, which is before the outcome strip's first render: on a cold resume the
+ * strip reads the right cardAbove from its first frame instead of showing (and
+ * logging outcome_shown) for one render under a gate_change or final_call card.
+ * Later changes go through setSlot from an effect.
+ */
+export function primeSlot(patch: Partial<SlotState>): void {
+  slot = { ...slot, ...patch };
+}
 
 /** "Ask something else": open chat seeded with this card. */
 export const openChatBus = bus<AgentCard>();

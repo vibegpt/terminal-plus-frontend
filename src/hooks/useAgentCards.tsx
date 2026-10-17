@@ -51,6 +51,7 @@ import {
   setSlot,
   subscribeSlot,
   getSlot,
+  primeSlot,
   visitedBus,
   writeStore,
   type AgentStore,
@@ -140,7 +141,7 @@ async function fetchModelCard(trigger: ModelTrigger, journey: JourneyData, snap:
 }
 
 /** final_call: 3 Quick-vibe venues, open now, in the departure terminal, from the ranker. */
-async function buildFinalCall(journey: JourneyData, snap: Snapshot): Promise<AgentCard | null> {
+async function buildFinalCall(journey: JourneyData, snap: Snapshot, visited: string[]): Promise<AgentCard | null> {
   const ctx = eligibilityFromJourney(journey);
   let query = supabase
     .from('amenity_detail')
@@ -154,7 +155,10 @@ async function buildFinalCall(journey: JourneyData, snap: Snapshot): Promise<Age
   if (!landsideAccess({ isLandside: true, ...ctx }).show) query = query.eq('is_landside', false);
   const { data, error } = await query;
   if (error || !data) return null;
-  const open = smart7Select(data as unknown as AmenityRow[], snap.departureTerminal, DISPLAY.COLLECTION_VISIBLE, ctx)
+  // Venues already visited (answered, checked in, opened) aren't offered again.
+  const skip = new Set(visited);
+  const rows = (data as unknown as AmenityRow[]).filter(r => !skip.has(r.amenity_slug));
+  const open = smart7Select(rows, snap.departureTerminal, DISPLAY.COLLECTION_VISIBLE, ctx)
     .filter(r => r.open_state === 'open')
     .slice(0, 3);
   if (!open.length) return null;
@@ -232,7 +236,11 @@ export function AgentCardProvider({ children }: { children: React.ReactNode }) {
   const { journey, setJourney } = useJourney();
   const navigate = useNavigate();
   const [now, setNow] = useState(() => Date.now());
-  const [store, setStore] = useState<AgentStore | null>(null);
+  // Read synchronously, so the first render already knows which card is up (see primeSlot).
+  const [store, setStore] = useState<AgentStore | null>(() => {
+    const s = snapshotOf(journey, Date.now());
+    return s ? readStore(s.journeyKey) : null;
+  });
   const [loading, setLoading] = useState<Set<Trigger>>(() => new Set());
   const [stripPending, setStripPending] = useState(getSlot().stripPending);
   const [renderers, setRenderers] = useState(0);
@@ -297,7 +305,7 @@ export function AgentCardProvider({ children }: { children: React.ReactNode }) {
         st = addCard(st, { card: gateCard(snap, quickChip), key: `${snap.journeyKey}|gate|${snap.gate}`, shown_at: null, dismissed: false, terminal_changed: !!d.terminalChanged, quick_chip: quickChip });
       } else if (d.trigger === 'final_call') {
         st = { ...st, final_call_done: true };
-        void buildFinalCall(j, snap).then(card => {
+        void buildFinalCall(j, snap, st.visited).then(card => {
           if (card && live.current.snap?.journeyKey === snap.journeyKey) {
             update(s2 => addCard(s2, { card, key: `${snap.journeyKey}|final_call`, shown_at: null, dismissed: false }));
           }
@@ -332,7 +340,9 @@ export function AgentCardProvider({ children }: { children: React.ReactNode }) {
     [store, stripPending],
   );
 
-  // The strip hides under gate_change / final_call (and shows again after).
+  // The strip hides under gate_change / final_call (and shows again after). Primed during
+  // render for the strip's first frame; published from the effect for later changes.
+  primeSlot({ cardAbove: cardAboveStrip(visible) });
   useEffect(() => { setSlot({ cardAbove: cardAboveStrip(visible) }); }, [visible]);
 
   // agent_card_shown: once per card, when something draws it, with the journey id if it can.
