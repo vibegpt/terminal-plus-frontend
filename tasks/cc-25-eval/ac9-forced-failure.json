@@ -1,0 +1,164 @@
+{
+  "summary": {
+    "label": "ac9-forced-failure",
+    "base": "https://terminal-plus-frontend-rce14xdg5-todds-projects-d0181971.vercel.app",
+    "forced_model": "bogus-model",
+    "scenarios": 2,
+    "valid_shape": 2,
+    "count_ok": 2,
+    "sources": {
+      "fallback": 2
+    },
+    "out_of_pool": 0,
+    "closed": 0,
+    "landside_violations": 0,
+    "walk_claims": 0,
+    "excluded_violations": 0,
+    "long_why": 0,
+    "latency_p50_ms": 907,
+    "latency_p95_ms": 1007,
+    "input_tokens_median": null,
+    "output_tokens_median": null,
+    "cost_per_card_usd_median": null,
+    "session_id": "31781c03-85f5-4466-907f-22827325e3ff"
+  },
+  "results": [
+    {
+      "id": "s01",
+      "note": "connecting T3 170 min at 15:00 SGT",
+      "status": 200,
+      "valid_shape": true,
+      "source": "fallback",
+      "reason": "model_not_found",
+      "repairs": [],
+      "scope": [
+        "SIN-T3"
+      ],
+      "header": "2h 50m to boarding · T3",
+      "line": "3 good stops for the time you have",
+      "stops": [
+        {
+          "slug": "butterfly-garden-t3-new",
+          "terminal": "SIN-T3",
+          "why": "The original and best: a 6-metre waterfall at the centre of a genuine tropical garden…",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "aw-root-beer-t3",
+          "terminal": "SIN-T3",
+          "why": "A&W is extinct in most countries but thrives at Changi T3 — the root beer float (ice…",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "apple-store",
+          "terminal": "SIN-T3",
+          "why": "Changi's Apple Store is one of the few in-airport locations globally. Singapore pricing…",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 907,
+      "wall_ms": 1438,
+      "model": "bogus-model",
+      "attempts": [
+        {
+          "model": "bogus-model",
+          "ok": false,
+          "kind": "model_not_found",
+          "latency_ms": 342,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "model": "bogus-model",
+          "ok": false,
+          "kind": "model_not_found",
+          "latency_ms": 345,
+          "input_tokens": null,
+          "output_tokens": null
+        }
+      ],
+      "input_tokens": null,
+      "output_tokens": null,
+      "cost_usd": 0
+    },
+    {
+      "id": "s04",
+      "note": "departing T2 95 min",
+      "status": 200,
+      "valid_shape": true,
+      "source": "fallback",
+      "reason": "model_not_found",
+      "repairs": [],
+      "scope": [
+        "SIN-T2"
+      ],
+      "header": "1h 35m to boarding · T2",
+      "line": "2 good stops for the time you have",
+      "stops": [
+        {
+          "slug": "paradise-dynasty-t2-new",
+          "terminal": "SIN-T2",
+          "why": "T2 flagship — larger seating, more refined. La mian in Sichuan sauce is underordered gem…",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "singapore-airlines-silverkris-lounge-t2-new",
+          "terminal": "SIN-T2",
+          "why": "Self-serve Taittinger champagne, live laksa station, made-to-order udon and wonton…",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 2,
+      "expected_count": 2,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 1007,
+      "wall_ms": 1314,
+      "model": "bogus-model",
+      "attempts": [
+        {
+          "model": "bogus-model",
+          "ok": false,
+          "kind": "model_not_found",
+          "latency_ms": 334,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "model": "bogus-model",
+          "ok": false,
+          "kind": "model_not_found",
+          "latency_ms": 466,
+          "input_tokens": null,
+          "output_tokens": null
+        }
+      ],
+      "input_tokens": null,
+      "output_tokens": null,
+      "cost_usd": 0
+    }
+  ]
+}

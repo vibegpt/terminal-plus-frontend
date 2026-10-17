@@ -1,0 +1,93 @@
+{
+  "summary": {
+    "label": "s12-probe2",
+    "base": "https://terminal-plus-frontend-rce14xdg5-todds-projects-d0181971.vercel.app",
+    "forced_model": null,
+    "scenarios": 1,
+    "valid_shape": 1,
+    "count_ok": 1,
+    "sources": {
+      "model": 1
+    },
+    "out_of_pool": 0,
+    "closed": 0,
+    "landside_violations": 0,
+    "walk_claims": 0,
+    "excluded_violations": 0,
+    "long_why": 0,
+    "latency_p50_ms": 3103,
+    "latency_p95_ms": 3103,
+    "input_tokens_median": 2100,
+    "output_tokens_median": 190,
+    "cost_per_card_usd_median": 0.0061,
+    "session_id": "27710492-6fa3-4474-992f-08acebe52e32"
+  },
+  "results": [
+    {
+      "id": "s12",
+      "note": "a pool where open venues can't fill 3 (T4 at 03:30)",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [
+        "why_replaced:singapore-airlines-silverkris-lounge-t4-new"
+      ],
+      "scope": [
+        "SIN-T4"
+      ],
+      "header": "2h 30m to boarding · T4",
+      "line": "Settle in, then wander T4's best sights.",
+      "stops": [
+        {
+          "slug": "singapore-airlines-silverkris-lounge-t4-new",
+          "terminal": "SIN-T4",
+          "why": "T4's SilverKris is smaller than T1 but still excellent — hot food (satay, laksa), bar…",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "petalclouds",
+          "terminal": "SIN-T4",
+          "why": "656 feet of kinetic petals moving with light and music in the Central Galleria.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "whsmith-t4-level-2-59",
+          "terminal": "SIN-T4",
+          "why": "Grab-and-go snack wall with more Asian options than T1-T3.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 3103,
+      "wall_ms": 3582,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2379,
+          "input_tokens": 2100,
+          "output_tokens": 190
+        }
+      ],
+      "input_tokens": 2100,
+      "output_tokens": 190,
+      "cost_usd": 0.0061
+    }
+  ]
+}

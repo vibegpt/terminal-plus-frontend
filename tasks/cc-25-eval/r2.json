@@ -1,0 +1,856 @@
+{
+  "summary": {
+    "label": "r2",
+    "base": "https://terminal-plus-frontend-rce14xdg5-todds-projects-d0181971.vercel.app",
+    "forced_model": null,
+    "scenarios": 13,
+    "valid_shape": 13,
+    "count_ok": 13,
+    "sources": {
+      "model": 12,
+      "fallback": 1
+    },
+    "out_of_pool": 0,
+    "closed": 0,
+    "landside_violations": 0,
+    "walk_claims": 0,
+    "excluded_violations": 0,
+    "long_why": 0,
+    "latency_p50_ms": 2880,
+    "latency_p95_ms": 8002,
+    "input_tokens_median": 2112,
+    "output_tokens_median": 191,
+    "cost_per_card_usd_median": 0.00615,
+    "session_id": "2d38f891-818f-46cb-b5f1-1480a23ccc7f"
+  },
+  "results": [
+    {
+      "id": "s01",
+      "note": "connecting T3 170 min at 15:00 SGT",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T3"
+      ],
+      "header": "2h 50m to boarding · T3",
+      "line": "A lovely mix of calm, comfort food, and a quick treat.",
+      "stops": [
+        {
+          "slug": "butterfly-garden-t3-new",
+          "terminal": "SIN-T3",
+          "why": "A 6-metre waterfall and 1,000 butterflies across 40 species, worth a slow wander.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "din-tai-fung-t3-new",
+          "terminal": "SIN-T3",
+          "why": "Signature xiaolongbao with 18 folds; add the steamed chicken soup.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "bacha-coffee-sint3",
+          "terminal": "SIN-T3",
+          "why": "Takeaway-only cup from over 200 Arabica coffees to sip by the gates.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 4161,
+      "wall_ms": 4681,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 3242,
+          "input_tokens": 2106,
+          "output_tokens": 194
+        }
+      ],
+      "input_tokens": 2106,
+      "output_tokens": 194,
+      "cost_usd": 0.00615
+    },
+    {
+      "id": "s02",
+      "note": "connecting T3 200 min",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T3"
+      ],
+      "header": "3h 20m to boarding · T3",
+      "line": "Garden wander, a bite, then a quick coffee for the gate.",
+      "stops": [
+        {
+          "slug": "butterfly-garden-t3-new",
+          "terminal": "SIN-T3",
+          "why": "Tropical garden with a 6-metre waterfall and 1,000 butterflies across 40 species.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "din-tai-fung-t3-new",
+          "terminal": "SIN-T3",
+          "why": "Signature xiaolongbao with 18 folds; add the steamed chicken soup.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "bacha-coffee-sint3",
+          "terminal": "SIN-T3",
+          "why": "Takeaway-only cup from 200+ Arabica coffees, under Moroccan stained-glass ceilings.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 2641,
+      "wall_ms": 3036,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2412,
+          "input_tokens": 2172,
+          "output_tokens": 202
+        }
+      ],
+      "input_tokens": 2172,
+      "output_tokens": 202,
+      "cost_usd": 0.00636
+    },
+    {
+      "id": "s03",
+      "note": "connecting T1 170 min at 00:30 SGT",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T1"
+      ],
+      "header": "2h 50m to boarding · T1",
+      "line": "A calm, tasty plan for your long overnight layover.",
+      "stops": [
+        {
+          "slug": "dnata-lounge-t1-new",
+          "terminal": "SIN-T1",
+          "why": "Open 24 hours with great coffee, shower access, and power outlets everywhere.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "fish-spa-t1",
+          "terminal": "SIN-T1",
+          "why": "A free, quirky 15-minute foot treatment with Priority Pass that tickles and refreshes.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "fragrance-bak-kwa-t1",
+          "terminal": "SIN-T1",
+          "why": "Crispy, caramelised honey pork bak kwa in carry-on friendly vacuum packs.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 2880,
+      "wall_ms": 3268,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2670,
+          "input_tokens": 2245,
+          "output_tokens": 191
+        }
+      ],
+      "input_tokens": 2245,
+      "output_tokens": 191,
+      "cost_usd": 0.0064
+    },
+    {
+      "id": "s04",
+      "note": "departing T2 95 min",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T2"
+      ],
+      "header": "1h 35m to boarding · T2 · Before immigration",
+      "line": "Settle in with a proper meal, then grab a quick drink.",
+      "stops": [
+        {
+          "slug": "din-tai-fung-t2-new",
+          "terminal": "SIN-T2",
+          "why": "Watch chefs fold xiaolongbao through the glass; add the steamed chicken soup.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "chagee-sint2",
+          "terminal": "SIN-T2",
+          "why": "Rich signature tea latte, with lychee and oolong standouts, to sip on the go.",
+          "access": "Before immigration",
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 2,
+      "expected_count": 2,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [
+        {
+          "slug": "chagee-sint2",
+          "label": "Before immigration"
+        }
+      ],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 2660,
+      "wall_ms": 3072,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2435,
+          "input_tokens": 2165,
+          "output_tokens": 134
+        }
+      ],
+      "input_tokens": 2165,
+      "output_tokens": 134,
+      "cost_usd": 0.00567
+    },
+    {
+      "id": "s05",
+      "note": "departing T2 80 min",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T2"
+      ],
+      "header": "1h 20m to boarding · T2",
+      "line": "A proper bite, then a quick treat to take along.",
+      "stops": [
+        {
+          "slug": "din-tai-fung-t2-new",
+          "terminal": "SIN-T2",
+          "why": "Signature xiaolongbao, and the steamed chicken soup is the must-add order.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "koi-th-t2-new",
+          "terminal": "SIN-T2",
+          "why": "Queue moves fast, and the cold brew black tea No.7 is an underordered gem.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 2,
+      "expected_count": 2,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 1986,
+      "wall_ms": 2342,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 1752,
+          "input_tokens": 2099,
+          "output_tokens": 129
+        }
+      ],
+      "input_tokens": 2099,
+      "output_tokens": 129,
+      "cost_usd": 0.00549
+    },
+    {
+      "id": "s06",
+      "note": "just_landed T3",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T3"
+      ],
+      "header": "4h to boarding · T3",
+      "line": "Stretch your legs, refuel, then grab a quick treat!",
+      "stops": [
+        {
+          "slug": "butterfly-garden-t3-new",
+          "terminal": "SIN-T3",
+          "why": "A 6-metre waterfall and 1,000 butterflies across 40 species make a relaxed first stop.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "din-tai-fung-t3-new",
+          "terminal": "SIN-T3",
+          "why": "Signature xiaolongbao with 18 folds, plus the steamed chicken soup as the must-add.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "bacha-coffee-sint3",
+          "terminal": "SIN-T3",
+          "why": "Takeaway only, with over 200 Arabica coffees to sip as you head off.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 3206,
+      "wall_ms": 3524,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2996,
+          "input_tokens": 2130,
+          "output_tokens": 198
+        }
+      ],
+      "input_tokens": 2130,
+      "output_tokens": 198,
+      "cost_usd": 0.00624
+    },
+    {
+      "id": "s07",
+      "note": "skipped type with minutes",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T3"
+      ],
+      "header": "2h 30m to boarding · T3",
+      "line": "Wander, snack, then grab a coffee for the gate.",
+      "stops": [
+        {
+          "slug": "butterfly-garden-t3-new",
+          "terminal": "SIN-T3",
+          "why": "A 6-metre waterfall and 1,000 butterflies across 40 species make a calm, unhurried start.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "din-tai-fung-t3-new",
+          "terminal": "SIN-T3",
+          "why": "Signature xiaolongbao with 18 folds; add the steamed chicken soup. Allow for a queue.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "bacha-coffee-sint3",
+          "terminal": "SIN-T3",
+          "why": "Takeaway-only cup from 200+ Arabica coffees, easy to sip by the gate.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 2975,
+      "wall_ms": 3389,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2786,
+          "input_tokens": 2106,
+          "output_tokens": 204
+        }
+      ],
+      "input_tokens": 2106,
+      "output_tokens": 204,
+      "cost_usd": 0.00625
+    },
+    {
+      "id": "s08",
+      "note": "delay +75 on a 90-min connection",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T3"
+      ],
+      "header": "2h 45m to boarding · T3",
+      "line": "A bonus stretch of time, so wander, sip and snack!",
+      "stops": [
+        {
+          "slug": "butterfly-garden-t3-new",
+          "terminal": "SIN-T3",
+          "why": "A 6-metre waterfall and 1,000 butterflies across 40 species in a real tropical garden.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "kinokuniya-t3-new",
+          "terminal": "SIN-T3",
+          "why": "Largest Changi branch, with the best airport manga and graphic novel section anywhere.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "bacha-coffee-sint3",
+          "terminal": "SIN-T3",
+          "why": "Takeaway-only cup from 200+ Arabica coffees, sipped under Moroccan stained-glass ceilings.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 2533,
+      "wall_ms": 2814,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2319,
+          "input_tokens": 2112,
+          "output_tokens": 203
+        }
+      ],
+      "input_tokens": 2112,
+      "output_tokens": 203,
+      "cost_usd": 0.00625
+    },
+    {
+      "id": "s09",
+      "note": "next_stop with 2 visited venues (s02's first 2 stops)",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T3"
+      ],
+      "header": "2h 20m to boarding · T3",
+      "line": "A calm, quirky, easy way to spend your layover!",
+      "stops": [
+        {
+          "slug": "cactus-garden-t3-new",
+          "terminal": "SIN-T3",
+          "why": "Open-air rooftop with 100 cactus species, a calming break from the terminal noise.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "kinokuniya-t3-new",
+          "terminal": "SIN-T3",
+          "why": "Deep stacks and the best manga and graphic novel section of any airport.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "bacha-coffee-sint3",
+          "terminal": "SIN-T3",
+          "why": "Takeaway cup from 200+ Arabica coffees under Moroccan stained-glass ceilings.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [
+        "butterfly-garden-t3-new",
+        "din-tai-fung-t3-new"
+      ],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 2788,
+      "wall_ms": 3055,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2558,
+          "input_tokens": 2055,
+          "output_tokens": 184
+        }
+      ],
+      "input_tokens": 2055,
+      "output_tokens": 184,
+      "cost_usd": 0.00595
+    },
+    {
+      "id": "s10",
+      "note": "T4 140 min",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T4"
+      ],
+      "header": "2h 20m to boarding · T4",
+      "line": "A relaxed tea, a good meal, and a souvenir to finish.",
+      "stops": [
+        {
+          "slug": "twg-tea-t4-new",
+          "terminal": "SIN-T4",
+          "why": "Settle in for a full afternoon tea set or a pot of 1837 Black Tea.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "sushi-tei-t4-new",
+          "terminal": "SIN-T4",
+          "why": "Quietest of the three branches, with an unhurried meal and a spicy salmon temaki.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "taste-singapore",
+          "terminal": "SIN-T4",
+          "why": "Quick one-stop edible souvenirs like laksa paste, kaya jam and local snacks.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 3155,
+      "wall_ms": 3425,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2691,
+          "input_tokens": 2135,
+          "output_tokens": 187
+        }
+      ],
+      "input_tokens": 2135,
+      "output_tokens": 187,
+      "cost_usd": 0.00614
+    },
+    {
+      "id": "s11",
+      "note": "plan at 65 min (2 stops)",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T3"
+      ],
+      "header": "1h 5m to boarding · T3",
+      "line": "A calm garden wander, then a quick coffee for the gate.",
+      "stops": [
+        {
+          "slug": "butterfly-garden-t3-new",
+          "terminal": "SIN-T3",
+          "why": "Tropical garden with a 6-metre waterfall and 1,000 butterflies across 40 species.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "bacha-coffee-sint3",
+          "terminal": "SIN-T3",
+          "why": "Takeaway-only Bacha outlet with 200+ Arabica coffees to sip by the gates.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 2,
+      "expected_count": 2,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 2498,
+      "wall_ms": 2755,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2265,
+          "input_tokens": 2105,
+          "output_tokens": 145
+        }
+      ],
+      "input_tokens": 2105,
+      "output_tokens": 145,
+      "cost_usd": 0.00566
+    },
+    {
+      "id": "s12",
+      "note": "a pool where open venues can't fill 3 (T4 at 03:30)",
+      "status": 200,
+      "valid_shape": true,
+      "source": "fallback",
+      "reason": "timeout",
+      "repairs": [],
+      "scope": [
+        "SIN-T4"
+      ],
+      "header": "2h 30m to boarding · T4",
+      "line": "3 good stops for the time you have",
+      "stops": [
+        {
+          "slug": "lego-airport-store",
+          "terminal": "SIN-T4",
+          "why": "One of very few airport-specific Lego stores globally — has Changi Airport-themed sets…",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "singapore-airlines-silverkris-lounge-t4-new",
+          "terminal": "SIN-T4",
+          "why": "T4's SilverKris is smaller than T1 but still excellent — hot food (satay, laksa), bar…",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "entertainment-deck-t4-new",
+          "terminal": "SIN-T4",
+          "why": "T4's Entertainment Corner has free Xbox Kinect and retro arcade games — no tokens…",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 8002,
+      "wall_ms": 8267,
+      "model": "claude-sonnet-4-6",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": false,
+          "kind": "timeout",
+          "latency_ms": 5003,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        {
+          "model": "claude-sonnet-4-6",
+          "ok": false,
+          "kind": "timeout",
+          "latency_ms": 2776,
+          "input_tokens": null,
+          "output_tokens": null
+        }
+      ],
+      "input_tokens": null,
+      "output_tokens": null,
+      "cost_usd": 0
+    },
+    {
+      "id": "s13",
+      "note": "connecting, arrived T1, departs T3, 200 min (D3)",
+      "status": 200,
+      "valid_shape": true,
+      "source": "model",
+      "reason": null,
+      "repairs": [],
+      "scope": [
+        "SIN-T1",
+        "SIN-T3"
+      ],
+      "header": "3h 20m to boarding · Arrived T1 · departs T3",
+      "line": "Plenty of time for a leisurely Changi bite and a snack to go.",
+      "stops": [
+        {
+          "slug": "paradise-dynasty-t1-new",
+          "terminal": "SIN-T1",
+          "why": "Signature 8-colour xiao long bao set with truffle, foie gras and crab roe flavours.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "fragrance-bak-kwa-t1",
+          "terminal": "SIN-T1",
+          "why": "Crispier, caramelised bak kwa; vacuum-sealed packs are carry-on compliant.",
+          "access": null,
+          "opens": null
+        },
+        {
+          "slug": "aw-root-beer-t3",
+          "terminal": "SIN-T3",
+          "why": "Nostalgic root beer float and curly fries, a rare novelty in T3.",
+          "access": null,
+          "opens": null
+        }
+      ],
+      "excluded": [],
+      "excluded_violations": [],
+      "stop_count": 3,
+      "expected_count": 3,
+      "out_of_pool": [],
+      "closed": [],
+      "landside_violations": [],
+      "landside_stops": [],
+      "walk_claims": [],
+      "long_why": 0,
+      "alternates": 6,
+      "latency_ms": 2970,
+      "wall_ms": 3311,
+      "model": "claude-sonnet-5-5",
+      "attempts": [
+        {
+          "model": "claude-sonnet-5-5",
+          "ok": true,
+          "kind": "end_turn",
+          "latency_ms": 2223,
+          "input_tokens": 2395,
+          "output_tokens": 200
+        }
+      ],
+      "input_tokens": 2395,
+      "output_tokens": 200,
+      "cost_usd": 0.00679
+    }
+  ]
+}

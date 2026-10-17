@@ -1,0 +1,9 @@
+SAME | gate change, same terminal | toasts old=["Gate changed: B8"] new=["Gate changed: B8"] | boardingTime old=2026-10-17T08:46:56.045Z new=2026-10-17T08:46:56.045Z | departureTerminal new=SIN-T3
+SAME | gate change + new terminal | toasts old=["Gate changed: E4"] new=["Gate changed: E4"] | boardingTime old=2026-10-17T08:46:56.045Z new=2026-10-17T08:46:56.045Z | departureTerminal new=SIN-T2
+SAME | delay 40 min + new boarding time | toasts old=["Flight delayed — new time available"] new=["Flight delayed — new time available"] | boardingTime old=2026-10-17T10:05:00.000Z new=2026-10-17T10:05:00.000Z | departureTerminal new=SIN-T3
+SAME | gate + delay + terminal + destination | toasts old=["Gate changed: E4","Flight delayed — new time available"] new=["Gate changed: E4","Flight delayed — new time available"] | boardingTime old=2026-10-17T10:05:00.000Z new=2026-10-17T10:05:00.000Z | departureTerminal new=SIN-T2
+SAME | cancelled | toasts old=["Flight SQ221 CANCELLED"] new=["Flight SQ221 CANCELLED"] | boardingTime old=2026-10-17T08:46:56.045Z new=2026-10-17T08:46:56.045Z | departureTerminal new=SIN-T3
+SAME | first gate assignment | toasts old=["Gate assigned: C1"] new=["Gate assigned: C1"] | boardingTime old=2026-10-17T08:46:56.045Z new=2026-10-17T08:46:56.045Z | departureTerminal new=SIN-T3
+SAME | arrival leg: terminal must not move | toasts old=[] new=[] | boardingTime old=2026-10-17T08:46:56.045Z new=2026-10-17T08:46:56.045Z | departureTerminal new=SIN-T3
+SAME | no change | toasts old=[] new=[] | boardingTime old=2026-10-17T08:46:56.045Z new=2026-10-17T08:46:56.045Z | departureTerminal new=SIN-T3
+TOASTS IDENTICAL IN ALL CASES
