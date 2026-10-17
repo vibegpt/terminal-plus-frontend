@@ -43,7 +43,8 @@ Lawyer flags still open: no retention limit; US transfers. GA4 consent is moot (
 ### Data
 - `20261017075423` unlinked 7 test journeys from auth user `c3da094f`; `20261017101550` unlinked 2 test journeys from orphan `6e2ee41f` (applied before its file was written; file added under the applied version). Rollback SQL in each file.
 - Auth admin API DELETE (200 ×3): `a2bef105…`, `13aee150…`, `c3da094f…`. Now `auth.users` 0, `auth.identities` 0, journeys with user_id 0.
-- Sign-ups: `GET /auth/v1/settings` → `disable_signup: false` (17 Oct). Todd to switch off; re-read after.
+- Sign-ups: `GET /auth/v1/settings` → `disable_signup: false` at 10:25 UTC; Todd switched it off; re-read 10:26:47 UTC → `disable_signup: true`, anonymous sign-ins false.
+- Registry key (D1): moved to `~/.config/terminalplus/mcp-registry-key.pem` (dir 700, file 600); its public key still equals the live `mcp-registry-auth`.
 - Reachable auth calls (condition 1): `src/hooks/useAuth.tsx` (AuthProvider in `main.tsx`: getUser, onAuthStateChange on load) and `src/lib/fetchWithAuth.ts` (getSession, via queryClient). No reachable code calls signUp/signIn/signOut. Accepted by Todd as read-only.
 
 ### Preview checks (`dpl_4VsGSu1caYShKTCyrKkDm1qeeiiG`, `a6cd5b3`, 375 px, browser TZ Asia/Jerusalem)
