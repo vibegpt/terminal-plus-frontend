@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "test:adversarial": "tsx --test tests/adversarial/*.test.ts",
     "og:image": "tsx scripts/og-image.ts",
-    "sitemap": "tsx scripts/sitemap.ts"
+    "sitemap": "tsx scripts/sitemap.ts",
+    "icons": "tsx scripts/icons.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.74.0",
