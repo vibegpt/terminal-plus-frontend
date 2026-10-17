@@ -1,0 +1,15 @@
+[
+  { "id": "s01", "note": "connecting T3 170 min at 15:00 SGT", "trigger": "plan", "now": "15:00", "context": { "terminal": "SIN-T3", "departure_terminal": "SIN-T3", "journey_type": "connecting", "minutes_to_boarding": 170 } },
+  { "id": "s02", "note": "connecting T3 200 min", "trigger": "plan", "now": "15:00", "context": { "terminal": "SIN-T3", "departure_terminal": "SIN-T3", "journey_type": "connecting", "minutes_to_boarding": 200 } },
+  { "id": "s03", "note": "connecting T1 170 min at 00:30 SGT", "trigger": "plan", "now": "00:30", "context": { "terminal": "SIN-T1", "departure_terminal": "SIN-T1", "journey_type": "connecting", "minutes_to_boarding": 170 } },
+  { "id": "s04", "note": "departing T2 95 min", "trigger": "plan", "now": "15:00", "context": { "terminal": "SIN-T2", "departure_terminal": "SIN-T2", "journey_type": "departing", "minutes_to_boarding": 95 } },
+  { "id": "s05", "note": "departing T2 80 min", "trigger": "plan", "now": "15:00", "context": { "terminal": "SIN-T2", "departure_terminal": "SIN-T2", "journey_type": "departing", "minutes_to_boarding": 80 } },
+  { "id": "s06", "note": "just_landed T3", "trigger": "plan", "now": "15:00", "context": { "terminal": "SIN-T3", "departure_terminal": "SIN-T3", "journey_type": "just_landed", "minutes_to_boarding": 240 } },
+  { "id": "s07", "note": "skipped type with minutes", "trigger": "plan", "now": "15:00", "context": { "terminal": "SIN-T3", "departure_terminal": "SIN-T3", "journey_type": "skipped", "minutes_to_boarding": 150 } },
+  { "id": "s08", "note": "delay +75 on a 90-min connection", "trigger": "delay", "now": "15:00", "context": { "terminal": "SIN-T3", "departure_terminal": "SIN-T3", "journey_type": "connecting", "minutes_to_boarding": 165 } },
+  { "id": "s09", "note": "next_stop with 2 visited venues (s02's first 2 stops)", "trigger": "next_stop", "now": "15:00", "exclude_from": "s02", "context": { "terminal": "SIN-T3", "departure_terminal": "SIN-T3", "journey_type": "connecting", "minutes_to_boarding": 140 } },
+  { "id": "s10", "note": "T4 140 min", "trigger": "plan", "now": "15:00", "context": { "terminal": "SIN-T4", "departure_terminal": "SIN-T4", "journey_type": "departing", "minutes_to_boarding": 140 } },
+  { "id": "s11", "note": "plan at 65 min (2 stops)", "trigger": "plan", "now": "15:00", "context": { "terminal": "SIN-T3", "departure_terminal": "SIN-T3", "journey_type": "departing", "minutes_to_boarding": 65 } },
+  { "id": "s12", "note": "a pool where open venues can't fill 3 (T4 at 03:30)", "trigger": "plan", "now": "03:30", "context": { "terminal": "SIN-T4", "departure_terminal": "SIN-T4", "journey_type": "connecting", "minutes_to_boarding": 150 } },
+  { "id": "s13", "note": "connecting, arrived T1, departs T3, 200 min (D3)", "trigger": "plan", "now": "15:00", "context": { "terminal": "SIN-T1", "departure_terminal": "SIN-T3", "journey_type": "connecting", "minutes_to_boarding": 200 } }
+]

@@ -226,10 +226,11 @@ test('ledger: same journey keeps its state, a new journey starts fresh', () => {
 
 test('candidate parsing: versioned, typed, rejects junk', () => {
   const good = JSON.stringify({ schema_version: 1, slug: 'a', name: 'A', type: 'save', at: NOW });
-  assert.deepEqual(parseCandidate(good), { slug: 'a', name: 'A', type: 'save', at: NOW });
+  // CC-25: v1 is read as v2 with card_id null (read-time migration); v3 doesn't exist yet.
+  assert.deepEqual(parseCandidate(good), { slug: 'a', name: 'A', type: 'save', at: NOW, card_id: null });
   assert.equal(parseCandidate(null), null);
   assert.equal(parseCandidate('{'), null);
-  assert.equal(parseCandidate(JSON.stringify({ schema_version: 2, slug: 'a', name: 'A', type: 'save', at: NOW })), null);
+  assert.equal(parseCandidate(JSON.stringify({ schema_version: 3, slug: 'a', name: 'A', type: 'save', at: NOW })), null);
   assert.equal(parseCandidate(JSON.stringify({ schema_version: 1, slug: 'a', name: 'A', type: 'collection_open', at: NOW })), null);
   assert.equal(parseCandidate(JSON.stringify({ schema_version: 1, slug: '', name: 'A', type: 'save', at: NOW })), null);
 });
