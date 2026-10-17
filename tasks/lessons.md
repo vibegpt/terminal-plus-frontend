@@ -603,3 +603,20 @@ AI assistant. Fixed by migration `20261017103745`.
 **Rule going forward:** before opening any production page, check that origin's
 `localStorage.tp_test`, or open it with `?tp_test=1` first. That covers checks
 "just to see a page load". Query `events` for your anon_id afterwards.
+
+---
+
+## 2026-10-17 — A Vercel rate-limit rule's "deny" is a 403, not a 429
+
+**Assumed (CC-26 F proposal):** `rateLimit.action: "deny"` returns 429 once the
+limit is hit.
+
+**Actual:** `deny` blocks with 403. The 429 comes from the default action,
+`rate_limit`. Caught while applying, before publish; the burst then proved
+60 × 400 followed by 429. Also: the Vercel MCP connector's firewall endpoints
+return 404 "Seawall Config not found" on a project that has never had a
+firewall config, even for PUT. `vercel@64 firewall rules add --data … --yes`,
+then `firewall diff` and `firewall publish`, works.
+
+**Rule going forward:** when a proposal promises a status code, name the exact
+field value that produces it, and prove it with a burst before calling it done.

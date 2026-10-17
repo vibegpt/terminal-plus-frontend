@@ -1,6 +1,6 @@
 # CC-26 report: agent-ready MCP server
 
-Status, 17 Oct 2026: Part A SHIPPED (PR #5, merge `c9e2446`, production `dpl_DKJ5mnXnQUKahB9kzc3yZkUd58hL` READY). Parts B to G built on branch `cc-26/agent-ready`, preview PASS; not on main (Todd's go).
+Status, 17 Oct 2026: Part A SHIPPED (PR #5, merge `c9e2446`, production `dpl_DKJ5mnXnQUKahB9kzc3yZkUd58hL` READY). Parts B to G SHIPPED (PR #6, merge `3aa05f3`, production `dpl_J6XxL7MBApAD4AGkk24ZXxNAJc6k` READY 15:09:17 UTC). Rate limits live. Registry publish and directory submissions HELD until the monitor shows 7 days green.
 
 ## G1
 Production `dpl_GfrDKorW2rF2yuKQokhNNwnCx3D2` = `afb5dc2` = origin/main. Worktree `~/tp-cc-26`.
@@ -237,3 +237,30 @@ agent_interactions (all is_test): `3736792f…` `1d2256fc…` `d344362f…` `862
 2. Merge `cc-26/agent-ready` to main. Then: production smoke, Inspector UI screenshot, monitor green scheduled run + red dispatch run (AC-8), burst test (AC-10).
 3. Duplicate amenity row 71/72.
 4. `mcp-publisher publish` (server.json above), then the directory submissions (`tasks/cc-26-submission-kit.md`).
+
+
+## GO 1: rate limits (17 Oct, Todd)
+
+**Correction:** the report's JSON used `rateLimit.action: "deny"`, which answers 403. The Vercel default action `rate_limit` answers 429, so I applied `"rate_limit"`; everything else is as written. The connector's firewall endpoints (PATCH, PUT, GET) all returned 404 "Seawall Config not found" for a project with no config. I used `vercel@64.5.0 firewall rules add --data … --yes` (2 rules staged, `firewall diff` showed exactly those 2), then `firewall publish`. Published ~15:02:36 UTC. `firewall status`: Enabled, 2 active rules, nothing else changed (OWASP off, bot protection off, attack mode off).
+
+Burst from one IP, every request with `x-tp-test: 1`:
+
+| Target | Requests | Result | Recovery after the window |
+|---|---|---|---|
+| POST /api/chat, body `{}` (400 at the `query is required` check, before any model call or telemetry) | 75 | 60 × 400, then 429 from #61 | 15:04:26 → 400 |
+| POST /api/agent-card, body `{}` (404: CC-25 not deployed; the WAF counts by path) | 70 | 60 × 404, then 429 from #61 | 15:08:08 → 404 |
+| GET /api/mcp (liveness: no DB, no AeroDataBox) | 620 | 600 × 200, then 429 from #601 | 15:08:08 → 200 |
+
+Cost: agent_interactions 509 rows before (last 10:42:25 UTC) and 509 after, 0 rows since 15:02. The chat path logs every valid turn, so 0 rows means 0 turns reached Anthropic. /api/chat and /api/agent-card share one rule, so their counters add up.
+
+## GO 2: merge and production
+
+- #5 merged (`c9e2446`). `cc-26/agent-ready` was 0 commits behind main, so the rebase was a no-op; the preview SMOKE 13/13 above ran on `7aa858f`, and later commits are docs, a migration file and lessons only.
+- PR #6 merged `3aa05f3`; its CI `verify` (pull_request, `93895c0`) completed success. Production `dpl_J6XxL7MBApAD4AGkk24ZXxNAJc6k` READY 15:09:17 UTC.
+- Production smoke (all 4 tools): PASS, p95 2,304 ms. /agents, /llms.txt, /.well-known/mcp.json, /.well-known/mcp/server-card.json, /.well-known/mcp-registry-auth, /icon-512.png: 200.
+- AC-3 Inspector 2.11.0 UI against https://terminalplus.app/api/mcp (custom header x-tp-test: 1): Connected, MCP 2025-03-26; Tools (4) with titles; get_recommendations shows READ-ONLY and returns venues with urls (screenshot in the session). Inspector CLI on production: get_route, get_airport_context, get_disruption_status all succeed.
+- Production MCP rows, all is_test: `cfdf904a…` `0c860e42…` `83fc3dc6…` `979a64ac…` (smoke), `8aab40dd…` (Inspector UI), `f5828b2c…` `88ecdf53…` `f4c6bfee…` (Inspector CLI).
+- AC-8 red run: dispatch with url `https://terminalplus.app/api/mcp-does-not-exist` → run 39044026933 failed at `GET (plain): HTTP 404`. Failure email: not verified here (the Gmail connector needs reconnecting); Todd to confirm.
+- Monitor schedule: active on main since 15:08:46 UTC (`gh api …/actions/workflows/387731475`: state active). No scheduled run had fired by 17:12 UTC (slots 15:15, 15:45, 16:15, 16:45 passed; 0 agent_interactions rows between 15:13 and 17:13). **AC-8 green scheduled run: BLOCKED, so the 7-day clock has not started.**
+- Green path proven by dispatch: run 39052776334 (17:13 UTC, production, catalogue tools) PASS, p95 2,648 ms; rows `16ee6b5d…` `d241288a…` is_test.
+- Registry publish and directory submissions: HELD (Todd) until 7 days green with 0 unexplained reds; the clock starts at the first green scheduled run.
