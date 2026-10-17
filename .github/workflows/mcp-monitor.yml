@@ -1,0 +1,56 @@
+name: MCP monitor
+
+# Runs scripts/mcp-smoke.mjs against the production MCP server (CC-26 D).
+# - :15 and :45 every hour: catalogue tools only (no AeroDataBox units).
+# - :00 every 3 hours: all 4 tools, flight tools included (D8: about 240 units a month).
+# Each run reads the catalogue, so it also keeps the free Supabase project active
+# (/api/cron/keepalive stays as a second path). A failed run makes GitHub email the
+# repo owner (scheduled runs) or whoever started it (manual runs).
+# Manual run: Actions > MCP monitor > Run workflow; set url to a bad address to
+# check that a red run sends the email.
+
+on:
+  schedule:
+    - cron: '15,45 * * * *'
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'MCP endpoint to test'
+        required: false
+        default: 'https://terminalplus.app/api/mcp'
+      flights:
+        description: 'Include the 2 flight tools (spend AeroDataBox units)'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mcp-monitor
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts/mcp-smoke.mjs
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Smoke
+        env:
+          MCP_URL: ${{ inputs.url || 'https://terminalplus.app/api/mcp' }}
+          FLIGHT_FLAG: ${{ (github.event_name == 'schedule' && github.event.schedule == '0 */3 * * *') || inputs.flights == true }}
+        run: |
+          if [ "$FLIGHT_FLAG" = "true" ]; then
+            node scripts/mcp-smoke.mjs "$MCP_URL"
+          else
+            node scripts/mcp-smoke.mjs "$MCP_URL" --no-flights
+          fi

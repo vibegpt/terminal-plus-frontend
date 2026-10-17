@@ -36,7 +36,22 @@ interface ExtractedResults {
   summary: string;                       // legacy-compatible agent_response
 }
 
-function extractResults(toolName: string, resultText: string): ExtractedResults {
+/**
+ * What a tool knows about its own result but no longer puts in the response
+ * (CC-26: internal ids and slugs left the MCP output). Overrides what
+ * extractResults reads from the text.
+ */
+export interface ToolMeta {
+  slugs?: string[];
+  routeId?: string | null;
+  amenities?: Array<{ id: unknown; name: unknown }>;
+  /** Why the call returned nothing; null for a normal result. */
+  zeroReason?: ZeroReason | null;
+}
+
+export type ZeroReason = 'no_recommendations' | 'no_route_stops' | 'flight_not_found' | 'upstream_error';
+
+function extractResults(toolName: string, resultText: string, meta?: ToolMeta): ExtractedResults {
   const out: ExtractedResults = { resultSlugs: null, routeId: null, amenitiesShown: null, summary: toolName };
   let parsed: any;
   try {
@@ -56,7 +71,7 @@ function extractResults(toolName: string, resultText: string): ExtractedResults 
     }
     case 'get_route': {
       const stops: any[] = Array.isArray(parsed.stops) ? parsed.stops : [];
-      out.routeId = parsed.route_id ?? null;
+      out.routeId = meta?.routeId ?? parsed.route_id ?? null;
       out.resultSlugs = stops.map(s => s.amenity_slug).filter(Boolean).slice(0, 3);
       out.summary = parsed.route_type === 'curated'
         ? `curated:${parsed.route_id ?? parsed.route_name ?? '?'}:${stops.length} stops`
@@ -72,6 +87,8 @@ function extractResults(toolName: string, resultText: string): ExtractedResults 
       out.summary = `${parsed.status ?? 'unknown'} has_disruption:${parsed.has_disruption ?? '?'}`;
       break;
   }
+  if (meta?.slugs) out.resultSlugs = meta.slugs.slice(0, 3);
+  if (meta?.amenities) out.amenitiesShown = meta.amenities;
   return out;
 }
 
@@ -82,12 +99,15 @@ export interface ToolCallLog {
   sessionId: string;
   mcpSessionKey: string | null;
   latencyMs: number;
+  meta?: ToolMeta;
+  /** The request asked to be marked test (x-tp-test: 1). */
+  isTest?: boolean;
 }
 
 export async function logToolCall(supabase: SupabaseClient, call: ToolCallLog): Promise<void> {
   try {
     const args = sanitizeArgs(call.args);
-    const { resultSlugs, routeId, amenitiesShown, summary } = extractResults(call.toolName, call.resultText);
+    const { resultSlugs, routeId, amenitiesShown, summary } = extractResults(call.toolName, call.resultText, call.meta);
 
     await supabase.from('agent_interactions').insert({
       session_id: call.sessionId,
@@ -101,11 +121,12 @@ export async function logToolCall(supabase: SupabaseClient, call: ToolCallLog): 
       amenities_shown: amenitiesShown,
       result_slugs: resultSlugs,
       route_id: routeId,
+      zero_reason: call.meta?.zeroReason ?? null,
       mode: 'mcp',
-      // logToolCall never sees the request (api/mcp.ts is frozen), so smoke runs
-      // flag themselves through the mcp-session-id they send.
+      // Test rows: the request's x-tp-test header (api/mcp.ts passes isTest), or
+      // a smoke-/test- mcp-session-id for clients that can't set headers.
       env: telemetryEnv(),
-      is_test: isTestMcpSession(call.mcpSessionKey),
+      is_test: call.isTest === true || isTestMcpSession(call.mcpSessionKey),
     });
   } catch { /* telemetry must never break tool responses */ }
 }

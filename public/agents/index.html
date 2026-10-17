@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For AI assistants | Terminal+</title>
+<meta name="description" content="Connect Claude or another AI assistant to Terminal+ for Singapore Changi Airport: places to eat, rest and shop, live flight status and layover plans. Free, no login.">
+<link rel="canonical" href="https://terminalplus.app/agents">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131c;
+    --line: rgba(240, 240, 248, 0.10);
+    --text: #f0f0f8;
+    --muted: #a8a8b8;
+    --accent: #7c6dfa;
+    --link: #b3aaff;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 400 16px/1.65 "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  a { color: var(--link); text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-radius: 2px; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 28px; }
+  .brand {
+    font-family: "DM Serif Display", Georgia, serif;
+    font-size: 24px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .brand span { color: var(--accent); }
+  .back { font-size: 14px; font-weight: 500; }
+  h1 {
+    font-family: "DM Serif Display", Georgia, serif;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.1;
+    margin: 0 0 8px;
+  }
+  .updated { color: var(--muted); font-size: 14px; margin: 0 0 28px; }
+  h2 {
+    font-family: "DM Serif Display", Georgia, serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.25;
+    margin: 40px 0 12px;
+  }
+  h3 { font-size: 16px; font-weight: 600; margin: 20px 0 4px; }
+  p { margin: 0 0 14px; }
+  ul { margin: 0 0 14px; padding-left: 20px; }
+  li { margin: 0 0 8px; }
+  li::marker { color: var(--accent); }
+  .muted { color: var(--muted); }
+  .summary {
+    background: var(--surface);
+    border: 1px solid rgba(124, 109, 250, 0.35);
+    border-radius: 14px;
+    padding: 18px 18px 6px;
+  }
+  .summary h2 { margin-top: 0; font-size: 20px; }
+  .card {
+    border-top: 1px solid var(--line);
+    padding: 14px 0 2px;
+  }
+  .card:last-child { border-bottom: 1px solid var(--line); }
+  .card h3 { margin-top: 0; }
+  .card p { color: var(--muted); }
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 14px;
+  }
+  code, .url {
+    font: 500 14px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 2px 6px;
+    word-break: break-all;
+  }
+  .url { display: block; padding: 12px 14px; margin: 0 0 14px; color: var(--text); }
+  ol { margin: 0 0 14px; padding-left: 22px; }
+  ol li::marker { color: var(--accent); font-weight: 600; }
+  .prompt { font-style: italic; color: var(--text); }
+  @media (min-width: 640px) {
+    .wrap { padding: 40px 24px 80px; }
+    h1 { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a class="brand" href="/">Terminal<span>+</span></a>
+  <a class="back" href="/">Open the app</a>
+</header>
+
+<main>
+<h1>For AI assistants</h1>
+<p class="updated">Last updated 17 October 2026</p>
+
+<section class="summary" aria-labelledby="short">
+  <h2 id="short">In short</h2>
+  <ul>
+    <li>Terminal+ answers questions about Singapore Changi Airport (SIN): Terminals 1 to 4 and Jewel. Nothing else.</li>
+    <li>Your assistant connects to it as an MCP server. No login, no API key, free.</li>
+    <li>It only reads. It never books, buys or changes anything.</li>
+  </ul>
+</section>
+
+<h2>Server address</h2>
+<p>Streamable HTTP, no authentication:</p>
+<p class="url">https://terminalplus.app/api/mcp</p>
+
+<h2>Add it to Claude</h2>
+<ol>
+  <li>In Claude, open <strong>Settings</strong>, then <strong>Connectors</strong>.</li>
+  <li>Choose <strong>Add custom connector</strong>.</li>
+  <li>Name it <strong>Terminal+</strong> and paste the server address above.</li>
+  <li>Choose <strong>Add</strong>. There's no sign-in step.</li>
+</ol>
+<p class="muted">Any other MCP client that supports Streamable HTTP can use the same address.</p>
+
+<h2>What it can do</h2>
+<div class="card">
+  <h3>Places to eat, rest and shop</h3>
+  <p><code>get_recommendations</code> returns up to 12 hand-picked venues for a terminal, a mood and the time you have, each with a link to its page.</p>
+</div>
+<div class="card">
+  <h3>Flight status and boarding time</h3>
+  <p><code>get_airport_context</code> looks up a flight number: terminal, gate, status, estimated boarding time and minutes until boarding.</p>
+</div>
+<div class="card">
+  <h3>Flight delays and gate changes</h3>
+  <p><code>get_disruption_status</code> checks a flight for delays, cancellation or a new gate, and suggests what to do.</p>
+</div>
+<div class="card">
+  <h3>Plan a layover</h3>
+  <p><code>get_route</code> builds an ordered plan for the time between flights, with stop lengths and time to walk to the gate.</p>
+</div>
+
+<h2>Try asking</h2>
+<div class="card">
+  <h3 class="prompt">"I'm in Changi T3 with about 2 hours before boarding. Where should I eat?"</h3>
+  <p>A short list of hand-picked places to eat that are open now, each with a link to its page. Places outside immigration are left out when there isn't time to go out and back.</p>
+</div>
+<div class="card">
+  <h3 class="prompt">"Is SQ322 delayed, and which gate is it at?"</h3>
+  <p>Live status for the flight, its terminal and gate, any delay, and what to do with the extra time.</p>
+</div>
+<div class="card">
+  <h3 class="prompt">"I land at T1 on QF1 and have 3 hours before my connection. Plan it."</h3>
+  <p>A step-by-step plan: what to eat and see, in what order, how long each stop takes, and a buffer for gate security.</p>
+</div>
+
+<h2>How fresh it is</h2>
+<p>The venues are a hand-curated catalogue, checked by people, not scraped. Opening hours are applied at the time you ask, in Singapore time. Flight status, gates and boarding times are live, from a flight-data service, and may be up to 5 minutes old.</p>
+
+<h2>Limits</h2>
+<ul>
+  <li>Singapore Changi (SIN) only. A flight that doesn't touch Changi comes back as not found.</li>
+  <li>No bookings, payments, lounge access or reservations.</li>
+  <li>Walking times are estimates. Allow for gate security, which at Changi is at each gate.</li>
+</ul>
+
+<h2>Privacy</h2>
+<p>A request from an AI assistant carries only what the assistant sends, such as a terminal, a mood or a flight number, never your conversation. See the <a href="/privacy">privacy page</a> for what is logged and for how long.</p>
+
+<h2>Contact</h2>
+<p>Questions, problems or wrong information: <a href="mailto:terminalplusapp@gmail.com">terminalplusapp@gmail.com</a></p>
+</main>
+
+<footer>
+  <a href="/">Terminal+</a> &middot; <a href="/privacy">Privacy</a> &middot; Singapore Changi T1 to T4 and Jewel
+</footer>
+
+</div>
+</body>
+</html>

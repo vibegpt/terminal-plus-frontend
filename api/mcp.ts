@@ -5,7 +5,11 @@ import { resolve } from 'path';
 import { queryRouteMatch } from './lib/agent';
 import { queryRankedAmenities } from './lib/ranking';
 import { randomUUID } from 'node:crypto';
-import { logToolCall } from './lib/agentTelemetry';
+import { logToolCall, type ToolMeta } from './lib/agentTelemetry';
+import { isTestRequest } from './lib/telemetryEnv';
+import { eligibility, landsideAccess } from '../shared/ranking/policy';
+import { HOURS_COPY } from '../shared/ranking/landsideCopy';
+import { sgMinutesOfDay } from '../src/lib/sgTime';
 
 // ---------- Load .env.local for vercel dev ----------
 try {
@@ -43,10 +47,20 @@ function getSupabase(): SupabaseClient {
 
 // ---------- Tool definitions ----------
 
+const PROTOCOL_VERSION = '2025-03-26';
+
+// Every tool only reads. The two flight tools reach an outside flight-data
+// service, so they're open-world; the other two read our own catalogue.
+function annotations(title: string, openWorld: boolean) {
+  return { title, readOnlyHint: true, destructiveHint: false, openWorldHint: openWorld };
+}
+
 const TOOLS = [
   {
     name: 'get_airport_context',
-    description: 'Get terminal, gate, boarding time, and travel context for a flight at Singapore Changi Airport (SIN).',
+    title: 'Flight status and boarding time',
+    description: 'Use when a traveller gives a flight number and asks "which terminal and gate?", "when do I board?" or "how long have I got?". Singapore Changi (SIN) only. Looks up live flight data and returns terminal, gate, status, estimated boarding time and minutes until boarding.',
+    annotations: annotations('Flight status and boarding time', true),
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -58,7 +72,9 @@ const TOOLS = [
   },
   {
     name: 'get_recommendations',
-    description: 'Get personalized amenity recommendations at Singapore Changi Airport by vibe, terminal, and time constraints.',
+    title: 'Places to eat, rest and shop at Changi',
+    description: 'Use when a traveller asks "where can I eat in T3?", "somewhere quiet to rest before my flight" or "what is worth seeing with 3 hours?". Singapore Changi (SIN) only: Terminals 1 to 4 and Jewel. Returns up to 12 hand-picked venues, each with a link to its page. Venues that are closed, or landside when there is not time to clear immigration, are left out.',
+    annotations: annotations('Places to eat, rest and shop at Changi', false),
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -73,7 +89,9 @@ const TOOLS = [
   },
   {
     name: 'get_disruption_status',
-    description: 'Check flight disruption status at Singapore Changi Airport. Returns delay info, gate changes, and suggested actions.',
+    title: 'Flight delays and gate changes',
+    description: 'Use when a traveller asks "is my flight delayed?", "has my gate changed?" or "was it cancelled?". Singapore Changi (SIN) only. Looks up live flight data and returns any delay, cancellation or gate, with what to do next.',
+    annotations: annotations('Flight delays and gate changes', true),
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -85,7 +103,9 @@ const TOOLS = [
   },
   {
     name: 'get_route',
-    description: 'Get a time-sequenced route through Singapore Changi Airport. Returns ordered stops with editorial notes, durations, and timing. Best used after get_airport_context to know the passenger terminal and time budget. Returns curated routes for known flight patterns (e.g. QF1) or dynamically composed routes.',
+    title: 'Plan a layover at Changi',
+    description: 'Use when a traveller between flights asks "what should I do with my 4-hour layover?" or "plan my time before the gate". Singapore Changi (SIN) only. Give the arrival terminal and the minutes available; a known flight number (e.g. QF1) can match a hand-made route. Returns stops in order with durations and a buffer for the walk to the gate.',
+    annotations: annotations('Plan a layover at Changi', false),
     inputSchema: {
       type: 'object' as const,
       properties: {
@@ -100,63 +120,106 @@ const TOOLS = [
   },
 ];
 
+// ---------- Shared helpers ----------
+
+interface ToolResult {
+  payload: unknown;
+  meta: ToolMeta;
+}
+
+/** The venue's page, tagged so the visit shows in analytics_acquisition. */
+function amenityUrl(slug: string | null | undefined): string | null {
+  if (!slug) return null;
+  return `https://terminalplus.app/amenity/${encodeURIComponent(slug)}?utm_source=mcp&utm_medium=agent`;
+}
+
+/** Labels a kept venue carries at the front of its note, as the chat routes do. */
+function eligibilityLabel(e: ReturnType<typeof eligibility> | null): string {
+  return [
+    e?.tier === 'soon' && e.open.opensAt ? HOURS_COPY.opensAt(e.open.opensAt) : null,
+    e?.access.label ?? null,
+  ].filter(Boolean).join('. ');
+}
+
+function withLabel(label: string, note: string | null | undefined): string | null {
+  if (!label) return note || null;
+  return note ? `${label}. ${note}` : label;
+}
+
+function minutesUntil(iso: string | null | undefined): number | null {
+  if (!iso) return null;
+  const t = Date.parse(iso);
+  return Number.isFinite(t) ? Math.round((t - Date.now()) / 60000) : null;
+}
+
 // ---------- Flight status helper ----------
 
-async function fetchFlightStatus(flightNumber: string, date: string) {
+type FlightLookup = { flight: any } | { error: 'flight_not_found' | 'upstream_error' };
+
+async function fetchFlightStatus(flightNumber: string, date: string): Promise<FlightLookup> {
   const baseUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : 'http://localhost:3000';
   try {
     const res = await fetch(`${baseUrl}/api/flight-status?number=${encodeURIComponent(flightNumber)}&date=${date}`);
-    if (!res.ok) return null;
-    return await res.json();
-  } catch { return null; }
+    if (res.status === 404) return { error: 'flight_not_found' };
+    if (!res.ok) return { error: 'upstream_error' };
+    return { flight: await res.json() };
+  } catch { return { error: 'upstream_error' }; }
 }
+
+const FLIGHT_UNAVAILABLE = 'Live flight data is unavailable right now. Try again in a minute.';
 
 // ---------- Tool handlers ----------
 
-async function handleGetAirportContext(args: any) {
+async function handleGetAirportContext(args: any): Promise<ToolResult> {
   const flightDate = args.date || new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
-  const flight = await fetchFlightStatus(args.flight_number, flightDate);
+  const lookup = await fetchFlightStatus(args.flight_number, flightDate);
 
-  if (!flight) {
-    return JSON.stringify({
-      error: 'flight_not_found',
-      message: `Could not find flight ${args.flight_number}. Check the flight number and date.`,
-      coverage: 'Terminal+ currently covers Singapore Changi Airport (SIN) only.',
-      fallback: 'Call get_recommendations with a terminal code instead.',
-    }, null, 2);
+  if ('error' in lookup) {
+    const notFound = lookup.error === 'flight_not_found';
+    return {
+      payload: {
+        error: notFound ? 'flight_not_found' : 'flight_data_unavailable',
+        message: notFound
+          ? `Could not find flight ${args.flight_number} at Singapore Changi. Check the flight number and date.`
+          : FLIGHT_UNAVAILABLE,
+        coverage: 'Terminal+ covers Singapore Changi Airport (SIN) only.',
+        fallback: 'Call get_recommendations with a terminal code instead.',
+      },
+      meta: { zeroReason: lookup.error },
+    };
   }
 
-  const now = new Date();
-  const sinNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Singapore' }));
-  let timeUntilBoarding: number | null = null;
-  if (flight.estimatedBoardingTime) {
-    timeUntilBoarding = Math.round((new Date(flight.estimatedBoardingTime).getTime() - sinNow.getTime()) / 60000);
-  }
+  const flight = lookup.flight;
+  const timeUntilBoarding = minutesUntil(flight.estimatedBoardingTime);
 
-  return JSON.stringify({
-    airport: 'SIN', airport_name: 'Singapore Changi Airport',
-    flight_number: flight.flightNumber, airline: flight.airline,
-    terminal: flight.terminal, gate: flight.gate, status: flight.status,
-    scheduled_departure: flight.scheduledTime, revised_departure: flight.revisedTime,
-    estimated_boarding_time: flight.estimatedBoardingTime,
-    time_until_boarding_minutes: timeUntilBoarding,
-    destination: flight.destination, current_local_time: sinNow.toISOString(),
-    urgency: timeUntilBoarding !== null ? (timeUntilBoarding < 30 ? 'high' : timeUntilBoarding < 90 ? 'medium' : 'low') : 'unknown',
-    inter_terminal_travel: {
-      skytrain: 'T1-T2-T3 connected airside, ~5 min between stops',
-      t4_shuttle: 'T4 requires shuttle bus from T2, ~10 min',
-      jewel: 'Connected to T1 landside. Must clear immigration from airside.',
+  return {
+    payload: {
+      airport: 'SIN', airport_name: 'Singapore Changi Airport',
+      flight_number: flight.flightNumber, airline: flight.airline,
+      direction: flight.isDepartingFromSIN === false ? 'arrival' : 'departure',
+      terminal: flight.terminal, gate: flight.gate, status: flight.status,
+      scheduled_departure: flight.scheduledTime, revised_departure: flight.revisedTime,
+      estimated_boarding_time: flight.estimatedBoardingTime,
+      time_until_boarding_minutes: timeUntilBoarding,
+      destination: flight.destination,
+      urgency: timeUntilBoarding !== null ? (timeUntilBoarding < 30 ? 'high' : timeUntilBoarding < 90 ? 'medium' : 'low') : 'unknown',
+      inter_terminal_travel: {
+        skytrain: 'T1-T2-T3 connected airside, ~5 min between stops',
+        t4_shuttle: 'T4 requires shuttle bus from T2, ~10 min',
+        jewel: 'Connected to T1 landside. Must clear immigration from airside.',
+      },
     },
-  }, null, 2);
+    meta: {},
+  };
 }
 
-async function handleGetRecommendations(args: any) {
+async function handleGetRecommendations(args: any): Promise<ToolResult> {
   const supabase = getSupabase();
   const resultLimit = Math.min(args.limit || 7, 12);
 
-  const { pool, ranked, error } = await queryRankedAmenities(supabase, {
+  const { ranked, error } = await queryRankedAmenities(supabase, {
     vibe: args.vibe,
     userTerminal: args.terminal ?? null,
     timeUntilBoardingMinutes: args.time_until_boarding_minutes,
@@ -165,38 +228,60 @@ async function handleGetRecommendations(args: any) {
   });
 
   if (error || !ranked.length) {
-    return JSON.stringify({ recommendations: [], message: 'No matching amenities found.', total_available: 0 });
+    return {
+      payload: { recommendations: [], message: error ? 'The venue list is unavailable right now. Try again in a minute.' : 'No matching amenities found.' },
+      meta: { zeroReason: error ? 'upstream_error' : 'no_recommendations' },
+    };
   }
 
   const recs = ranked.map((a: any, i: number) => ({
-    rank: i + 1, id: a.id, name: a.name, slug: a.amenity_slug,
+    rank: i + 1, name: a.name,
     terminal: a.terminal_code, vibe_tags: a.vibe_tags, price_level: a.price_level,
     description: a.description?.substring(0, 150),
     editorial_note: a.editorial_note || null,
-    editorial_score: a.editorial_score || null,
     route_context: a.route_context || null,
-    app_url: `https://terminalplus.app/amenity/${a.amenity_slug}`,
+    url: amenityUrl(a.amenity_slug),
   }));
 
-  return JSON.stringify({ recommendations: recs, total_available: pool.length, filters_applied: args }, null, 2);
+  return {
+    payload: { recommendations: recs },
+    meta: {
+      slugs: ranked.map((a: any) => a.amenity_slug),
+      amenities: ranked.map((a: any) => ({ id: a.id, name: a.name })),
+    },
+  };
 }
 
-async function handleGetDisruptionStatus(args: any) {
+async function handleGetDisruptionStatus(args: any): Promise<ToolResult> {
   const flightDate = args.date || new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Singapore' });
-  const flight = await fetchFlightStatus(args.flight_number, flightDate);
+  const lookup = await fetchFlightStatus(args.flight_number, flightDate);
 
-  if (!flight) {
-    return JSON.stringify({ flight_number: args.flight_number, status: 'unknown', message: 'Could not retrieve flight status.' });
+  if ('error' in lookup) {
+    return {
+      payload: {
+        flight_number: args.flight_number, status: 'unknown',
+        message: lookup.error === 'flight_not_found'
+          ? `Could not find flight ${args.flight_number} at Singapore Changi.`
+          : FLIGHT_UNAVAILABLE,
+      },
+      meta: { zeroReason: lookup.error },
+    };
   }
 
+  const flight = lookup.flight;
   const disruptions: any[] = [];
   let suggestedActions: string[] = [];
 
   if (flight.revisedTime && flight.scheduledTime) {
-    const delayMinutes = Math.round((new Date(flight.revisedTime).getTime() - new Date(flight.scheduledTime).getTime()) / 60000);
+    const delayMinutes = Math.round((Date.parse(flight.revisedTime) - Date.parse(flight.scheduledTime)) / 60000);
     if (delayMinutes > 15) {
       disruptions.push({ type: 'delay', severity: delayMinutes > 120 ? 'major' : delayMinutes > 60 ? 'moderate' : 'minor', delay_minutes: delayMinutes });
-      suggestedActions.push(delayMinutes > 120 ? 'Consider visiting Jewel — extra time available' : 'Suggest dining options in current terminal');
+      // Jewel is landside: the shared rule decides, from the minutes to the new
+      // boarding time, with the passenger type unknown (shared/ranking/policy.ts).
+      const jewel = landsideAccess({ isLandside: true, journeyType: null, minutesToBoarding: minutesUntil(flight.estimatedBoardingTime) });
+      suggestedActions.push(jewel.show
+        ? `Extra time: Jewel is an option. ${jewel.label}.`
+        : `Suggest dining options in the current terminal. ${jewel.reason}`);
     }
   }
   if (flight.status?.toLowerCase().includes('cancel')) {
@@ -204,22 +289,29 @@ async function handleGetDisruptionStatus(args: any) {
     suggestedActions = ['Direct passenger to airline service desk immediately'];
   }
 
-  return JSON.stringify({
-    flight_number: flight.flightNumber, status: flight.status,
-    disruptions: disruptions.length > 0 ? disruptions : null,
-    has_disruption: disruptions.length > 0,
-    gate: { gate: flight.gate, terminal: flight.terminal },
-    suggested_actions: suggestedActions.length > 0 ? suggestedActions : ['No disruptions detected.'],
-    checked_at: new Date().toISOString(),
-  }, null, 2);
+  return {
+    payload: {
+      flight_number: flight.flightNumber, status: flight.status,
+      disruptions: disruptions.length > 0 ? disruptions : null,
+      has_disruption: disruptions.length > 0,
+      gate: { gate: flight.gate, terminal: flight.terminal },
+      suggested_actions: suggestedActions.length > 0 ? suggestedActions : ['No disruptions detected.'],
+    },
+    meta: {},
+  };
 }
 
 // ---------- Route handler ----------
 
-async function handleGetRoute(args: any) {
+const NO_ROUTE_MESSAGE = 'No amenities with editorial recommendations fit this time at these terminals. Try get_recommendations for a broader search.';
+
+async function handleGetRoute(args: any): Promise<ToolResult> {
   const supabase = getSupabase();
   const depTerminal = args.departure_terminal || args.arrival_terminal;
   const timeBudget: number = args.time_budget_minutes;
+  // Both eligibility rules, as for every other surface: minutes to boarding is the
+  // time budget, and the passenger type is unknown (the policy's "type unknown" rows).
+  const ctx = { journeyType: null, minutesToBoarding: timeBudget, nowSgt: sgMinutesOfDay() };
 
   // 1. Try flight-number match first (MCP-specific feature)
   let flightMatch: any = null;
@@ -237,12 +329,7 @@ async function handleGetRoute(args: any) {
     }
   }
 
-  // 2. Use shared queryRouteMatch for terminal+time matching (same logic as chat agent)
-  const routeMatch = flightMatch
-    ? null // skip if flight match already found
-    : await queryRouteMatch(supabase, args.arrival_terminal, timeBudget);
-
-  // 3. If flight match found, fetch stops using same pattern as queryRouteMatch
+  // 2. Flight match: its stops, minus the venues the rules leave out
   if (flightMatch) {
     const { data: rawStops } = await supabase
       .from('route_stops')
@@ -250,7 +337,22 @@ async function handleGetRoute(args: any) {
       .eq('route_template_id', flightMatch.id)
       .order('stop_order', { ascending: true });
 
-    let stops = rawStops || [];
+    const slugs = (rawStops || []).map((s: any) => s.amenity_slug).filter(Boolean);
+    const venues = new Map<string, { is_landside: boolean; opening_hours: unknown }>();
+    if (slugs.length > 0) {
+      const { data: amenities } = await supabase
+        .from('amenity_detail')
+        .select('amenity_slug, is_landside, opening_hours')
+        .in('amenity_slug', slugs);
+      for (const a of amenities || []) venues.set(a.amenity_slug, { is_landside: !!a.is_landside, opening_hours: a.opening_hours });
+    }
+    const eligibilityOf = (s: any) => {
+      const v = s.amenity_slug ? venues.get(s.amenity_slug) : undefined;
+      return v ? eligibility(v, ctx) : null;
+    };
+
+    // A stop with no venue (restrooms, walk to gate) always stays.
+    let stops = (rawStops || []).filter((s: any) => eligibilityOf(s)?.tier !== null);
 
     // Strip optional stops if time is tight (same logic as queryRouteMatch)
     const isTimeTight = timeBudget < flightMatch.min_minutes + 15;
@@ -267,56 +369,64 @@ async function handleGetRoute(args: any) {
       totalTime = stops.reduce((sum: number, s: any) => sum + s.duration_minutes, 0);
     }
 
-    return JSON.stringify({
-      route_type: 'curated',
-      route_id: flightMatch.route_id,
-      route_name: flightMatch.name,
-      description: flightMatch.description,
-      arrival_terminal: flightMatch.arrival_terminal,
-      departure_terminal: flightMatch.departure_terminal,
-      total_minutes: totalTime,
-      gate_buffer_minutes: 15,
-      time_budget_minutes: timeBudget,
-      is_time_tight: isTimeTight,
-      stops: stops.map((s: any) => ({
-        order: s.stop_order, type: s.stop_type, name: s.name,
-        area: s.area, duration_minutes: s.duration_minutes,
-        editorial_note: s.editorial_note, is_optional: s.is_optional,
-        amenity_slug: s.amenity_slug,
-      })),
-      constraints: flightMatch.key_constraints,
-    }, null, 2);
+    if (stops.some((s: any) => s.amenity_slug)) {
+      return {
+        payload: {
+          route_type: 'curated',
+          route_name: flightMatch.name,
+          description: flightMatch.description,
+          arrival_terminal: flightMatch.arrival_terminal,
+          departure_terminal: flightMatch.departure_terminal,
+          total_minutes: totalTime,
+          gate_buffer_minutes: 15,
+          is_time_tight: isTimeTight,
+          stops: stops.map((s: any) => ({
+            order: s.stop_order, type: s.stop_type, name: s.name,
+            area: s.area, duration_minutes: s.duration_minutes,
+            editorial_note: withLabel(eligibilityLabel(eligibilityOf(s)), s.editorial_note),
+            is_optional: s.is_optional,
+            url: amenityUrl(s.amenity_slug),
+          })),
+          constraints: flightMatch.key_constraints,
+        },
+        meta: { routeId: flightMatch.route_id, slugs: stops.map((s: any) => s.amenity_slug).filter(Boolean) },
+      };
+    }
+    // Every venue on it is out of reach now: fall through to the other routes.
   }
 
-  // 4. If queryRouteMatch found a curated template, format for MCP response
+  // 3. Shared queryRouteMatch for terminal+time matching (same logic as chat agent)
+  const routeMatch = await queryRouteMatch(supabase, args.arrival_terminal, timeBudget, { nowSgt: ctx.nowSgt });
   if (routeMatch) {
-    return JSON.stringify({
-      route_type: 'curated',
-      route_name: routeMatch.templateName,
-      description: routeMatch.templateDescription,
-      arrival_terminal: routeMatch.arrivalTerminal,
-      departure_terminal: routeMatch.departureTerminal,
-      total_minutes: routeMatch.totalDurationMinutes,
-      gate_buffer_minutes: routeMatch.gateBufferMinutes,
-      time_budget_minutes: timeBudget,
-      is_time_tight: routeMatch.isTimeTight,
-      stops: routeMatch.stops.map((s) => ({
-        order: s.order, type: s.stopType, name: s.name,
-        area: s.terminalCode, duration_minutes: s.durationMinutes,
-        editorial_note: s.editorialNote, is_optional: s.isOptional,
-        amenity_slug: s.amenitySlug,
-      })),
-    }, null, 2);
+    return {
+      payload: {
+        route_type: 'curated',
+        route_name: routeMatch.templateName,
+        description: routeMatch.templateDescription,
+        arrival_terminal: routeMatch.arrivalTerminal,
+        departure_terminal: routeMatch.departureTerminal,
+        total_minutes: routeMatch.totalDurationMinutes,
+        gate_buffer_minutes: routeMatch.gateBufferMinutes,
+        is_time_tight: routeMatch.isTimeTight,
+        stops: routeMatch.stops.map((s) => ({
+          order: s.order, type: s.stopType, name: s.name,
+          area: s.terminalCode, duration_minutes: s.durationMinutes,
+          editorial_note: s.editorialNote, is_optional: s.isOptional,
+          url: amenityUrl(s.amenitySlug),
+        })),
+      },
+      meta: { slugs: routeMatch.stops.map((s) => s.amenitySlug).filter(Boolean) },
+    };
   }
 
-  // 5. Dynamic fallback from top editorial-scored amenities
+  // 4. Dynamic fallback from top editorial-scored amenities the rules allow
   const terminals = args.arrival_terminal === depTerminal
     ? [args.arrival_terminal]
     : [args.arrival_terminal, depTerminal];
 
   let query = supabase
     .from('amenity_detail')
-    .select('amenity_slug, name, terminal_code, vibe_tags, editorial_note, editorial_score, route_context, price_level')
+    .select('amenity_slug, name, terminal_code, vibe_tags, editorial_note, editorial_score, route_context, price_level, is_landside, opening_hours')
     .eq('airport_code', 'SIN')
     .in('terminal_code', terminals)
     .not('editorial_note', 'is', null)
@@ -327,22 +437,29 @@ async function handleGetRoute(args: any) {
     query = query.ilike('vibe_tags', `%${args.vibe}%`);
   }
 
-  const { data: amenities } = await query;
+  const { data: rows, error } = await query;
+  const amenities = (rows || [])
+    .map((a: any) => ({ a, e: eligibility(a, ctx) }))
+    .filter(({ e }) => e.tier !== null);
 
-  if (!amenities || amenities.length === 0) {
-    return JSON.stringify({
-      route_type: 'dynamic',
-      message: 'No amenities with editorial recommendations found for these terminals. Try get_recommendations for a broader search.',
-      arrival_terminal: args.arrival_terminal,
-      departure_terminal: depTerminal,
-    }, null, 2);
+  if (error || amenities.length === 0) {
+    return {
+      payload: {
+        route_type: 'dynamic',
+        message: error ? 'The venue list is unavailable right now. Try again in a minute.' : NO_ROUTE_MESSAGE,
+        arrival_terminal: args.arrival_terminal,
+        departure_terminal: depTerminal,
+      },
+      meta: { zeroReason: error ? 'upstream_error' : 'no_route_stops' },
+    };
   }
 
   const stopDurations: Record<string, number> = { food: 15, attraction: 10, shopping: 12, lounge: 30, default: 10 };
   const dynamicStops: any[] = [];
+  const stopSlugs: string[] = [];
   let remainingMinutes = timeBudget - 15; // reserve 15 min gate buffer
 
-  for (const amenity of amenities) {
+  for (const { a: amenity, e } of amenities) {
     if (remainingMinutes <= 0) break;
     const vibes = (amenity.vibe_tags || '').toLowerCase();
     let stopType = 'attraction';
@@ -357,11 +474,19 @@ async function handleGetRoute(args: any) {
       dynamicStops.push({
         order: dynamicStops.length + 1, type: stopType, name: amenity.name,
         area: amenity.terminal_code, duration_minutes: duration,
-        editorial_note: amenity.editorial_note, amenity_slug: amenity.amenity_slug,
-        editorial_score: amenity.editorial_score,
+        editorial_note: withLabel(eligibilityLabel(e), amenity.editorial_note),
+        url: amenityUrl(amenity.amenity_slug),
       });
+      stopSlugs.push(amenity.amenity_slug);
       remainingMinutes -= (duration + 5);
     }
+  }
+
+  if (dynamicStops.length === 0) {
+    return {
+      payload: { route_type: 'dynamic', message: NO_ROUTE_MESSAGE, arrival_terminal: args.arrival_terminal, departure_terminal: depTerminal },
+      meta: { zeroReason: 'no_route_stops' },
+    };
   }
 
   dynamicStops.push({
@@ -373,17 +498,19 @@ async function handleGetRoute(args: any) {
 
   const totalTime = dynamicStops.reduce((sum: number, s: any) => sum + s.duration_minutes, 0);
 
-  return JSON.stringify({
-    route_type: 'dynamic',
-    description: `Dynamically composed route based on highest-rated amenities in ${terminals.join(' + ')}`,
-    arrival_terminal: args.arrival_terminal,
-    departure_terminal: depTerminal,
-    total_minutes: totalTime,
-    gate_buffer_minutes: 15,
-    time_budget_minutes: timeBudget,
-    stops: dynamicStops,
-    note: 'This route was composed dynamically from editorial-scored amenities. Curated routes are available for known flight patterns.',
-  }, null, 2);
+  return {
+    payload: {
+      route_type: 'dynamic',
+      description: `Dynamically composed route based on highest-rated amenities in ${terminals.join(' + ')}`,
+      arrival_terminal: args.arrival_terminal,
+      departure_terminal: depTerminal,
+      total_minutes: totalTime,
+      gate_buffer_minutes: 15,
+      stops: dynamicStops,
+      note: 'This route was composed dynamically from editorial-scored amenities. Curated routes are available for known flight patterns.',
+    },
+    meta: { slugs: stopSlugs },
+  };
 }
 
 // ---------- MCP JSON-RPC Handler ----------
@@ -391,16 +518,22 @@ async function handleGetRoute(args: any) {
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept, Mcp-Session-Id, Mcp-Protocol-Version, X-Tp-Test');
+  res.setHeader('Access-Control-Expose-Headers', 'Mcp-Session-Id');
 
   if (req.method === 'OPTIONS') return res.status(204).end();
 
-  // GET — return server info
   if (req.method === 'GET') {
+    // Streamable HTTP: this server opens no server-to-client stream.
+    if (String(req.headers.accept || '').includes('text/event-stream')) {
+      res.setHeader('Allow', 'POST, OPTIONS');
+      return res.status(405).end();
+    }
+    // Plain GET: server info (liveness)
     return res.status(200).json({
       name: 'terminal-plus',
-      version: '1.0.0',
-      protocolVersion: '2025-03-26',
+      version: '1.1.0',
+      protocolVersion: PROTOCOL_VERSION,
       capabilities: { tools: {} },
     });
   }
@@ -413,6 +546,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ jsonrpc: '2.0', id, error: { code: -32600, message: 'Invalid request: missing jsonrpc 2.0' } });
   }
 
+  // Notifications (and client responses) carry no id: accept, no body.
+  if (id === undefined) return res.status(202).end();
+
   try {
     switch (method) {
       case 'initialize':
@@ -420,11 +556,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(200).json({
           jsonrpc: '2.0', id,
           result: {
-            protocolVersion: '2025-03-26',
+            protocolVersion: PROTOCOL_VERSION,
             capabilities: { tools: { listChanged: false } },
-            serverInfo: { name: 'terminal-plus', version: '1.0.0' },
+            serverInfo: { name: 'terminal-plus', version: '1.1.0' },
           },
         });
+
+      case 'ping':
+        return res.status(200).json({ jsonrpc: '2.0', id, result: {} });
 
       case 'tools/list':
         return res.status(200).json({ jsonrpc: '2.0', id, result: { tools: TOOLS } });
@@ -435,20 +574,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const mcpSessionKey = (req.headers['mcp-session-id'] as string) || null;
         const sessionId = mcpSessionKey || randomUUID();
         const startedAt = Date.now();
-        let resultText: string;
+        let result: ToolResult;
 
         switch (toolName) {
           case 'get_airport_context':
-            resultText = await handleGetAirportContext(toolArgs);
+            result = await handleGetAirportContext(toolArgs);
             break;
           case 'get_recommendations':
-            resultText = await handleGetRecommendations(toolArgs);
+            result = await handleGetRecommendations(toolArgs);
             break;
           case 'get_disruption_status':
-            resultText = await handleGetDisruptionStatus(toolArgs);
+            result = await handleGetDisruptionStatus(toolArgs);
             break;
           case 'get_route':
-            resultText = await handleGetRoute(toolArgs);
+            result = await handleGetRoute(toolArgs);
             break;
           default:
             return res.status(200).json({
@@ -457,9 +596,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             });
         }
 
+        const resultText = JSON.stringify(result.payload, null, 2);
         await logToolCall(getSupabase(), {
           toolName, args: toolArgs, resultText, sessionId, mcpSessionKey,
           latencyMs: Date.now() - startedAt,
+          meta: result.meta,
+          isTest: isTestRequest(req.headers),
         });
 
         return res.status(200).json({
