@@ -587,3 +587,19 @@ A file whose name differs from the applied version looks unapplied to
 **Rule going forward:** a migration applied through the MCP gets its own
 timestamp. Rename the repo file to the applied version before committing, and
 prove it with `list_migrations` next to `ls supabase/migrations`.
+
+---
+
+## 2026-10-17 — A link check on production is a production visit
+
+**Assumed (CC-26 D4):** opening 3 MCP venue urls on terminalplus.app to prove they
+resolve was a read, so it needed no test flag.
+
+**Actual:** the built-in browser's terminalplus.app origin had no `tp_test`, so the
+app logged a real `session_start` (utm_source=mcp) and 2 dwell events: rows
+1787–1789, `is_test = false`. They would have counted as the first visit from an
+AI assistant. Fixed by migration `20261017103745`.
+
+**Rule going forward:** before opening any production page, check that origin's
+`localStorage.tp_test`, or open it with `?tp_test=1` first. That covers checks
+"just to see a page load". Query `events` for your anon_id afterwards.
