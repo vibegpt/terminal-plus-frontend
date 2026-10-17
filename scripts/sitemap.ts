@@ -1,6 +1,6 @@
 /**
  * Writes public/sitemap.xml: the home page, the 7 vibe pages, every live
- * collection page and /privacy, as absolute https://terminalplus.app URLs, sorted, no lastmod.
+ * collection page, /privacy and /agents, as absolute https://terminalplus.app URLs, sorted, no lastmod.
  *
  *   npm run sitemap
  *
@@ -79,6 +79,7 @@ async function main() {
     ...[...pairs].filter(([slug]) => live.has(slug)).map(([slug, vibe]) => `/collection/${vibe}/${slug}`),
     // Static pages in public/, served without the app.
     '/privacy',
+    '/agents',
   ];
   const urls = paths.map(p => `${ORIGIN}${p}`).sort();
 
@@ -91,7 +92,7 @@ async function main() {
 
   console.log(`reachable collection pages: ${pairs.size}, live: ${live.size}`);
   console.log(`excluded (no collections row with amenities): ${excluded.join(', ') || 'none'}`);
-  console.log(`wrote ${OUT}: ${urls.length} URLs (1 home, ${vibes.length} vibe, ${live.size} collection, 1 static)`);
+  console.log(`wrote ${OUT}: ${urls.length} URLs (1 home, ${vibes.length} vibe, ${live.size} collection, 2 static)`);
 }
 
 main().catch(err => {

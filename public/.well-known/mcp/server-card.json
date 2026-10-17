@@ -1,0 +1,56 @@
+{
+  "name": "app.terminalplus/airport-concierge",
+  "title": "Terminal+ Airport Concierge",
+  "description": "Airport concierge for Singapore Changi (SIN), Terminals 1 to 4 and Jewel: places to eat, rest and shop, live flight status, delays and layover plans. Read-only, no login.",
+  "version": "1.1.0",
+  "url": "https://terminalplus.app/api/mcp",
+  "transport": "streamable-http",
+  "protocolVersion": "2025-03-26",
+  "authentication": "none",
+  "tools": [
+    {
+      "name": "get_airport_context",
+      "title": "Flight status and boarding time",
+      "annotations": {
+        "title": "Flight status and boarding time",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "get_recommendations",
+      "title": "Places to eat, rest and shop at Changi",
+      "annotations": {
+        "title": "Places to eat, rest and shop at Changi",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_disruption_status",
+      "title": "Flight delays and gate changes",
+      "annotations": {
+        "title": "Flight delays and gate changes",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "get_route",
+      "title": "Plan a layover at Changi",
+      "annotations": {
+        "title": "Plan a layover at Changi",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      }
+    }
+  ],
+  "documentation": "https://terminalplus.app/agents",
+  "privacy": "https://terminalplus.app/privacy",
+  "contact": "terminalplusapp@gmail.com",
+  "icon": "https://terminalplus.app/icon-512.png"
+}

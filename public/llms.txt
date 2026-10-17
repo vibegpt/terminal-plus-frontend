@@ -1,0 +1,7 @@
+# Terminal+
+
+> Airport concierge for Singapore Changi (SIN), Terminals 1 to 4 and Jewel: places to eat, rest and shop, live flight status, layover plans. Read-only, free, no login.
+
+- MCP server (Streamable HTTP, no auth): https://terminalplus.app/api/mcp
+- [For AI assistants](https://terminalplus.app/agents): how to connect, the 4 tools, example prompts, limits
+- [Privacy](https://terminalplus.app/privacy): what is collected and how to ask for deletion

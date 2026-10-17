@@ -65,6 +65,9 @@ export default defineConfig({
           /^\/robots\.txt/,
           /^\/sitemap\.xml/,
           /^\/privacy/,
+          /^\/agents/,
+          /^\/llms\.txt/,
+          /^\/security\.txt/,
         ],
         runtimeCaching: [
           {

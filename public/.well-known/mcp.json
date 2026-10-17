@@ -1,100 +1,201 @@
 {
   "name": "terminal-plus",
-  "version": "1.0.0",
-  "description": "AI-powered airport companion for Singapore Changi Airport. Provides amenity recommendations, flight context, curated transit routes, and disruption alerts across T1, T2, T3, T4, and Jewel.",
+  "version": "1.1.0",
+  "description": "Airport concierge for Singapore Changi (SIN), Terminals 1 to 4 and Jewel: places to eat, rest and shop, live flight status, delays and layover plans. Read-only, no login.",
   "mcp_endpoint": "https://terminalplus.app/api/mcp",
   "protocol_version": "2025-03-26",
-  "transport": ["json-rpc-http"],
+  "transport": [
+    "streamable-http"
+  ],
   "coverage": {
-    "airports": ["SIN"],
-    "zones": ["SIN-T1", "SIN-T2", "SIN-T3", "SIN-T4", "SIN-JEWEL"],
-    "expanding": true
-  },
-  "trigger_conditions": {
-    "geofence": "airport",
-    "context_signals": ["boarding_pass", "flight_checkin", "airport_wifi_connected"],
-    "airport_codes": ["SIN"]
+    "airports": [
+      "SIN"
+    ],
+    "zones": [
+      "SIN-T1",
+      "SIN-T2",
+      "SIN-T3",
+      "SIN-T4",
+      "SIN-JEWEL"
+    ]
   },
   "tools": [
     {
       "name": "get_airport_context",
-      "description": "Get terminal, gate, boarding time, and travel context for a flight at Singapore Changi Airport (SIN).",
+      "title": "Flight status and boarding time",
+      "description": "Use when a traveller gives a flight number and asks \"which terminal and gate?\", \"when do I board?\" or \"how long have I got?\". Singapore Changi (SIN) only. Looks up live flight data and returns terminal, gate, status, estimated boarding time and minutes until boarding.",
+      "annotations": {
+        "title": "Flight status and boarding time",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
       "inputSchema": {
         "type": "object",
         "properties": {
-          "flight_number": { "type": "string", "description": "IATA flight number, e.g. SQ321" },
-          "date": { "type": "string", "description": "Flight date YYYY-MM-DD. Defaults to today Singapore time." }
+          "flight_number": {
+            "type": "string",
+            "description": "IATA flight number, e.g. SQ321"
+          },
+          "date": {
+            "type": "string",
+            "description": "Flight date YYYY-MM-DD. Defaults to today Singapore time."
+          }
         },
-        "required": ["flight_number"]
-      },
-      "output": "Airport context object with terminal, gate, urgency, inter-terminal travel info"
+        "required": [
+          "flight_number"
+        ]
+      }
     },
     {
       "name": "get_recommendations",
-      "description": "Get personalized amenity recommendations at Singapore Changi Airport by vibe, terminal, and time constraints.",
+      "title": "Places to eat, rest and shop at Changi",
+      "description": "Use when a traveller asks \"where can I eat in T3?\", \"somewhere quiet to rest before my flight\" or \"what is worth seeing with 3 hours?\". Singapore Changi (SIN) only: Terminals 1 to 4 and Jewel. Returns up to 12 hand-picked venues, each with a link to its page. Venues that are closed, or landside when there is not time to clear immigration, are left out.",
+      "annotations": {
+        "title": "Places to eat, rest and shop at Changi",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
       "inputSchema": {
         "type": "object",
         "properties": {
-          "terminal": { "type": "string", "description": "Terminal code: SIN-T1, SIN-T2, SIN-T3, SIN-T4, SIN-JEWEL" },
-          "vibe": { "type": "string", "enum": ["explore", "refuel", "comfort", "chill", "work", "shop", "quick"], "description": "Mood/intent filter" },
-          "time_until_boarding_minutes": { "type": "number", "description": "Minutes until boarding" },
-          "gate": { "type": "string", "description": "Gate code, e.g. C22" },
-          "exclude_jewel": { "type": "boolean", "description": "Set true to exclude Jewel" },
-          "limit": { "type": "number", "description": "Number of recommendations (default 7, max 12)" }
-        },
-        "required": []
-      },
-      "output": "Ranked list of amenities with editorial notes, scores, descriptions, and app links"
+          "terminal": {
+            "type": "string",
+            "description": "Terminal code: SIN-T1, SIN-T2, SIN-T3, SIN-T4, SIN-JEWEL"
+          },
+          "vibe": {
+            "type": "string",
+            "enum": [
+              "explore",
+              "refuel",
+              "comfort",
+              "chill",
+              "work",
+              "shop",
+              "quick"
+            ],
+            "description": "Mood/intent filter"
+          },
+          "time_until_boarding_minutes": {
+            "type": "number",
+            "description": "Minutes until boarding"
+          },
+          "gate": {
+            "type": "string",
+            "description": "Gate code, e.g. C22"
+          },
+          "exclude_jewel": {
+            "type": "boolean",
+            "description": "Set true to exclude Jewel"
+          },
+          "limit": {
+            "type": "number",
+            "description": "Number of recommendations (default 7, max 12)"
+          }
+        }
+      }
     },
     {
       "name": "get_disruption_status",
-      "description": "Check flight disruption status at Singapore Changi Airport. Returns delay info, gate changes, and suggested actions.",
+      "title": "Flight delays and gate changes",
+      "description": "Use when a traveller asks \"is my flight delayed?\", \"has my gate changed?\" or \"was it cancelled?\". Singapore Changi (SIN) only. Looks up live flight data and returns any delay, cancellation or gate, with what to do next.",
+      "annotations": {
+        "title": "Flight delays and gate changes",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
       "inputSchema": {
         "type": "object",
         "properties": {
-          "flight_number": { "type": "string", "description": "IATA flight number, e.g. SQ321" },
-          "date": { "type": "string", "description": "Flight date YYYY-MM-DD" }
+          "flight_number": {
+            "type": "string",
+            "description": "IATA flight number, e.g. SQ321"
+          },
+          "date": {
+            "type": "string",
+            "description": "Flight date YYYY-MM-DD"
+          }
         },
-        "required": ["flight_number"]
-      },
-      "output": "Disruption details with severity, delay minutes, and suggested passenger actions"
+        "required": [
+          "flight_number"
+        ]
+      }
     },
     {
       "name": "get_route",
-      "description": "Get a time-sequenced route through Singapore Changi Airport. Returns ordered stops with editorial notes, durations, and timing. Best used after get_airport_context to know the passenger terminal and time budget. Returns curated routes for known flight patterns (e.g. QF1) or dynamically composed routes.",
+      "title": "Plan a layover at Changi",
+      "description": "Use when a traveller between flights asks \"what should I do with my 4-hour layover?\" or \"plan my time before the gate\". Singapore Changi (SIN) only. Give the arrival terminal and the minutes available; a known flight number (e.g. QF1) can match a hand-made route. Returns stops in order with durations and a buffer for the walk to the gate.",
+      "annotations": {
+        "title": "Plan a layover at Changi",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
       "inputSchema": {
         "type": "object",
         "properties": {
-          "arrival_terminal": { "type": "string", "description": "Terminal the passenger arrived at, e.g. SIN-T1, SIN-T3" },
-          "departure_terminal": { "type": "string", "description": "Terminal departing from. Defaults to arrival_terminal if same-terminal transit." },
-          "time_budget_minutes": { "type": "number", "description": "Total usable minutes between now and when passenger needs to be at departure gate." },
-          "flight_number": { "type": "string", "description": "If known, used to match curated route templates (e.g. QF1, SQ322)." },
-          "vibe": { "type": "string", "enum": ["explore", "refuel", "comfort", "chill", "work", "shop", "quick"], "description": "Preferred vibe to weight stop selection." }
+          "arrival_terminal": {
+            "type": "string",
+            "description": "Terminal the passenger arrived at, e.g. SIN-T1, SIN-T3"
+          },
+          "departure_terminal": {
+            "type": "string",
+            "description": "Terminal departing from. Defaults to arrival_terminal if same-terminal transit."
+          },
+          "time_budget_minutes": {
+            "type": "number",
+            "description": "Total usable minutes between now and when passenger needs to be at departure gate."
+          },
+          "flight_number": {
+            "type": "string",
+            "description": "If known, used to match curated route templates (e.g. QF1, SQ322)."
+          },
+          "vibe": {
+            "type": "string",
+            "enum": [
+              "explore",
+              "refuel",
+              "comfort",
+              "chill",
+              "work",
+              "shop",
+              "quick"
+            ],
+            "description": "Preferred vibe to weight stop selection."
+          }
         },
-        "required": ["arrival_terminal", "time_budget_minutes"]
-      },
-      "output": "Ordered stops with durations, editorial notes, gate buffer, and timing constraints. route_type is 'curated' or 'dynamic'."
+        "required": [
+          "arrival_terminal",
+          "time_budget_minutes"
+        ]
+      }
     }
   ],
-  "specialisation": ["amenity_discovery", "transit_management", "disruption_alerts", "route_planning"],
+  "specialisation": [
+    "amenity_discovery",
+    "transit_management",
+    "disruption_alerts",
+    "route_planning"
+  ],
   "output_format": "structured_json",
   "data_sources": {
-    "amenities": "Curated database of 372+ verified SIN amenities with editorial notes",
-    "flights": "AeroDataBox real-time flight data",
-    "routes": "6 curated route templates covering T1-T4 with editorial stops",
-    "scoring": "Smart7 weighted recommendation algorithm"
+    "amenities": "Hand-curated catalogue of Changi venues with editorial notes",
+    "flights": "AeroDataBox live flight data, cached up to 5 minutes",
+    "routes": "Curated route templates for known flight patterns, otherwise composed from the catalogue"
   },
   "trust_signals": {
-    "no_hallucination": "Agent only returns amenities verified in database. Never fabricates.",
-    "verified_hours": "Opening hours sourced from official airport data",
-    "real_time_disruption": "Flight data refreshed via AeroDataBox API",
-    "transit_safety": "Always warns about Jewel immigration requirements"
+    "catalogue_only": "Venues come only from the curated catalogue; none are generated.",
+    "opening_hours": "Closed venues are left out at the time of the request (Singapore time).",
+    "landside_rule": "Landside venues such as Jewel are left out when there is not time to clear immigration both ways."
   },
-  "pricing": "free-beta",
+  "pricing": "free",
   "contact": {
     "website": "https://terminalplus.app",
-    "support": "support@terminalplus.app"
+    "documentation": "https://terminalplus.app/agents",
+    "privacy": "https://terminalplus.app/privacy",
+    "support": "terminalplusapp@gmail.com"
   },
-  "status": "beta",
-  "beta_notes": "Currently covers Singapore Changi Airport only. Expanding to additional airports Q3 2026."
+  "status": "live"
 }
