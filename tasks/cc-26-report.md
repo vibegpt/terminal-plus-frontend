@@ -1,6 +1,6 @@
 # CC-26 report: agent-ready MCP server
 
-Status, 17 Oct 2026: Part A SHIPPED (PR #5, merge `c9e2446`, production `dpl_DKJ5mnXnQUKahB9kzc3yZkUd58hL` READY). Parts B to G not started.
+Status, 17 Oct 2026: Part A SHIPPED (PR #5, merge `c9e2446`, production `dpl_DKJ5mnXnQUKahB9kzc3yZkUd58hL` READY). Parts B to G built on branch `cc-26/agent-ready`, preview PASS; not on main (Todd's go).
 
 ## G1
 Production `dpl_GfrDKorW2rF2yuKQokhNNwnCx3D2` = `afb5dc2` = origin/main. Worktree `~/tp-cc-26`.
@@ -77,3 +77,163 @@ Preview round 1: event 1754. Preview round 2 (anon `a7b2c75c-27ac-43b9-82ff-124b
 
 ### G2g
 Repo-root `mcp-registry-key.pem` is ECDSA P-384; its compressed public key equals the `p=` in the live `/.well-known/mcp-registry-auth` (compared in a shell variable, never printed). No new key needed.
+
+
+## Parts B to G (branch `cc-26/agent-ready`, preview `dpl_EToZJAJEQx12NYUqTh2Tm11CPgBr`, `7aa858f`)
+
+| Commit | Part |
+|---|---|
+| `99a4b29` | C: mcp.ts annotations, descriptions, landside rule, clean outputs + url, transport, zero_reason, x-tp-test; migration `20261017102844` |
+| `7105b60` | D7: AeroDataBox module cache in api/flight-status.ts |
+| `2345d20` | B + E: /agents, llms.txt, mcp.json, server-card.json, server.json 1.1.0, SW denylist, sitemap (43) |
+| `65a949d` | D6: T+ icons (192, 512, maskable 512, apple-touch 180), `npm run icons`, index.html links |
+| `7aa858f` | D: scripts/mcp-smoke.mjs, .github/workflows/mcp-monitor.yml |
+| `214e7f3` | migration `20261017103745` (my url-check rows → test) + lesson |
+
+### Decisions applied
+- D1: key moved to `~/.config/terminalplus/` (700/600), still matches the live auth file.
+- D2: B1 fixed (minutes to boarding from UTC; SQ322 showed −49 before). Landside + open-now in the flight-match and dynamic route branches via `eligibility`; Jewel suggestion via `landsideAccess` with its copy (no landside numbers in mcp.ts; delay severity 15/60/120 and urgency 30/90 bands are unrelated and unchanged). ping, CORS (allow Mcp-Session-Id, Mcp-Protocol-Version, X-Tp-Test; expose Mcp-Session-Id).
+- D3: `isTest = x-tp-test header || smoke-/test- session prefix`.
+- D4: urls are `/amenity/<slug>`. No slug spans two terminals; the one duplicate slug (`lotte-duty-free-wines-spirits-t3-level-2-65`, ids 71 and 72, both T3) 406s on its page today because `AmenityDetailPage` (a CC-25 file) does `.single()` on slug and ignores `:terminalCode`. Data fix for Todd: delete one of the two rows.
+- D5: `zero_reason` text + check; upstream_error also covers a failed catalogue query (no other value fits). Client privileges on agent_interactions: none (checked).
+- D6: icons below. The DM Serif + is a hairline at 180/192; a heavier + is an option if Todd wants it.
+- D7: rule JSON below, not applied. Cache keyed on number + date: AeroDataBox answers every leg in one call and the leg is chosen afterwards.
+- D8: monitor crons `15,45 * * * *` (catalogue tools) and `0 */3 * * *` (all 4). Scheduled runs start only once the workflow is on main.
+
+### Acceptance on preview
+- Smoke: `node scripts/mcp-smoke.mjs <preview>/api/mcp` → PASS, 10 steps, p95 2,341 ms.
+- AC-3 Inspector 2.11.0 CLI (Streamable HTTP, `--header x-tp-test:1`): tools/list shows 4 tools with titles and annotations; all 4 tools/call succeed. Production run + UI screenshot after merge.
+- AC-4: GET + `Accept: text/event-stream` → 405; plain GET → 200 JSON; notifications/initialized → 202 (smoke steps).
+- AC-5: get_recommendations refuel at 170 min → 8 venues, 0 landside; at 200 min → 12, the landside ones labelled "Landside: clear immigration both ways (visa rules apply)". get_route QF1 T1 at 170 min drops the Kopitiam stop; at 200 min keeps it, labelled.
+- AC-7: zero rows `2ad04ca9…` no_recommendations, `ad28f1f3…` no_route_stops, `2039ed47…` flight_not_found.
+- D7 proof: two flight-status calls (CDN bypassed by a unique query param, both `x-vercel-cache: MISS`): first `x-tp-adb-calls: 1`, second `x-tp-adb-calls: 0`, `x-tp-adb-cache-hits: 1`.
+- D4: three urls open the exact venue on terminalplus.app: Kopitiam (T1), TWG Tea (T4), Bacha Coffee (T3).
+- AC-1: /agents and /agents/ 200 (7,403 B, no app shell); at 375 px with the SW controlling, /agents loads the static page (no `#root`, no horizontal overflow). AC-2: /llms.txt 200 text/plain (7 lines).
+- AC-9 (part): /.well-known/mcp.json, /.well-known/mcp/server-card.json, /.well-known/mcp-registry-auth 200 on preview; `mcp-publisher validate` ✅; `mcp-publisher login http --algorithm ecdsap384 --domain terminalplus.app` → "Successfully logged in" (token in `~/.mcp_publisher_token`, 600). Not published.
+- AC-11: `git diff origin/main -- api/chat.ts api/lib/ranking.ts shared/ranking/policy.ts` empty; 0 CC-25 files touched; unit tests 80/80; adversarial 11/11; build and api tsc exit 0.
+- Preview SMOKE 13/13 (anon `8f5ce973-ebd3-45dc-9f94-eec56a957016`): gate; skip journey `fc7f72c8-e120-4b64-b51a-f4e254ceeed5`; typed QF1 `835dd36c-35cc-4ca3-bec2-b3015942d6a1` ("4h 4m to board · On Time"); picker SQ424 `6da17581-6d0c-49ae-9880-ee6d378b7724`; 7 rows, 31/31 images, 32 counts; refuel 7; collection 7 of 7, Grain Traders, laksa → Kopitiam; Keep QF1 unchanged; Evening picks (local 13:39 UTC+3, SGT 18:39); chat `30f5b592-0ec1-4c6a-9640-9f00b99a94dc` (SIN-T1, 243 min); MCP refuel/SIN-T1 → 7; events 1790–1819.
+
+### AC-6: one full response (get_recommendations, refuel, 170 min, preview)
+```json
+{
+  "recommendations": [
+    {
+      "rank": 1,
+      "name": "TWG Tea",
+      "terminal": "SIN-T4",
+      "vibe_tags": "Refuel",
+      "price_level": "$$",
+      "description": "Grab Singapore's premium tea brand for a quick pick-me-up between flights. Choose from rare single-origin blends or pair with fresh pastries to rechar",
+      "editorial_note": "TWG is Singapore's premium tea brand — the tea salon serves full afternoon tea sets alongside single-pot brews. The 1837 Black Tea and Silver Moon Tea are signature blends. Gift tins are among the most elegant Singapore souvenirs.",
+      "route_context": "T4 — tea salon or gift tin purchase",
+      "url": "https://terminalplus.app/amenity/twg-tea-t4-new?utm_source=mcp&utm_medium=agent"
+    },
+    {
+      "rank": 2,
+      "name": "A&W Root Beer",
+      "terminal": "SIN-T3",
+      "vibe_tags": "Refuel,Quick",
+      "price_level": "$",
+      "description": "Nostalgic American fast food chain, famous for root beer floats",
+      "editorial_note": "A&W is extinct in most countries but thrives at Changi T3 — the root beer float (ice cream + root beer) is nostalgic and delicious. Curly fries are the side order. Under for a combo. A genuine novelty for younger travellers.",
+      "route_context": "T3 — unique find; allow 10 min",
+      "url": "https://terminalplus.app/amenity/aw-root-beer-t3?utm_source=mcp&utm_medium=agent"
+    },
+    {
+      "rank": 3,
+      "name": "Bacha Coffee",
+      "terminal": "SIN-T3",
+      "vibe_tags": "Refuel,Explore",
+      "price_level": "$$$",
+      "description": "Opulent Moroccan-heritage coffee house and the jewel of Changi's T3 transit hall. Single-origin coffees from over 30 producing countries, fresh pastri",
+      "editorial_note": "The world's largest Bacha Coffee outlet — 7,000 sq ft of Moroccan stained-glass ceilings and over 200 Arabica coffees. It's takeaway only (no dine-in seating), but even grabbing a cup to sip by the gates feels like a luxury moment.",
+      "route_context": "Any T3 departure — quickest luxury coffee stop airside",
+      "url": "https://terminalplus.app/amenity/bacha-coffee-sint3?utm_source=mcp&utm_medium=agent"
+    },
+    {
+      "rank": 4,
+      "name": "Starbucks",
+      "terminal": "SIN-T3",
+      "vibe_tags": "Refuel",
+      "price_level": "$$",
+      "description": "Popular coffeehouse in T3 transit area. Grab your favourite espresso drink, Frappuccino, or pastry between flights.",
+      "editorial_note": "Best seating of four terminals — counter seats facing the atrium glass. 'Singapore Exclusive' drinks include pandan and coconut variations.",
+      "route_context": "T3 — 30+ min layover, enjoy atrium views",
+      "url": "https://terminalplus.app/amenity/starbucks-sint3?utm_source=mcp&utm_medium=agent"
+    },
+    {
+      "rank": 5,
+      "name": "The Coffee Bean & Tea Leaf",
+      "terminal": "SIN-T3",
+      "vibe_tags": "Refuel",
+      "price_level": "$$",
+      "description": "Reliable cafe in the T3 transit area. Espresso drinks, signature ice blended beverages, and pastries.",
+      "editorial_note": "T3 CBTL with premium seating and terminal views. Original Ice Blended Coffee consistently good. Quieter than nearby Starbucks during peak hours.",
+      "route_context": "T3",
+      "url": "https://terminalplus.app/amenity/coffee-bean-tea-leaf-sint3?utm_source=mcp&utm_medium=agent"
+    },
+    {
+      "rank": 6,
+      "name": "Ya Kun Kaya Toast",
+      "terminal": "SIN-T3",
+      "vibe_tags": "Refuel,Explore",
+      "price_level": "$$",
+      "description": "Grab Singapore's iconic breakfast in minutes: soft-boiled eggs, kaya jam, and buttered toast with coffee or tea. Perfect for layover refueling or a qu",
+      "editorial_note": "Over 70 years of kaya toast tradition: charcoal-grilled bread, homemade coconut jam, thick kopi. The fastest, cheapest, most authentically Singaporean meal at Changi — and very affordable.",
+      "route_context": "Early morning transits — best quick Singaporean breakfast at Changi",
+      "url": "https://terminalplus.app/amenity/ya-kun-kaya-toast-t3-new?utm_source=mcp&utm_medium=agent"
+    },
+    {
+      "rank": 7,
+      "name": "Hudsons Coffee",
+      "terminal": "SIN-T2",
+      "vibe_tags": "Refuel",
+      "price_level": "$$",
+      "description": "Australian specialty coffee chain and the only Hudsons outside Australia. Proper flat whites, long blacks, and espresso drinks in the T2 transit area.",
+      "editorial_note": "Australian coffee chain — familiar if you're from Melbourne or Sydney. Flat whites are reliably good. The Ham & Cheese Toastie is a safe bet. Feels like home before a long flight.",
+      "route_context": "T2 airside",
+      "url": "https://terminalplus.app/amenity/hudsons-coffee-sint2?utm_source=mcp&utm_medium=agent"
+    },
+    {
+      "rank": 8,
+      "name": "McDonald's T2 Transit",
+      "terminal": "SIN-T2",
+      "vibe_tags": "Quick,Refuel",
+      "price_level": "$",
+      "description": "The only airside McDonald's at Changi. Self-order kiosks, full menu including Singapore-exclusive items like the McSpicy. Located in the T2 Departure/",
+      "editorial_note": "The only McDonald's you can reach without leaving transit. Self-order kiosks, full Singapore menu including McSpicy. Open 24/7. The familiar fallback when nothing else appeals at 3am.",
+      "route_context": null,
+      "url": "https://terminalplus.app/amenity/mcdonalds-t2-transit?utm_source=mcp&utm_medium=agent"
+    }
+  ]
+}
+```
+No `id`, `slug`, `editorial_score`, `total_available` or `filters_applied`; every venue has a url with utm_source=mcp. Data note: TWG/A&W editorial text has a dropped price ("Under for a combo").
+
+### Icons (D6)
+`public/icon-192.png`, `public/icon-512.png`, `public/icon-maskable.png` (glyphs reach 29% of the width from centre, inside the 40% safe circle), `public/apple-touch-icon.png` (180).
+
+### Part F proposal (not applied; Vercel Pro, WAF rate limiting included, fixed window, key ip)
+```json
+[
+  {"action": "rules.insert", "value": {"name": "Rate limit chat and agent cards", "active": true,
+    "description": "60 requests per minute per IP (CC-26 F)",
+    "conditionGroup": [{"conditions": [{"type": "path", "op": "eq", "value": "/api/chat"}]},
+                       {"conditions": [{"type": "path", "op": "eq", "value": "/api/agent-card"}]}],
+    "action": {"mitigate": {"action": "rate_limit", "rateLimit": {"algo": "fixed_window", "window": 60, "limit": 60, "keys": ["ip"], "action": "deny"}}}}},
+  {"action": "rules.insert", "value": {"name": "Rate limit MCP", "active": true,
+    "description": "600 requests per minute per IP: assistants share a few egress IPs (CC-26 F)",
+    "conditionGroup": [{"conditions": [{"type": "path", "op": "eq", "value": "/api/mcp"}]}],
+    "action": {"mitigate": {"action": "rate_limit", "rateLimit": {"algo": "fixed_window", "window": 60, "limit": 600, "keys": ["ip"], "action": "deny"}}}}}
+]
+```
+Rate-limited requests get 429. Counters are per region. Proof after apply: a scripted burst of 70 POSTs to /api/chat with an invalid body (no Anthropic call) → 429 after 60; one normal chat turn from another IP stays 200.
+
+### Test rows (Parts B to G)
+agent_interactions (all is_test): `3736792f…` `1d2256fc…` `d344362f…` `8625bf87…` (smoke), `4b2d1e18…` `6c480022…` `a960ac74…` `04ef524c…` (AC-5), `2ad04ca9…` `ad28f1f3…` `2039ed47…` (AC-7), `b7a7f19f…` `5d973e4e…` `914be4f8…` `80f99868…` (Inspector), `994ba3bb…` (SMOKE 11), `30f5b592…` (chat). events 1787–1789 (fixed to test), 1790–1819. 0 rows with is_test false.
+
+### Open for Todd
+1. Apply the Part F rules (JSON above).
+2. Merge `cc-26/agent-ready` to main. Then: production smoke, Inspector UI screenshot, monitor green scheduled run + red dispatch run (AC-8), burst test (AC-10).
+3. Duplicate amenity row 71/72.
+4. `mcp-publisher publish` (server.json above), then the directory submissions (`tasks/cc-26-submission-kit.md`).
