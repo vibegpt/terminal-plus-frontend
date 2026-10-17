@@ -7,6 +7,7 @@
 // All copy is in src/lib/agentCardCopy.ts.
 
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import { X, RefreshCw, ChevronRight, Sparkles } from 'lucide-react';
 import { useAgentCardSlot } from '@/hooks/useAgentCards';
@@ -195,8 +196,9 @@ export function AgentCardStrip() {
         </button>
       </div>
 
-      {open && (
-        <div data-testid="agent-card-sheet" style={{ position: 'fixed', inset: 0, zIndex: 80 }}>
+      {/* Portal: the strip sits in the sticky header, whose z-index would trap the sheet under the bottom nav. */}
+      {open && createPortal(
+        <div data-testid="agent-card-sheet" style={{ position: 'fixed', inset: 0, zIndex: 1000 }}>
           <div onClick={() => setOpen(false)} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.45)' }} />
           <div style={{
             position: 'absolute', left: 0, right: 0, bottom: 0, maxHeight: '80vh', overflowY: 'auto',
@@ -206,7 +208,8 @@ export function AgentCardStrip() {
             <div style={{ width: 36, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.2)', margin: '0 auto 12px' }} />
             <CardBody entry={entry} onAfterAction={() => setOpen(false)} />
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

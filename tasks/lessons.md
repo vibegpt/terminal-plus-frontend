@@ -587,3 +587,36 @@ A file whose name differs from the applied version looks unapplied to
 **Rule going forward:** a migration applied through the MCP gets its own
 timestamp. Rename the repo file to the applied version before committing, and
 prove it with `list_migrations` next to `ls supabase/migrations`.
+
+---
+
+## 2026-10-17 — Child effects run before the parent's: state an ancestor publishes from an effect isn't there on the first frame
+
+**Assumed (CC-25):** the outcome strip could hide under a gate_change or final_call
+card by subscribing to `cardAbove`, which the card provider sets from a `useEffect`.
+
+**Actual:** on a cold resume the strip replays the resume in its own mount effect,
+and React runs child effects before the parent's. The strip rendered with the
+default `cardAbove = false`, logged `outcome_shown` and marked the venue 'shown'
+(counting toward the cap), then hid a moment later. Caught in the browser: the
+ledger said 'shown' while the strip was nowhere in the DOM.
+
+**Rule going forward:** when a child's first frame depends on a decision an ancestor
+makes, the ancestor computes it synchronously (state initializer reading storage)
+and primes it during its render; effects only publish later changes. Anything
+that logs "shown" must check visibility on the frame it logs, not on a later one.
+And a "prime silently, publish later" store must compare against the last
+*published* value, or the publish turns into a no-op.
+
+---
+
+## 2026-10-17 — A gate check that proves "ignored without the test flag" writes a non-test row
+
+**Actual (CC-25):** to prove `x-tp-card-model` is ignored on a request without
+`x-tp-test`, the check had to send a real non-test request, so it wrote one
+`agent_interactions` row with `is_test = false` (env preview, so no view counted
+it). Fixed with migration `20261017071110` (exact id, exact count).
+
+**Rule going forward:** before sending any deliberately non-test request, write the
+cleanup migration (or pick an input that's rejected after the header is read, so
+nothing is stored). List the row id in the report either way.
