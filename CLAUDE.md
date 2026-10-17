@@ -32,6 +32,7 @@ Root: ~/terminal-plus-frontend · Remote: github.com/vibegpt/terminal-plus-front
 ## Standing rules
 - Telemetry tables (events, journeys, agent_interactions) are service-role only. Write them through the validating routes (api/events.ts, api/journey.ts) or server code (api/chat.ts and MCP telemetry log agent_interactions). Never add anon INSERT policies.
 - All timestamps are timestamptz. Every analytics view filters out test and non-production rows.
+- Anything shared outside Terminal+ comes only from `*_k5` views (cells under 5 distinct journeys or sessions suppressed).
 - DB changes:
   - Write the migration file in supabase/migrations/ first, then apply it.
   - Introspect with information_schema.columns.
