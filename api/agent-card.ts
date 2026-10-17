@@ -174,7 +174,7 @@ const SYSTEM_PROMPT = `You write one short suggestion card for a passenger at Si
 
 Return JSON: {"line": string, "stops": [{"slug": string, "why": string}]}.
 - stops: exactly the number of stops asked for, each a slug from the list, no repeats, in a sensible order for the time they have (an unhurried stop first, something quick last).
-- line: one friendly sentence, at most 70 characters, no times.
+- line: one friendly sentence, under 60 characters, no times.
 - why: at most 90 characters, specific to that venue, drawn from its note.
 - Never mention walking time, minutes, distances, or how near anything is to a gate. You don't know them.
 - If a venue has an access note, the app shows it; don't contradict it.
@@ -237,7 +237,12 @@ async function callModel(model: string, system: string, user: string, timeoutMs:
   const controller = new AbortController()
   let timedOut = false
   const timer = setTimeout(() => { timedOut = true; controller.abort() }, timeoutMs)
-  const params = chatParams(model)
+  // Cards are a short pick from a given list, latency-bound by an 8 s budget: thinking
+  // off where the model allows it. On claude-sonnet-5-5 that's 'between_tools' (its
+  // 'disabled' is a 400); everything else keeps chat's settings.
+  const params = model === 'claude-sonnet-5-5'
+    ? { ...chatParams(model), thinking: { type: 'between_tools' } as unknown as Anthropic.ThinkingConfigParam }
+    : chatParams(model)
   try {
     const message = await getAnthropic().messages.create(
       {
