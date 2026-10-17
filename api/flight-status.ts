@@ -91,7 +91,38 @@ export function selectSinLeg(
 
 type Fetched = { ok: true; flights: any[] } | { ok: false; status: number };
 
-async function fetchFlights(flightNumber: string, date: string): Promise<Fetched> {
+// AeroDataBox answers per flight number + date, every leg in one response; the leg is
+// picked from it afterwards (selectSinLeg), so number + date is the whole key. Module
+// scope: a warm instance answers a repeat within 5 minutes without spending a unit
+// (5,000 a month). Only successful answers (including "no flights") are kept.
+const UPSTREAM_TTL_MS = 5 * 60_000;
+const UPSTREAM_CACHE_MAX = 500;
+const upstreamCache = new Map<string, { at: number; value: Fetched }>();
+
+/** Per-request count of AeroDataBox calls, sent back as x-tp-adb-calls. */
+interface UpstreamStats { calls: number; hits: number }
+
+async function fetchFlights(flightNumber: string, date: string, stats: UpstreamStats): Promise<Fetched> {
+  const key = `${flightNumber}|${date}`;
+  const cached = upstreamCache.get(key);
+  if (cached && Date.now() - cached.at < UPSTREAM_TTL_MS) {
+    stats.hits++;
+    return cached.value;
+  }
+  stats.calls++;
+  const value = await fetchFlightsUpstream(flightNumber, date);
+  if (value.ok) {
+    if (upstreamCache.size >= UPSTREAM_CACHE_MAX) {
+      const oldest = upstreamCache.keys().next().value;
+      if (oldest !== undefined) upstreamCache.delete(oldest);
+    }
+    upstreamCache.delete(key);
+    upstreamCache.set(key, { at: Date.now(), value });
+  }
+  return value;
+}
+
+async function fetchFlightsUpstream(flightNumber: string, date: string): Promise<Fetched> {
   const url = `${API_BASE}/flights/number/${encodeURIComponent(flightNumber)}/${date}`;
   const response = await fetch(url, {
     headers: {
@@ -129,9 +160,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const dateStr =
     typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : today;
 
+  const stats: UpstreamStats = { calls: 0, hits: 0 };
+  // Set before any return below; only a lookup that reached this point counts.
+  const sendStats = () => {
+    res.setHeader('x-tp-adb-calls', String(stats.calls));
+    res.setHeader('x-tp-adb-cache-hits', String(stats.hits));
+  };
+
   try {
-    const first = await fetchFlights(flightNumber, dateStr);
+    const first = await fetchFlights(flightNumber, dateStr, stats);
     if (!first.ok) {
+      sendStats();
       return res.status(first.status).json({ error: 'API request failed' });
     }
 
@@ -144,7 +183,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       sinSideTime(pick.flight.departure) < Date.now() - DEPARTED_GRACE_MS;
     if (dateStr === today && requestedLeg !== 'arrival' && (!pick || departedAlready)) {
       const tomorrow = nextDate(dateStr);
-      const second = await fetchFlights(flightNumber, tomorrow);
+      const second = await fetchFlights(flightNumber, tomorrow, stats);
       const next = second.ok
         ? selectSinLeg(second.flights, { date: tomorrow, leg: requestedLeg })
         : null;
@@ -161,6 +200,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           : touchesSin
             ? 'No SIN leg on that date'
             : 'No SIN segment found for this flight';
+      sendStats();
       return res.status(404).json({ error });
     }
 
@@ -207,6 +247,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const status = sinFlight.status || 'Unknown';
     const airline = sinFlight.airline?.name || null;
 
+    sendStats();
     return res.json({
       flightNumber,
       airline,
@@ -224,6 +265,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   } catch (err) {
     console.error('[api/flight-status] Error:', err);
+    sendStats();
     return res.status(500).json({ error: 'Lookup failed' });
   }
 }
