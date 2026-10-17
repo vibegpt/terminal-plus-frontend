@@ -64,6 +64,7 @@ export default defineConfig({
           /^\/og\//,
           /^\/robots\.txt/,
           /^\/sitemap\.xml/,
+          /^\/privacy/,
         ],
         runtimeCaching: [
           {
