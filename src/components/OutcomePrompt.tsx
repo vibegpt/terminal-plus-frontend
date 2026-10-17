@@ -21,6 +21,7 @@ import {
   captureBarShowing,
   evaluateOutcome,
   gapMinMs,
+  stripDisplay,
   type Candidate,
   type OutcomeReason,
   type OutcomeResponsePayload,
@@ -29,6 +30,7 @@ import {
 import { markAsked, readLedger } from '../lib/candidateTap';
 import { isPagePath } from '../lib/routes';
 import { isAddFlightBarDismissed } from '../lib/capture';
+import { getSlot, outcomeBus, setSlot, subscribeSlot } from '../lib/agentCards';
 import {
   isGapDebug,
   latestResume,
@@ -54,6 +56,8 @@ export const SPEND_AUTO_CLOSE_MS = 8_000;
 
 export function emitOutcomeResponse(slug: string, payload: OutcomeResponsePayload): void {
   track('outcome_response', { amenity_slug: slug, payload });
+  // CC-25: the agent card engine offers a next stop after an answer or a check-in.
+  outcomeBus.emit({ slug, outcome: payload.outcome, source: payload.outcome_source });
 }
 
 /**
@@ -140,6 +144,8 @@ interface Strip {
   gapMinutes: number;
   candidateAgeMinutes: number;
   step: Step;
+  /** outcome_shown written (CC-25: only once the strip is actually visible). */
+  shownLogged: boolean;
 }
 
 // A resume is handled once per page, however often the strip remounts.
@@ -156,6 +162,9 @@ export function OutcomePrompt() {
   const { flight } = useFlightContext();
   const { pathname } = useLocation();
   const [strip, setStrip] = useState<Strip | null>(null);
+  // CC-25: a gate_change or final_call card hides the strip; it waits underneath.
+  const [cardAbove, setCardAbove] = useState(getSlot().cardAbove);
+  useEffect(() => subscribeSlot(s => setCardAbove(s.cardAbove)), []);
 
   // The resume listener is registered once; it reads current state through this ref.
   const live = useRef({ journey, flight, pathname, strip });
@@ -202,25 +211,44 @@ export function OutcomePrompt() {
     if (ledger.asked[c.slug] !== 'eligible') {
       track('outcome_eligible', {
         amenity_slug: c.slug,
-        payload: { candidate_type: c.type, gap_minutes: v.gapMinutes, candidate_age_minutes: v.candidateAgeMinutes },
+        payload: {
+          candidate_type: c.type,
+          gap_minutes: v.gapMinutes,
+          candidate_age_minutes: v.candidateAgeMinutes,
+          // CC-25: the denominator of the card vs browsed comparison.
+          ...(c.card_id ? { card_id: c.card_id } : {}),
+        },
       });
       markAsked(journeyKey, c.slug, 'eligible');
     }
     if (!v.showable) return;
 
-    track('outcome_shown', {
-      amenity_slug: c.slug,
-      payload: { gap_minutes: v.gapMinutes, candidate_age_minutes: v.candidateAgeMinutes },
-    });
-    markAsked(journeyKey, c.slug, 'shown');
+    // outcome_shown and the 'shown' mark wait until the strip is visible (effect below).
     setStrip({
       candidate: c,
       journeyKey,
       gapMinutes: v.gapMinutes,
       candidateAgeMinutes: v.candidateAgeMinutes,
       step: 'ask',
+      shownLogged: false,
     });
   }, []);
+
+  const display = stripDisplay({ pending: !!strip, cardAbove, shownLogged: strip?.shownLogged ?? false });
+
+  // Tell the slot the strip has something to ask, so lower agent cards wait.
+  useEffect(() => { setSlot({ stripPending: !!strip }); }, [strip]);
+  useEffect(() => () => setSlot({ stripPending: false }), []);
+
+  useEffect(() => {
+    if (!strip || !display.logShown) return;
+    track('outcome_shown', {
+      amenity_slug: strip.candidate.slug,
+      payload: { gap_minutes: strip.gapMinutes, candidate_age_minutes: strip.candidateAgeMinutes },
+    });
+    markAsked(strip.journeyKey, strip.candidate.slug, 'shown');
+    setStrip({ ...strip, shownLogged: true });
+  }, [strip, display.logShown]);
 
   useEffect(() => {
     const pending = latestResume();
@@ -234,7 +262,7 @@ export function OutcomePrompt() {
     return subscribeResume(handleResume);
   }, [handleResume]);
 
-  if (!strip) return null;
+  if (!strip || !display.visible) return null;
   const { candidate: c, step } = strip;
 
   const response = (outcome: OutcomeResponsePayload['outcome']): OutcomeResponsePayload => ({
@@ -244,6 +272,7 @@ export function OutcomePrompt() {
     spend_band: null,
     gap_minutes: strip.gapMinutes,
     candidate_age_minutes: strip.candidateAgeMinutes,
+    ...(c.card_id ? { card_id: c.card_id } : {}),
   });
 
   const answer = (outcome: 'yes' | 'no') => {

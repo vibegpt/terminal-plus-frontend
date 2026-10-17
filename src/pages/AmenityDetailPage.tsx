@@ -16,6 +16,7 @@ import { HOURS_COPY } from '../../shared/ranking/landsideCopy';
 import { useJourney, hasDeparted } from '@/context/JourneyContext';
 import { recordCandidate, readLedger, markAsked } from '@/lib/candidateTap';
 import { toMinutes } from '@/lib/outcomePrompt';
+import { visitedBus } from '@/lib/agentCards';
 import { SpendChips, SPEND_AUTO_CLOSE_MS, useHeldResponse } from '@/components/OutcomePrompt';
 
 // ── Types ──────────────────────────────────────────────────────────
@@ -93,6 +94,9 @@ export default function AmenityDetailPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const vibeFromRoute = (location.state as { vibe?: string })?.vibe || null;
+  // CC-25: opened from an agent card. Router state, never the URL.
+  const routeCardId = (location.state as { card_id?: unknown } | null)?.card_id;
+  const cardId = typeof routeCardId === 'string' && /^[0-9a-f-]{36}$/i.test(routeCardId) ? routeCardId : null;
   const [amenity, setAmenity] = useState<AmenityData | null>(null);
   const [vibeDescription, setVibeDescription] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -135,6 +139,7 @@ export default function AmenityDetailPage() {
       spend_band: null,
       gap_minutes: null,
       candidate_age_minutes: toMinutes(Date.now() - openedAt.current),
+      ...(cardId ? { card_id: cardId } : {}),
     }, SPEND_AUTO_CLOSE_MS);
     setCheckin('spend');
   };
@@ -158,7 +163,8 @@ export default function AmenityDetailPage() {
       setAmenity(data);
       // Outcome candidate: the most recent detail open (CC-13). Recorded here, after the
       // load, so every way into this page counts and a bad slug never does.
-      recordCandidate(data.amenity_slug, data.name, 'detail_open');
+      recordCandidate(data.amenity_slug, data.name, 'detail_open', Date.now(), cardId);
+      visitedBus.emit(data.amenity_slug);
 
       // Fetch vibe-specific description if we arrived from a vibe context
       if (vibeFromRoute) {
@@ -196,7 +202,7 @@ export default function AmenityDetailPage() {
 
     loadAmenity();
     return () => { mounted = false; };
-  }, [slug, vibeFromRoute]);
+  }, [slug, vibeFromRoute, cardId]);
 
   // Dwell: time on this amenity's page — fires on unmount or pagehide,
   // whichever comes first. trackDwell clamps at 10min, discards <500ms.
@@ -294,7 +300,7 @@ export default function AmenityDetailPage() {
                 terminalCode: amenity.terminal_code,
                 vibeTag: (amenity.vibe_tags || '').split(',')[0]?.trim() || '',
               });
-              if (nowSaved) recordCandidate(amenity.amenity_slug, amenity.name, 'save');
+              if (nowSaved) recordCandidate(amenity.amenity_slug, amenity.name, 'save', Date.now(), cardId);
             }}
             className="p-2 bg-black/40 backdrop-blur-sm rounded-full border border-white/10"
           >

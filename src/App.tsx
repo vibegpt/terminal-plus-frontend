@@ -17,6 +17,8 @@ import { lazyWithReload } from './lib/chunkReload';
 import { LazyRouteBoundary } from './components/LazyRouteBoundary';
 import { UpdatePrompt } from './components/UpdatePrompt';
 import { TestPill } from './components/TestPill';
+import { AgentCardProvider } from './hooks/useAgentCards';
+import { AgentCardStrip } from './components/AgentCard';
 
 // MVP routes, lazy loaded. lazyWithReload: a chunk removed by a deploy reloads
 // the page once onto the current build instead of leaving it blank.
@@ -148,7 +150,7 @@ function AppInner() {
       onCancel={changingFlight ? handleCancelChange : undefined}
     />
   ) : (
-    <AppShell onEditFlight={handleEditFlight} onChangeFlight={handleChangeFlight} banner={<OutcomePrompt />}>
+    <AppShell onEditFlight={handleEditFlight} onChangeFlight={handleChangeFlight} banner={<><AgentCardStrip /><OutcomePrompt /></>}>
       {/* Keyed by path, so a failed page doesn't stick when the user moves on. */}
       <LazyRouteBoundary key={pathname}>
         <Suspense fallback={<Loading />}>
@@ -198,7 +200,10 @@ export default function App() {
     <JourneyProvider>
       {/* FlightProvider reads the journey, so it sits inside JourneyProvider */}
       <FlightProvider>
-        <AppInner />
+        {/* Agent cards (CC-25): mounted above the shell, so capture's flight confirm starts the plan request */}
+        <AgentCardProvider>
+          <AppInner />
+        </AgentCardProvider>
       </FlightProvider>
     </JourneyProvider>
   );

@@ -54,6 +54,8 @@ export interface Candidate {
   type: CandidateType;
   /** Epoch ms of the tap. */
   at: number;
+  /** The agent card the venue was opened from (CC-25), else null. */
+  card_id: string | null;
 }
 
 /**
@@ -195,6 +197,8 @@ export type OutcomeEligiblePayload = {
   candidate_type: CandidateType;
   gap_minutes: number;
   candidate_age_minutes: number;
+  /** CC-25: present when the venue was opened from an agent card. */
+  card_id?: string;
 };
 
 export type OutcomeShownPayload = {
@@ -209,9 +213,27 @@ export type OutcomeResponsePayload = {
   spend_band: SpendBand | null;
   gap_minutes: number | null;
   candidate_age_minutes: number | null;
+  /** CC-25: the agent card the venue was opened from. Absent when it wasn't. */
+  card_id?: string;
 };
 
 export type GatePayload = { gate: string };
+
+// ── Strip display under an agent card (CC-25) ──────────────────────
+
+/**
+ * The strip has something to ask (pending) but hides while a gate_change or
+ * final_call card is up. outcome_shown, and the 'shown' mark that counts toward
+ * the cap, are written only once it is actually visible (P3). outcome_eligible
+ * isn't affected: it's logged on the resume, shown or not.
+ */
+export function stripDisplay(args: { pending: boolean; cardAbove: boolean; shownLogged: boolean }): {
+  visible: boolean;
+  logShown: boolean;
+} {
+  const visible = args.pending && !args.cardAbove;
+  return { visible, logShown: visible && !args.shownLogged };
+}
 
 /** Gate chip window, minutes to boarding (inclusive). */
 export const GATE_CHIP_MAX_MINUTES = 45;

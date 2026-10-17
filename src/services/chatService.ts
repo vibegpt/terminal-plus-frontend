@@ -10,6 +10,8 @@ export interface ChatMessage {
   amenities?: AmenityDetail[]
   followUp?: string | null
   timestamp: number
+  /** Sent as history but not drawn (CC-25: the card a seeded chat starts from). */
+  hidden?: boolean
 }
 
 export interface ChatContext {

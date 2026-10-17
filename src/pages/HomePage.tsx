@@ -16,6 +16,7 @@ import { track, trackImpressionOnce } from '@/lib/telemetry';
 import { sgHour } from '@/lib/sgTime';
 import { useEligibility } from '@/lib/eligibility';
 import { countEligible, type EligibilityFields } from '../../shared/ranking/policy';
+import { AgentCardInline } from '../components/AgentCard';
 
 // ── Vibe Configuration ─────────────────────────────────────────────
 const VIBES = [
@@ -399,7 +400,8 @@ export const HomePage: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen pb-24" style={{ background: '#0a0a0f' }}>
-        <div className="px-4 pt-14 pb-4">
+        <div className="pt-12"><AgentCardInline /></div>
+        <div className="px-4 pt-2 pb-4">
           <div className="h-6 w-28 rounded-lg animate-pulse mb-1.5" style={{ background: '#1a1a25' }} />
           <div className="h-3.5 w-36 rounded animate-pulse" style={{ background: '#151520' }} />
         </div>
@@ -445,6 +447,7 @@ export const HomePage: React.FC = () => {
       </header>
 
       <div className="pt-2">
+        <AgentCardInline />
         <BoardingContextStrip />
         {sections.map(({ vibe, collections }) => (
           <VibeSection

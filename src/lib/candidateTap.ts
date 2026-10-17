@@ -17,21 +17,31 @@ import { CANDIDATE_TYPES } from './outcomePrompt';
 
 const CANDIDATE_KEY = 'tp_outcome_candidate';
 const LEDGER_KEY = 'tp_outcome_ledger';
+/** The ledger's version. */
 const SCHEMA_VERSION = 1;
+/**
+ * The candidate's version. v2 (CC-25) adds card_id: the agent card the venue was
+ * opened from. A v1 candidate is migrated on read with card_id null, never dropped.
+ */
+export const CANDIDATE_VERSION = 2;
 
 // ── Candidate ───────────────────────────────────────────────────────
 
 type StoredCandidate = Candidate & { schema_version: number };
 
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Reads v1 (migrated: card_id null) and v2. Any other version, or a bad shape, is null. */
 export function parseCandidate(raw: string | null): Candidate | null {
   if (!raw) return null;
   try {
     const c = JSON.parse(raw) as Partial<StoredCandidate>;
-    if (c.schema_version !== SCHEMA_VERSION) return null;
+    if (c.schema_version !== 1 && c.schema_version !== CANDIDATE_VERSION) return null;
     if (typeof c.slug !== 'string' || !c.slug) return null;
     if (typeof c.at !== 'number' || !Number.isFinite(c.at)) return null;
     if (!CANDIDATE_TYPES.includes(c.type as CandidateType)) return null;
-    return { slug: c.slug, name: typeof c.name === 'string' ? c.name : c.slug, type: c.type as CandidateType, at: c.at };
+    const cardId = c.schema_version === CANDIDATE_VERSION && typeof c.card_id === 'string' && UUID.test(c.card_id) ? c.card_id : null;
+    return { slug: c.slug, name: typeof c.name === 'string' ? c.name : c.slug, type: c.type as CandidateType, at: c.at, card_id: cardId };
   } catch {
     return null;
   }
@@ -39,16 +49,22 @@ export function parseCandidate(raw: string | null): Candidate | null {
 
 export function readCandidate(): Candidate | null {
   try {
-    return parseCandidate(localStorage.getItem(CANDIDATE_KEY));
+    const raw = localStorage.getItem(CANDIDATE_KEY);
+    const c = parseCandidate(raw);
+    // Read-time migration: write a v1 record back as v2, same tap, card_id null.
+    if (c && raw && (JSON.parse(raw) as { schema_version?: number }).schema_version === 1) {
+      localStorage.setItem(CANDIDATE_KEY, JSON.stringify({ schema_version: CANDIDATE_VERSION, ...c }));
+    }
+    return c;
   } catch {
     return null;
   }
 }
 
 /** Record a detail open, save or directions tap as the current candidate. */
-export function recordCandidate(slug: string, name: string, type: CandidateType, at = Date.now()): void {
+export function recordCandidate(slug: string, name: string, type: CandidateType, at = Date.now(), cardId: string | null = null): void {
   try {
-    const stored: StoredCandidate = { schema_version: SCHEMA_VERSION, slug, name, type, at };
+    const stored: StoredCandidate = { schema_version: CANDIDATE_VERSION, slug, name, type, at, card_id: cardId };
     localStorage.setItem(CANDIDATE_KEY, JSON.stringify(stored));
   } catch { /* storage blocked: no candidate, no prompt */ }
 }

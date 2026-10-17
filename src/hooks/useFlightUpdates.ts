@@ -3,7 +3,9 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 import { useJourney } from '../context/JourneyContext';
-import { lookupFlight } from '../services/flightService';
+import { lookupFlight, mapTerminalToCode } from '../services/flightService';
+
+const SIN_TERMINALS = new Set(['SIN-T1', 'SIN-T2', 'SIN-T3', 'SIN-T4']);
 
 type ToastInfo = { message: string; type: 'gate' | 'delay' | 'cancelled' };
 
@@ -61,6 +63,15 @@ export function useFlightUpdates() {
         message: journey.gate ? `Gate changed: ${data.gate}` : `Gate assigned: ${data.gate}`,
         type: 'gate',
       });
+    }
+
+    // Departure terminal (CC-25, stored only: no toast). Only from the departure leg
+    // out of SIN, so an arrival response can't move it. The agent card engine reads it
+    // to say "New terminal: allow time for the Skytrain".
+    const term = data.leg === 'departure' && data.isDepartingFromSIN ? mapTerminalToCode(data.terminal) : null;
+    if (term && SIN_TERMINALS.has(term) && term !== journey.departureTerminal) {
+      updates.departureTerminal = term;
+      updated = true;
     }
 
     // Delay / revised time

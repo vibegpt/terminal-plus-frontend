@@ -61,6 +61,10 @@ const EVENT_TYPES = new Set([
   'outcome_response',
   'gate_prompt_shown',
   'gate_reached',
+  // CC-25 agent cards
+  'agent_card_shown',
+  'agent_card_tapped',
+  'agent_card_dismissed',
 ])
 
 // Where a flight capture was opened from (src/lib/capture.ts CaptureEntry).
@@ -80,6 +84,63 @@ const OUTCOME_SOURCES = new Set(['prompt', 'checkin', 'qr', 'inferred'])
 const SPEND_BANDS = new Set(['none', 'lt_10', '10_30', 'gt_30'])
 const GATE_RE = /^[A-Z0-9-]{1,8}$/
 const MAX_MINUTES = 7 * 24 * 60
+
+// CC-25 enums (mirror of shared/agentCard/card.ts and src/hooks/useAgentCards.tsx — keep in sync).
+const CARD_TRIGGERS = new Set(['plan', 'delay', 'next_stop', 'gate_change', 'final_call'])
+const CARD_SOURCES = new Set(['model', 'fallback', 'rules'])
+const CARD_TARGETS = new Set(['stop', 'swap', 'chat', 'expand'])
+const CARD_JOURNEY_TYPES = new Set(['departing', 'connecting', 'just_landed', 'skipped'])
+const SLUG_MAX = 200
+
+function isUuid(v: unknown): v is string {
+  return typeof v === 'string' && UUID_RE.test(v)
+}
+
+function intOrNull(v: unknown, min: number, max: number): boolean {
+  return v == null || (typeof v === 'number' && Number.isInteger(v) && v >= min && v <= max)
+}
+
+/**
+ * The agent card events (CC-25), and card_id where other events carry it.
+ * Returns a rejection reason, or null. Unknown enum values are rejected.
+ */
+function validateCardEvent(e: Record<string, unknown>, p: Record<string, unknown>): string | null {
+  const type = e.event_type
+  if (type === 'agent_card_shown' || type === 'agent_card_tapped' || type === 'agent_card_dismissed') {
+    if (!isUuid(e.journey_id)) return `${type} needs journey_id`
+    if (!isUuid(p.card_id)) return 'invalid card_id'
+    if (typeof p.trigger !== 'string' || !CARD_TRIGGERS.has(p.trigger)) return 'invalid trigger'
+  }
+  switch (type) {
+    case 'agent_card_shown':
+      if (typeof p.source !== 'string' || !CARD_SOURCES.has(p.source)) return 'invalid source'
+      if (!Array.isArray(p.slugs) || p.slugs.length > 6 || !p.slugs.every(s => typeof s === 'string' && s.length > 0 && s.length <= SLUG_MAX)) return 'invalid slugs'
+      if (!intOrNull(p.minutes_to_boarding, -MAX_MINUTES, MAX_MINUTES)) return 'invalid minutes_to_boarding'
+      if (!enumOrNull(p.journey_type, CARD_JOURNEY_TYPES)) return 'invalid journey_type'
+      return null
+    case 'agent_card_tapped':
+      if (typeof p.target !== 'string' || !CARD_TARGETS.has(p.target)) return 'invalid target'
+      if (p.amenity_slug != null && (typeof p.amenity_slug !== 'string' || p.amenity_slug.length > SLUG_MAX)) return 'invalid amenity_slug'
+      if ((p.target === 'stop' || p.target === 'swap') && typeof p.amenity_slug !== 'string') return `${p.target} needs amenity_slug`
+      if (!intOrNull(p.position, 0, 32)) return 'invalid position'
+      return null
+    case 'agent_card_dismissed':
+      if (typeof p.seconds_visible !== 'number' || !Number.isFinite(p.seconds_visible) || p.seconds_visible < 0 || p.seconds_visible > 86_400) return 'invalid seconds_visible'
+      return null
+    case 'amenity_tapped':
+      // A card stop tap (P2): surface 'agent_card' and the card's id. Absent on list taps.
+      if (p.card_id != null && !isUuid(p.card_id)) return 'invalid card_id'
+      if (p.surface != null && p.surface !== 'agent_card') return 'invalid surface'
+      if ((p.surface === 'agent_card') !== (p.card_id != null)) return 'surface agent_card and card_id go together'
+      return null
+    case 'outcome_eligible':
+    case 'outcome_response':
+      if (p.card_id != null && !isUuid(p.card_id)) return 'invalid card_id'
+      return null
+    default:
+      return null
+  }
+}
 
 type EventRow = {
   anon_id: string
@@ -220,6 +281,8 @@ function validateEvent(raw: unknown): { row: EventRow } | { reason: string } {
 
   const trailError = validateTrailEvent(e, payload)
   if (trailError) return { reason: trailError }
+  const cardError = validateCardEvent(e, payload)
+  if (cardError) return { reason: cardError }
 
   // occurred_at deliberately omitted — the DB default (now()) is the source
   // of truth in v1; client timestamps are ignored.

@@ -110,11 +110,17 @@ export function useChat(options: UseChatOptions = {}) {
     }
   }, [messages, context, options.journey])
 
+  /** Start the conversation from these messages (CC-25: a seeded chat). Replaces what's there. */
+  const seed = useCallback((seeded: ChatMessage[]) => {
+    setMessages(seeded)
+    setError(null)
+  }, [])
+
   const clearMessages = useCallback(() => {
     setMessages([])
     setError(null)
     setContext({ terminal: options.terminal, isTransit: options.isTransit })
   }, [options.terminal, options.isTransit])
 
-  return { messages, loading, error, context, updateContext, sendMessage, clearMessages }
+  return { messages, loading, error, context, updateContext, sendMessage, clearMessages, seed }
 }

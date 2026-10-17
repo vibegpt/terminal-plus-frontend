@@ -32,6 +32,10 @@ const EVENT_TYPES = new Set([
   'outcome_response',
   'gate_prompt_shown',
   'gate_reached',
+  // CC-25 agent cards
+  'agent_card_shown',
+  'agent_card_tapped',
+  'agent_card_dismissed',
 ]);
 
 export type EventType =
@@ -51,7 +55,10 @@ export type EventType =
   | 'outcome_shown'
   | 'outcome_response'
   | 'gate_prompt_shown'
-  | 'gate_reached';
+  | 'gate_reached'
+  | 'agent_card_shown'
+  | 'agent_card_tapped'
+  | 'agent_card_dismissed';
 
 export interface TrackFields {
   terminal_code?: string | null;

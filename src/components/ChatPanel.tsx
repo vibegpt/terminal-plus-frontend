@@ -8,16 +8,24 @@ import { useVoice } from '../hooks/useVoice';
 import type { ChatMessage } from '../services/chatService';
 import type { AmenityDetail } from '../lib/supabase';
 import { formatHours, parseChatMarkdown, type Inline } from '../lib/chatFormat';
+import { chatSeedFor } from '../lib/agentCards';
+import type { AgentCard } from '../../shared/agentCard/card';
 
 interface ChatPanelProps {
   open: boolean;
   onClose: () => void;
   onNewMessage?: () => void;
+  /** CC-25: open with this agent card as the start of the conversation. */
+  seedCard?: AgentCard | null;
 }
 
-export default function ChatPanel({ open, onClose, onNewMessage }: ChatPanelProps) {
+export default function ChatPanel({ open, onClose, onNewMessage, seedCard }: ChatPanelProps) {
   const { journey } = useJourney();
-  const { messages, loading, error, sendMessage, context, updateContext } = useChat({ journey });
+  const { messages, loading, error, sendMessage, context, updateContext, seed } = useChat({ journey });
+
+  useEffect(() => {
+    if (seedCard) seed(chatSeedFor(seedCard));
+  }, [seedCard, seed]);
   const [input, setInput] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -136,7 +144,7 @@ export default function ChatPanel({ open, onClose, onNewMessage }: ChatPanelProp
                 </div>
               )}
 
-              {messages.map((msg, idx) => (
+              {messages.map((msg, idx) => msg.hidden ? null : (
                 <MessageBubble
                   key={msg.id}
                   message={msg}

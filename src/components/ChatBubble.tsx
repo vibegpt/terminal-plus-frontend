@@ -1,11 +1,21 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 import ChatPanel from './ChatPanel';
+import { openChatBus } from '../lib/agentCards';
+import type { AgentCard } from '../../shared/agentCard/card';
 
 export default function ChatBubble() {
   const [open, setOpen] = useState(false);
   const [hasUnread, setHasUnread] = useState(false);
+  const [seedCard, setSeedCard] = useState<AgentCard | null>(null);
+
+  // CC-25: "Ask something else" on an agent card opens chat seeded with that card.
+  useEffect(() => openChatBus.on(card => {
+    setSeedCard(card);
+    setHasUnread(false);
+    setOpen(true);
+  }), []);
 
   const handleToggle = () => {
     setOpen((prev) => {
@@ -44,6 +54,7 @@ export default function ChatBubble() {
         open={open}
         onClose={handleClose}
         onNewMessage={onNewAssistantMessage}
+        seedCard={seedCard}
       />
     </>
   );
