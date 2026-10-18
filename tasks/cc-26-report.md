@@ -261,6 +261,14 @@ Cost: agent_interactions 509 rows before (last 10:42:25 UTC) and 509 after, 0 ro
 - AC-3 Inspector 2.11.0 UI against https://terminalplus.app/api/mcp (custom header x-tp-test: 1): Connected, MCP 2025-03-26; Tools (4) with titles; get_recommendations shows READ-ONLY and returns venues with urls (screenshot in the session). Inspector CLI on production: get_route, get_airport_context, get_disruption_status all succeed.
 - Production MCP rows, all is_test: `cfdf904a…` `0c860e42…` `83fc3dc6…` `979a64ac…` (smoke), `8aab40dd…` (Inspector UI), `f5828b2c…` `88ecdf53…` `f4c6bfee…` (Inspector CLI).
 - AC-8 red run: dispatch with url `https://terminalplus.app/api/mcp-does-not-exist` → run 39044026933 failed at `GET (plain): HTTP 404`. Failure email: not verified here (the Gmail connector needs reconnecting); Todd to confirm.
-- Monitor schedule: active on main since 15:08:46 UTC (`gh api …/actions/workflows/387731475`: state active). No scheduled run had fired by 17:12 UTC (slots 15:15, 15:45, 16:15, 16:45 passed; 0 agent_interactions rows between 15:13 and 17:13). **AC-8 green scheduled run: BLOCKED, so the 7-day clock has not started.**
+- Monitor schedule: active on main since 15:08:46 UTC (`gh api …/actions/workflows/387731475`: state active). No scheduled run had fired by 17:12 UTC (slots 15:15, 15:45, 16:15, 16:45 passed; 0 agent_interactions rows between 15:13 and 17:13). (Superseded 18 Oct, below.)
 - Green path proven by dispatch: run 39052776334 (17:13 UTC, production, catalogue tools) PASS, p95 2,648 ms; rows `16ee6b5d…` `d241288a…` is_test.
 - Registry publish and directory submissions: HELD (Todd) until 7 days green with 0 unexplained reds; the clock starts at the first green scheduled run.
+
+### Monitor, 18 Oct (AC-8 PASS)
+- **First green scheduled run: 2026-10-17 17:52:19 UTC** (run 39055636933), about 2h44m after the workflow reached main. The 7-day clock started there and **completes 2026-10-24 17:52 UTC**, provided every run stays green and any red is explained.
+- By 2026-10-18 17:00 UTC: 13 scheduled runs, 13 green, 0 red (plus the deliberate red dispatch 39044026933 and the green dispatch 39052776334, both 17 Oct).
+- GitHub throttles the schedule: 13 runs in 23 h instead of about 56; gaps between runs are 11 to 201 min, median 131. Monitoring resolution is therefore about 2 to 3 hours, not 30 min. The keep-alive effect is unaffected (the DB is read every few hours).
+- Production MCP rows from the monitor since 17:52: 36, all is_test, 0 zero_reason; 10 flight-tool calls, so about 10 AeroDataBox units a day (≈300 a month).
+- No workflow edit made: Todd's go to touch mcp-monitor.yml was to re-register a schedule that hadn't fired, and it had already started. Re-registering could restart GitHub's delay.
+- Publish and directory submissions stay HELD until 2026-10-24 17:52 UTC at the earliest.
