@@ -287,4 +287,8 @@ Cost: agent_interactions 509 rows before (last 10:42:25 UTC) and 509 after, 0 ro
 - Proof on preview `terminal-plus-frontend-h34fk6wyd` (`a1f7381`):
   - `--flight=TP0STALL`, 2 runs: both flight tools PASS with the warning, client-side 8,858 to 9,570 ms; server latency_ms 8,002 to 8,015, zero_reason `upstream_error`, env preview, is_test. Normal SQ322: PASS, 1.2 to 2.9 s.
   - Manual monitor dispatch 39239492725 (branch ref, preview url, flights on): green, ubuntu-24.04, checkout/setup-node v5, no Node 20 deprecation warning.
-- Not yet: merge to main (Todd's go). Touching the workflow file may reset GitHub's schedule: record the first scheduled run after merge here. The 24 Oct date holds if there are no reds after the fix.
+- Merged (Todd's go, 19 Oct): PR #8, merge `70bf1cf` 16:44:02 UTC; production `dpl_8U3f9zFkqacJVswViHDGwVvjLQDw` READY 16:44:40 UTC, aliased to terminalplus.app. Rollback `acd48db` (CC-26 docs).
+  - PR CI first failed on `tests/flight-timeout.test.ts` (6 cancelled under CI's Node 22: `AbortSignal.timeout` is unref'd, so a stalled mocked fetch left an idle loop) and, once SGT reached 20 Oct, a clock-dependent date. Fixed in `fe33736` (keep-alive timer, fixed 2030 date), test-only; 85 pass / 0 fail on Node 22 and 26. The preview proof on `a1f7381` covers the shipped api code.
+  - Production smoke (flights on) PASS: p95 2,885 ms; get_airport_context 2,301 ms, get_disruption_status 814 ms. `/api/flight-status?number=SQ322` 200 in 0.68 s. `TP0STALL` on production: 404 at once (stall hook inert).
+  - Workflow file changed on main, so GitHub's schedule may restart. First scheduled run after merge: **39294586651, 2026-10-19 17:29:46 UTC**, green on `70bf1cf` (catalogue slot, flights off, ubuntu-24.04, p95 2,558 ms), 45 min after the merge, so the schedule kept running. The first flight-tool slot after the fix is still to come.
+  - The 24 Oct 17:52 UTC date holds if there are no reds after the fix.

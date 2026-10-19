@@ -620,3 +620,23 @@ then `firewall diff` and `firewall publish`, works.
 
 **Rule going forward:** when a proposal promises a status code, name the exact
 field value that produces it, and prove it with a burst before calling it done.
+
+---
+
+## 2026-10-19 — `AbortSignal.timeout()` doesn't hold the event loop open
+
+**Assumed (CC-26b):** a unit test that mocks a stalled upstream and waits for
+`AbortSignal.timeout(8000)` passes anywhere it passed locally.
+
+**Actual:** the timer behind `AbortSignal.timeout()` is unref'd. On CI's Node 22,
+with only a never-settling mocked fetch pending, the loop went idle and the runner
+cancelled all 6 tests in the file ("Promise resolution is still pending but the
+event loop has already resolved"). Local Node 26 passed. Production is fine: the
+open request socket keeps the loop alive. The same file also had a test that
+broke at SGT midnight, because its fixed date became "today" and the route's
+tomorrow fallback made a second upstream call.
+
+**Rule going forward:** a test that waits on an abort timer holds a ref'd timer
+(`setInterval` cleared in `after`). Run new tests under CI's Node version
+(`npx -y node@22 node_modules/tsx/dist/cli.mjs --test …`) before pushing. Tests
+of date-sensitive routes use a fixed far-future date, never one near today.
