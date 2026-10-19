@@ -272,3 +272,19 @@ Cost: agent_interactions 509 rows before (last 10:42:25 UTC) and 509 after, 0 ro
 - Production MCP rows from the monitor since 17:52: 36, all is_test, 0 zero_reason; 10 flight-tool calls, so about 10 AeroDataBox units a day (≈300 a month).
 - No workflow edit made: Todd's go to touch mcp-monitor.yml was to re-register a schedule that hadn't fired, and it had already started. Re-registering could restart GitHub's delay.
 - Publish and directory submissions stay HELD until 2026-10-24 17:52 UTC at the earliest.
+
+### Monitor red #22, 19 Oct: explained (upstream stall)
+- Run 39193156628 (scheduled, 2026-10-19 03:07 UTC, flight tools on): `FAIL tools/call get_airport_context: request failed (TimeoutError: The operation was aborted due to timeout)`. The smoke's own 20 s request abort fired, not the 5 s p95 check. get_recommendations and get_route passed; get_disruption_status never ran.
+- agent_interactions: get_airport_context 26,892 ms (the server answered after the client had gone), no get_disruption_status row. 9 get_airport_context calls since 17 Oct: p50 1.5 s, 1 over 5 s. Cause: an AeroDataBox call with no timeout stalled. Our code had a graceful "unavailable right now" payload but no deadline to reach it.
+- Next scheduled run 39201562606 (04:51 UTC) green.
+- Fix, branch `cc-26b/flight-timeout` (`0aebe72`, `a1f7381`):
+  - `api/flight-status.ts`: every AeroDataBox call, headers and body, aborts at 8 s (`ADB_TIMEOUT_MS`) and answers 504. If tomorrow's fallback lookup fails after an empty today, the route answers the upstream error, not "Flight not found". Preview-only stall flight `TP0STALL` (gated on `VERCEL_ENV === 'preview'`, inert in production and locally).
+  - `api/mcp.ts`: the call to /api/flight-status is bounded at 8 s; the existing graceful payload answers it, with zero_reason `upstream_error`. No other mcp.ts change.
+  - App: `src/services/flightService.ts` maps any non-OK to null, so a 504 behaves like today's 5xx (no new toasts).
+  - `scripts/mcp-smoke.mjs`: each flight tool has a 10 s budget; the graceful upstream_error payload in budget is PASS with a `::warning::`; FAIL on a JSON-RPC error, a non-graceful payload, or over budget. Catalogue/transport p95 stays 5 s. `--flight=<number>` option.
+  - `mcp-monitor.yml`: actions/checkout and actions/setup-node v5, `runs-on: ubuntu-24.04`.
+  - `tests/flight-timeout.test.ts`: mocked stalled upstream (headers and body), 5xx, stall flight inert, MCP tool end to end with the telemetry row. 6/6; all unit tests 85 pass, 1 skipped, 0 fail; api tsc and build exit 0.
+- Proof on preview `terminal-plus-frontend-h34fk6wyd` (`a1f7381`):
+  - `--flight=TP0STALL`, 2 runs: both flight tools PASS with the warning, client-side 8,858 to 9,570 ms; server latency_ms 8,002 to 8,015, zero_reason `upstream_error`, env preview, is_test. Normal SQ322: PASS, 1.2 to 2.9 s.
+  - Manual monitor dispatch 39239492725 (branch ref, preview url, flights on): green, ubuntu-24.04, checkout/setup-node v5, no Node 20 deprecation warning.
+- Not yet: merge to main (Todd's go). Touching the workflow file may reset GitHub's schedule: record the first scheduled run after merge here. The 24 Oct date holds if there are no reds after the fix.
