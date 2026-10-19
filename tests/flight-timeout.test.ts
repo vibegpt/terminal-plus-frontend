@@ -1,6 +1,6 @@
 // AeroDataBox timeout (CC-26b, MCP monitor red #22). Run: npx tsx --test tests/flight-timeout.test.ts
 // fetch is mocked: a stalled upstream never answers until its AbortSignal fires. Real
-// timers, so the stall cases take ~8 s and ~9 s; they prove the real budgets.
+// timers, so the stall cases take ~8 s each; they prove the real budgets.
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 

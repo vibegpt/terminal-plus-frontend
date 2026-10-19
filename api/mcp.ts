@@ -154,7 +154,7 @@ function minutesUntil(iso: string | null | undefined): number | null {
 
 // ---------- Flight status helper ----------
 
-const FLIGHT_LOOKUP_TIMEOUT_MS = 9_000;
+const FLIGHT_LOOKUP_TIMEOUT_MS = 8_000;
 
 type FlightLookup = { flight: any } | { error: 'flight_not_found' | 'upstream_error' };
 
@@ -163,8 +163,8 @@ async function fetchFlightStatus(flightNumber: string, date: string): Promise<Fl
     ? `https://${process.env.VERCEL_URL}`
     : 'http://localhost:3000';
   try {
-    // Bounded so the tool answers inside its 10 s budget even when /api/flight-status
-    // makes two upstream calls (8 s each, api/flight-status.ts ADB_TIMEOUT_MS).
+    // Bounded like each AeroDataBox call (api/flight-status.ts ADB_TIMEOUT_MS), so the
+    // tool answers inside its 10 s budget even when flight-status makes two calls.
     const res = await fetch(`${baseUrl}/api/flight-status?number=${encodeURIComponent(flightNumber)}&date=${date}`, {
       signal: AbortSignal.timeout(FLIGHT_LOOKUP_TIMEOUT_MS),
     });

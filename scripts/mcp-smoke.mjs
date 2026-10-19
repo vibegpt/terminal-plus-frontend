@@ -9,7 +9,7 @@
 // No dependencies: Node 18+ fetch.
 //
 // Latency: every catalogue and transport request counts toward the 5 s p95. Each flight
-// tool has its own 10 s budget (api/mcp.ts bounds the AeroDataBox lookup at 9 s). A
+// tool has its own 10 s budget (api/mcp.ts bounds the flight lookup at 8 s). A
 // flight tool that answers in budget with the graceful "flight data unavailable" payload
 // is an upstream outage, not ours: PASS with a ::warning:: annotation (run #22, 19 Oct).
 
