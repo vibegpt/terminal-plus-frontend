@@ -16,6 +16,12 @@ const API_KEY = process.env.AERODATABOX_API_KEY || '';
 const API_BASE = 'https://prod.api.market/api/v1/aedbx/aerodatabox';
 const SGT_OFFSET_MS = 8 * 3600_000; // Singapore is UTC+8 year-round
 const DEPARTED_GRACE_MS = 60 * 60_000; // today's departure counts as gone 1h after it leaves
+// Every AeroDataBox call is cut off here, so a stalled upstream answers 504 instead of
+// holding the function (MCP run #22, 19 Oct: one call took 26.9 s).
+export const ADB_TIMEOUT_MS = 8_000;
+// Preview builds only: this flight number stalls the upstream call until the timeout
+// fires, to prove the timeout path end to end (CC-26b). Inert in production.
+const STALL_FLIGHT = 'TP0STALL';
 
 export type Leg = 'departure' | 'arrival';
 
@@ -91,6 +97,18 @@ export function selectSinLeg(
 
 type Fetched = { ok: true; flights: any[] } | { ok: false; status: number };
 
+function isAbort(err: unknown): boolean {
+  const name = (err as { name?: string } | null)?.name;
+  return name === 'TimeoutError' || name === 'AbortError';
+}
+
+/** Never settles; rejects with the signal's reason when it aborts. */
+function stallUntilAborted(signal: AbortSignal): Promise<never> {
+  return new Promise((_, reject) => {
+    signal.addEventListener('abort', () => reject(signal.reason), { once: true });
+  });
+}
+
 // AeroDataBox answers per flight number + date, every leg in one response; the leg is
 // picked from it afterwards (selectSinLeg), so number + date is the whole key. Module
 // scope: a warm instance answers a repeat within 5 minutes without spending a unit
@@ -124,17 +142,31 @@ async function fetchFlights(flightNumber: string, date: string, stats: UpstreamS
 
 async function fetchFlightsUpstream(flightNumber: string, date: string): Promise<Fetched> {
   const url = `${API_BASE}/flights/number/${encodeURIComponent(flightNumber)}/${date}`;
-  const response = await fetch(url, {
-    headers: {
-      'x-api-market-key': API_KEY,
-      'Accept': 'application/json',
-    },
-  });
-  // 204 means no flights on that date: treat it like 404
-  if (response.status === 204 || response.status === 404) return { ok: true, flights: [] };
-  if (!response.ok) return { ok: false, status: response.status };
-  const body = await response.json();
-  return { ok: true, flights: Array.isArray(body) ? body : [] };
+  const signal = AbortSignal.timeout(ADB_TIMEOUT_MS);
+  try {
+    if (flightNumber === STALL_FLIGHT && process.env.VERCEL_ENV === 'preview') {
+      await stallUntilAborted(signal);
+    }
+    const response = await fetch(url, {
+      headers: {
+        'x-api-market-key': API_KEY,
+        'Accept': 'application/json',
+      },
+      signal,
+    });
+    // 204 means no flights on that date: treat it like 404
+    if (response.status === 204 || response.status === 404) return { ok: true, flights: [] };
+    if (!response.ok) return { ok: false, status: response.status };
+    // The timeout covers the body too: a stalled body rejects here.
+    const body = await response.json();
+    return { ok: true, flights: Array.isArray(body) ? body : [] };
+  } catch (err) {
+    if (isAbort(err)) {
+      console.warn(`[api/flight-status] AeroDataBox timed out after ${ADB_TIMEOUT_MS} ms`);
+      return { ok: false, status: 504 };
+    }
+    throw err;
+  }
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -188,6 +220,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         ? selectSinLeg(second.flights, { date: tomorrow, leg: requestedLeg })
         : null;
       if (next) pick = next;
+      // Tomorrow's lookup failed and today gave nothing: that's an outage, not "not found".
+      if (!pick && !second.ok) {
+        sendStats();
+        return res.status(second.status).json({ error: 'API request failed' });
+      }
     }
 
     if (!pick) {

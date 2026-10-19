@@ -1,17 +1,26 @@
 #!/usr/bin/env node
 // MCP smoke test (CC-26 D). Exits 1 on the first failure, naming the step.
 //
-//   node scripts/mcp-smoke.mjs [url] [--no-flights]
+//   node scripts/mcp-smoke.mjs [url] [--no-flights] [--flight=SQ322]
 //
 // url defaults to https://terminalplus.app/api/mcp. --no-flights skips the two
 // flight tools, which spend AeroDataBox units (the 30-min monitor runs them every
 // 3 hours only). Every request sends x-tp-test: 1, so its rows land is_test.
 // No dependencies: Node 18+ fetch.
+//
+// Latency: every catalogue and transport request counts toward the 5 s p95. Each flight
+// tool has its own 10 s budget (api/mcp.ts bounds the AeroDataBox lookup at 9 s). A
+// flight tool that answers in budget with the graceful "flight data unavailable" payload
+// is an upstream outage, not ours: PASS with a ::warning:: annotation (run #22, 19 Oct).
 
 const args = process.argv.slice(2);
 const URL_ARG = args.find((a) => !a.startsWith('--')) || 'https://terminalplus.app/api/mcp';
 const FLIGHTS = !args.includes('--no-flights');
+// Flight the 2 flight tools look up. Preview builds stall TP0STALL until the upstream
+// timeout fires (api/flight-status.ts), to prove the graceful path.
+const FLIGHT = (args.find((a) => a.startsWith('--flight=')) || '--flight=SQ322').slice('--flight='.length);
 const P95_LIMIT_MS = 5000;
+const FLIGHT_LIMIT_MS = 10000;
 const TOOL_NAMES = ['get_airport_context', 'get_recommendations', 'get_disruption_status', 'get_route'];
 const FORBIDDEN_FIELDS = ['id', 'slug', 'amenity_slug', 'editorial_score', 'filters_applied', 'total_available', 'route_id', 'checked_at', 'current_local_time', 'time_budget_minutes'];
 
@@ -22,17 +31,20 @@ let nextId = 1;
 class StepError extends Error {}
 function fail(step, detail) { throw new StepError(`${step}: ${detail}`); }
 
-async function post(step, body, { expectStatus = 200 } = {}) {
+async function post(step, body, { expectStatus = 200, timeoutMs = 20000, flight = false } = {}) {
   const headers = { 'content-type': 'application/json', accept: 'application/json, text/event-stream', 'x-tp-test': '1' };
   if (sessionId) headers['mcp-session-id'] = sessionId;
   const t0 = Date.now();
   let res;
   try {
-    res = await fetch(URL_ARG, { method: 'POST', headers, body: JSON.stringify(body), signal: AbortSignal.timeout(20000) });
+    res = await fetch(URL_ARG, { method: 'POST', headers, body: JSON.stringify(body), signal: AbortSignal.timeout(timeoutMs) });
   } catch (err) {
+    if (err.name === 'TimeoutError') fail(step, `no answer within ${timeoutMs} ms`);
     fail(step, `request failed (${err.name}: ${err.message})`);
   }
-  timings.push({ step, ms: Date.now() - t0 });
+  const ms = Date.now() - t0;
+  timings.push({ step, ms, flight });
+  if (flight && ms > FLIGHT_LIMIT_MS) fail(step, `took ${ms} ms, over the ${FLIGHT_LIMIT_MS} ms flight budget`);
   if (res.status !== expectStatus) fail(step, `HTTP ${res.status}, expected ${expectStatus}`);
   if (expectStatus === 202) return { res, json: null };
   const text = await res.text();
@@ -53,18 +65,27 @@ function findForbidden(value, path = '$') {
   return [];
 }
 
-async function callTool(name, toolArgs, check) {
+async function callTool(name, toolArgs, check, { flight = false } = {}) {
   const step = `tools/call ${name}`;
-  const { json } = await post(step, { jsonrpc: '2.0', id: nextId++, method: 'tools/call', params: { name, arguments: toolArgs } });
+  const { json } = await post(step, { jsonrpc: '2.0', id: nextId++, method: 'tools/call', params: { name, arguments: toolArgs } },
+    flight ? { flight, timeoutMs: FLIGHT_LIMIT_MS + 5000 } : {});
   const text = json.result?.content?.[0]?.text;
   if (typeof text !== 'string') fail(step, 'no text content');
   if (json.result.isError) fail(step, `isError: ${text.slice(0, 200)}`);
   const payload = JSON.parse(text);
   const leaked = findForbidden(payload);
   if (leaked.length) fail(step, `internal fields in output: ${leaked.slice(0, 5).join(', ')}`);
-  check(payload, (detail) => fail(step, detail));
+  const note = check(payload, (detail) => fail(step, detail));
+  if (note === 'upstream_unavailable') {
+    const ms = timings[timings.length - 1].ms;
+    console.log(`::warning title=MCP smoke: flight data unavailable::${step} answered the graceful upstream_error payload in ${ms} ms (AeroDataBox down or slow). Our side PASS.`);
+    console.log(`ok   ${step} (graceful upstream_error, ${ms} ms)`);
+    return;
+  }
   console.log(`ok   ${step}`);
 }
+
+const UNAVAILABLE_RE = /unavailable right now/i;
 
 function isAmenityUrl(u) {
   return typeof u === 'string' && u.startsWith('https://terminalplus.app/amenity/') && u.includes('utm_source=mcp') && u.includes('utm_medium=agent');
@@ -135,21 +156,31 @@ async function main() {
   });
 
   if (FLIGHTS) {
-    await callTool('get_airport_context', { flight_number: 'SQ322' }, (p, bad) => {
-      if (p.error === 'flight_data_unavailable') bad('flight data unavailable');
+    await callTool('get_airport_context', { flight_number: FLIGHT }, (p, bad) => {
+      if (p.error === 'flight_data_unavailable') {
+        if (!UNAVAILABLE_RE.test(p.message || '') || typeof p.fallback !== 'string') bad('unavailable payload is not the graceful shape');
+        return 'upstream_unavailable';
+      }
       if (p.error !== 'flight_not_found' && (p.airport !== 'SIN' || !p.status)) bad('missing airport or status');
-    });
-    await callTool('get_disruption_status', { flight_number: 'SQ322' }, (p, bad) => {
+    }, { flight: true });
+    await callTool('get_disruption_status', { flight_number: FLIGHT }, (p, bad) => {
       if (typeof p.status !== 'string') bad('no status');
-      if (/unavailable/i.test(p.message || '')) bad('flight data unavailable');
+      if (UNAVAILABLE_RE.test(p.message || '')) {
+        if (p.status !== 'unknown') bad('unavailable payload is not the graceful shape');
+        return 'upstream_unavailable';
+      }
+      if (/unavailable/i.test(p.message || '')) bad(`unexpected message: ${p.message}`);
       if (!Array.isArray(p.suggested_actions) && p.status !== 'unknown') bad('no suggested_actions');
-    });
+    }, { flight: true });
   }
 
-  const sorted = timings.map((t) => t.ms).sort((a, b) => a - b);
+  // Flight tools are held to their own budget above; the 5 s p95 covers everything else.
+  const counted = timings.filter((t) => !t.flight);
+  const sorted = counted.map((t) => t.ms).sort((a, b) => a - b);
   const p95 = sorted[Math.min(sorted.length - 1, Math.ceil(0.95 * sorted.length) - 1)];
-  const slowest = timings.reduce((a, b) => (b.ms > a.ms ? b : a));
-  console.log(`p95 ${p95} ms over ${timings.length} requests (slowest: ${slowest.step}, ${slowest.ms} ms)`);
+  const slowest = counted.reduce((a, b) => (b.ms > a.ms ? b : a));
+  const flightMs = timings.filter((t) => t.flight).map((t) => `${t.step.replace('tools/call ', '')} ${t.ms} ms`);
+  console.log(`p95 ${p95} ms over ${counted.length} requests (slowest: ${slowest.step}, ${slowest.ms} ms)${flightMs.length ? `; flight tools: ${flightMs.join(', ')}` : ''}`);
   if (p95 > P95_LIMIT_MS) fail('latency', `p95 ${p95} ms over ${P95_LIMIT_MS} ms`);
   console.log('PASS');
 }

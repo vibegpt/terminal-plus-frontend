@@ -154,6 +154,8 @@ function minutesUntil(iso: string | null | undefined): number | null {
 
 // ---------- Flight status helper ----------
 
+const FLIGHT_LOOKUP_TIMEOUT_MS = 9_000;
+
 type FlightLookup = { flight: any } | { error: 'flight_not_found' | 'upstream_error' };
 
 async function fetchFlightStatus(flightNumber: string, date: string): Promise<FlightLookup> {
@@ -161,7 +163,11 @@ async function fetchFlightStatus(flightNumber: string, date: string): Promise<Fl
     ? `https://${process.env.VERCEL_URL}`
     : 'http://localhost:3000';
   try {
-    const res = await fetch(`${baseUrl}/api/flight-status?number=${encodeURIComponent(flightNumber)}&date=${date}`);
+    // Bounded so the tool answers inside its 10 s budget even when /api/flight-status
+    // makes two upstream calls (8 s each, api/flight-status.ts ADB_TIMEOUT_MS).
+    const res = await fetch(`${baseUrl}/api/flight-status?number=${encodeURIComponent(flightNumber)}&date=${date}`, {
+      signal: AbortSignal.timeout(FLIGHT_LOOKUP_TIMEOUT_MS),
+    });
     if (res.status === 404) return { error: 'flight_not_found' };
     if (!res.ok) return { error: 'upstream_error' };
     return { flight: await res.json() };
