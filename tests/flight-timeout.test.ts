@@ -11,8 +11,13 @@ const realFetch = globalThis.fetch;
 type Upstream = (url: string, init?: RequestInit) => Promise<Response>;
 let upstream: Upstream = () => Promise.reject(new Error('no mock'));
 const telemetryRows: any[] = [];
+// AbortSignal.timeout() runs on an unref'd timer: with only a mocked, stalled fetch
+// pending, Node (22 in CI) sees an idle loop and cancels the file. A live request
+// socket holds the loop open in production; this timer stands in for it.
+let keepAlive: ReturnType<typeof setInterval>;
 
 before(async () => {
+  keepAlive = setInterval(() => {}, 1000);
   process.env.AERODATABOX_API_KEY = 'test-key';
   process.env.SUPABASE_URL = 'https://supabase.test';
   process.env.SUPABASE_SERVICE_ROLE_KEY = 'service-key';
@@ -30,7 +35,7 @@ before(async () => {
   flightStatus = await import('../api/flight-status');
   mcp = await import('../api/mcp');
 });
-after(() => { globalThis.fetch = realFetch; });
+after(() => { globalThis.fetch = realFetch; clearInterval(keepAlive); });
 
 /** Answers only when aborted, like a stalled TCP connection. */
 const stalled: Upstream = (_url, init) =>
@@ -63,7 +68,7 @@ test('flight-status: a stalled AeroDataBox call answers 504 at the 8 s timeout',
   upstream = stalled;
   const res = mockRes();
   const t0 = Date.now();
-  await flightStatus.default({ query: { number: 'SQ322', date: '2026-10-20' } } as any, res);
+  await flightStatus.default({ query: { number: 'SQ322', date: '2030-01-15' } } as any, res);
   const ms = Date.now() - t0;
   assert.equal(res.statusCode, 504);
   assert.deepEqual(res.body, { error: 'API request failed' });
@@ -79,14 +84,14 @@ test('flight-status: a stalled response body also times out', async () => {
     },
   }), { status: 200 }));
   const res = mockRes();
-  await flightStatus.default({ query: { number: 'SQ323', date: '2026-10-20' } } as any, res);
+  await flightStatus.default({ query: { number: 'SQ323', date: '2030-01-15' } } as any, res);
   assert.equal(res.statusCode, 504);
 });
 
 test('flight-status: an upstream 5xx passes through', async () => {
   upstream = () => Promise.resolve(new Response('busy', { status: 503 }));
   const res = mockRes();
-  await flightStatus.default({ query: { number: 'SQ324', date: '2026-10-20' } } as any, res);
+  await flightStatus.default({ query: { number: 'SQ324', date: '2030-01-15' } } as any, res);
   assert.equal(res.statusCode, 503);
   assert.equal(res.headers['x-tp-adb-calls'], '1');
 });
@@ -96,7 +101,7 @@ test('flight-status: the preview stall flight is inert outside preview', async (
   let called = 0;
   upstream = () => { called++; return Promise.resolve(new Response(null, { status: 204 })); };
   const res = mockRes();
-  await flightStatus.default({ query: { number: 'TP0STALL', date: '2026-10-20' } } as any, res);
+  await flightStatus.default({ query: { number: 'TP0STALL', date: '2030-01-15' } } as any, res);
   assert.equal(called, 1);
   assert.equal(res.statusCode, 404);
 });
