@@ -1,9 +1,46 @@
 # CC-27A · catalogue dedupe: report
 
-Status, 5 Nov 2026: code on preview, all preview checks run. **Migration NOT applied.** Stopped before G2b
-(Todd's pg_dump) as instructed. Branch `cc-27a/catalogue-dedupe` at `fdd651d`; preview
-`dpl_Dxw8Zs8sLcfP1ihED6BnMR8M4M6D`, alias `terminal-plus-frontend-git-cc-27-27d57e-todds-projects-d0181971.vercel.app`,
-bundle `index-ByyjJWpb.js` (= server's). Prompt: `tasks/cc-27a-catalogue-dedupe.md`.
+Status, 5 Nov 2026 10:45 UTC: **migration APPLIED** (version `20261105103155`, 10:31 UTC, Todd's go). Code on
+preview, NOT merged. Production still runs `70bf1cf` against the migrated data (see "Open"). Branch
+`cc-27a/catalogue-dedupe`; preview `dpl_7yogwVxaAtzjv5j8qqXr8AX571k2` (`4ece1b9`), alias
+`terminal-plus-frontend-git-cc-27-27d57e-todds-projects-d0181971.vercel.app`, bundle `index-ByyjJWpb.js`.
+Prompt: `tasks/cc-27a-catalogue-dedupe.md`. The sections below "After the migration" record the pre-migration run.
+
+## After the migration
+
+Applied with `apply_migration` (body without begin/commit; the tool runs it in one transaction). Pre-check at
+10:30 UTC: fingerprints still equal G2b (amenity_detail `da682e39…`, collection_amenities `527495fa…`,
+route_stops `6c866c24…`). File renamed to the applied version.
+
+| AC | Result | Evidence |
+|---|---|---|
+| AC-1 | PASS | Backup 63 rows (29 deleted, 1 moved, 33 merged), 0 without canonical or evidence; RLS on; anon and authenticated: no SELECT |
+| AC-2 | PASS (D3 holds Aerotel) | Canopy Park, Mirror Maze, Rain Vortex, Manulife Sky Nets, Foggy Bowls, Changi Experience Studio, Shiseido Forest Valley: SIN-JEWEL only. Butterfly Garden 1 row T3; Cactus Garden 1 row T1 (`cactus-garden-t1`); YOTELAIR 1 row SIN-JEWEL landside. Aerotel 2 rows (T2, T3), held under D3 |
+| AC-3 | PASS | 0 link/amenity terminal mismatches, 0 orphan links. Variants under min_items: as G4 (D7 accepted) |
+| AC-4 | PASS | 0 route_stops slugs missing |
+| AC-5 | PARTIAL | Server: `--verify` "backup table: 63 rows → 124 redirects; vercel.json MATCHES"; curl 308 → canonical. Canonical `/amenity/yotelair-singapore-changi-jewel` renders the venue (title, canonical tag, landside notice). **Fails in a browser with the SW installed**: the SW answers the navigation with the shell, the app shows "Not found" for the old slug. See Open 1 |
+| AC-6 | PASS | Sitemap 359 URLs (316 amenity), 0 of 62 old slugs |
+| AC-7 | PASS (reachable) | 0 of 62 old slugs in the production bundle, `api/`, `shared/`. Old slugs remain in 9 dead files (`* 2.ts`, `* 3.ts`, CSV dumps): CC-9 |
+| AC-8 | PASS | T1 60: Butterfly only as T3, no Cactus outside T1, no Jewel attraction under T1–T4. T4 240: YOTELAIR no longer under T4. `evidence/post-ac8a.json`, `post-ac8b.json` |
+| AC-9 | PASS | Board pick PG962 (T1, 59 min). T1 tab: no Butterfly Garden. T3 tab: Butterfly Garden; the phantom "Cactus Garden · T3" is gone. `post-ac9-t1-explore-59min.jpg`, `post-ac9-t3-explore-59min.jpg` |
+| AC-10 | PASS | Lotte Wines & Spirits 22 rows = 20 verified outlets + the held #02-91 pair (ids 64, 50155: the 1 remaining brand+terminal+zone duplicate). `CREATE UNIQUE INDEX amenity_detail_amenity_slug_key ON public.amenity_detail USING btree (amenity_slug)`; 0 duplicate slugs |
+| AC-11 | PASS | No minutes: note present, 0 landside. 240: landside labelled, no note |
+| AC-12 | PASS | MCP: Guardian zone "Level 2, #02-155 (airside)", other_outlets 4: T1 #02-16, T1 #02-69, T3 #02-29, T3 #02-66 (zones listed). App T2 shop tab: Guardian once with the zone line (`post-ac12-t2-shop-zone-line.jpg`); LEGO's "+1 more in T4" gone (duplicate merged) |
+| RQS | 0.75 / 0.75 | Unchanged by the data (`evidence/rqs-branch-post-migration.txt`) |
+
+Totals after: amenity_detail 316, collection_amenities 809, vibe mappings 315, vibe descriptions 369, zones 29.
+
+### Open
+
+1. **Old slugs in SW-controlled browsers and in-app links.** Proposed: a client-side slug map generated from
+   the same migration map (`cc27a-redirects.ts` writes it beside vercel.json), consulted by AmenityDetailPage
+   before it fetches (`navigate(canonical, { replace: true })`). Covers SW navigations, Saved and last-seen
+   links. Needs Todd's approval (new code). Lesson appended to `tasks/lessons.md`.
+2. **Production runs `70bf1cf` on the migrated data until merge.** Production has no redirects yet, so any old
+   slug URL there shows "Not found" for every visitor, SW or not. Merging closes that for non-SW visitors.
+3. Card layout at 375 px: "+N more" wraps the hours label (seen before the migration on LEGO; now on Garrett-type
+   rows only where an outlet duplicate remains).
+4. YOTELAIR row says "Until 23:00"; the site lists 24 hours. Part A didn't change hours. Follow-up.
 
 ## Gates
 

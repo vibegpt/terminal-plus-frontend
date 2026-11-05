@@ -620,3 +620,25 @@ then `firewall diff` and `firewall publish`, works.
 
 **Rule going forward:** when a proposal promises a status code, name the exact
 field value that produces it, and prove it with a burst before calling it done.
+
+---
+
+## 2026-11-05 — vercel.json redirects don't reach a browser the service worker controls
+
+**Assumed (CC-27A Part B):** a permanent redirect in `vercel.json` sends every old
+`/amenity/<slug>` URL to its canonical page, and `curl -I` proving 308 → 200 was the check.
+
+**Actual:** in a browser with the PWA's service worker installed, the workbox `NavigationRoute`
+answers the navigation with the cached `index.html`; the request never reaches Vercel, so the
+app boots on the old slug and shows "Not found". A plain `fetch()` from the same page does get
+the redirect (`opaqueredirect`). In-app links to stored slugs (Saved, last seen) are client-side
+navigations and never hit the server either. The SPA shell also answers 200 for any path, so
+"destination returns 200" proved nothing about the page.
+
+**Rule going forward:** a server redirect for an app route needs a client-side twin (a slug map
+the route consults before it fetches), or the old paths go in `navigateFallbackDenylist`.
+Prove a redirect in a browser with the SW installed and controlling the page, and prove the
+destination renders the record, not that it answers 200.
+
+**Also (same session):** never copy a tracked file from the shared checkout into a worktree;
+the shared checkout sits on an old branch and its copy is stale. Append in the worktree.
