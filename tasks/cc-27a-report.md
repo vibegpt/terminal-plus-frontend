@@ -25,7 +25,7 @@ get_recommendations only, rule = no minutes; D10 sitemap gains amenity pages. Pa
 
 ## Action list (63 rows) and evidence
 
-Generated, not typed: `supabase/migrations/20261105120000_cc27a_catalogue_dedupe.sql` holds every row with
+Generated, not typed: `supabase/migrations/20261105103155_cc27a_catalogue_dedupe.sql` holds every row with
 its canonical slug and evidence URL (29 deleted, 1 moved, 33 merged). Per-row impact:
 `~/tp-backups/2026-11-05/g4_actions_final.json`.
 

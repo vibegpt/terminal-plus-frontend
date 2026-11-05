@@ -29,7 +29,7 @@ setDefaultResultOrder('ipv4first');
 setDefaultAutoSelectFamily(false);
 
 const ROOT = resolve(__dirname, '..');
-const MIGRATION = resolve(ROOT, 'supabase/migrations/20261105120000_cc27a_catalogue_dedupe.sql');
+const MIGRATION = resolve(ROOT, 'supabase/migrations/20261105103155_cc27a_catalogue_dedupe.sql');
 const VERCEL = resolve(ROOT, 'vercel.json');
 
 interface MapRow { id: number; action: string; canonical_slug: string }
