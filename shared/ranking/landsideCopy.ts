@@ -24,6 +24,9 @@ export const LANDSIDE_COPY = {
     /** Departing or connecting with no boarding time (the onward flight was skipped). */
     noTime: "This is landside. Add your flight to see if there's time to clear immigration.",
   },
+  /** MCP get_recommendations `landside_note`, when no boarding time hid landside venues (CC-27A, D2). */
+  agentNoTime:
+    "Landside venues, including Jewel, are hidden because no boarding time was given. Reaching Jewel means clearing immigration, and you'll clear it again on the way back. Check your boarding time before you go.",
 } as const;
 
 export const HOURS_COPY = {

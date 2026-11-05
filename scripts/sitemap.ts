@@ -11,7 +11,9 @@
  * CollectionDetailPage renders a vibe-tag fallback under a synthesised name,
  * which isn't a page worth indexing.
  *
- * Amenity pages stay out until the duplicate amenity rows are cleaned up.
+ * Amenity pages (/amenity/<slug>) are in since CC-27A cleaned the duplicate
+ * rows: every SIN row, minus any slug vercel.json redirects (a deleted, moved
+ * or merged slug never reaches the sitemap, even from a stale database).
  *
  * Reads VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY from .env.local
  * (public, read-only: the app reads `collections` with the same key).
@@ -20,7 +22,7 @@
 import { config } from 'dotenv';
 config({ path: '.env.local' });
 import { createClient } from '@supabase/supabase-js';
-import { writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 import { setDefaultResultOrder } from 'dns';
 import { setDefaultAutoSelectFamily } from 'net';
@@ -73,10 +75,26 @@ async function main() {
   );
   const excluded = [...pairs.keys()].filter(s => !live.has(s)).sort();
 
+  // Amenity pages: every SIN slug, minus redirected ones (CC-27A Part B).
+  const redirected = new Set(
+    ((JSON.parse(readFileSync(resolve(__dirname, '..', 'vercel.json'), 'utf8')).redirects ?? []) as { source: string }[])
+      .map(r => r.source),
+  );
+  const { data: amenities, error: aErr } = await supabase
+    .from('amenity_detail')
+    .select('amenity_slug')
+    .eq('airport_code', 'SIN')
+    .not('amenity_slug', 'is', null);
+  if (aErr) throw new Error(`amenity_detail query failed: ${aErr.message}`);
+  const amenityPaths = [...new Set((amenities ?? []).map(a => `/amenity/${a.amenity_slug as string}`))]
+    .filter(p => !redirected.has(p));
+  const dropped = (amenities ?? []).length - amenityPaths.length;
+
   const paths = [
     '/',
     ...vibes.map(v => `/vibe/${v}`),
     ...[...pairs].filter(([slug]) => live.has(slug)).map(([slug, vibe]) => `/collection/${vibe}/${slug}`),
+    ...amenityPaths,
     // Static pages in public/, served without the app.
     '/privacy',
     '/agents',
@@ -92,7 +110,8 @@ async function main() {
 
   console.log(`reachable collection pages: ${pairs.size}, live: ${live.size}`);
   console.log(`excluded (no collections row with amenities): ${excluded.join(', ') || 'none'}`);
-  console.log(`wrote ${OUT}: ${urls.length} URLs (1 home, ${vibes.length} vibe, ${live.size} collection, 2 static)`);
+  console.log(`amenity pages: ${amenityPaths.length} (${dropped} rows left out: redirected or duplicate slug)`);
+  console.log(`wrote ${OUT}: ${urls.length} URLs (1 home, ${vibes.length} vibe, ${live.size} collection, ${amenityPaths.length} amenity, 2 static)`);
 }
 
 main().catch(err => {

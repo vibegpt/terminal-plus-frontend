@@ -86,6 +86,16 @@ export function landsideAccess({ isLandside, journeyType, minutesToBoarding }: L
   return { show: true, label: LANDSIDE_COPY.label.unknown, reason: null };
 }
 
+/**
+ * MCP only (CC-27A, D2): an agent that gives no boarding time is treated as an
+ * airside connecting passenger, so landside venues, Jewel included, are hidden
+ * (the "connecting, no minutes" row above). MCP has no input for "arriving" or
+ * "landside" yet, so the minutes alone decide. App surfaces keep the table above.
+ */
+export function agentJourneyType(minutesToBoarding: number | null | undefined): JourneyType | null {
+  return knownMinutes(minutesToBoarding) === null ? 'connecting' : null;
+}
+
 // ── Opening hours ──────────────────────────────────────────────────
 
 export type ParsedHours =
@@ -268,6 +278,109 @@ export function pickEligible<T extends EligibilityFields>(
     }
   }
   return picked;
+}
+
+// ── A brand once per list (CC-27A, D1) ─────────────────────────────
+
+export interface BrandFields {
+  name?: string | null;
+  brand_family?: string | null;
+}
+
+/** "WH Smith - Level 2 Shop 43" → "whsmith"; "Tod's" → "tods". */
+export function brandNameStem(name: string | null | undefined): string {
+  return (name ?? '')
+    .toLowerCase()
+    .replace(/\s+-\s+(before security\s+)?(level|basement)\b.*$/, '')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+/**
+ * One key per brand: brand_family when another row in the pool shares it,
+ * else the name stem. Most brand_family values belong to one row today (222 of
+ * 242 on 5 Nov), so the stem is what groups WH Smith or Starbucks; a stem seen
+ * on a shared brand_family takes that brand's key.
+ */
+export function brandKeyFor<T extends BrandFields>(pool: readonly T[]): (row: T) => string {
+  const count = new Map<string, number>();
+  for (const r of pool) if (r.brand_family) count.set(r.brand_family, (count.get(r.brand_family) ?? 0) + 1);
+  const shared = (bf: string | null | undefined): bf is string => !!bf && (count.get(bf) ?? 0) > 1;
+  const stemToBrand = new Map<string, string>();
+  for (const r of pool) if (shared(r.brand_family)) stemToBrand.set(brandNameStem(r.name), r.brand_family);
+  return r => {
+    if (shared(r.brand_family)) return `b:${r.brand_family}`;
+    const stem = brandNameStem(r.name);
+    const bf = stemToBrand.get(stem);
+    return bf ? `b:${bf}` : `n:${stem}`;
+  };
+}
+
+export interface OutletFields {
+  terminal_code: string;
+  is_landside?: boolean | null;
+  editorial_score?: number | null;
+}
+
+/** Only a passenger who has just landed is landside; everyone else is airside. */
+export function passengerIsLandside(ctx: Pick<EligibilityContext, 'journeyType'>): boolean {
+  return knownJourneyType(ctx.journeyType) === 'just_landed';
+}
+
+/**
+ * Which outlet of one brand a list keeps (CC-27A). Callers compare rows that
+ * already passed both rules (reachable) within one fill tier (open now first),
+ * so this orders what's left: the passenger's terminal, then their side, then
+ * editorial score. Ties return 0 and the first row in pool order stays.
+ * Score comes last on purpose: score gaps between outlets of one brand are
+ * import noise and mustn't pull a passenger to another terminal.
+ */
+export function compareOutlets(
+  a: OutletFields,
+  b: OutletFields,
+  userTerminal: string | null,
+  passengerLandside: boolean,
+): number {
+  const here = (r: OutletFields) => (userTerminal && r.terminal_code === userTerminal ? 1 : 0);
+  if (here(a) !== here(b)) return here(b) - here(a);
+  const side = (r: OutletFields) => (!!r.is_landside === passengerLandside ? 1 : 0);
+  if (side(a) !== side(b)) return side(b) - side(a);
+  return (b.editorial_score ?? 0) - (a.editorial_score ?? 0);
+}
+
+export interface OtherOutlet {
+  terminal_code: string;
+  zone: string | null;
+}
+
+/**
+ * The other open outlets of each picked row's brand that this passenger may
+ * reach (both rules, open now), from the same pool. Only what the pool holds:
+ * a list's pool is its top-N by editorial score.
+ */
+export function withOtherOutlets<
+  T extends EligibilityFields & BrandFields & { amenity_slug: string; terminal_code: string; zone?: string | null },
+>(
+  picked: ReadonlyArray<T & EligibleLabels>,
+  pool: readonly T[],
+  ctx: EligibilityContext,
+  key: (row: T) => string,
+): Array<T & EligibleLabels & { other_outlets: OtherOutlet[] }> {
+  const open = new Map<string, T[]>();
+  for (const r of pool) {
+    if (eligibility(r, ctx).tier !== 'open') continue;
+    const k = key(r);
+    open.set(k, [...(open.get(k) ?? []), r]);
+  }
+  return picked.map(p => {
+    const seen = new Set([p.amenity_slug]);
+    const others: OtherOutlet[] = [];
+    for (const r of open.get(key(p)) ?? []) {
+      if (seen.has(r.amenity_slug)) continue;
+      seen.add(r.amenity_slug);
+      others.push({ terminal_code: r.terminal_code, zone: r.zone ?? null });
+    }
+    return { ...p, other_outlets: others };
+  });
 }
 
 /** How many distinct venues (by name) a list could show now. Home's "N spots". */
