@@ -1,0 +1,217 @@
+diff --git a/src/context/JourneyContext.tsx b/src/context/JourneyContext.tsx
+index 7a09418..f03c670 100644
+--- a/src/context/JourneyContext.tsx
++++ b/src/context/JourneyContext.tsx
+@@ -4,7 +4,7 @@
+ // Also syncs derived values to sessionStorage so contextualScoring.ts
+ // can read them without needing a React context dependency.
+ 
+-import React, { createContext, useContext, useState, useEffect } from 'react';
++import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+ import type { FlightSource } from '../lib/journeyRecord';
+ 
+ // ── Types ──────────────────────────────────────────────────────────
+@@ -204,33 +204,38 @@ export function JourneyProvider({ children }: { children: React.ReactNode }) {
+     return () => clearInterval(interval);
+   }, [journey]);
+ 
+-  const setJourney = (data: JourneyData) => {
++  const setJourney = useCallback((data: JourneyData) => {
+     saveToStorage(data);
+     syncToSession(data);
+     setJourneyState(data);
+     console.log('[Terminal+] Journey context captured:', data);
+-  };
++  }, []);
+ 
+   // The journeys write resolves after capture has already been saved. Patch the id
+   // into both the stored copy and state (so a later setJourney({...journey}) keeps
+   // it), but only if the user hasn't captured a different journey in the meantime.
+-  const attachJourneyId = (capturedAt: string, id: string) => {
++  const attachJourneyId = useCallback((capturedAt: string, id: string) => {
+     const stored = loadFromStorage();
+     if (stored?.capturedAt === capturedAt) saveToStorage({ ...stored, journey_id: id });
+     setJourneyState(prev =>
+       prev && prev.capturedAt === capturedAt ? { ...prev, journey_id: id } : prev
+     );
+-  };
++  }, []);
+ 
+-  const resetJourney = () => {
++  const resetJourney = useCallback(() => {
+     localStorage.removeItem(LS_KEY);
+     sessionStorage.removeItem('tp_user_terminal');
+     sessionStorage.removeItem('terminal_plus_flight');
+     setJourneyState(null);
+-  };
++  }, []);
++
++  const value = useMemo(
++    () => ({ journey, setJourney, attachJourneyId, resetJourney, isComplete: !!journey }),
++    [journey, setJourney, attachJourneyId, resetJourney],
++  );
+ 
+   return (
+-    <JourneyContext.Provider value={{ journey, setJourney, attachJourneyId, resetJourney, isComplete: !!journey }}>
++    <JourneyContext.Provider value={value}>
+       {children}
+     </JourneyContext.Provider>
+   );
+diff --git a/src/hooks/useFlightUpdates.ts b/src/hooks/useFlightUpdates.ts
+index 0e68d85..cf22b82 100644
+--- a/src/hooks/useFlightUpdates.ts
++++ b/src/hooks/useFlightUpdates.ts
+@@ -38,8 +38,12 @@ function minutesBetween(a: string | null, b: string | null): number | null {
+ export function useFlightUpdates() {
+   const { journey, setJourney } = useJourney();
+   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
++  // poll reads the latest journey through a ref, so a journey write doesn't restart the timer.
++  const journeyRef = useRef(journey);
++  journeyRef.current = journey;
+ 
+   const poll = useCallback(async () => {
++    const journey = journeyRef.current;
+     if (!journey?.departingFlight || journey.departingFlight === 'UNKNOWN' || journey.departingFlight === 'SQ000') {
+       return;
+     }
+@@ -89,7 +93,7 @@ export function useFlightUpdates() {
+     }
+ 
+     // Cancelled
+-    if (data.status?.toLowerCase().includes('cancelled')) {
++    if (data.status?.toLowerCase().includes('cancelled') && journey.status !== 'Cancelled') {
+       updates.status = 'Cancelled';
+       updated = true;
+       showToastCallback?.({
+@@ -106,7 +110,7 @@ export function useFlightUpdates() {
+       };
+       setJourney(newJourney);
+     }
+-  }, [journey, setJourney]);
++  }, [setJourney]);
+ 
+   useEffect(() => {
+     if (!journey?.boardingTime) return;
+diff --git a/src/pages/HomePage.tsx b/src/pages/HomePage.tsx
+index 00e1af9..287abff 100644
+--- a/src/pages/HomePage.tsx
++++ b/src/pages/HomePage.tsx
+@@ -1,7 +1,7 @@
+ // src/pages/HomePage.tsx
+ // Collections feed — 7 vibes, each showing named collection cards
+ 
+-import React, { useEffect, useState, useCallback } from 'react';
++import React, { useEffect, useState, useCallback, useMemo } from 'react';
+ import { useNavigate, useSearchParams } from 'react-router-dom';
+ import { ChevronRight, Search } from 'lucide-react';
+ import { supabase } from '@/lib/supabase';
+@@ -281,12 +281,10 @@ export const HomePage: React.FC = () => {
+   const navigate = useNavigate();
+   const [searchParams] = useSearchParams();
+   const { journey } = useJourney();
+-  const [sections, setSections] = useState<{ vibe: typeof VIBES[number]; collections: Collection[] }[]>([]);
+-  const [loading, setLoading] = useState(true);
++  type CollectionRow = { collection_id: string; name: string | null; hero_image_url: string | null; collection_amenities: { amenity_detail: unknown }[] | null };
++  const [rows, setRows] = useState<CollectionRow[] | null>(null);
+   // Read at load time (loads already follow the minute tick below).
+   const eligibility = useEligibility();
+-  const eligibilityRef = React.useRef(eligibility);
+-  eligibilityRef.current = eligibility;
+ 
+   // Compute current time bucket — re-evaluated every 60s
+   const computeMinutes = useCallback(() => {
+@@ -330,36 +328,34 @@ export const HomePage: React.FC = () => {
+     ? (urlVibe.charAt(0).toUpperCase() + urlVibe.slice(1)) as VibeKey
+     : null;
+ 
+-  const loadCollections = useCallback(async () => {
+-    setLoading(true);
+-    const timeSlot = getTimeSlot();
++  // One fetch per time slot (a few a day). Counts, hiding and order follow the minute
++  // tick in the memo below, with no refetch and no skeleton.
++  const timeSlot = getTimeSlot();
++  useEffect(() => {
++    let alive = true;
++    const slugs = [...new Set(VIBES.flatMap(v => getCollectionsForVibe(v.serviceKey, timeSlot).map(m => m.collection_slug)))];
++    supabase
++      .from('collections')
++      .select('collection_id, name, hero_image_url, collection_amenities(amenity_detail(name, is_landside, opening_hours))')
++      .in('collection_id', slugs)
++      .then(({ data }) => { if (alive) setRows((data ?? []) as CollectionRow[]); });
++    return () => { alive = false; };
++  }, [timeSlot]);
++
++  const sections = useMemo(() => {
++    if (!rows) return [];
+     const baseOrder = getVibeOrder(minutesToBoarding);
+-
+-    // Pin selected vibe first UNLESS < 30 min (urgency overrides preference)
+     const vibeOrder: VibeKey[] =
+       pinnedKey && VIBES.some(v => v.key === pinnedKey) && timeBucket !== 'urgent'
+         ? [pinnedKey, ...baseOrder.filter(k => k !== pinnedKey)]
+         : baseOrder;
+-
+-    const orderedVibes = vibeOrder.map(k => VIBES.find(v => v.key === k)!);
+-    const results = [];
+-
+-    for (const vibe of orderedVibes) {
+-      const mappings = getCollectionsForVibe(vibe.serviceKey, timeSlot);
+-      const slugs = mappings.map(m => m.collection_slug);
+-
+-      const { data } = await supabase
+-        .from('collections')
+-        .select('collection_id, name, hero_image_url, collection_amenities(amenity_detail(name, is_landside, opening_hours))')
+-        .in('collection_id', slugs);
+-
+-      // "N spots" counts the venues the rules let this passenger see now; a card with none hides.
+-      const collections: Collection[] = mappings.flatMap(mapping => {
+-        const db = data?.find(c => c.collection_id === mapping.collection_slug);
++    return vibeOrder.map(k => VIBES.find(v => v.key === k)!).map(vibe => {
++      const collections: Collection[] = getCollectionsForVibe(vibe.serviceKey, timeSlot).flatMap(mapping => {
++        const db = rows.find(c => c.collection_id === mapping.collection_slug);
+         const venues = (db?.collection_amenities ?? [])
+-          .map((ca: { amenity_detail: unknown }) => ca.amenity_detail as EligibilityFields | null)
++          .map(ca => ca.amenity_detail as EligibilityFields | null)
+           .filter((a): a is EligibilityFields => !!a);
+-        const amenity_count = db ? countEligible(venues, eligibilityRef.current) : undefined;
++        const amenity_count = db ? countEligible(venues, eligibility) : undefined;
+         if (db && venues.length > 0 && amenity_count === 0) return [];
+         return [{
+           collection_id: mapping.collection_slug,
+@@ -370,31 +366,12 @@ export const HomePage: React.FC = () => {
+           time_relevance: mapping.time_relevance,
+         }];
+       });
+-
+-      // Sort collections within each vibe by contextual score (reads fresh minutesToBoarding)
+       const ctx = getUserContext({ selectedVibe: vibe.serviceKey });
+-
+-      if (import.meta.env.DEV) {
+-        console.log(`[Scoring] Vibe=${vibe.key} bucket=${timeBucket} mins=${minutesToBoarding}`);
+-      }
+-
+-      collections.sort((a, b) => {
+-        const scoreA = scoreCollection(a, ctx);
+-        const scoreB = scoreCollection(b, ctx);
+-        if (import.meta.env.DEV) {
+-          console.log(`  ${a.name}: ${Math.round(scoreA)} | ${b.name}: ${Math.round(scoreB)}`);
+-        }
+-        return scoreB - scoreA;
+-      });
+-
+-      results.push({ vibe, collections });
+-    }
+-
+-    setSections(results);
+-    setLoading(false);
+-  }, [pinnedKey, timeBucket, minutesToBoarding]);
+-
+-  useEffect(() => { loadCollections(); }, [loadCollections]);
++      collections.sort((a, b) => scoreCollection(b, ctx) - scoreCollection(a, ctx));
++      return { vibe, collections };
++    });
++  }, [rows, timeSlot, minutesToBoarding, timeBucket, pinnedKey, eligibility]);
++  const loading = rows === null;
+ 
+   if (loading) {
+     return (

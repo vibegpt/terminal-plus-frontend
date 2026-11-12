@@ -1,0 +1,38 @@
+{
+  "A1_home": {
+    "collectionsRequestsAtLoad": 7,
+    "ticks": [
+      {
+        "minute": 1,
+        "newRequests": 7,
+        "skeletonBlocks": 14
+      },
+      {
+        "minute": 2,
+        "newRequests": 7,
+        "skeletonBlocks": 14
+      },
+      {
+        "minute": 3,
+        "newRequests": 7,
+        "skeletonBlocks": 14
+      }
+    ]
+  },
+  "A2_cancelled": {
+    "flightStatusCallsIn60s": 6,
+    "secondsWithToastVisible": [
+      10,
+      20,
+      30,
+      40,
+      50,
+      60
+    ]
+  },
+  "A2_gate": {
+    "callsAfter10s": 1,
+    "callsAfter30s": 2,
+    "callsAfter30m30s": 3
+  }
+}

@@ -1,0 +1,12 @@
+t1 is the butterfly garden a 5 min walk?
+{"debug":{"model":"claude-sonnet-5-5","fallback_from":null,"stop_reason":"end_turn","json_valid":true,"raw_slugs":["butterfly-garden-t3-new","kinokuniya-t3-new","sushi-tei-t3-new"],"feasible_slugs":"[40 slugs]","available_minutes":null,"journey_type":null,"landside_excluded_in_query":false,"now_sgt":1115,"landside_hidden":[],"closed_hidden":0,"route_stops":null},"extractedContext":null}
+
+t2 any coffee? (history has assistant: "Cheers in T3 is open 24 hours...")
+{"debug":{"model":"claude-sonnet-5-5","fallback_from":null,"stop_reason":"end_turn","json_valid":true,"raw_slugs":["bacha-coffee-sint3","starbucks-sint3","coffee-bean-tea-leaf-sint3","ocoffee-club-sint3"],"feasible_slugs":"[22 slugs]","available_minutes":null,"journey_type":null,"landside_excluded_in_query":false,"now_sgt":1115,"landside_hidden":[],"closed_hidden":0,"route_stops":null},"extractedContext":null}
+
+t3 I have 2 hours
+{"debug":{"model":"claude-sonnet-5-5","fallback_from":null,"stop_reason":"end_turn","json_valid":true,"raw_slugs":["entertainment-deck-t2-new","movie-theatre-t3","dnata-lounge-t2-new","entertainment-deck-t1-new","entertainment-deck-t3-new"],"feasible_slugs":"[21 slugs]","available_minutes":120,"journey_type":null,"landside_excluded_in_query":true,"now_sgt":1116,"landside_hidden":[],"closed_hidden":0,"route_stops":null},"extractedContext":{"availableMinutes":120}}
+
+t4 (via app client, after "I have 2 hours" one minute earlier) what about food?
+sent context {"availableMinutes":119}
+{"debug":{"model":"claude-sonnet-5-5","fallback_from":null,"stop_reason":"end_turn","json_valid":true,"raw_slugs":["din-tai-fung-t2-new","din-tai-fung-t3-new","din-tai-fung-t1-new","sushi-tei-t1-new","aw-root-beer-t3"],"feasible_slugs":"[9 slugs]","available_minutes":119,"journey_type":null,"landside_excluded_in_query":true,"now_sgt":1127,"landside_hidden":[],"closed_hidden":0,"route_stops":null},"extractedContext":null}

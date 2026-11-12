@@ -714,3 +714,31 @@ the service worker controlling (the script is `c27c-check.mjs` in the CC-27C evi
 **Rule going forward:** a test that can't fail isn't a test. For offline behaviour, switch the
 network off at the browser (CDP), load the app once first so the service worker controls it, and
 check both the failing case and the control (the same page online, and a bogus slug).
+
+---
+
+## 2026-11-12 — Keeping cards mounted makes a scroll-snap row re-snap to the card that moved
+
+**Assumed (CC-29A, reference diff):** replacing Home's skeleton with a memo over the same rows was a pure win, so the
+sections could stay mounted when the time slot changed.
+
+**Actual:** with real rows (not the harness's empty stub), a slot change re-ordered a row's cards under
+`scroll-snap-type: x mandatory`; Chrome re-snapped the row to the card that had moved, so two rows opened scrolled
+sideways (`scrollLeft` 773 px, baseline 16 px). `overflow-anchor: none` did nothing: it is snap, not scroll anchoring.
+
+**Rule going forward:** when a change stops a list from remounting (skeleton removed, memo instead of refetch), key
+the row by whatever defines its contents (here the time slot) and measure `scrollLeft` on every snap row with real
+fixture rows before and after. A harness that stubs data to `[]` cannot see this.
+
+---
+
+## 2026-11-12 — A pushed commit isn't a preview until a deployment exists for its sha
+
+**Assumed:** every push to a branch gets a Vercel preview.
+
+**Actual:** CI ran on `131a5a1` and passed, but Vercel never created a deployment or a status for it (webhook miss).
+Probing the branch alias for 8 minutes only showed the previous build.
+
+**Rule going forward:** after each push, confirm a deployment for the exact sha (`list_deployments` with `sha`) and
+probe a behaviour only the new commit has before running acceptance against the alias. If none exists after ~2 min,
+push an empty commit to retrigger rather than waiting.
