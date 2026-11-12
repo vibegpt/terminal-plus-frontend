@@ -11,7 +11,14 @@ import { AccessChip } from '@/components/EligibilityChips';
 import { hoursLabel, landsideAccess, openNow } from '../../shared/ranking/policy';
 
 // Bookmarks hold only slug, name, terminal and vibe; hours and landside come from the catalogue.
-interface VenueFacts { opening_hours: string | null; is_landside: boolean | null }
+// So do the name and terminal once the row loads (CC-27C): a bookmark saved under an old
+// slug carries the old record's terminal, and the catalogue's is the current one.
+interface VenueFacts {
+  opening_hours: string | null;
+  is_landside: boolean | null;
+  name: string | null;
+  terminal_code: string | null;
+}
 
 function useVenueFacts(slugs: string[]): Record<string, VenueFacts> {
   const [facts, setFacts] = useState<Record<string, VenueFacts>>({});
@@ -21,11 +28,16 @@ function useVenueFacts(slugs: string[]): Record<string, VenueFacts> {
     let mounted = true;
     supabase
       .from('amenity_detail')
-      .select('amenity_slug, opening_hours, is_landside')
+      .select('amenity_slug, name, terminal_code, opening_hours, is_landside')
       .in('amenity_slug', key.split(','))
       .then(({ data }) => {
         if (!mounted || !data) return;
-        setFacts(Object.fromEntries(data.map(r => [r.amenity_slug, { opening_hours: r.opening_hours, is_landside: r.is_landside }])));
+        setFacts(Object.fromEntries(data.map(r => [r.amenity_slug, {
+          opening_hours: r.opening_hours,
+          is_landside: r.is_landside,
+          name: r.name,
+          terminal_code: r.terminal_code,
+        }])));
       });
     return () => { mounted = false; };
   }, [key]);
@@ -112,10 +124,10 @@ export default function SavedPage() {
                     onClick={() => navigate(`/amenity/${item.amenitySlug}`)}
                     className="w-full text-left px-4 py-3.5 pr-10"
                   >
-                    <p className="text-[14px] font-semibold text-white truncate">{item.name}</p>
+                    <p className="text-[14px] font-semibold text-white truncate">{f?.name ?? item.name}</p>
                     <div className="flex items-center gap-2 mt-1.5">
                       <span className="text-[10px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                        {TERMINAL_NAMES[item.terminalCode] ?? item.terminalCode}
+                        {TERMINAL_NAMES[f?.terminal_code ?? item.terminalCode] ?? f?.terminal_code ?? item.terminalCode}
                       </span>
                       {item.vibeTag && (
                         <span
