@@ -6,8 +6,9 @@ const WORD: Record<string, number> = { a: 1, an: 1, one: 1, two: 2, three: 3, fo
 const N = String.raw`(\d+(?:\.\d+)?|an?|one|two|three|four|five|six)`;
 // A duration: "2 hours", "an hour and a half", "1 hour 20 minutes", "45 min", "half an hour".
 const DUR = new RegExp(String.raw`(?:${N}\s*(?:hours?|hrs?|h)\b(\s*and a half)?(?:\s*(?:and\s*)?(\d+)\s*(?:minutes?|mins?|m)\b)?|(\d+)\s*(?:minutes?|mins?|m)\b|half an? hour)`, 'g');
-// It counts only inside an intent phrase: "I have / I've got / we have <dur>" or "<dur> left / layover / until …".
-const BEFORE = /\b(?:i|we)\s*(?:have|'ve got|ve got|got|'ve|ve)\s*(?:only\s*|just\s*|about\s*|around\s*)?$/;
+// It counts only inside an intent phrase: "I have / I've got / we have <dur>", "<dur> left / layover / until …",
+// or "in <dur>" when the message opens with it ("In about 2.5 hours.") or follows boarding / flight / departs / leaves.
+const BEFORE = /(?:\b(?:i|we)\s*(?:have|'ve got|ve got|got|'ve|ve)|\b(?:boarding|boards?|flight|departs?|leaves?|leaving|gate closes?)\s+(?:is\s+)?in|^\s*(?:in|within))\s*(?:only\s*|just\s*|about\s*|around\s*|roughly\s*)?$/;
 const AFTER = /^\s*(?:left|layover|stopover|connection|transit|to spare|to kill|until|till|before)\b/;
 const MIN = 5, MAX = 600;
 
