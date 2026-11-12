@@ -1,6 +1,6 @@
 # CC-27B · ship the catalogue dedupe: report
 
-Status, 12 Nov 2026: Parts A and B done on the preview; **Part C (merge, production) waits for Todd's GO.**
+Status, 12 Nov 2026: **SHIPPED.** Parts A and B on the preview; Part C (merge, production) done after Todd's GO, all checks PASS.
 Branch `cc-27a/catalogue-dedupe` (history intact, merge commit when shipped). Code commits `36190aa` (slug map,
 card line, landside test) and `dd868d1` (bookmark collapse fix). Preview alias
 `terminal-plus-frontend-git-cc-27-27d57e-todds-projects-d0181971.vercel.app`, `dpl_G55eWGkHwotv6Y96ZNzbuGipU8HR`,
@@ -75,4 +75,50 @@ Browser runs used `?tp_test=1` / `localStorage.tp_test`; MCP calls sent `x-tp-te
 
 ## Part C · production
 
-Not started: waiting for Todd's GO.
+Merged 12 Nov 2026 as a merge commit, history intact: PR #9, `c88cff9` (main was still `70bf1cf`; 0 behind). CI on the PR: `verify` x2, Vercel, CodeRabbit green.
+Production `dpl_9RRVpKBTdVARF6SAi247oS3pMcGQ` READY, sha `c88cff9b6cf1…`, aliases include `terminalplus.app`; serves `assets/index-DECiUxYA.js` (was `index-CQZPl9He.js`).
+Rollback: Vercel Instant Rollback to `dpl_8U3f9zFkqacJVswViHDGwVvjLQDw` (`70bf1cf`). Data rollback `scripts/cc27a-restore.sql` (not run).
+
+Note on order: the 13-line SMOKE was last run on a preview at `4ece1b9` (CC-27A); the CC-27B code was checked on the preview with AC-B1 to AC-B7, and the full SMOKE ran on production after the merge, as the prompt ordered. CLAUDE.md asks for a preview SMOKE before main; this time production took it, with the rollback target ready.
+
+### AC-B2 and AC-B4 on https://terminalplus.app (`?tp_test=1`, 375 px, fresh Chrome profile, SW controlling)
+
+| AC | Result | Evidence |
+|---|---|---|
+| AC-B2 | PASS | `controller !== null`, bundle `index-DECiUxYA.js`. `butterfly-garden-t1-new` → `/amenity/butterfly-garden-t3-new`, "Butterfly Garden, Terminal 3"; `yotelair-singapore-changi-t2-new` → `/amenity/yotelair-singapore-changi-jewel`, landside notice; `lotte-duty-free-wines-spirits-level-1-shop-10-sint1` → `…-t1-level-1-10`. 0 "Not found". `curl -I` on `/amenity/butterfly-garden-t1-new`: `HTTP/2 308`, `location: /amenity/butterfly-garden-t3-new` |
+| AC-B4 | PASS | 1 "Butterfly Garden" card, "Terminal 3", "Open until 23:00"; storage `[{"amenitySlug":"butterfly-garden-t3-new",…,"terminalCode":"SIN-T3","savedAt":"2026-11-01T10:00:00.000Z"}]` |
+
+### Production SMOKE 13/13 (built-in browser, 375x812, browser TZ Asia/Jerusalem, `tp_test=1`, 09:36-10:00 UTC)
+
+| # | Result | Evidence |
+|---|---|---|
+| 1 | PASS | Storage empty: "What brings you to Changi?", Departing / Connecting / Just landed, Skip |
+| 2 | PASS | Skip → Home; journeys `fcdfea13-018b-44db-ae89-bb658fb215be` `flight_source='skipped'` |
+| 3 | PASS | Departing → T1 → Enter manually → QF1 → "Terminal T1 · Boards 23:00 → LHR" → Looks right. Bar "5h 19m to board · On Time, QF1 · SIN → LHR, T1"; `tp_journey_context` v4, `flight_source: "typed"` |
+| 4 | PASS | Live board 126 rows. TR636 (17:40) had already left by SGT 17:43, so it was dropped; TR134 (T1, 19:15) → bar "56 min to board · On Time, TR134 · SIN → XIY, C17, T1"; `flight_source: "picker"` |
+| 5 | PASS | Explore, Shop, Refuel, Chill, Quick, Work, Comfort; 31/31 images, 0 broken; 32 "N spots" counts |
+| 6 | PASS | `/vibe/refuel`: "7 spots across all terminals" (Kopitiam, T2 Food Gallery, Fossa Chocolate, Grain Traders, Kélé, Wang Cafe, …) |
+| 7 | PASS | `/collection/refuel/coffee-worth-walk` "7 of 7 spots"; `/amenity/grain-traders-jewel` Open until 22:00, "Before immigration"; `/search` "laksa" → Kopitiam (T1) |
+| 8 | PASS | Bar → Change flight (heading once) → "Keep QF1" (once); `tp_journey_context` identical, `capturedAt` still `2026-11-12T09:40:36.173Z` |
+| 9 | PASS | `Intl` TZ Asia/Jerusalem, local 11:41, SGT 17:41; Home "Evening picks"; Grain Traders "Open until 22:00" |
+| 10 | PASS | "Where should I get coffee before my flight?" → reply cites "your 23:00 boarding"; cards dnata Lounge, The Coffee Bean & Tea Leaf, Starbucks, Toast Box, all T1 (Toast Box "Before immigration") |
+| 11 | PASS | `scripts/mcp-smoke.mjs https://terminalplus.app/api/mcp`: 10 steps, 4 tools, p95 2620 ms, PASS |
+| 12 | PASS | Last 60 min, production, all `is_test`: `session_start` 3, `recommendation_impression` 15 (ids 1953–1968), `capture_opened` 7, `amenity_detail_dwell` 3, `flight_not_found` 1 |
+| 13 | PASS | journeys `94b9e7db-3b8e-47b4-b885-779cc85e2f63`: `QF1`, `typed`, `departing`, `LHR`, `is_test`, `env = production` |
+
+### MCP and site checks on production (`x-tp-test: 1`)
+
+| Check | Result |
+|---|---|
+| Sitemap | 359 URLs, 316 amenity (was 0) |
+| AC-8 | T1 explore 60: Butterfly Garden only as T3, no Cactus Garden, no Jewel attraction under a terminal. T4 explore 240: Butterfly T3, no YOTELAIR |
+| AC-11 | T1 refuel, no minutes: `landside_note` present, 0 landside rows. 240 min: no note, 6 labelled landside |
+| AC-12 | T2 shop 120 min, limit 12: Guardian once, zone "Level 2, #02-155 (airside)", `other_outlets` 4 |
+
+### Test rows written (Part C)
+
+All `is_test = true`, `env = production`, `is_bot = false`: journeys `fcdfea13…` (skipped), `94b9e7db…` (typed QF1), `ef575388-58ff-4001-9863-abc6c7127c4b` (picker TR636), `c340001e-bfc1-456c-a196-42415a3b7e99` (picker TR134); events 1941–1971 (session_start, capture_opened, recommendation_impression, amenity_detail_dwell, flight_not_found); `agent_interactions` 10 (MCP smoke and the MCP checks). In the last 90 min: 0 non-test, non-bot events or journeys, and 0 non-test `agent_interactions`.
+
+### Open
+
+The follow-ups above stand: offline "Not found" (AC-B3), the stale terminal on a lone old bookmark, the held Lotte #02-91 pair, Aerotel, the YOTELAIR text, and the 9 dead files (CC-9).
