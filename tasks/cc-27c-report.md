@@ -39,7 +39,7 @@ The earlier in-pane "offline" attempt (patching `window.fetch`) was not a valid 
 
 - The stored bookmark's `name` and `terminalCode` stay stale in localStorage; only the display is corrected from the catalogue. They update if the user re-saves.
 - The 13-line SMOKE has not run on this preview. This change touches only `AmenityDetailPage` and `SavedPage`; the targeted checks above cover them. Production SMOKE, AC-B2 and AC-B4 follow the merge, as for CC-27B.
-- Test rows: preview browser runs used `tp_test`; the run wrote `session_start`/`recommendation_impression`-type telemetry only as `is_test`, `env = preview` (ids in the production-checks section after the merge).
+- Test rows: the preview runs wrote 7 `events` (ids between 1947 and 1984, all `is_test`, `env = preview`, 0 non-test) and no journeys. Nothing touched production.
 
 ## Part C · production
 
