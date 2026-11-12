@@ -38,8 +38,12 @@ function minutesBetween(a: string | null, b: string | null): number | null {
 export function useFlightUpdates() {
   const { journey, setJourney } = useJourney();
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // poll reads the latest journey through a ref, so a journey write doesn't restart the timer.
+  const journeyRef = useRef(journey);
+  journeyRef.current = journey;
 
   const poll = useCallback(async () => {
+    const journey = journeyRef.current;
     if (!journey?.departingFlight || journey.departingFlight === 'UNKNOWN' || journey.departingFlight === 'SQ000') {
       return;
     }
@@ -89,7 +93,7 @@ export function useFlightUpdates() {
     }
 
     // Cancelled
-    if (data.status?.toLowerCase().includes('cancelled')) {
+    if (data.status?.toLowerCase().includes('cancelled') && journey.status !== 'Cancelled') {
       updates.status = 'Cancelled';
       updated = true;
       showToastCallback?.({
@@ -106,7 +110,7 @@ export function useFlightUpdates() {
       };
       setJourney(newJourney);
     }
-  }, [journey, setJourney]);
+  }, [setJourney]);
 
   useEffect(() => {
     if (!journey?.boardingTime) return;

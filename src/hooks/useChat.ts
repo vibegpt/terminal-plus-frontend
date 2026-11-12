@@ -48,6 +48,27 @@ function definedOnly(ctx: ChatContext): ChatContext {
   ) as ChatContext
 }
 
+/**
+ * What goes out with a message (CC-29 D2). The entered flight is the baseline; anything
+ * the user said in this chat wins, except minutes. Chat never keeps a minute count: a
+ * stated "I have 2 hours" is kept as a boarding deadline and counted down on each send.
+ * Precedence: minutes stated in this message (the server reads the query) > a live
+ * deadline stated earlier in this chat > the captured flight.
+ */
+export function chatContextForSend(
+  journey: JourneyData | null | undefined,
+  context: ChatContext,
+  statedDeadline: number | null,
+  now: number = Date.now(),
+): ChatContext {
+  const { availableMinutes: _frozen, ...stated } = definedOnly(context)
+  const ctx: ChatContext = { ...journeyToChatContext(journey, now), ...stated }
+  if (statedDeadline !== null && statedDeadline > now) {
+    ctx.availableMinutes = Math.floor((statedDeadline - now) / 60_000)
+  }
+  return ctx
+}
+
 export function useChat(options: UseChatOptions = {}) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [loading, setLoading] = useState(false)
@@ -56,6 +77,9 @@ export function useChat(options: UseChatOptions = {}) {
     terminal: options.terminal,
     isTransit: options.isTransit,
   })
+
+  // Epoch ms of the boarding deadline the user stated in this chat, or null.
+  const [statedDeadline, setStatedDeadline] = useState<number | null>(null)
 
   const updateContext = useCallback((updates: Partial<ChatContext>) => {
     setContext(prev => ({ ...prev, ...updates }))
@@ -72,6 +96,10 @@ export function useChat(options: UseChatOptions = {}) {
       timestamp: Date.now(),
     }
 
+    const sentAt = Date.now()
+    // A passed deadline is cleared; the entered flight takes over again.
+    if (statedDeadline !== null && statedDeadline <= sentAt) setStatedDeadline(null)
+
     setMessages(prev => [...prev, userMsg])
     setLoading(true)
 
@@ -80,16 +108,17 @@ export function useChat(options: UseChatOptions = {}) {
         .slice(-MAX_HISTORY)
         .map(({ role, content }) => ({ role, content }))
 
-      // The entered flight is the baseline; anything the user said in this chat wins.
       const response: ChatResponse = await askConcierge({
         query: query.trim(),
-        context: { ...journeyToChatContext(options.journey), ...definedOnly(context) },
+        context: chatContextForSend(options.journey, context, statedDeadline, sentAt),
         conversationHistory: history,
       })
 
-      // If API extracted new context, update it
+      // If API extracted new context, update it. Minutes become a deadline, never a stored count.
       if (response.extractedContext) {
-        setContext(prev => ({ ...prev, ...response.extractedContext }))
+        const { availableMinutes, ...rest } = response.extractedContext
+        if (availableMinutes) setStatedDeadline(sentAt + availableMinutes * 60_000)
+        setContext(prev => ({ ...prev, ...rest }))
       }
 
       const assistantMsg: ChatMessage = {
@@ -108,11 +137,12 @@ export function useChat(options: UseChatOptions = {}) {
     } finally {
       setLoading(false)
     }
-  }, [messages, context, options.journey])
+  }, [messages, context, statedDeadline, options.journey])
 
   const clearMessages = useCallback(() => {
     setMessages([])
     setError(null)
+    setStatedDeadline(null)
     setContext({ terminal: options.terminal, isTransit: options.isTransit })
   }, [options.terminal, options.isTransit])
 

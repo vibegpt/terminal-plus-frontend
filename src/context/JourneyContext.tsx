@@ -4,7 +4,7 @@
 // Also syncs derived values to sessionStorage so contextualScoring.ts
 // can read them without needing a React context dependency.
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import type { FlightSource } from '../lib/journeyRecord';
 
 // ── Types ──────────────────────────────────────────────────────────
@@ -204,33 +204,38 @@ export function JourneyProvider({ children }: { children: React.ReactNode }) {
     return () => clearInterval(interval);
   }, [journey]);
 
-  const setJourney = (data: JourneyData) => {
+  const setJourney = useCallback((data: JourneyData) => {
     saveToStorage(data);
     syncToSession(data);
     setJourneyState(data);
     console.log('[Terminal+] Journey context captured:', data);
-  };
+  }, []);
 
   // The journeys write resolves after capture has already been saved. Patch the id
   // into both the stored copy and state (so a later setJourney({...journey}) keeps
   // it), but only if the user hasn't captured a different journey in the meantime.
-  const attachJourneyId = (capturedAt: string, id: string) => {
+  const attachJourneyId = useCallback((capturedAt: string, id: string) => {
     const stored = loadFromStorage();
     if (stored?.capturedAt === capturedAt) saveToStorage({ ...stored, journey_id: id });
     setJourneyState(prev =>
       prev && prev.capturedAt === capturedAt ? { ...prev, journey_id: id } : prev
     );
-  };
+  }, []);
 
-  const resetJourney = () => {
+  const resetJourney = useCallback(() => {
     localStorage.removeItem(LS_KEY);
     sessionStorage.removeItem('tp_user_terminal');
     sessionStorage.removeItem('terminal_plus_flight');
     setJourneyState(null);
-  };
+  }, []);
+
+  const value = useMemo(
+    () => ({ journey, setJourney, attachJourneyId, resetJourney, isComplete: !!journey }),
+    [journey, setJourney, attachJourneyId, resetJourney],
+  );
 
   return (
-    <JourneyContext.Provider value={{ journey, setJourney, attachJourneyId, resetJourney, isComplete: !!journey }}>
+    <JourneyContext.Provider value={value}>
       {children}
     </JourneyContext.Provider>
   );

@@ -6,6 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "analyze": "ANALYZE=1 vite build",
     "test:adversarial": "tsx --test tests/adversarial/*.test.ts",
     "og:image": "tsx scripts/og-image.ts",
     "sitemap": "tsx scripts/sitemap.ts",
