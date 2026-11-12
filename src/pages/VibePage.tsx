@@ -218,8 +218,13 @@ export default function VibePage() {
                     <p className="text-sm font-semibold text-white truncate">{amenity.name}</p>
                     <OpensChip label={amenity.opens_label} />
                   </div>
-                  {amenity.zone && (
-                    <p className="text-xs text-gray-400 truncate mb-0.5">{amenity.zone}</p>
+                  {(amenity.zone || moreHere > 0) && (
+                    <div className="flex items-center gap-2 text-xs text-gray-400 mb-0.5 min-w-0">
+                      {amenity.zone && <span className="truncate">{amenity.zone}</span>}
+                      {moreHere > 0 && (
+                        <span className="whitespace-nowrap shrink-0">+{moreHere} more in {termShort}</span>
+                      )}
+                    </div>
                   )}
                   {amenity.access_label && (
                     <div className="mb-1"><AccessChip label={amenity.access_label} /></div>
@@ -237,9 +242,6 @@ export default function VibePage() {
                     )}
                     {amenity.price_level && amenity.price_level !== 'unknown' && (
                       <span>{amenity.price_level}</span>
-                    )}
-                    {moreHere > 0 && (
-                      <span className="whitespace-nowrap">+{moreHere} more in {termShort}</span>
                     )}
                   </div>
                 </div>

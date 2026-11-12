@@ -2,6 +2,7 @@
 // localStorage-backed bookmark system for amenities
 
 import { useState, useEffect, useCallback } from 'react';
+import { resolveSlug } from '../../shared/catalogue/slugMap';
 
 const LS_KEY = 'tp_saved_amenities';
 
@@ -13,10 +14,32 @@ export interface SavedAmenity {
   savedAt: string; // ISO-8601
 }
 
+/**
+ * CC-27B: a bookmark saved under an old slug is mapped to its canonical slug on read, and
+ * two bookmarks that collapse to one canonical slug become one (the earliest save wins).
+ * The mapped list is written back once, under the same key and shape, so Saved only
+ * ever fetches canonical slugs.
+ */
 function read(): SavedAmenity[] {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const items: SavedAmenity[] = raw ? JSON.parse(raw) : [];
+    const bySlug = new Map<string, SavedAmenity>();
+    let changed = false;
+    for (const item of items) {
+      const slug = resolveSlug(item.amenitySlug);
+      const existing = bySlug.get(slug);
+      if (existing) {
+        changed = true;
+        if (item.savedAt < existing.savedAt) bySlug.set(slug, { ...existing, savedAt: item.savedAt });
+        continue;
+      }
+      if (slug !== item.amenitySlug) changed = true;
+      bySlug.set(slug, slug === item.amenitySlug ? item : { ...item, amenitySlug: slug });
+    }
+    const mapped = [...bySlug.values()];
+    if (changed) write(mapped);
+    return mapped;
   } catch {
     return [];
   }

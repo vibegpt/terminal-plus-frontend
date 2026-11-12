@@ -19,6 +19,7 @@ import {
   type EligibilityContext,
 } from '../shared/ranking/policy';
 import { HOURS_COPY, JEWEL_COPY, LANDSIDE_COPY } from '../shared/ranking/landsideCopy';
+import { resolveSlug } from '../shared/catalogue/slugMap';
 
 const DEP = LANDSIDE_MIN_MINUTES.departing;
 const CONN = LANDSIDE_MIN_MINUTES.connecting;
@@ -255,7 +256,9 @@ function env(): { url?: string; key?: string } {
   };
 }
 
-test('the live table flags exactly the 127 approved slugs', { timeout: 30_000 }, async (t) => {
+// CC-27A merged or deleted 28 of the 127 slugs approved in CC-17, so the live set is the
+// approved list mapped through the slug map: 127 slugs, 100 unique after the dedupe.
+test('the live table flags exactly the 127 approved slugs, as resolved by the CC-27A slug map', { timeout: 30_000 }, async (t) => {
   const { url, key } = env();
   if (!url || !key) { t.skip('no Supabase env'); return; }
   const { createClient } = await import('@supabase/supabase-js');
@@ -265,5 +268,7 @@ test('the live table flags exactly the 127 approved slugs', { timeout: 30_000 },
   const { data, error } = await createClient(url, key)
     .from('amenity_detail').select('amenity_slug').eq('is_landside', true);
   assert.equal(error, null);
-  assert.deepEqual((data ?? []).map(r => r.amenity_slug).sort(), [...approved].sort());
+  const expected = [...new Set(approved.map(resolveSlug))];
+  assert.equal(expected.length, 100);
+  assert.deepEqual((data ?? []).map(r => r.amenity_slug).sort(), expected.sort());
 });
