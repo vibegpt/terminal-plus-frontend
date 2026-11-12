@@ -35,13 +35,16 @@ export default defineConfig({
     //   },
     // }),
     
-    // Bundle analyzer (only in build)
-    visualizer({
-      filename: './dist/stats.html',
-      open: false,
-      gzipSize: true,
-      brotliSize: true,
-    }),
+    // Bundle analyzer: `npm run analyze` only. A normal build writes no stats.html,
+    // so the service worker has nothing to precache for it.
+    ...(process.env.ANALYZE
+      ? [visualizer({
+          filename: './dist/stats.html',
+          open: false,
+          gzipSize: true,
+          brotliSize: true,
+        })]
+      : []),
     
     VitePWA({
       // 'prompt': a new service worker installs and waits. Open tabs and cold
@@ -55,7 +58,8 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         // The share card is for link-preview crawlers; the app never shows it.
-        globIgnores: ['og/**'],
+        // stats.html is the analyzer report (backstop: it is no longer written by a normal build).
+        globIgnores: ['og/**', 'stats.html'],
         // Navigations the SW must not answer with the app shell. Workbox tests
         // pathname + search, so the file patterns are prefixes, not anchored at $.
         navigateFallbackDenylist: [

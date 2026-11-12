@@ -1,7 +1,7 @@
 // src/pages/HomePage.tsx
 // Collections feed — 7 vibes, each showing named collection cards
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ChevronRight, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
@@ -281,12 +281,12 @@ export const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { journey } = useJourney();
-  const [sections, setSections] = useState<{ vibe: typeof VIBES[number]; collections: Collection[] }[]>([]);
-  const [loading, setLoading] = useState(true);
-  // Read at load time (loads already follow the minute tick below).
+  type CollectionRow = { collection_id: string; name: string | null; hero_image_url: string | null; collection_amenities: { amenity_detail: unknown }[] | null };
+  // The rows come with the time slot they were fetched for, so a slot change keeps
+  // the old cards on screen (no skeleton, no count-less cards) until the new rows land.
+  const [fetched, setFetched] = useState<{ slot: ReturnType<typeof getTimeSlot>; rows: CollectionRow[] } | null>(null);
+  // Re-derived on every render, so the minute tick below keeps the counts current.
   const eligibility = useEligibility();
-  const eligibilityRef = React.useRef(eligibility);
-  eligibilityRef.current = eligibility;
 
   // Compute current time bucket — re-evaluated every 60s
   const computeMinutes = useCallback(() => {
@@ -330,36 +330,36 @@ export const HomePage: React.FC = () => {
     ? (urlVibe.charAt(0).toUpperCase() + urlVibe.slice(1)) as VibeKey
     : null;
 
-  const loadCollections = useCallback(async () => {
-    setLoading(true);
-    const timeSlot = getTimeSlot();
-    const baseOrder = getVibeOrder(minutesToBoarding);
+  // One fetch per time slot (a few a day). Counts, hiding and order follow the minute
+  // tick in the memo below, with no refetch and no skeleton.
+  const timeSlot = getTimeSlot();
+  useEffect(() => {
+    let alive = true;
+    const slugs = [...new Set(VIBES.flatMap(v => getCollectionsForVibe(v.serviceKey, timeSlot).map(m => m.collection_slug)))];
+    supabase
+      .from('collections')
+      .select('collection_id, name, hero_image_url, collection_amenities(amenity_detail(name, is_landside, opening_hours))')
+      .in('collection_id', slugs)
+      .then(({ data }) => { if (alive) setFetched({ slot: timeSlot, rows: (data ?? []) as CollectionRow[] }); },
+        () => { if (alive) setFetched({ slot: timeSlot, rows: [] }); });
+    return () => { alive = false; };
+  }, [timeSlot]);
 
-    // Pin selected vibe first UNLESS < 30 min (urgency overrides preference)
+  const sections = useMemo(() => {
+    if (!fetched) return [];
+    const { slot, rows } = fetched;
+    const baseOrder = getVibeOrder(minutesToBoarding);
     const vibeOrder: VibeKey[] =
       pinnedKey && VIBES.some(v => v.key === pinnedKey) && timeBucket !== 'urgent'
         ? [pinnedKey, ...baseOrder.filter(k => k !== pinnedKey)]
         : baseOrder;
-
-    const orderedVibes = vibeOrder.map(k => VIBES.find(v => v.key === k)!);
-    const results = [];
-
-    for (const vibe of orderedVibes) {
-      const mappings = getCollectionsForVibe(vibe.serviceKey, timeSlot);
-      const slugs = mappings.map(m => m.collection_slug);
-
-      const { data } = await supabase
-        .from('collections')
-        .select('collection_id, name, hero_image_url, collection_amenities(amenity_detail(name, is_landside, opening_hours))')
-        .in('collection_id', slugs);
-
-      // "N spots" counts the venues the rules let this passenger see now; a card with none hides.
-      const collections: Collection[] = mappings.flatMap(mapping => {
-        const db = data?.find(c => c.collection_id === mapping.collection_slug);
+    return vibeOrder.map(k => VIBES.find(v => v.key === k)!).map(vibe => {
+      const collections: Collection[] = getCollectionsForVibe(vibe.serviceKey, slot).flatMap(mapping => {
+        const db = rows.find(c => c.collection_id === mapping.collection_slug);
         const venues = (db?.collection_amenities ?? [])
-          .map((ca: { amenity_detail: unknown }) => ca.amenity_detail as EligibilityFields | null)
+          .map(ca => ca.amenity_detail as EligibilityFields | null)
           .filter((a): a is EligibilityFields => !!a);
-        const amenity_count = db ? countEligible(venues, eligibilityRef.current) : undefined;
+        const amenity_count = db ? countEligible(venues, eligibility) : undefined;
         if (db && venues.length > 0 && amenity_count === 0) return [];
         return [{
           collection_id: mapping.collection_slug,
@@ -370,31 +370,12 @@ export const HomePage: React.FC = () => {
           time_relevance: mapping.time_relevance,
         }];
       });
-
-      // Sort collections within each vibe by contextual score (reads fresh minutesToBoarding)
       const ctx = getUserContext({ selectedVibe: vibe.serviceKey });
-
-      if (import.meta.env.DEV) {
-        console.log(`[Scoring] Vibe=${vibe.key} bucket=${timeBucket} mins=${minutesToBoarding}`);
-      }
-
-      collections.sort((a, b) => {
-        const scoreA = scoreCollection(a, ctx);
-        const scoreB = scoreCollection(b, ctx);
-        if (import.meta.env.DEV) {
-          console.log(`  ${a.name}: ${Math.round(scoreA)} | ${b.name}: ${Math.round(scoreB)}`);
-        }
-        return scoreB - scoreA;
-      });
-
-      results.push({ vibe, collections });
-    }
-
-    setSections(results);
-    setLoading(false);
-  }, [pinnedKey, timeBucket, minutesToBoarding]);
-
-  useEffect(() => { loadCollections(); }, [loadCollections]);
+      collections.sort((a, b) => scoreCollection(b, ctx) - scoreCollection(a, ctx));
+      return { vibe, collections, slot };
+    });
+  }, [fetched, minutesToBoarding, timeBucket, pinnedKey, eligibility]);
+  const loading = fetched === null;
 
   if (loading) {
     return (
@@ -446,9 +427,11 @@ export const HomePage: React.FC = () => {
 
       <div className="pt-2">
         <BoardingContextStrip />
-        {sections.map(({ vibe, collections }) => (
+        {sections.map(({ vibe, collections, slot }) => (
           <VibeSection
-            key={vibe.key}
+            // The slot is in the key: a new slot is a new row, so it starts at the first card
+            // (a kept row would re-snap to a card that moved and open scrolled sideways).
+            key={`${slot}:${vibe.key}`}
             vibe={vibe}
             collections={collections}
             onCollectionClick={id => {

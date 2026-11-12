@@ -9,6 +9,7 @@ import { queryRouteMatch } from './lib/agent'
 import type { RouteMatch } from './lib/agent'
 import { logChatTurn } from './lib/agentTelemetry'
 import type { ChatTurnLog } from './lib/agentTelemetry'
+import { statedMinutes } from './lib/chatMinutes'
 import { formatAmenityBlock, mentionedPlace, parseReply, placeCode, replyText, statedLocation } from './lib/chatPayload'
 import type { PlaceCode } from './lib/chatPayload'
 import type { ChatReply } from './lib/chatPayload'
@@ -217,55 +218,6 @@ function parseTestClock(v: string | string[] | undefined): number | null {
   return m ? Number(m[1]) * 60 + Number(m[2]) : null
 }
 
-// ---------- Extract departure time from conversation ----------
-
-function extractAvailableMinutes(
-  query: string,
-  history: Array<{ role: string; content: string }>,
-  existingMinutes?: number,
-): number | null {
-  if (existingMinutes) return existingMinutes
-
-  const allText = [query, ...history.slice(-6).map(h => h.content)].join(' ').toLowerCase()
-
-  // "2 hours", "1.5 hours", "half an hour"
-  const hoursMatch = allText.match(/(\d+(?:\.\d+)?)\s*hours?/)
-  if (hoursMatch) return Math.round(parseFloat(hoursMatch[1]) * 60)
-
-  if (/half\s+an?\s+hour/.test(allText)) return 30
-
-  // "45 minutes", "90 min"
-  const minsMatch = allText.match(/(\d+)\s*min(?:utes?)?/)
-  if (minsMatch) {
-    const val = parseInt(minsMatch[1])
-    if (val > 0 && val < 600) return val
-  }
-
-  // "flight at 3pm", "boarding at 14:30", "departs at 2:45"
-  const timeMatch = allText.match(
-    /(?:flight|boarding|gate closes?|departs?|leaves?|taking off)\s+at\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i
-  )
-  if (timeMatch) {
-    let hours = parseInt(timeMatch[1])
-    const mins = parseInt(timeMatch[2] || '0')
-    const ampm = timeMatch[3]?.toLowerCase()
-    if (ampm === 'pm' && hours < 12) hours += 12
-    if (ampm === 'am' && hours === 12) hours = 0
-
-    const now = new Date(
-      new Date().toLocaleString('en-US', { timeZone: CHANGI_CONFIG.timezone })
-    )
-    const departure = new Date(now)
-    departure.setHours(hours, mins, 0, 0)
-    if (departure <= now) departure.setDate(departure.getDate() + 1)
-
-    const diff = Math.round((departure.getTime() - now.getTime()) / 60000)
-    return diff > 0 && diff < 600 ? diff : null
-  }
-
-  return null
-}
-
 // ---------- Flight the user entered in the app ----------
 
 // One line for the prompt, e.g. "User's flight: QF1 to LHR, departing SIN-T1, boarding 22:45 SGT."
@@ -398,7 +350,7 @@ const SYSTEM_PROMPT = `You are the Terminal+ concierge for Singapore Changi Airp
 Response rules:
 1. Be conversational and warm — 2–3 sentences for the message.
 2. ALWAYS respond with valid JSON (no markdown fences):
-{"message":"your response","recommended_slugs":["slug1","slug2"],"follow_up":"question or null","extracted_context":{"terminal":"SIN-T2","available_minutes":90,"gate":"B12"}}
+{"message":"your response","recommended_slugs":["slug1","slug2"],"follow_up":"question or null","extracted_context":{"terminal":"SIN-T2","gate":"B12"}}
 3. recommended_slugs MUST only contain slug values from the provided amenity list.
 4. Recommend 3–5 amenities ranked by relevance.
 5. extracted_context: include ONLY fields you can confidently extract from the conversation. Omit fields you cannot determine. Use null for extracted_context if nothing new was found.
@@ -581,8 +533,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const history = (conversationHistory || []).slice(-10)
 
-    // Extract available minutes from conversation or use from context
-    const availableMinutes = extractAvailableMinutes(query, history, context?.availableMinutes)
+    // Minutes to boarding: what the user states in THIS message, else the client's
+    // (the entered flight, or a deadline the user stated earlier in this chat).
+    const testClock = isTest && telemetryEnv() !== 'production' ? parseTestClock(req.headers['x-tp-now']) : null
+    const nowSgt = testClock ?? sgMinutesOfDay()
+    const statedMins = statedMinutes(query, nowSgt)
+    const availableMinutes = statedMins ?? (context?.availableMinutes && context.availableMinutes > 0 ? context.availableMinutes : null)
     const peakLabel = getPeakLabel(CHANGI_CONFIG)
 
     // Pre-filter and query
@@ -596,11 +552,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       : null
     // Landside and open-now rules (shared/ranking/policy.ts). "I'm in transit"
     // with no passenger type from the capture counts as connecting.
-    const testClock = isTest && telemetryEnv() !== 'production' ? parseTestClock(req.headers['x-tp-now']) : null
     const eligibilityCtx: EligibilityContext = {
       journeyType: journeyType ?? (filters.isTransit ? 'connecting' : null),
       minutesToBoarding: availableMinutes,
-      nowSgt: testClock ?? sgMinutesOfDay(),
+      nowSgt,
     }
 
     // Check for curated route match
@@ -695,17 +650,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const extractedContext: Partial<ChatContext> = {}
     const modelContext = parsed.extracted_context as Partial<ChatContext> | null
     if (modelContext) {
-      if (modelContext.availableMinutes) extractedContext.availableMinutes = modelContext.availableMinutes
       if (modelContext.gate) extractedContext.gate = modelContext.gate
     }
     // The client keeps this as the user's location, so it's only ever what they
     // said ("I'm at T2"), never the model's reading of a place they mentioned.
     const stated = statedLocation(query)
     if (stated) extractedContext.terminal = stated
-    // Also surface what our own extractor found
-    if (availableMinutes && !context?.availableMinutes) {
-      extractedContext.availableMinutes = availableMinutes
-    }
+    // Minutes only when this message stated them; the client turns that into a deadline.
+    if (statedMins !== null) extractedContext.availableMinutes = statedMins
 
     const shownSlugs = recommendedAmenities.map(a => a.amenity_slug as string)
     logTurn({
