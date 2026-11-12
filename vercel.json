@@ -25,14 +25,650 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
       ]
     }
   ],
   "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/:path*" },
-    { "source": "/((?!api/|assets/).*)", "destination": "/" }
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    },
+    {
+      "source": "/((?!api/|assets/).*)",
+      "destination": "/"
+    }
   ],
-  "regions": ["sin1"]
+  "regions": [
+    "sin1"
+  ],
+  "redirects": [
+    {
+      "source": "/amenity/butterfly-garden-t1-new",
+      "destination": "/amenity/butterfly-garden-t3-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/butterfly-garden-t1-new",
+      "destination": "/amenity/butterfly-garden-t3-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/butterfly-garden-t2-new",
+      "destination": "/amenity/butterfly-garden-t3-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/butterfly-garden-t2-new",
+      "destination": "/amenity/butterfly-garden-t3-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/butterfly-garden-t4-new",
+      "destination": "/amenity/butterfly-garden-t3-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/butterfly-garden-t4-new",
+      "destination": "/amenity/butterfly-garden-t3-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/cactus-garden-t1-new",
+      "destination": "/amenity/cactus-garden-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/cactus-garden-t1-new",
+      "destination": "/amenity/cactus-garden-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/cactus-garden-t2-new",
+      "destination": "/amenity/cactus-garden-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/cactus-garden-t2-new",
+      "destination": "/amenity/cactus-garden-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/cactus-garden-t3-new",
+      "destination": "/amenity/cactus-garden-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/cactus-garden-t3-new",
+      "destination": "/amenity/cactus-garden-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/cactus-garden-t4-new",
+      "destination": "/amenity/cactus-garden-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/cactus-garden-t4-new",
+      "destination": "/amenity/cactus-garden-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/canopy-park-t2-new",
+      "destination": "/amenity/canopy-park-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/canopy-park-t2-new",
+      "destination": "/amenity/canopy-park-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/canopy-park-t3-new",
+      "destination": "/amenity/canopy-park-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/canopy-park-t3-new",
+      "destination": "/amenity/canopy-park-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/canopy-park-t4-new",
+      "destination": "/amenity/canopy-park-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/canopy-park-t4-new",
+      "destination": "/amenity/canopy-park-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/changi-experience-studio-t3-new",
+      "destination": "/amenity/changi-experience-studio-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/changi-experience-studio-t3-new",
+      "destination": "/amenity/changi-experience-studio-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/changi-experience-studio-t4-new",
+      "destination": "/amenity/changi-experience-studio-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/changi-experience-studio-t4-new",
+      "destination": "/amenity/changi-experience-studio-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/foggy-bowls-t2-new",
+      "destination": "/amenity/foggy-bowls-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/foggy-bowls-t2-new",
+      "destination": "/amenity/foggy-bowls-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/foggy-bowls-t3-new",
+      "destination": "/amenity/foggy-bowls-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/foggy-bowls-t3-new",
+      "destination": "/amenity/foggy-bowls-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/garrett-popcorn-shops-sint1",
+      "destination": "/amenity/garrett-popcorn-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/garrett-popcorn-shops-sint1",
+      "destination": "/amenity/garrett-popcorn-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/guardian-health-beauty-before-security-basement-shop-24-sint3",
+      "destination": "/amenity/guardian-health-beauty-sin-t3-basement-24",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/guardian-health-beauty-before-security-basement-shop-24-sint3",
+      "destination": "/amenity/guardian-health-beauty-sin-t3-basement-24",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/guardian-health-beauty-before-security-level-2-shop-13-sint2",
+      "destination": "/amenity/guardian-health-beauty-sin-t2-13",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/guardian-health-beauty-before-security-level-2-shop-13-sint2",
+      "destination": "/amenity/guardian-health-beauty-sin-t2-13",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/guardian-health-beauty-level-2-shop-16-sint1",
+      "destination": "/amenity/guardian-health-beauty-sin-t1-16",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/guardian-health-beauty-level-2-shop-16-sint1",
+      "destination": "/amenity/guardian-health-beauty-sin-t1-16",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/kering-eyewear-x-lagardere-sint2",
+      "destination": "/amenity/kering-eyewear-lagardere",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/kering-eyewear-x-lagardere-sint2",
+      "destination": "/amenity/kering-eyewear-lagardere",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lego-airport-store-sint4",
+      "destination": "/amenity/lego-airport-store",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lego-airport-store-sint4",
+      "destination": "/amenity/lego-airport-store",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-1-shop-10-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-1-10",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-1-shop-10-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-1-10",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-1-shop-12-sint4",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t4-level-1-12",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-1-shop-12-sint4",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t4-level-1-12",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-1-shop-151-sint2",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t2-level-1-151",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-1-shop-151-sint2",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t2-level-1-151",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-1-shop-176-sint2",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t2-level-1-176",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-1-shop-176-sint2",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t2-level-1-176",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-1-shop-19-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t3-level-1-19",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-1-shop-19-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t3-level-1-19",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-1-shop-23-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-1-23",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-1-shop-23-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-1-23",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-1-shop-29-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t3-level-1-29",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-1-shop-29-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t3-level-1-29",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-197-sint2",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t2-level-2-197",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-2-shop-197-sint2",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t2-level-2-197",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-22-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-2-22",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-2-shop-22-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-2-22",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-25-sint4",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t4-level-2-25",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-2-shop-25-sint4",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t4-level-2-25",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-37-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t3-level-2-37",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-2-shop-37-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t3-level-2-37",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-401-sint2",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t2-level-2-401",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-2-shop-401-sint2",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t2-level-2-401",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-46-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-2-46",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-2-shop-46-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-2-46",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-53-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-2-53",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-2-shop-53-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-2-53",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-57-sint4",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t4-level-2-57",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-2-shop-57-sint4",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t4-level-2-57",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-65-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t3-level-2-65",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-2-shop-65-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t3-level-2-65",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-68-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-2-68",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-2-shop-68-sint1",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t1-level-2-68",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-3-shop-189-sint2",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t2-level-3-189",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-3-shop-189-sint2",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t2-level-3-189",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lotte-duty-free-wines-spirits-level-3-shop-7-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t3-level-3-7",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lotte-duty-free-wines-spirits-level-3-shop-7-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-t3-level-3-7",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/lottedutyfreewinesspiritst3level210-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-10-sint3",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/lottedutyfreewinesspiritst3level210-sint3",
+      "destination": "/amenity/lotte-duty-free-wines-spirits-level-2-shop-10-sint3",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/manulife-sky-nets-t1-new",
+      "destination": "/amenity/manulife-sky-nets-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/manulife-sky-nets-t1-new",
+      "destination": "/amenity/manulife-sky-nets-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/manulife-sky-nets-t4-new",
+      "destination": "/amenity/manulife-sky-nets-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/manulife-sky-nets-t4-new",
+      "destination": "/amenity/manulife-sky-nets-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/mirror-maze-t1-new",
+      "destination": "/amenity/mirror-maze-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/mirror-maze-t1-new",
+      "destination": "/amenity/mirror-maze-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/mirror-maze-t2-new",
+      "destination": "/amenity/mirror-maze-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/mirror-maze-t2-new",
+      "destination": "/amenity/mirror-maze-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/mirror-maze-t4-new",
+      "destination": "/amenity/mirror-maze-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/mirror-maze-t4-new",
+      "destination": "/amenity/mirror-maze-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/rain-vortex-t1-new",
+      "destination": "/amenity/rain-vortex-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/rain-vortex-t1-new",
+      "destination": "/amenity/rain-vortex-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/rain-vortex-t2-new",
+      "destination": "/amenity/rain-vortex-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/rain-vortex-t2-new",
+      "destination": "/amenity/rain-vortex-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/shiseido-forest-valley-t1-new",
+      "destination": "/amenity/shiseido-forest-valley-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/shiseido-forest-valley-t1-new",
+      "destination": "/amenity/shiseido-forest-valley-jewel-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/sunflower-garden-t1-new",
+      "destination": "/amenity/sunflower-garden-t2-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/sunflower-garden-t1-new",
+      "destination": "/amenity/sunflower-garden-t2-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/sunflower-garden-t3-new",
+      "destination": "/amenity/sunflower-garden-t2-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/sunflower-garden-t3-new",
+      "destination": "/amenity/sunflower-garden-t2-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/sunflower-garden-t4-new",
+      "destination": "/amenity/sunflower-garden-t2-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/sunflower-garden-t4-new",
+      "destination": "/amenity/sunflower-garden-t2-new",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/tiffany-co-sint1",
+      "destination": "/amenity/tiffany-co",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/tiffany-co-sint1",
+      "destination": "/amenity/tiffany-co",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/tods-sint2",
+      "destination": "/amenity/tods",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/tods-sint2",
+      "destination": "/amenity/tods",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/travelling-family-sint1",
+      "destination": "/amenity/travelling-family",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/travelling-family-sint1",
+      "destination": "/amenity/travelling-family",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/vessel-sint2",
+      "destination": "/amenity/vessel",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/vessel-sint2",
+      "destination": "/amenity/vessel",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/victorias-secret-beauty-accessories-sint1",
+      "destination": "/amenity/victorias-secret-beauty-accessories-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/victorias-secret-beauty-accessories-sint1",
+      "destination": "/amenity/victorias-secret-beauty-accessories-t1",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/wh-smith-before-security-level-1-shop-84-sint1",
+      "destination": "/amenity/whsmith-t1-level-1-84",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/wh-smith-before-security-level-1-shop-84-sint1",
+      "destination": "/amenity/whsmith-t1-level-1-84",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/wh-smith-level-2-shop-43-sint3",
+      "destination": "/amenity/whsmith-t3-level-2-43",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/wh-smith-level-2-shop-43-sint3",
+      "destination": "/amenity/whsmith-t3-level-2-43",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/wh-smith-level-2-shop-59-sint4",
+      "destination": "/amenity/whsmith-t4-level-2-59",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/wh-smith-level-2-shop-59-sint4",
+      "destination": "/amenity/whsmith-t4-level-2-59",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/yotelair-singapore-changi-t2-new",
+      "destination": "/amenity/yotelair-singapore-changi-jewel",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/yotelair-singapore-changi-t2-new",
+      "destination": "/amenity/yotelair-singapore-changi-jewel",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/yotelair-singapore-changi-t3-new",
+      "destination": "/amenity/yotelair-singapore-changi-jewel",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/yotelair-singapore-changi-t3-new",
+      "destination": "/amenity/yotelair-singapore-changi-jewel",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/yotelair-singapore-changi-t4-new",
+      "destination": "/amenity/yotelair-singapore-changi-jewel",
+      "permanent": true
+    },
+    {
+      "source": "/amenity/:terminal/yotelair-singapore-changi-t4-new",
+      "destination": "/amenity/yotelair-singapore-changi-jewel",
+      "permanent": true
+    }
+  ]
 }

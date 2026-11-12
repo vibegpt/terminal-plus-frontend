@@ -5,13 +5,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Clock, MapPin } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { smart7Select, type AmenityRow } from '@/utils/smart7Select';
+import { smart7Select, terminalSelect, type AmenityRow } from '@/utils/smart7Select';
 import { DISPLAY } from '@/lib/displayConfig';
 import { track, trackImpressionOnce } from '@/lib/telemetry';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { useEligibility } from '@/lib/eligibility';
 import { AccessChip, LandsideNotice, OpensChip } from '@/components/EligibilityChips';
-import { hoursLabel, landsideAccess, openNow, pickEligible } from '../../shared/ranking/policy';
+import { hoursLabel, landsideAccess, openNow } from '../../shared/ranking/policy';
 
 // ── Config ──────────────────────────────────────────────────────────
 const VIBE_CONFIG: Record<string, { icon: string; label: string; gradient: string; dbTag: string }> = {
@@ -54,7 +54,7 @@ export default function VibePage() {
 
       let query = supabase
         .from('amenity_detail')
-        .select('id, amenity_slug, name, description, terminal_code, opening_hours, price_level, vibe_tags, logo_url, editorial_score, is_landside')
+        .select('id, amenity_slug, name, description, terminal_code, opening_hours, price_level, vibe_tags, logo_url, editorial_score, is_landside, brand_family, zone')
         .eq('airport_code', 'SIN')
         .ilike('vibe_tags', `%${vibeKey}%`)
         // RANKING: editorial_score DESC — keep in sync with api/lib
@@ -86,15 +86,7 @@ export default function VibePage() {
       const userTerminal = sessionStorage.getItem('tp_user_terminal') || null;
       return smart7Select(pool, userTerminal, DISPLAY.COLLECTION_VISIBLE, eligibility);
     }
-    return pickEligible(pool, eligibility, DISPLAY.COLLECTION_VISIBLE, (rows, n) =>
-      [...rows].sort((a, b) => {
-        // RANKING: editorial_score DESC — keep in sync with api/lib
-        const scoreDiff = (b.editorial_score ?? 0) - (a.editorial_score ?? 0);
-        if (scoreDiff !== 0) return scoreDiff;
-        return a.name.localeCompare(b.name);
-      }).slice(0, n),
-      a => a.amenity_slug,
-    );
+    return terminalSelect(pool, DISPLAY.COLLECTION_VISIBLE, eligibility);
   }, [pool, terminalFilter, eligibility]);
 
   // The Jewel tab, when the rule keeps Jewel out of this passenger's lists.
@@ -193,6 +185,8 @@ export default function VibePage() {
         ) : (
           amenities.map((amenity, index) => {
             const termShort = TERMINAL_SHORT[amenity.terminal_code] || amenity.terminal_code;
+            // Same brand's other open outlets in this venue's terminal (CC-27A, D1).
+            const moreHere = amenity.other_outlets.filter(o => o.terminal_code === amenity.terminal_code).length;
 
             return (
               <button
@@ -224,6 +218,14 @@ export default function VibePage() {
                     <p className="text-sm font-semibold text-white truncate">{amenity.name}</p>
                     <OpensChip label={amenity.opens_label} />
                   </div>
+                  {(amenity.zone || moreHere > 0) && (
+                    <div className="flex items-center gap-2 text-xs text-gray-400 mb-0.5 min-w-0">
+                      {amenity.zone && <span className="truncate">{amenity.zone}</span>}
+                      {moreHere > 0 && (
+                        <span className="whitespace-nowrap shrink-0">+{moreHere} more in {termShort}</span>
+                      )}
+                    </div>
+                  )}
                   {amenity.access_label && (
                     <div className="mb-1"><AccessChip label={amenity.access_label} /></div>
                   )}

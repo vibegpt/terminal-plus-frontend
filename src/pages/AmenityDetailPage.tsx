@@ -13,6 +13,7 @@ import { useEligibility } from '@/lib/eligibility';
 import { LandsideNotice } from '@/components/EligibilityChips';
 import { hoursLabel, landsideAccess, openNow, pickEligible } from '../../shared/ranking/policy';
 import { HOURS_COPY } from '../../shared/ranking/landsideCopy';
+import { resolveSlug } from '../../shared/catalogue/slugMap';
 import { useJourney, hasDeparted } from '@/context/JourneyContext';
 import { recordCandidate, readLedger, markAsked } from '@/lib/candidateTap';
 import { toMinutes } from '@/lib/outcomePrompt';
@@ -144,6 +145,14 @@ export default function AmenityDetailPage() {
 
     const loadAmenity = async () => {
       if (!slug) { setError(true); setLoading(false); return; }
+      // CC-27B: an old slug (stored link, stale tab, SW-answered deep link) resolves to its
+      // canonical record before any fetch. The effect re-runs with the canonical slug; the
+      // page stays in its loading state meanwhile, so "Not found" never flashes.
+      const canonical = resolveSlug(slug);
+      if (canonical !== slug) {
+        navigate(`/amenity/${canonical}${location.search}`, { replace: true, state: location.state });
+        return;
+      }
       setLoading(true);
       setError(false);
       const { data, error: fetchError } = await supabase

@@ -8,7 +8,7 @@ import { randomUUID } from 'node:crypto';
 import { logToolCall, type ToolMeta } from './lib/agentTelemetry';
 import { isTestRequest } from './lib/telemetryEnv';
 import { eligibility, landsideAccess } from '../shared/ranking/policy';
-import { HOURS_COPY } from '../shared/ranking/landsideCopy';
+import { HOURS_COPY, LANDSIDE_COPY } from '../shared/ranking/landsideCopy';
 import { sgMinutesOfDay } from '../src/lib/sgTime';
 
 // ---------- Load .env.local for vercel dev ----------
@@ -73,7 +73,7 @@ const TOOLS = [
   {
     name: 'get_recommendations',
     title: 'Places to eat, rest and shop at Changi',
-    description: 'Use when a traveller asks "where can I eat in T3?", "somewhere quiet to rest before my flight" or "what is worth seeing with 3 hours?". Singapore Changi (SIN) only: Terminals 1 to 4 and Jewel. Returns up to 12 hand-picked venues, each with a link to its page. Venues that are closed, or landside when there is not time to clear immigration, are left out.',
+    description: 'Use when a traveller asks "where can I eat in T3?", "somewhere quiet to rest before my flight" or "what is worth seeing with 3 hours?". Singapore Changi (SIN) only: Terminals 1 to 4 and Jewel. Returns up to 12 hand-picked venues, each with a link to its page. Venues that are closed, or landside when there is not time to clear immigration, are left out. Pass time_until_boarding_minutes so landside venues such as Jewel can be included when there\'s time.',
     annotations: annotations('Places to eat, rest and shop at Changi', false),
     inputSchema: {
       type: 'object' as const,
@@ -225,17 +225,20 @@ async function handleGetRecommendations(args: any): Promise<ToolResult> {
   const supabase = getSupabase();
   const resultLimit = Math.min(args.limit || 7, 12);
 
-  const { ranked, error } = await queryRankedAmenities(supabase, {
+  const { ranked, error, landsideHiddenNoTime } = await queryRankedAmenities(supabase, {
     vibe: args.vibe,
     userTerminal: args.terminal ?? null,
     timeUntilBoardingMinutes: args.time_until_boarding_minutes,
     excludeJewel: args.exclude_jewel,
     limit: resultLimit,
+    agentNoTimeRule: true,
   });
+  // Optional: present only when no boarding time hid landside venues (CC-27A, D2).
+  const note = !error && landsideHiddenNoTime ? { landside_note: LANDSIDE_COPY.agentNoTime } : {};
 
   if (error || !ranked.length) {
     return {
-      payload: { recommendations: [], message: error ? 'The venue list is unavailable right now. Try again in a minute.' : 'No matching amenities found.' },
+      payload: { recommendations: [], message: error ? 'The venue list is unavailable right now. Try again in a minute.' : 'No matching amenities found.', ...note },
       meta: { zeroReason: error ? 'upstream_error' : 'no_recommendations' },
     };
   }
@@ -247,10 +250,13 @@ async function handleGetRecommendations(args: any): Promise<ToolResult> {
     editorial_note: a.editorial_note || null,
     route_context: a.route_context || null,
     url: amenityUrl(a.amenity_slug),
+    // Optional (CC-27A): which outlet, and the brand's other open outlets this passenger may reach.
+    ...(a.zone ? { zone: a.zone } : {}),
+    ...(a.other_outlets?.length ? { other_outlets: a.other_outlets.map((o: any) => ({ terminal: o.terminal_code, zone: o.zone })) } : {}),
   }));
 
   return {
-    payload: { recommendations: recs },
+    payload: { recommendations: recs, ...note },
     meta: {
       slugs: ranked.map((a: any) => a.amenity_slug),
       amenities: ranked.map((a: any) => ({ id: a.id, name: a.name })),

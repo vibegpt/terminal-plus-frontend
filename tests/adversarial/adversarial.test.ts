@@ -17,8 +17,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { queryAmenities, queryRouteMatch } from '../../api/lib/agent';
 import { queryRankedAmenities } from '../../api/lib/ranking';
-import { anonymousEligibility, smart7Select } from '../../src/utils/smart7Select';
-import { eligibility } from '../../shared/ranking/policy';
+import { anonymousEligibility, smart7Select, terminalSelect } from '../../src/utils/smart7Select';
+import { brandKeyFor, eligibility } from '../../shared/ranking/policy';
+import { LANDSIDE_COPY } from '../../shared/ranking/landsideCopy';
 import { DISPLAY } from '../../src/lib/displayConfig';
 import { getAnonClient, ctx, isNonIncreasing } from './helpers';
 
@@ -237,4 +238,60 @@ test('11. MCP ranking parity: shared pool + comparator match smart7Select', T, a
     ui.map(u => u.amenity_slug),
     'MCP ranking diverged from smart7Select on an identical pool',
   );
+});
+
+// 12–13. CC-27A Part D (D2): MCP with no boarding time treats the agent as an
+// airside connecting passenger, so landside venues (Jewel included) are hidden
+// and the reply says why. With time, they come back, labelled.
+test('12. MCP T1 refuel, no minutes: 0 landside rows, landside_note set', T, async () => {
+  const { pool, ranked, error, landsideHiddenNoTime } = await queryRankedAmenities(supabase, {
+    vibe: 'refuel', userTerminal: 'SIN-T1', limit: 12, agentNoTimeRule: true,
+  });
+  assert.equal(error, null);
+  assert.ok(ranked.length > 0, 'expected recommendations');
+  assert.equal(pool.filter(r => r.is_landside).length, 0, 'landside rows reached the pool');
+  assert.equal(ranked.filter(r => r.is_landside).length, 0, 'landside rows ranked');
+  assert.equal(landsideHiddenNoTime, true, 'landside_note would be missing');
+  assert.equal(
+    LANDSIDE_COPY.agentNoTime,
+    "Landside venues, including Jewel, are hidden because no boarding time was given. Reaching Jewel means clearing immigration, and you'll clear it again on the way back. Check your boarding time before you go.",
+  );
+});
+
+test('13. MCP T1 refuel, 240 minutes: landside allowed and labelled, no landside_note', T, async () => {
+  const { pool, ranked, error, landsideHiddenNoTime } = await queryRankedAmenities(supabase, {
+    vibe: 'refuel', userTerminal: 'SIN-T1', timeUntilBoardingMinutes: 240, limit: 12, agentNoTimeRule: true,
+  });
+  assert.equal(error, null);
+  assert.equal(landsideHiddenNoTime, false);
+  assert.ok(pool.some(r => r.is_landside), 'landside rows should be allowed into the pool at 240 minutes');
+  for (const r of ranked.filter(x => x.is_landside)) {
+    assert.ok(r.access_label, `landside ${r.amenity_slug} ranked without a label`);
+    assert.ok(String(r.route_context ?? '').startsWith(r.access_label!), `${r.amenity_slug}: label not in route_context`);
+  }
+});
+
+// 14. CC-27A Part E (D1): a brand appears once per ranked list, and the kept
+// row lists the brand's other open outlets.
+test('14. brand once per list: MCP T2 shop at 120 min and the UI selector', T, async () => {
+  const { pool, ranked, error } = await queryRankedAmenities(supabase, {
+    vibe: 'shop', userTerminal: 'SIN-T2', timeUntilBoardingMinutes: 120, limit: 12, agentNoTimeRule: true,
+  });
+  assert.equal(error, null);
+  const key = brandKeyFor(pool);
+  const keys = ranked.map(r => key(r));
+  assert.equal(new Set(keys).size, keys.length, `a brand appears twice: ${keys.join(', ')}`);
+  for (const r of ranked) {
+    const sameBrand = pool.filter(p => key(p) === key(r) && p.amenity_slug !== r.amenity_slug);
+    assert.ok(r.other_outlets.length <= sameBrand.length,
+      `${r.amenity_slug}: ${r.other_outlets.length} other outlets but only ${sameBrand.length} same-brand rows in the pool`);
+    for (const o of r.other_outlets) {
+      assert.ok(sameBrand.some(p => p.terminal_code === o.terminal_code && (p.zone ?? null) === o.zone),
+        `${r.amenity_slug}: other outlet ${o.terminal_code}/${o.zone} isn't a same-brand row`);
+    }
+  }
+  const t2 = pool.filter(r => r.terminal_code === 'SIN-T2');
+  const ui = terminalSelect(t2 as Parameters<typeof terminalSelect>[0], 12);
+  const uiKeys = ui.map(r => brandKeyFor(t2)(r));
+  assert.equal(new Set(uiKeys).size, uiKeys.length, `UI terminal list repeats a brand: ${uiKeys.join(', ')}`);
 });

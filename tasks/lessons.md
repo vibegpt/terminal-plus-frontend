@@ -620,3 +620,81 @@ then `firewall diff` and `firewall publish`, works.
 
 **Rule going forward:** when a proposal promises a status code, name the exact
 field value that produces it, and prove it with a burst before calling it done.
+
+---
+
+## 2026-11-05 — vercel.json redirects don't reach a browser the service worker controls
+
+**Assumed (CC-27A Part B):** a permanent redirect in `vercel.json` sends every old
+`/amenity/<slug>` URL to its canonical page, and `curl -I` proving 308 → 200 was the check.
+
+**Actual:** in a browser with the PWA's service worker installed, the workbox `NavigationRoute`
+answers the navigation with the cached `index.html`; the request never reaches Vercel, so the
+app boots on the old slug and shows "Not found". A plain `fetch()` from the same page does get
+the redirect (`opaqueredirect`). In-app links to stored slugs (Saved, last seen) are client-side
+navigations and never hit the server either. The SPA shell also answers 200 for any path, so
+"destination returns 200" proved nothing about the page.
+
+**Rule going forward:** a server redirect for an app route needs a client-side twin (a slug map
+the route consults before it fetches), or the old paths go in `navigateFallbackDenylist`.
+Prove a redirect in a browser with the SW installed and controlling the page, and prove the
+destination renders the record, not that it answers 200.
+
+**Also (same session):** never copy a tracked file from the shared checkout into a worktree;
+the shared checkout sits on an old branch and its copy is stale. Append in the worktree.
+
+---
+
+## 2026-11-12 — A live-table test that freezes a list goes stale when the catalogue legitimately changes
+
+**Assumed:** `tests/landside-policy.test.ts` ("the live table flags exactly the 127 approved
+slugs") would keep passing, because the 127 slugs were the approved truth.
+
+**Actual:** CC-27A merged or deleted 28 of those rows, so the live flagged set is 100 and the
+test failed locally. CI never saw it: `deploy.yml` has no Supabase env, so the test skips itself.
+A DB-gated test that is skipped in CI is only run when somebody runs it with `.env.local`.
+
+**Rule going forward:** derive the expected set from the mapping that changed the data, not
+from a frozen list (the test now maps the 127 through `resolveSlug`: 100 unique, equal to the
+live set). After any catalogue migration, run the whole suite locally with `.env.local`, since
+the live-table tests are the ones CI skips.
+
+---
+
+## 2026-11-12 — `npm ci` runs puppeteer's postinstall, and a half-installed browser cache empties node_modules
+
+**Actual:** `npm ci` deletes `node_modules` first, then puppeteer's postinstall failed on
+`~/.cache/puppeteer/chrome-headless-shell/mac_arm-145…` ("folder exists but the executable
+doesn't"). The install exited non-zero with `node_modules` empty, so the build, tsc and tests
+all failed with "command not found". Nothing in the repo was wrong.
+
+**Rule going forward:** in a worktree, install with `PUPPETEER_SKIP_DOWNLOAD=1 npm ci`
+(CC-8 removes puppeteer). Read the npm debug log before assuming a code or lockfile fault.
+A tail of the output hides the cause, and `echo "exit=$?"` after a pipe reports `tail`'s exit.
+
+---
+
+## 2026-11-12 — Count the cards, then read them: a merge can keep the wrong record
+
+**Assumed (CC-27B round 1):** collapsing two bookmarks into one canonical slug was done once
+the Saved page showed one card and the storage held the canonical slug.
+
+**Actual:** the card said "Terminal 1" for a Terminal 3 venue. The merge had kept the first
+entry (the old, deleted T1 record) and re-labelled only its slug, so its terminal stayed stale.
+The unit count and the storage check both passed; the screenshot caught it.
+
+**Rule going forward:** when two records collapse, keep the fields of the one that is already
+canonical, and check what the user reads (the screenshot), not only the count. A lone old
+bookmark still carries its old terminal; SavedPage should take the terminal from the catalogue
+row it already fetches (follow-up, not done in CC-27B).
+
+---
+
+## 2026-11-12 — NULLs make `NOT EXISTS` and `<>` checks lie
+
+**Actual:** my first AC-3 and AC-4 queries reported 118 terminal mismatches and 4 missing
+route slugs. Both were NULLs: 118 collection links with no `terminal_code`, 4 route stops with
+no slug (138 and 4 in the 5 Nov backup too), and `IS DISTINCT FROM` / `NOT EXISTS` count them.
+
+**Rule going forward:** write acceptance SQL with the NULL case split out on its own line
+("null terminal_code: 118"), and compare it with the pre-change backup before calling a count a fault.
