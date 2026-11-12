@@ -28,14 +28,20 @@ function read(): SavedAmenity[] {
     let changed = false;
     for (const item of items) {
       const slug = resolveSlug(item.amenitySlug);
+      const isCanonical = slug === item.amenitySlug;
+      if (!isCanonical) changed = true;
       const existing = bySlug.get(slug);
-      if (existing) {
-        changed = true;
-        if (item.savedAt < existing.savedAt) bySlug.set(slug, { ...existing, savedAt: item.savedAt });
+      if (!existing) {
+        bySlug.set(slug, isCanonical ? item : { ...item, amenitySlug: slug });
         continue;
       }
-      if (slug !== item.amenitySlug) changed = true;
-      bySlug.set(slug, slug === item.amenitySlug ? item : { ...item, amenitySlug: slug });
+      // Two bookmarks collapse to one. Keep the fields of the one saved under the canonical
+      // slug (its name and terminal are current; an old record's may not be) and the
+      // earliest save date of the two.
+      changed = true;
+      const keep = isCanonical ? item : existing;
+      const savedAt = item.savedAt < existing.savedAt ? item.savedAt : existing.savedAt;
+      bySlug.set(slug, { ...keep, amenitySlug: slug, savedAt });
     }
     const mapped = [...bySlug.values()];
     if (changed) write(mapped);

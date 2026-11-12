@@ -25,6 +25,32 @@ test('resolveSlug does not treat object prototype names as slugs', () => {
   assert.equal(resolveSlug('toString'), 'toString');
 });
 
+test('bookmarks: old slugs map on read, collapse to one canonical entry, and are written back once', async () => {
+  const store = new Map<string, string>();
+  let writes = 0;
+  (globalThis as { localStorage?: unknown }).localStorage = {
+    getItem: (k: string) => store.get(k) ?? null,
+    setItem: (k: string, v: string) => { writes++; store.set(k, v); },
+    removeItem: (k: string) => { store.delete(k); },
+  };
+  const { isSaved } = await import('../src/hooks/useBookmarks');
+  const mk = (amenitySlug: string, terminalCode: string, savedAt: string) =>
+    ({ amenitySlug, name: 'Butterfly Garden', terminalCode, vibeTag: 'Explore', savedAt });
+  store.set('tp_saved_amenities', JSON.stringify([
+    mk('butterfly-garden-t1-new', 'SIN-T1', '2026-11-01T10:00:00.000Z'),
+    mk('butterfly-garden-t3-new', 'SIN-T3', '2026-11-02T10:00:00.000Z'),
+  ]));
+  assert.equal(isSaved('butterfly-garden-t3-new'), true);
+  const list = JSON.parse(store.get('tp_saved_amenities')!);
+  assert.equal(list.length, 1);
+  assert.equal(list[0].amenitySlug, 'butterfly-garden-t3-new');
+  assert.equal(list[0].terminalCode, 'SIN-T3');            // the canonical entry's fields
+  assert.equal(list[0].savedAt, '2026-11-01T10:00:00.000Z'); // the earliest save
+  assert.equal(writes, 1);
+  isSaved('butterfly-garden-t3-new');                        // a second read changes nothing
+  assert.equal(writes, 1);
+});
+
 test('named pairs from the backup table', () => {
   assert.equal(resolveSlug('butterfly-garden-t1-new'), 'butterfly-garden-t3-new');
   assert.equal(resolveSlug('yotelair-singapore-changi-t2-new'), 'yotelair-singapore-changi-jewel');
