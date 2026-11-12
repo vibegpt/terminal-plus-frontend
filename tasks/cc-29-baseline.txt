@@ -1,0 +1,17 @@
+CC-29 baseline (G2), worktree ~/tp-cc-29, branch cc-29/live-bugs, HEAD 68d5c91 (= origin/main = production dpl_219WPU1ETFP8AryefDBfRTKLjizR)
+recorded 2026-11-12
+npm ci (PUPPETEER_SKIP_DOWNLOAD=1): ok
+npm run build: ok, main bundle index-DLBWqNGX.js (139.10 kB, 39.74 kB gzip) = production bundle name
+npx tsc --noEmit -p api/tsconfig.json: exit 0
+npx tsx --test tests/*.test.ts: tests 99, pass 99, fail 0
+dist CSS gzip -9: index-CHIDfnCx.css 24486 B
+modulepreload chunks in dist/index.html: react-vendor-Ayshf6zJ.js, ui-vendor-C57iCMNy.js, supabase-C-6mpkW5.js, animation-DodToIJG.js
+dist/stats.html: 1187017 B (FACTS said 1,186,242; +775 B, same file class)
+PWA precache: 36 entries (2001.03 KiB) per vite-plugin-pwa
+precache gzip total (APPENDIX 1 one-liner, default gzip level, 36 of 36 entries): 380135 B (FACTS: 379 kB); stats.html alone 132749 B (FACTS: 134 kB)
+git ls-files | wc -l: 2085
+G3 harness baseline (tasks/cc-29/g3-baseline.json), vite preview of the baseline build:
+  A1: 7 collections requests at load; +7 and 14 skeleton blocks at each of 3 ticks  (FACTS: 7, +7, 14) MATCH
+  A2 cancelled: 6 /api/flight-status calls in 60 s, toast visible at every 10 s sample  (FACTS: 6, toast each) MATCH
+  A2 gate: 1 / 2 / 3 calls at 10 s / 30 s / 30 m 30 s  (FACTS: 2 by 30 s, 3 by 30 m 30 s) MATCH
+Appendix checks: reference-a1-a2.diff `git apply --check` exit 0 on 68d5c91; statedMinutes.reference.ts 17/17.

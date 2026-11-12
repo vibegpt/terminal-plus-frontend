@@ -1,0 +1,602 @@
+--- a/vite.config.ts
++++ b/vite.config.ts
+@@ -35,13 +35,16 @@
+     //   },
+     // }),
+     
+-    // Bundle analyzer (only in build)
+-    visualizer({
+-      filename: './dist/stats.html',
+-      open: false,
+-      gzipSize: true,
+-      brotliSize: true,
+-    }),
++    // Bundle analyzer: `npm run analyze` only. A normal build writes no stats.html,
++    // so the service worker has nothing to precache for it.
++    ...(process.env.ANALYZE
++      ? [visualizer({
++          filename: './dist/stats.html',
++          open: false,
++          gzipSize: true,
++          brotliSize: true,
++        })]
++      : []),
+     
+     VitePWA({
+       // 'prompt': a new service worker installs and waits. Open tabs and cold
+@@ -55,7 +58,8 @@
+       workbox: {
+         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+         // The share card is for link-preview crawlers; the app never shows it.
+-        globIgnores: ['og/**'],
++        // stats.html is the analyzer report (backstop: it is no longer written by a normal build).
++        globIgnores: ['og/**', 'stats.html'],
+         // Navigations the SW must not answer with the app shell. Workbox tests
+         // pathname + search, so the file patterns are prefixes, not anchored at $.
+         navigateFallbackDenylist: [
+--- a/package.json
++++ b/package.json
+@@ -6,6 +6,7 @@
+     "dev": "vite",
+     "build": "vite build",
+     "preview": "vite preview",
++    "analyze": "ANALYZE=1 vite build",
+     "test:adversarial": "tsx --test tests/adversarial/*.test.ts",
+     "og:image": "tsx scripts/og-image.ts",
+     "sitemap": "tsx scripts/sitemap.ts",
+--- a/src/context/JourneyContext.tsx
++++ b/src/context/JourneyContext.tsx
+@@ -4,7 +4,7 @@
+ // Also syncs derived values to sessionStorage so contextualScoring.ts
+ // can read them without needing a React context dependency.
+ 
+-import React, { createContext, useContext, useState, useEffect } from 'react';
++import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+ import type { FlightSource } from '../lib/journeyRecord';
+ 
+ // ── Types ──────────────────────────────────────────────────────────
+@@ -204,33 +204,38 @@
+     return () => clearInterval(interval);
+   }, [journey]);
+ 
+-  const setJourney = (data: JourneyData) => {
++  const setJourney = useCallback((data: JourneyData) => {
+     saveToStorage(data);
+     syncToSession(data);
+     setJourneyState(data);
+     console.log('[Terminal+] Journey context captured:', data);
+-  };
++  }, []);
+ 
+   // The journeys write resolves after capture has already been saved. Patch the id
+   // into both the stored copy and state (so a later setJourney({...journey}) keeps
+   // it), but only if the user hasn't captured a different journey in the meantime.
+-  const attachJourneyId = (capturedAt: string, id: string) => {
++  const attachJourneyId = useCallback((capturedAt: string, id: string) => {
+     const stored = loadFromStorage();
+     if (stored?.capturedAt === capturedAt) saveToStorage({ ...stored, journey_id: id });
+     setJourneyState(prev =>
+       prev && prev.capturedAt === capturedAt ? { ...prev, journey_id: id } : prev
+     );
+-  };
++  }, []);
+ 
+-  const resetJourney = () => {
++  const resetJourney = useCallback(() => {
+     localStorage.removeItem(LS_KEY);
+     sessionStorage.removeItem('tp_user_terminal');
+     sessionStorage.removeItem('terminal_plus_flight');
+     setJourneyState(null);
+-  };
++  }, []);
+ 
++  const value = useMemo(
++    () => ({ journey, setJourney, attachJourneyId, resetJourney, isComplete: !!journey }),
++    [journey, setJourney, attachJourneyId, resetJourney],
++  );
++
+   return (
+-    <JourneyContext.Provider value={{ journey, setJourney, attachJourneyId, resetJourney, isComplete: !!journey }}>
++    <JourneyContext.Provider value={value}>
+       {children}
+     </JourneyContext.Provider>
+   );
+--- a/src/hooks/useFlightUpdates.ts
++++ b/src/hooks/useFlightUpdates.ts
+@@ -38,8 +38,12 @@
+ export function useFlightUpdates() {
+   const { journey, setJourney } = useJourney();
+   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
++  // poll reads the latest journey through a ref, so a journey write doesn't restart the timer.
++  const journeyRef = useRef(journey);
++  journeyRef.current = journey;
+ 
+   const poll = useCallback(async () => {
++    const journey = journeyRef.current;
+     if (!journey?.departingFlight || journey.departingFlight === 'UNKNOWN' || journey.departingFlight === 'SQ000') {
+       return;
+     }
+@@ -89,7 +93,7 @@
+     }
+ 
+     // Cancelled
+-    if (data.status?.toLowerCase().includes('cancelled')) {
++    if (data.status?.toLowerCase().includes('cancelled') && journey.status !== 'Cancelled') {
+       updates.status = 'Cancelled';
+       updated = true;
+       showToastCallback?.({
+@@ -106,7 +110,7 @@
+       };
+       setJourney(newJourney);
+     }
+-  }, [journey, setJourney]);
++  }, [setJourney]);
+ 
+   useEffect(() => {
+     if (!journey?.boardingTime) return;
+--- a/src/pages/HomePage.tsx
++++ b/src/pages/HomePage.tsx
+@@ -1,7 +1,7 @@
+ // src/pages/HomePage.tsx
+ // Collections feed — 7 vibes, each showing named collection cards
+ 
+-import React, { useEffect, useState, useCallback } from 'react';
++import React, { useEffect, useState, useCallback, useMemo } from 'react';
+ import { useNavigate, useSearchParams } from 'react-router-dom';
+ import { ChevronRight, Search } from 'lucide-react';
+ import { supabase } from '@/lib/supabase';
+@@ -281,12 +281,12 @@
+   const navigate = useNavigate();
+   const [searchParams] = useSearchParams();
+   const { journey } = useJourney();
+-  const [sections, setSections] = useState<{ vibe: typeof VIBES[number]; collections: Collection[] }[]>([]);
+-  const [loading, setLoading] = useState(true);
+-  // Read at load time (loads already follow the minute tick below).
++  type CollectionRow = { collection_id: string; name: string | null; hero_image_url: string | null; collection_amenities: { amenity_detail: unknown }[] | null };
++  // The rows come with the time slot they were fetched for, so a slot change keeps
++  // the old cards on screen (no skeleton, no count-less cards) until the new rows land.
++  const [fetched, setFetched] = useState<{ slot: ReturnType<typeof getTimeSlot>; rows: CollectionRow[] } | null>(null);
++  // Re-derived on every render, so the minute tick below keeps the counts current.
+   const eligibility = useEligibility();
+-  const eligibilityRef = React.useRef(eligibility);
+-  eligibilityRef.current = eligibility;
+ 
+   // Compute current time bucket — re-evaluated every 60s
+   const computeMinutes = useCallback(() => {
+@@ -330,36 +330,36 @@
+     ? (urlVibe.charAt(0).toUpperCase() + urlVibe.slice(1)) as VibeKey
+     : null;
+ 
+-  const loadCollections = useCallback(async () => {
+-    setLoading(true);
+-    const timeSlot = getTimeSlot();
+-    const baseOrder = getVibeOrder(minutesToBoarding);
++  // One fetch per time slot (a few a day). Counts, hiding and order follow the minute
++  // tick in the memo below, with no refetch and no skeleton.
++  const timeSlot = getTimeSlot();
++  useEffect(() => {
++    let alive = true;
++    const slugs = [...new Set(VIBES.flatMap(v => getCollectionsForVibe(v.serviceKey, timeSlot).map(m => m.collection_slug)))];
++    supabase
++      .from('collections')
++      .select('collection_id, name, hero_image_url, collection_amenities(amenity_detail(name, is_landside, opening_hours))')
++      .in('collection_id', slugs)
++      .then(({ data }) => { if (alive) setFetched({ slot: timeSlot, rows: (data ?? []) as CollectionRow[] }); },
++        () => { if (alive) setFetched({ slot: timeSlot, rows: [] }); });
++    return () => { alive = false; };
++  }, [timeSlot]);
+ 
+-    // Pin selected vibe first UNLESS < 30 min (urgency overrides preference)
++  const sections = useMemo(() => {
++    if (!fetched) return [];
++    const { slot, rows } = fetched;
++    const baseOrder = getVibeOrder(minutesToBoarding);
+     const vibeOrder: VibeKey[] =
+       pinnedKey && VIBES.some(v => v.key === pinnedKey) && timeBucket !== 'urgent'
+         ? [pinnedKey, ...baseOrder.filter(k => k !== pinnedKey)]
+         : baseOrder;
+-
+-    const orderedVibes = vibeOrder.map(k => VIBES.find(v => v.key === k)!);
+-    const results = [];
+-
+-    for (const vibe of orderedVibes) {
+-      const mappings = getCollectionsForVibe(vibe.serviceKey, timeSlot);
+-      const slugs = mappings.map(m => m.collection_slug);
+-
+-      const { data } = await supabase
+-        .from('collections')
+-        .select('collection_id, name, hero_image_url, collection_amenities(amenity_detail(name, is_landside, opening_hours))')
+-        .in('collection_id', slugs);
+-
+-      // "N spots" counts the venues the rules let this passenger see now; a card with none hides.
+-      const collections: Collection[] = mappings.flatMap(mapping => {
+-        const db = data?.find(c => c.collection_id === mapping.collection_slug);
++    return vibeOrder.map(k => VIBES.find(v => v.key === k)!).map(vibe => {
++      const collections: Collection[] = getCollectionsForVibe(vibe.serviceKey, slot).flatMap(mapping => {
++        const db = rows.find(c => c.collection_id === mapping.collection_slug);
+         const venues = (db?.collection_amenities ?? [])
+-          .map((ca: { amenity_detail: unknown }) => ca.amenity_detail as EligibilityFields | null)
++          .map(ca => ca.amenity_detail as EligibilityFields | null)
+           .filter((a): a is EligibilityFields => !!a);
+-        const amenity_count = db ? countEligible(venues, eligibilityRef.current) : undefined;
++        const amenity_count = db ? countEligible(venues, eligibility) : undefined;
+         if (db && venues.length > 0 && amenity_count === 0) return [];
+         return [{
+           collection_id: mapping.collection_slug,
+@@ -370,32 +370,13 @@
+           time_relevance: mapping.time_relevance,
+         }];
+       });
+-
+-      // Sort collections within each vibe by contextual score (reads fresh minutesToBoarding)
+       const ctx = getUserContext({ selectedVibe: vibe.serviceKey });
++      collections.sort((a, b) => scoreCollection(b, ctx) - scoreCollection(a, ctx));
++      return { vibe, collections };
++    });
++  }, [fetched, minutesToBoarding, timeBucket, pinnedKey, eligibility]);
++  const loading = fetched === null;
+ 
+-      if (import.meta.env.DEV) {
+-        console.log(`[Scoring] Vibe=${vibe.key} bucket=${timeBucket} mins=${minutesToBoarding}`);
+-      }
+-
+-      collections.sort((a, b) => {
+-        const scoreA = scoreCollection(a, ctx);
+-        const scoreB = scoreCollection(b, ctx);
+-        if (import.meta.env.DEV) {
+-          console.log(`  ${a.name}: ${Math.round(scoreA)} | ${b.name}: ${Math.round(scoreB)}`);
+-        }
+-        return scoreB - scoreA;
+-      });
+-
+-      results.push({ vibe, collections });
+-    }
+-
+-    setSections(results);
+-    setLoading(false);
+-  }, [pinnedKey, timeBucket, minutesToBoarding]);
+-
+-  useEffect(() => { loadCollections(); }, [loadCollections]);
+-
+   if (loading) {
+     return (
+       <div className="min-h-screen pb-24" style={{ background: '#0a0a0f' }}>
+--- a/src/hooks/useChat.ts
++++ b/src/hooks/useChat.ts
+@@ -48,6 +48,27 @@
+   ) as ChatContext
+ }
+ 
++/**
++ * What goes out with a message (CC-29 D2). The entered flight is the baseline; anything
++ * the user said in this chat wins, except minutes. Chat never keeps a minute count: a
++ * stated "I have 2 hours" is kept as a boarding deadline and counted down on each send.
++ * Precedence: minutes stated in this message (the server reads the query) > a live
++ * deadline stated earlier in this chat > the captured flight.
++ */
++export function chatContextForSend(
++  journey: JourneyData | null | undefined,
++  context: ChatContext,
++  statedDeadline: number | null,
++  now: number = Date.now(),
++): ChatContext {
++  const { availableMinutes: _frozen, ...stated } = definedOnly(context)
++  const ctx: ChatContext = { ...journeyToChatContext(journey, now), ...stated }
++  if (statedDeadline !== null && statedDeadline > now) {
++    ctx.availableMinutes = Math.floor((statedDeadline - now) / 60_000)
++  }
++  return ctx
++}
++
+ export function useChat(options: UseChatOptions = {}) {
+   const [messages, setMessages] = useState<ChatMessage[]>([])
+   const [loading, setLoading] = useState(false)
+@@ -57,6 +78,9 @@
+     isTransit: options.isTransit,
+   })
+ 
++  // Epoch ms of the boarding deadline the user stated in this chat, or null.
++  const [statedDeadline, setStatedDeadline] = useState<number | null>(null)
++
+   const updateContext = useCallback((updates: Partial<ChatContext>) => {
+     setContext(prev => ({ ...prev, ...updates }))
+   }, [])
+@@ -72,6 +96,10 @@
+       timestamp: Date.now(),
+     }
+ 
++    const sentAt = Date.now()
++    // A passed deadline is cleared; the entered flight takes over again.
++    if (statedDeadline !== null && statedDeadline <= sentAt) setStatedDeadline(null)
++
+     setMessages(prev => [...prev, userMsg])
+     setLoading(true)
+ 
+@@ -80,16 +108,17 @@
+         .slice(-MAX_HISTORY)
+         .map(({ role, content }) => ({ role, content }))
+ 
+-      // The entered flight is the baseline; anything the user said in this chat wins.
+       const response: ChatResponse = await askConcierge({
+         query: query.trim(),
+-        context: { ...journeyToChatContext(options.journey), ...definedOnly(context) },
++        context: chatContextForSend(options.journey, context, statedDeadline, sentAt),
+         conversationHistory: history,
+       })
+ 
+-      // If API extracted new context, update it
++      // If API extracted new context, update it. Minutes become a deadline, never a stored count.
+       if (response.extractedContext) {
+-        setContext(prev => ({ ...prev, ...response.extractedContext }))
++        const { availableMinutes, ...rest } = response.extractedContext
++        if (availableMinutes) setStatedDeadline(sentAt + availableMinutes * 60_000)
++        setContext(prev => ({ ...prev, ...rest }))
+       }
+ 
+       const assistantMsg: ChatMessage = {
+@@ -108,11 +137,12 @@
+     } finally {
+       setLoading(false)
+     }
+-  }, [messages, context, options.journey])
++  }, [messages, context, statedDeadline, options.journey])
+ 
+   const clearMessages = useCallback(() => {
+     setMessages([])
+     setError(null)
++    setStatedDeadline(null)
+     setContext({ terminal: options.terminal, isTransit: options.isTransit })
+   }, [options.terminal, options.isTransit])
+ 
+--- a/api/chat.ts
++++ b/api/chat.ts
+@@ -9,6 +9,7 @@
+ import type { RouteMatch } from './lib/agent'
+ import { logChatTurn } from './lib/agentTelemetry'
+ import type { ChatTurnLog } from './lib/agentTelemetry'
++import { statedMinutes } from './lib/chatMinutes'
+ import { formatAmenityBlock, mentionedPlace, parseReply, placeCode, replyText, statedLocation } from './lib/chatPayload'
+ import type { PlaceCode } from './lib/chatPayload'
+ import type { ChatReply } from './lib/chatPayload'
+@@ -215,55 +216,6 @@
+ function parseTestClock(v: string | string[] | undefined): number | null {
+   const m = (Array.isArray(v) ? v[0] : v)?.match(/^([01]\d|2[0-3]):([0-5]\d)$/)
+   return m ? Number(m[1]) * 60 + Number(m[2]) : null
+-}
+-
+-// ---------- Extract departure time from conversation ----------
+-
+-function extractAvailableMinutes(
+-  query: string,
+-  history: Array<{ role: string; content: string }>,
+-  existingMinutes?: number,
+-): number | null {
+-  if (existingMinutes) return existingMinutes
+-
+-  const allText = [query, ...history.slice(-6).map(h => h.content)].join(' ').toLowerCase()
+-
+-  // "2 hours", "1.5 hours", "half an hour"
+-  const hoursMatch = allText.match(/(\d+(?:\.\d+)?)\s*hours?/)
+-  if (hoursMatch) return Math.round(parseFloat(hoursMatch[1]) * 60)
+-
+-  if (/half\s+an?\s+hour/.test(allText)) return 30
+-
+-  // "45 minutes", "90 min"
+-  const minsMatch = allText.match(/(\d+)\s*min(?:utes?)?/)
+-  if (minsMatch) {
+-    const val = parseInt(minsMatch[1])
+-    if (val > 0 && val < 600) return val
+-  }
+-
+-  // "flight at 3pm", "boarding at 14:30", "departs at 2:45"
+-  const timeMatch = allText.match(
+-    /(?:flight|boarding|gate closes?|departs?|leaves?|taking off)\s+at\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i
+-  )
+-  if (timeMatch) {
+-    let hours = parseInt(timeMatch[1])
+-    const mins = parseInt(timeMatch[2] || '0')
+-    const ampm = timeMatch[3]?.toLowerCase()
+-    if (ampm === 'pm' && hours < 12) hours += 12
+-    if (ampm === 'am' && hours === 12) hours = 0
+-
+-    const now = new Date(
+-      new Date().toLocaleString('en-US', { timeZone: CHANGI_CONFIG.timezone })
+-    )
+-    const departure = new Date(now)
+-    departure.setHours(hours, mins, 0, 0)
+-    if (departure <= now) departure.setDate(departure.getDate() + 1)
+-
+-    const diff = Math.round((departure.getTime() - now.getTime()) / 60000)
+-    return diff > 0 && diff < 600 ? diff : null
+-  }
+-
+-  return null
+ }
+ 
+ // ---------- Flight the user entered in the app ----------
+@@ -398,7 +350,7 @@
+ Response rules:
+ 1. Be conversational and warm — 2–3 sentences for the message.
+ 2. ALWAYS respond with valid JSON (no markdown fences):
+-{"message":"your response","recommended_slugs":["slug1","slug2"],"follow_up":"question or null","extracted_context":{"terminal":"SIN-T2","available_minutes":90,"gate":"B12"}}
++{"message":"your response","recommended_slugs":["slug1","slug2"],"follow_up":"question or null","extracted_context":{"terminal":"SIN-T2","gate":"B12"}}
+ 3. recommended_slugs MUST only contain slug values from the provided amenity list.
+ 4. Recommend 3–5 amenities ranked by relevance.
+ 5. extracted_context: include ONLY fields you can confidently extract from the conversation. Omit fields you cannot determine. Use null for extracted_context if nothing new was found.
+@@ -581,8 +533,12 @@
+ 
+     const history = (conversationHistory || []).slice(-10)
+ 
+-    // Extract available minutes from conversation or use from context
+-    const availableMinutes = extractAvailableMinutes(query, history, context?.availableMinutes)
++    // Minutes to boarding: what the user states in THIS message, else the client's
++    // (the entered flight, or a deadline the user stated earlier in this chat).
++    const testClock = isTest && telemetryEnv() !== 'production' ? parseTestClock(req.headers['x-tp-now']) : null
++    const nowSgt = testClock ?? sgMinutesOfDay()
++    const statedMins = statedMinutes(query, nowSgt)
++    const availableMinutes = statedMins ?? (context?.availableMinutes && context.availableMinutes > 0 ? context.availableMinutes : null)
+     const peakLabel = getPeakLabel(CHANGI_CONFIG)
+ 
+     // Pre-filter and query
+@@ -596,11 +552,10 @@
+       : null
+     // Landside and open-now rules (shared/ranking/policy.ts). "I'm in transit"
+     // with no passenger type from the capture counts as connecting.
+-    const testClock = isTest && telemetryEnv() !== 'production' ? parseTestClock(req.headers['x-tp-now']) : null
+     const eligibilityCtx: EligibilityContext = {
+       journeyType: journeyType ?? (filters.isTransit ? 'connecting' : null),
+       minutesToBoarding: availableMinutes,
+-      nowSgt: testClock ?? sgMinutesOfDay(),
++      nowSgt,
+     }
+ 
+     // Check for curated route match
+@@ -695,17 +650,14 @@
+     const extractedContext: Partial<ChatContext> = {}
+     const modelContext = parsed.extracted_context as Partial<ChatContext> | null
+     if (modelContext) {
+-      if (modelContext.availableMinutes) extractedContext.availableMinutes = modelContext.availableMinutes
+       if (modelContext.gate) extractedContext.gate = modelContext.gate
+     }
+     // The client keeps this as the user's location, so it's only ever what they
+     // said ("I'm at T2"), never the model's reading of a place they mentioned.
+     const stated = statedLocation(query)
+     if (stated) extractedContext.terminal = stated
+-    // Also surface what our own extractor found
+-    if (availableMinutes && !context?.availableMinutes) {
+-      extractedContext.availableMinutes = availableMinutes
+-    }
++    // Minutes only when this message stated them; the client turns that into a deadline.
++    if (statedMins !== null) extractedContext.availableMinutes = statedMins
+ 
+     const shownSlugs = recommendedAmenities.map(a => a.amenity_slug as string)
+     logTurn({
+--- a/tests/chatContext.test.ts
++++ b/tests/chatContext.test.ts
+@@ -1,7 +1,7 @@
+ // What the concierge is told about the trip. Run: npx tsx --test tests/chatContext.test.ts
+ import { test } from 'node:test';
+ import assert from 'node:assert/strict';
+-import { journeyToChatContext } from '../src/hooks/useChat';
++import { chatContextForSend, journeyToChatContext } from '../src/hooks/useChat';
+ import type { JourneyData } from '../src/context/JourneyContext';
+ 
+ const NOW = Date.parse('2026-09-28T03:20:00Z'); // 11:20 SGT
+@@ -65,3 +65,33 @@
+   assert.equal(journeyToChatContext({ ...QF1, journey_type: 'departing', arrivingFlight: undefined }, NOW).isTransit, undefined);
+   assert.equal(journeyToChatContext(QF1, NOW).isTransit, true); // v3 record with an inbound flight: unchanged
+ });
++
++// CC-29 D2: chat keeps a stated boarding deadline, never a minute count.
++const T0 = Date.parse('2026-11-12T05:00:00Z');
++const MIN = 60_000;
++
++test('a 120-minute deadline set at t0 sends 90 at t0 + 30 min', () => {
++  const deadline = T0 + 120 * MIN;
++  assert.equal(chatContextForSend(null, {}, deadline, T0).availableMinutes, 120);
++  assert.equal(chatContextForSend(null, {}, deadline, T0 + 30 * MIN).availableMinutes, 90);
++});
++
++test('a live deadline beats the journey\'s minutes', () => {
++  const ctx = chatContextForSend(QF1, {}, NOW + 45 * MIN, NOW);
++  assert.equal(ctx.availableMinutes, 45); // not the journey's 685
++  assert.equal(ctx.flight?.number, 'QF1'); // the rest of the baseline stays
++});
++
++test('a passed deadline falls back to the journey\'s minutes', () => {
++  assert.equal(chatContextForSend(QF1, {}, NOW - MIN, NOW).availableMinutes, 685);
++  assert.equal(chatContextForSend(QF1, {}, null, NOW).availableMinutes, 685);
++});
++
++test('a stored minute count in the chat context is never sent', () => {
++  assert.equal(chatContextForSend(null, { availableMinutes: 5 }, null, NOW).availableMinutes, undefined);
++  assert.equal(chatContextForSend(QF1, { availableMinutes: 5 }, null, NOW).availableMinutes, 685);
++});
++
++test('other chat context still beats the baseline', () => {
++  assert.equal(chatContextForSend(QF1, { terminal: 'SIN-T2', gate: 'B5' }, null, NOW).terminal, 'SIN-T2');
++});
+--- /dev/null
++++ b/api/lib/chatMinutes.ts
+@@ -0,0 +1,45 @@
++// Minutes to boarding the user states in THIS message, or null (CC-29 A3, D1).
++// Pure. nowSgt is minutes since midnight, Singapore time. Contract: tests/chatMinutes.test.ts.
++// Only a duration inside an intent phrase counts ("I have 2 hours", "3 hour layover"), so "a 5 min walk"
++// and "open 24 hours" never do. Bounds 5 to 600 minutes.
++const WORD: Record<string, number> = { a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6 };
++const N = String.raw`(\d+(?:\.\d+)?|an?|one|two|three|four|five|six)`;
++// A duration: "2 hours", "an hour and a half", "1 hour 20 minutes", "45 min", "half an hour".
++const DUR = new RegExp(String.raw`(?:${N}\s*(?:hours?|hrs?|h)\b(\s*and a half)?(?:\s*(?:and\s*)?(\d+)\s*(?:minutes?|mins?|m)\b)?|(\d+)\s*(?:minutes?|mins?|m)\b|half an? hour)`, 'g');
++// It counts only inside an intent phrase: "I have / I've got / we have <dur>" or "<dur> left / layover / until …".
++const BEFORE = /\b(?:i|we)\s*(?:have|'ve got|ve got|got|'ve|ve)\s*(?:only\s*|just\s*|about\s*|around\s*)?$/;
++const AFTER = /^\s*(?:left|layover|stopover|connection|transit|to spare|to kill|until|till|before)\b/;
++const MIN = 5, MAX = 600;
++
++function minutesOf(m: RegExpExecArray): number {
++  if (m[0].startsWith('half')) return 30;
++  if (m[4]) return parseInt(m[4], 10);
++  const hours = WORD[m[1]] ?? parseFloat(m[1]);
++  return Math.round(hours * 60 + (m[2] ? 30 : 0) + (m[3] ? parseInt(m[3], 10) : 0));
++}
++
++function duration(q: string): number | null {
++  for (const m of q.matchAll(DUR)) {
++    const i = m.index ?? 0;
++    if (BEFORE.test(q.slice(0, i)) || AFTER.test(q.slice(i + m[0].length))) return minutesOf(m as RegExpExecArray);
++  }
++  return null;
++}
++
++function clock(q: string, nowSgt: number): number | null {
++  const t = q.match(/\b(?:boarding|board|flight|departs?|departure|leaves?|leaving|gate closes?)\b[^\d]{0,12}\bat\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\b/);
++  if (!t) return null;
++  let hh = parseInt(t[1], 10);
++  const mm = parseInt(t[2] ?? '0', 10);
++  if (t[3] === 'pm' && hh < 12) hh += 12;
++  if (t[3] === 'am' && hh === 12) hh = 0;
++  if (hh > 23 || mm > 59) return null;
++  const diff = hh * 60 + mm - nowSgt;
++  return diff > 0 ? diff : diff + 1440;
++}
++
++export function statedMinutes(query: string, nowSgt: number): number | null {
++  const q = query.toLowerCase().replace(/[’]/g, "'");
++  const v = clock(q, nowSgt) ?? duration(q);
++  return v !== null && v >= MIN && v <= MAX ? v : null;
++}
+--- /dev/null
++++ b/tests/chatMinutes.test.ts
+@@ -0,0 +1,33 @@
++// The minutes a passenger states in one message (CC-29 A3). Run: npx tsx --test tests/chatMinutes.test.ts
++import { test } from 'node:test';
++import assert from 'node:assert/strict';
++import { statedMinutes } from '../api/lib/chatMinutes';
++
++const at = (h: number, m = 0) => h * 60 + m; // nowSgt: minutes since midnight, Singapore time
++
++// query, nowSgt, expected. The contract: tasks/cc-29/statedMinutes.contract.md
++const CASES: Array<[string, number, number | null]> = [
++  ['is the butterfly garden a 5 min walk?', at(13), null],
++  ['Cheers in T3 is open 24 hours', at(13), null],
++  ['which lounge is 10 minutes from gate B5?', at(13), null],
++  ['I have 2 hours', at(13), 120],
++  ["I've got 45 minutes", at(13), 45],
++  ['we have an hour and a half before boarding', at(13), 90],
++  ['3 hour layover, what should I do', at(13), 180],
++  ['boarding at 14:30', at(13), 90],
++  ['my flight is at 3am', at(23), 240],
++  ['I have 30 hours', at(13), null],
++  ['SQ322 gate B5', at(13), null],
++  ['I have 2 mins', at(13), null],
++  ['I have 2 hours, is the lounge a 10 min walk?', at(13), 120],
++  ['I have 1 hour 20 minutes', at(13), 80],
++  ["I've got time, is it a 10 min walk?", at(13), null],
++  ['45 minutes until boarding, coffee?', at(13), 45],
++  ['I have half an hour', at(13), 30],
++];
++
++for (const [query, now, expected] of CASES) {
++  test(`${JSON.stringify(query)} at ${Math.floor(now / 60)}:${String(now % 60).padStart(2, '0')} -> ${expected}`, () => {
++    assert.equal(statedMinutes(query, now), expected);
++  });
++}
