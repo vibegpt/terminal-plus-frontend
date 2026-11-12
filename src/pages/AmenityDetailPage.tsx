@@ -14,6 +14,7 @@ import { LandsideNotice } from '@/components/EligibilityChips';
 import { hoursLabel, landsideAccess, openNow, pickEligible } from '../../shared/ranking/policy';
 import { HOURS_COPY } from '../../shared/ranking/landsideCopy';
 import { resolveSlug } from '../../shared/catalogue/slugMap';
+import { classifyLoadError } from '@/lib/amenityLoad';
 import { useJourney, hasDeparted } from '@/context/JourneyContext';
 import { recordCandidate, readLedger, markAsked } from '@/lib/candidateTap';
 import { toMinutes } from '@/lib/outcomePrompt';
@@ -98,6 +99,8 @@ export default function AmenityDetailPage() {
   const [vibeDescription, setVibeDescription] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [loadFailed, setLoadFailed] = useState(false); // the catalogue could not be reached (CC-27C)
+  const [attempt, setAttempt] = useState(0);
   const [similarPool, setSimilarPool] = useState<AmenityData[]>([]);
   const eligibility = useEligibility();
   // "More like this" suggests, so it follows both rules; this venue itself never hides.
@@ -155,6 +158,7 @@ export default function AmenityDetailPage() {
       }
       setLoading(true);
       setError(false);
+      setLoadFailed(false);
       const { data, error: fetchError } = await supabase
         .from('amenity_detail')
         .select('*')
@@ -162,6 +166,11 @@ export default function AmenityDetailPage() {
         .single();
 
       if (!mounted) return;
+      // CC-27C: a failed request is not a missing venue. Offline or a catalogue outage gets
+      // its own state; only a row that really isn't there is "Not found".
+      if (fetchError && classifyLoadError(fetchError) === 'unreachable') {
+        setLoadFailed(true); setLoading(false); return;
+      }
       if (fetchError || !data) { setError(true); setLoading(false); return; }
 
       setAmenity(data);
@@ -205,7 +214,15 @@ export default function AmenityDetailPage() {
 
     loadAmenity();
     return () => { mounted = false; };
-  }, [slug, vibeFromRoute]);
+  }, [slug, vibeFromRoute, attempt]);
+
+  // While the catalogue is unreachable, try again the moment the connection returns.
+  useEffect(() => {
+    if (!loadFailed) return;
+    const retry = () => setAttempt(n => n + 1);
+    window.addEventListener('online', retry);
+    return () => window.removeEventListener('online', retry);
+  }, [loadFailed]);
 
   // Dwell: time on this amenity's page — fires on unmount or pagehide,
   // whichever comes first. trackDwell clamps at 10min, discards <500ms.
@@ -234,6 +251,30 @@ export default function AmenityDetailPage() {
           <div className="h-8 w-3/4 bg-white/10 rounded-lg animate-pulse" />
           <div className="h-4 w-1/2 bg-white/5 rounded animate-pulse" />
           <div className="h-20 bg-white/5 rounded-xl animate-pulse mt-4" />
+        </div>
+      </div>
+    );
+  }
+
+  // ── Unreachable: offline, or the catalogue is down (CC-27C) ────────
+  if (loadFailed) {
+    const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
+    return (
+      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center p-4">
+        <div className="text-center">
+          <p className="text-4xl mb-4">📡</p>
+          <h2 className="text-xl font-bold text-white mb-2">{offline ? "You're offline" : "Can't load this right now"}</h2>
+          <p className="text-gray-400 text-sm mb-6">
+            {offline ? "We'll load it when you're back online." : 'Check your connection and try again.'}
+          </p>
+          <div className="flex gap-3 justify-center">
+            <button onClick={() => setAttempt(n => n + 1)} className="px-6 py-2.5 bg-white text-[#0a0a0f] rounded-full text-sm font-medium">
+              Try again
+            </button>
+            <button onClick={() => navigate('/')} className="px-6 py-2.5 border border-white/20 text-white rounded-full text-sm font-medium">
+              Back to Home
+            </button>
+          </div>
         </div>
       </div>
     );
