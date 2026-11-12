@@ -698,3 +698,19 @@ no slug (138 and 4 in the 5 Nov backup too), and `IS DISTINCT FROM` / `NOT EXIST
 
 **Rule going forward:** write acceptance SQL with the NULL case split out on its own line
 ("null terminal_code: 118"), and compare it with the pre-change backup before calling a count a fault.
+
+---
+
+## 2026-11-12 — Patching `window.fetch` does not simulate offline for a Supabase page
+
+**Assumed (CC-27B AC-B3, first attempt):** replacing `window.fetch` with a rejecting stub after
+the page loaded would make every request fail, so an in-pane navigation would show the offline path.
+
+**Actual:** supabase-js resolves `fetch` when the client is created, at import. The stub changed
+nothing: both slugs loaded normally and the "pass" (`notFound: false`) proved nothing. A real
+test needs the network off at the browser: Puppeteer `page.setOfflineMode(true)` in Chrome with
+the service worker controlling (the script is `c27c-check.mjs` in the CC-27C evidence).
+
+**Rule going forward:** a test that can't fail isn't a test. For offline behaviour, switch the
+network off at the browser (CDP), load the app once first so the service worker controls it, and
+check both the failing case and the control (the same page online, and a bogus slug).
